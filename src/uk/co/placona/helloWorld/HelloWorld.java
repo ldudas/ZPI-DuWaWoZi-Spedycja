@@ -9,7 +9,7 @@ public class HelloWorld
 	 * @return string = "Hello World"
 	 */
 	public  String sayHello() {
-		return "Hello World TW";
+		return "Hello World";
 	}
 		
 
