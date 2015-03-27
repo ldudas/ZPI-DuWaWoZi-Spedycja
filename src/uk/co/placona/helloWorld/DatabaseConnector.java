@@ -95,10 +95,10 @@ public class DatabaseConnector
 	 * ************************WAZNE**************************************
 	 * numberOfResultColumns musi byc mniejsza lub rowna ilosci zwracanych kolumn
 	 * w przypadku mniejszej wartosci poprostu stracimy dane i nie bedziemy sie mogli do nich odwalac 
-	 * w przypadku wiekszej wartosci pewnie rzuci jakims wyjatkie.
+	 * w przypadku wiekszej wartosci pewnie rzuci jakims wyjatkiem.
 	 * ----------------------------------------------------------------------------------------------
 	 * Tomus to takie info dla Ciebie zeby nie bylo ze jak zaczales testowac to odrazu znalazlez blad
-	 * i sie bedziesz cieszyc, Ciekawe kto to przeczyta do konca :)
+	 * i sie bedziesz cieszyc, Ciekawe kto to przeczyta do konca :) majo majo
 	 * ----------------------------------------------------------------------------------------------
 	 */
 	public ArrayList<ArrayList<Object>> getResultOfMySqlQuery(final String mySqlQuery,final int numberOfResultColumns) 
@@ -137,10 +137,9 @@ public class DatabaseConnector
 			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
 		}	
 	}
-	   
     	/*******************KORZYSTANIE Z KLASY DATABASECONNECTOR**************
-    	 ********************************************************************** 
-    	String query = "SELECT * FROM Miasta";
+    	 **********************************************************************
+    	String query = "SELECT id,nazwa FROM Miasta ";
     	int numberOfResultColumns = -2;
     	
     	DatabaseConnector databaseConnector = new DatabaseConnector();
@@ -169,6 +168,5 @@ public class DatabaseConnector
 		}
     	 ***********************************************************************
     	 ***********************************************************************/
-    	
                
 }
