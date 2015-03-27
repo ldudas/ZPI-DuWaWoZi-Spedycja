@@ -97,7 +97,7 @@ public class DatabaseConnector
 	 * w przypadku mniejszej wartosci poprostu stracimy dane i nie bedziemy sie mogli do nich odwalac 
 	 * w przypadku wiekszej wartosci pewnie rzuci jakims wyjatkie.
 	 * ----------------------------------------------------------------------------------------------
-	 * Tomuœ to takie info dla Ciebie zeby nie bylo ze jak zaczales testowac to odrazu znalazlez blad
+	 * Tomus to takie info dla Ciebie zeby nie bylo ze jak zaczales testowac to odrazu znalazlez blad
 	 * i sie bedziesz cieszyc, Ciekawe kto to przeczyta do konca :)
 	 * ----------------------------------------------------------------------------------------------
 	 */
@@ -154,7 +154,7 @@ public class DatabaseConnector
 				// Nalezy najpier zrzutowac obiekt czyli np.
 				// (String) result.get(i).get(0)
 				// (int) result.get(i).get(1) itp.
-				// Lub te¿ skorzystaæ z petli pod spodem gdy w kazdej
+				// Lub tez skorzystac z petli pod spodem gdy w kazdej
 				// kolumnie sa obiekty tego samego typu.
 				for(int j=0;j<numberOfResultColumns;j++)
 				{
