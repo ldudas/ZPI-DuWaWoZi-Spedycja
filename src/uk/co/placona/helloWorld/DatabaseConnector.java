@@ -77,14 +77,13 @@ public class DatabaseConnector
 			try 
 			{
 				database_Connector.close();
-				return true;
 			} 
-			catch (SQLException e) 
+			catch (SQLException) 
 			{
-				//e.printStackTrace();
+				return false;
 			}
 		}	
-		return false;
+		return true;
 	}
 	
 	/*
