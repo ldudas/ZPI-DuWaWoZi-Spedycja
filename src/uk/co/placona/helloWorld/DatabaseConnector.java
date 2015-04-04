@@ -78,7 +78,7 @@ public class DatabaseConnector
 			{
 				database_Connector.close();
 			} 
-			catch (SQLException) 
+			catch (SQLException e) 
 			{
 				return false;
 			}
