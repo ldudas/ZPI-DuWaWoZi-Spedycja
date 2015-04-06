@@ -1,4 +1,4 @@
-/*
+/**
  * @author[Kamil Zimny]
  */
 package uk.co.placona.helloWorld;
@@ -19,9 +19,6 @@ public class DatabaseConnector
 	
 	private String database_urlConnector;
 	private Connection database_Connector;
-    /**
-      * @param args
-     */
 	
 	public DatabaseConnector()
 	{
@@ -29,8 +26,93 @@ public class DatabaseConnector
 		database_Connector = null;
 	}
 	
-	/*
-	 * sprawdza polaczenie z internetem
+	/**
+	 * Metoda zwracajaca tablice wspolrzednych geograficznych miasta o nazwie
+	 * podanej w parametrze.
+	 * @return NULL OR String [] tab :
+	 * <br>tab[0] -> dlugosc geograficzna 
+	 * <br>tab[1] -> szerokosc geograficzna
+	 * @author Kamil Zimny
+	 */
+	public String [] getCityCoordinates(final String cityName)
+	{
+		String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
+		String [] coordinates = null;
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		try 
+		{
+			resultOfQuery = getResultOfMySqlQuery(query,2);
+			coordinates = new String[2];
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		
+		if( resultOfQuery != null && coordinates != null && resultOfQuery.size() > 0)
+		{
+			coordinates[0] = (String)resultOfQuery.get(0).get(0);
+			coordinates[1] = (String)resultOfQuery.get(0).get(1);
+		}
+		
+		return coordinates;
+	}
+	
+	/**
+	 * Metoda pobierajaca dane o producencie z bazy danych.
+	 * @return NULL OR ArrayList<ArrayList<String>> res : 
+	 *  <br>res.get(0) -> producent pierwszy 
+	 * 	<br>res.get(0).get(0) -> nazwa
+	 *  <br>res.get(0).get(1) -> dlugosc geograficzna
+	 *  <br>res.get(0).get(2) -> szerokosc geograficzna
+	 *  <br>res.get(0).get(3) -> ostatnia aktywnosc  
+	 *  <br>res.get(0).get(4) -> liczba zlecen
+	 *  <br>res.get(0).get(5) -> suma wartosci zlecen
+	 *  <br>res.get(0).get(6) -> suma dni wykonanych zlecen
+	 * @author Kamil Zimny
+	 */
+	public ArrayList<ArrayList<String>> getDataAboutManufacturerToVizualization(final String cityName)
+	{
+		String query = "SELECT nazwa_prod, P.dlugosc, P.szerokosc, MAX(Z.data_zak_plan), "
+				+ "COUNT(*) , SUM(Z.wartosc_zlec) , SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)) "
+				+ "FROM Zlecenia Z JOIN Producenci P ON Z.id_prod = P.id_prod "
+				+ "JOIN Miasta M ON Z.z_miasta = M.id_miasta "
+				+ "WHERE M.nazwa_miasta = '"+ cityName +"' "
+				+ "GROUP BY P.id_prod;";
+		
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		ArrayList<ArrayList<String>> resultInString = null;
+		try 
+		{
+			resultOfQuery =  getResultOfMySqlQuery(query,7);
+			resultInString = new ArrayList<ArrayList<String>>();
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		
+		if( resultOfQuery != null && resultInString != null && resultOfQuery.size() > 0)
+		{
+			for(int i=0;i<resultOfQuery.size();i++)
+			{
+				resultInString.add(new ArrayList<String>());
+				for(int j=0;j<7;j++)
+				{
+					resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
+				}
+					
+			}
+		}
+		return resultInString;	
+	}
+	
+	/**
+	 * Sprawdza polaczenie z internetem
+	 * @return boolean : 
+	 * <br>true -> udalo sie 
+	 * <br>false -> nie udalo sie
+	 * @author Kamil Zimny
 	 */
 	private boolean checkInternetConnection()
 	{
@@ -48,9 +130,13 @@ public class DatabaseConnector
 		
 	}
 	
-	/*
+	/**
 	 * Laczy sie z baza danych i zwraca wartosc logiczna potwierdzajaca
 	 * lub zaprzeczajaca polaczenie z baza danych na serwerze
+	 * @return boolean : 
+	 * <br>true -> udalo sie 
+	 * <br>false -> nie udalo sie
+	 * @author Kamil Zimny
 	 */
 	private boolean connectToDatabase()
 	{		       
@@ -61,14 +147,18 @@ public class DatabaseConnector
 	     }
 	     catch(Exception ex) 
 	     {
-	    	 return false;
+	       return false;
 	     }
 	}
 	
-	/*
+	/**
 	 * Zamyka polacznie z baza danych i zwraca wartos logiczna
 	 * czy udalo sie poprawnie zamknac polaczenie czy nie
 	 * Zamkniecie nie stworzonego polaczenia zwraca false.
+	 * @return boolean :
+	 * <br>true -> udalo sie 
+	 * <br>false -> nie udalo sie
+	 * @author Kamil Zimny
 	 */
 	private boolean closeConnectToDatabase()
 	{
@@ -86,19 +176,19 @@ public class DatabaseConnector
 		return true;
 	}
 	
-	/*
+	/**
 	 * Sprawdza poprawnosc polaczenia, w przypadku potwierdzenia
 	 * zwraca wyniki zapytania przekazanego w parametrze mysSqlQuery, czyli
 	 * arrayListe wierszy, arrayLista wierszy zawiera krotki wynikowe, jest ich tyle
 	 * co wynosi wartosc parametu numberOfResultColumns
-	 * ************************WAZNE**************************************
+	 * ************WAZNE*****************
 	 * numberOfResultColumns musi byc mniejsza lub rowna ilosci zwracanych kolumn
 	 * w przypadku mniejszej wartosci poprostu stracimy dane i nie bedziemy sie mogli do nich odwalac 
 	 * w przypadku wiekszej wartosci pewnie rzuci jakims wyjatkiem.
-	 * ----------------------------------------------------------------------------------------------
-	 * Tomus to takie info dla Ciebie zeby nie bylo ze jak zaczales testowac to odrazu znalazlez blad
-	 * i sie bedziesz cieszyc, Ciekawe kto to przeczyta do konca :) majo majo
-	 * ----------------------------------------------------------------------------------------------
+	 * @return ArrayList<ArrayList<Object>> res : 
+	 *  <br>res.get(i) -> i-ty wiersz  
+	 *  <br>res.get(i).get(j) -> j-ta kolumna w i-tym wierszu 
+	 *  @author Kamil Zimny
 	 */
 	public ArrayList<ArrayList<Object>> getResultOfMySqlQuery(final String mySqlQuery,final int numberOfResultColumns) 
 			throws DatabaseConnectionExeption
@@ -136,7 +226,10 @@ public class DatabaseConnector
 			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
 		}	
 	}
-    	/*******************KORZYSTANIE Z KLASY DATABASECONNECTOR**************
+
+	
+	/*
+	 * ******************KORZYSTANIE Z KLASY DATABASECONNECTOR**************
     	 **********************************************************************
     	String query = "SELECT id,nazwa FROM Miasta ";
     	int numberOfResultColumns = -2;
@@ -166,6 +259,8 @@ public class DatabaseConnector
 			e.printStackTrace();
 		}
     	 ***********************************************************************
-    	 ***********************************************************************/
+    	 **********************************************************************
+    	 *
+    */
                
 }

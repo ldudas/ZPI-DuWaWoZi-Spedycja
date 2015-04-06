@@ -1,40 +1,28 @@
 package uk.co.placona.helloWorld;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import com.esri.map.JMap;
 
-import java.util.ArrayList;
 
-import exceptions.DatabaseConnectionExeption;
-
-public class Main {
+public class Main 
+{
 	/*******************KORZYSTANIE Z KLASY DATABASECONNECTOR**************
 	 **********************************************************************/
-	public static void main(String[] args){
-	String query = "SELECT * FROM Miasta";
-	int numberOfResultColumns = 3;
-	
-	DatabaseConnector databaseConnector = new DatabaseConnector();
-	try 
+	public static void main(String[] args)
 	{
-		ArrayList<ArrayList<Object>> result = databaseConnector.getResultOfMySqlQuery(query,numberOfResultColumns);
+	/*	Presenter presenter = new Presenter();
 		
-		for(int i=0;i<result.size();i++)
-		{
-			// Tu implementowac dzialanie na zwroconych krotkach
-			// Nalezy najpier zrzutowac obiekt czyli np.
-			// (String) result.get(i).get(0)
-			// (int) result.get(i).get(1) itp.
-			// Lub tez skorzystac z petli pod spodem gdy w kazdej
-			// kolumnie sa obiekty tego samego typu.
-			for(int j=0;j<numberOfResultColumns;j++)
-			{
-				System.out.print( result.get(i).get(j).toString() + " ");
-			}
-			System.out.println();
-		}
-	} 
-	catch (DatabaseConnectionExeption e) 
-	{
-		e.printStackTrace();
+		JFrame window = new JFrame();
+		window.setSize(800, 600);
+		window.setLocationRelativeTo(null); // center on screen
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().setLayout(new BorderLayout());
+		window.setVisible(true);
+
+		final JMap map = presenter.startVizualizationManufacturersInCity("Wroc³aw");
+		window.getContentPane().add(map, BorderLayout.CENTER);//to we view
+	*/	
+		
+		
 	}
-	/***********************************************************************
-	 ***********************************************************************/
-}}
+}
