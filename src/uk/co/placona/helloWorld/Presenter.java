@@ -18,6 +18,7 @@ import com.esri.map.MapEventListener;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
+import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.core.geometry.Envelope; 
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
@@ -26,10 +27,11 @@ import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 
+@SuppressWarnings("deprecation")
 public class Presenter 
 {
 	private DatabaseConnector databaseConnector;
-	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 70000;
+	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
 	
 	public Presenter()
 	{
@@ -67,6 +69,8 @@ public class Presenter
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, cityName);
 			  // Reakcja na klikniecie myszy
 			  map.addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
+			  map.addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));
+			 
 		  }
 
 		  @Override
@@ -108,8 +112,23 @@ public class Presenter
 		  return hitTestOverlay;
 	}
 	
-	private void testReactionAferClick(Map<String, Object> attr)
+	/**
+	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
+	 * czyli wszystkie obiekty.
+	 * @return InfoPopupOverlay
+	 * @author Kamil Zimny
+	 */
+	private InfoPopupOverlay addResponseToMouseClickInfo(final GraphicsLayer graphicsLayer)
 	{
+		  final InfoPopupOverlay infoPopupOverlay = new InfoPopupOverlay(); 
+		  infoPopupOverlay.setPopupTitle("Dane producenta");
+		  infoPopupOverlay.addLayer(graphicsLayer);
+
+		  return infoPopupOverlay;
+	}
+	
+	private void testReactionAferClick(Map<String, Object> attr)
+	{  
 		System.out.println("");
 		System.out.println("Nazwa " + attr.get("Name"));
 		System.out.println("Ostatnia aktywnosc " + attr.get("LastActivity"));
@@ -224,10 +243,24 @@ public class Presenter
 	 */
 	private double parseCoordinate(String coordinate)
 	{        
-		int index = coordinate.indexOf("'");
-        String result = coordinate.substring(0,index);
-        result = result.replace('°','.');
-        
-        return Double.parseDouble(result);
+		int index1 = coordinate.indexOf("°");
+		int index2 = coordinate.indexOf("'");
+		String part1 = coordinate.substring(0,index1);
+		String part2 = coordinate.substring(index1+1,index2);	  
+		double a = Double.parseDouble(part1);
+	    double b = Double.parseDouble(part2);
+	    double result = a + (b/60);
+	      
+	    if(coordinate.contains("?"))
+	    {
+	    	int index3 = coordinate.indexOf("?");
+	        String part3 = coordinate.substring(index2+1,index3);
+	        double c = Double.parseDouble(part3);
+	        result += (c/3600);
+	     }
+	    
+	    return result;
 	}
+	
+
 }
