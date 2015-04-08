@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;

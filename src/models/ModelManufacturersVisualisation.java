@@ -1,8 +1,7 @@
 /**
- * @author Kamil Zimny
+ * @author[Kamil Zimny]
  */
-
-package uk.co.placona.helloWorld;
+package models;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,34 +9,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.esri.map.GraphicsLayer;
-import com.esri.map.JMap;
-import com.esri.map.ArcGISTiledMapServiceLayer;
-import com.esri.map.MapEvent;
-import com.esri.map.MapEventListener;
-import com.esri.toolkit.overlays.HitTestEvent;
-import com.esri.toolkit.overlays.HitTestListener;
-import com.esri.toolkit.overlays.HitTestOverlay;
 import com.esri.client.toolkit.overlays.InfoPopupOverlay;
-import com.esri.core.geometry.Envelope; 
+import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
+import com.esri.map.ArcGISTiledMapServiceLayer;
+import com.esri.map.GraphicsLayer;
+import com.esri.map.JMap;
+import com.esri.map.MapEvent;
+import com.esri.map.MapEventListener;
+import com.esri.toolkit.overlays.HitTestEvent;
+import com.esri.toolkit.overlays.HitTestListener;
+import com.esri.toolkit.overlays.HitTestOverlay;
+
+import database.DataAccessObjectFactory;
+import database.DataAccessObjectManufacturersVisualisation;
 
 @SuppressWarnings("deprecation")
-public class Presenter 
+public class ModelManufacturersVisualisation 
 {
-	private DatabaseConnector databaseConnector;
+	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
 	
-	public Presenter()
+	public ModelManufacturersVisualisation()
 	{
-		databaseConnector = new DatabaseConnector();
+		DataAccessObjectFactory factory = new DataAccessObjectFactory();
+		DAO_ManufacturersVis = factory.getDataAccessObjectManufacturersVisualisation();
 	}
 	
+		
 	/**
 	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
 	 * Na mape nanoszone sa obiekty w ktorych zawarte sa dane o producentach
@@ -45,7 +49,7 @@ public class Presenter
 	 * @return JMap
 	 * @author Kamil Zimny
 	 */
-	public JMap startVizualizationManufacturersInCity(final String cityName)
+	public JMap getMapWithVisualisationManufacturersInCity(final String cityName)
 	{
 		final JMap map = new JMap();
 		ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer(
@@ -69,8 +73,7 @@ public class Presenter
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, cityName);
 			  // Reakcja na klikniecie myszy
 			  map.addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
-			  map.addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));
-			 
+			  map.addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));		 
 		  }
 
 		  @Override
@@ -81,6 +84,8 @@ public class Presenter
 		 });
 		return map;
 	}
+	
+	 
 	
 	/**
 	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
@@ -127,16 +132,6 @@ public class Presenter
 		  return infoPopupOverlay;
 	}
 	
-	private void testReactionAferClick(Map<String, Object> attr)
-	{  
-		System.out.println("");
-		System.out.println("Nazwa " + attr.get("Name"));
-		System.out.println("Ostatnia aktywnosc " + attr.get("LastActivity"));
-		System.out.println("Liczba zlecen " + attr.get("NumberOfOrders"));
-		System.out.println("Suma wartosci zlecen " + attr.get("TotalValuOfOrder"));
-		System.out.println("Suma dni wykonywanych zlecen " + attr.get("TotalDays"));
-	}
-	
 	/**
 	 * Dodaje elementy wizualizacji dotyczace producentow, oraz dodaje wszystkie informacje 
 	 * o producencie do Mapy atrybutow danego elementu grafiki. Zawartosc danych producenta
@@ -151,7 +146,7 @@ public class Presenter
 	private void addManufacturerGraphicOnMap(final SpatialReference mapSR,final GraphicsLayer graphicsLayer, final String cityName)
 	{
 		ArrayList<ArrayList<String>> manufacturersData = 
-				databaseConnector.getDataAboutManufacturerToVizualization(cityName);
+				DAO_ManufacturersVis.getDataAboutManufacturerToVizualization(cityName);
 		if( manufacturersData == null )
 			return;
 		//Obliczanie aktywnosci producentow
@@ -165,7 +160,8 @@ public class Presenter
 			attributes.put("LastActivity", manufacturersData.get(i).get(3));
 			attributes.put("NumberOfOrders", manufacturersData.get(i).get(4));
 			attributes.put("TotalValuOfOrder", manufacturersData.get(i).get(5));
-			attributes.put("TotalDays", manufacturersData.get(i).get(6));			
+			attributes.put("TotalDays", manufacturersData.get(i).get(6));
+			attributes.put("Phone", manufacturersData.get(i).get(7));
 			
 			//Wartosc aktywnosci
 			Color activityColor = new Color(activityOfManufacturers.get(i).intValue(),0,0);		
@@ -225,14 +221,14 @@ public class Presenter
 	 */
 	private Envelope setCityAreaToDisplay(final SpatialReference mapSR, final String cityName)
 	{
-		 String [] cityCoordinates = databaseConnector.getCityCoordinates(cityName);
+		 String [] cityCoordinates = DAO_ManufacturersVis.getCityCoordinates(cityName);
 		 
 		 if( cityCoordinates == null )
 			 return null;
 		 Point city = GeometryEngine.project(parseCoordinate(cityCoordinates[0]), 
 				 							 parseCoordinate(cityCoordinates[1]), mapSR);
 		 
-		 return new Envelope(city,DISPLAY_AREA_OF_CITY_ON_MAP ,DISPLAY_AREA_OF_CITY_ON_MAP );
+		 return new Envelope(city,DISPLAY_AREA_OF_CITY_ON_MAP,DISPLAY_AREA_OF_CITY_ON_MAP );
 	}
 	
 	/**
@@ -261,6 +257,17 @@ public class Presenter
 	    
 	    return result;
 	}
-	
 
+	
+	private void testReactionAferClick(Map<String, Object> attr)
+	{  
+		System.out.println("");
+		System.out.println("Nazwa " + attr.get("Name"));
+		System.out.println("Telefon " + attr.get("Phone"));
+		System.out.println("Ostatnia aktywnosc " + attr.get("LastActivity"));
+		System.out.println("Liczba zlecen " + attr.get("NumberOfOrders"));
+		System.out.println("Suma wartosci zlecen " + attr.get("TotalValuOfOrder"));
+		System.out.println("Suma dni wykonywanych zlecen " + attr.get("TotalDays"));
+	}
+	
 }

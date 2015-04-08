@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import database.DatabaseConnector;
 import exceptions.DatabaseConnectionExeption;
-import uk.co.placona.helloWorld.DatabaseConnector;
 
 public class DatabaseConnectorTest {
 
