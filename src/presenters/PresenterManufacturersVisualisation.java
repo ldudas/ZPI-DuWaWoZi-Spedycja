@@ -29,7 +29,11 @@ public class PresenterManufacturersVisualisation
 	public void startManufacturersVisualisation(final String cityName)
 	{
 		view_ManufacturersVis.addMapToWindow(
-				model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName) );
+				model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName));
+	}
+	
+	public void changeView(){
+		view_ManufacturersVis.change();
 	}
 	
 	

@@ -21,7 +21,9 @@ public class Main
 						new PresenterManufacturersVisualisation(view, new ModelManufacturersVisualisation());
 				
 				view.setPresenter(presenter);
-				presenter.startManufacturersVisualisation("Wroc³aw");			
+				view.setPresenters();
+				view.main(args);
+				//presenter.startManufacturersVisualisation("Wroc³aw");			
 			}
 		});
 
