@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
+import com.esri.map.JMap;
+
 import presenters.PresenterManufacturersVisualisation;
 
 public class ViewManufacturersVisualisation_Map extends JPanel {
@@ -16,12 +18,13 @@ public class ViewManufacturersVisualisation_Map extends JPanel {
 	 */
 	
 	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
+	private JTabbedPane map_tabbedPane;
 
 	public ViewManufacturersVisualisation_Map() {
 		setLayout(null);
 		
-		JTabbedPane map_tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		map_tabbedPane.setBounds(361, 45, 227, 210);
+		map_tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		map_tabbedPane.setBounds(361, 45, 448, 443);
 		add(map_tabbedPane);
 		
 		JLabel lblPoka = new JLabel("Poka\u017C");
@@ -66,6 +69,10 @@ public class ViewManufacturersVisualisation_Map extends JPanel {
 	public void setPresenter(final PresenterManufacturersVisualisation presenter)
 	{
 		presenter_ManufacturersVis = presenter;
+	}
+	
+	public void startuj(JMap mapka){
+		map_tabbedPane.addTab("Trasa",mapka);
 	}
 
 }
