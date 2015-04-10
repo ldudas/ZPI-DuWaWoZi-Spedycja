@@ -22,7 +22,7 @@ public class Main
 				
 				view.setPresenter(presenter);
 				view.setPresenters();
-				view.main(args);
+				view.frame.setVisible(true);
 				//presenter.startManufacturersVisualisation("Wroc³aw");			
 			}
 		});

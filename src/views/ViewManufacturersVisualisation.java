@@ -17,15 +17,18 @@ public class ViewManufacturersVisualisation
 	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
 	
 	
-	private JFrame frame;
+	public JFrame frame;
 	public ViewManufacturersVisualisation_Route route;
 	public ViewManufacturersVisualisation_Map map;
 	public ViewManufacturersVisualisation_Start start;
+	public ViewManufacturersVisualisation_Manufacturer manufacturer;
+
 
 
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,6 +41,7 @@ public class ViewManufacturersVisualisation
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the application.
@@ -51,17 +55,15 @@ public class ViewManufacturersVisualisation
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 650, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		route = new ViewManufacturersVisualisation_Route();
 		map = new ViewManufacturersVisualisation_Map();
 		start = new ViewManufacturersVisualisation_Start();
+		manufacturer = new ViewManufacturersVisualisation_Manufacturer();
 		frame.add(start);
-		
-		
-		
-	}
+		}
 	 
 	/**
 	 * Metoda ustawiajaca presentera podanego w parametrze.
@@ -81,16 +83,27 @@ public class ViewManufacturersVisualisation
 		frame.getContentPane().add(map, BorderLayout.CENTER);//to we views
 	}
 	
-	public void change(){
+	public void change_start_to_map(){
 		frame.remove(start);
+		presenter_ManufacturersVis.ustawMape();
 		frame.add(map);
-		frame.repaint();
+		frame.invalidate();
+		frame.validate();
 	}
 	
 	public void setPresenters(){
 		start.setPresenter(presenter_ManufacturersVis);
 		map.setPresenter(presenter_ManufacturersVis);
 		route.setPresenter(presenter_ManufacturersVis);
+		manufacturer.setPresenter(presenter_ManufacturersVis);
+	}
+	
+	public String city_to(){
+		return start.get_city_to();
+	}
+
+	public void dupa(JMap M){
+		map.startuj(M);
 	}
 
 	
