@@ -23,7 +23,7 @@ public class ViewManufacturersVisualisation_Start extends JPanel {
 	private JTextField start_to_textField;
 	private JTextField start_tripDate_textField;
 	private JTextField start_arrivalDate_textField;
-	public PresenterManufacturersVisualisation presenter_ManufacturersVis;
+	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
 	/**
 	 * Create the panel.
 	 */
@@ -82,4 +82,7 @@ public class ViewManufacturersVisualisation_Start extends JPanel {
 		presenter_ManufacturersVis = presenter;
 	}
 	
+	public String get_city_to(){
+		return start_to_textField.getText();
+	}
 }

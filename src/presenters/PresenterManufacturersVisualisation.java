@@ -8,6 +8,8 @@ package presenters;
 
 import views.ViewManufacturersVisualisation;
 import models.ModelManufacturersVisualisation;
+import com.esri.map.JMap;
+
 
 
 public class PresenterManufacturersVisualisation 
@@ -30,10 +32,15 @@ public class PresenterManufacturersVisualisation
 	{
 		view_ManufacturersVis.addMapToWindow(
 				model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName));
+		
 	}
 	
 	public void changeView(){
-		view_ManufacturersVis.change();
+		view_ManufacturersVis.change_start_to_map();
+	}
+	
+	public void ustawMape(){
+		view_ManufacturersVis.dupa(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(view_ManufacturersVis.city_to()));
 	}
 	
 	

@@ -6,10 +6,13 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+import presenters.PresenterManufacturersVisualisation;
+
 public class ViewManufacturersVisualisation_Manufacturer extends JPanel {
 	private JTextField man_to_textField;
 	private JTextField man_tripDate_textField;
 	private JTextField man_arrivalDate_textField;
+	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
 
 	/**
 	 * Create the panel.
@@ -64,6 +67,11 @@ public class ViewManufacturersVisualisation_Manufacturer extends JPanel {
 		man_list.setBounds(281, 78, 159, 129);
 		add(man_list);
 
+	}
+	
+	public void setPresenter(final PresenterManufacturersVisualisation presenter)
+	{
+		presenter_ManufacturersVis = presenter;
 	}
 
 }

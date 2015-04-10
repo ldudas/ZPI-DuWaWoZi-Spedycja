@@ -60,6 +60,7 @@ public class ModelManufacturersVisualisation
 		graphicsLayer.setName("Manufacturers graphics");
 		map.getLayers().add(graphicsLayer);
 		
+		
 		map.addMapEventListener(new MapEventListener() 
 		{
 
@@ -109,7 +110,8 @@ public class ModelManufacturersVisualisation
 					//tu ma byc pojawianie sie nowego okna z danymi producenta
 					//w parametrze przekazywana kolekcja Map atrybutow danego producenta
 					Map<String, Object> attributes = manufacturer.getAttributes();
-					testReactionAferClick(attributes);					
+					testReactionAferClick(attributes);
+					
 		        }
 									
 			}

@@ -22,6 +22,9 @@ public class Main
 				
 				view.setPresenter(presenter);
 				presenter.startManufacturersVisualisation("Wroc³aw");			
+				view.setPresenters();
+				view.frame.setVisible(true);
+				//presenter.startManufacturersVisualisation("Wroc³aw");			
 			}
 		});
 
