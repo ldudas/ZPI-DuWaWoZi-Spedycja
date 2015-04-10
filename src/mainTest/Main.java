@@ -13,7 +13,7 @@ public class Main
 	{
 		SwingUtilities.invokeLater( new Runnable() 
 		{		
-			@Override
+			@Override	
 			public void run() 
 			{
 				ViewManufacturersVisualisation view = new ViewManufacturersVisualisation();
