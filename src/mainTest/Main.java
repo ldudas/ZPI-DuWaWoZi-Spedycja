@@ -20,8 +20,7 @@ public class Main
 				PresenterManufacturersVisualisation presenter = 
 						new PresenterManufacturersVisualisation(view, new ModelManufacturersVisualisation());
 				
-				view.setPresenter(presenter);
-				presenter.startManufacturersVisualisation("Wroc³aw");			
+				view.setPresenter(presenter);			
 				view.setPresenters();
 				view.frame.setVisible(true);
 				//presenter.startManufacturersVisualisation("Wroc³aw");			

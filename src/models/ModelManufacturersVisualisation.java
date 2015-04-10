@@ -110,8 +110,7 @@ public class ModelManufacturersVisualisation
 					//tu ma byc pojawianie sie nowego okna z danymi producenta
 					//w parametrze przekazywana kolekcja Map atrybutow danego producenta
 					Map<String, Object> attributes = manufacturer.getAttributes();
-					testReactionAferClick(attributes);
-					
+					testReactionAferClick(attributes);				
 		        }
 									
 			}
@@ -166,7 +165,7 @@ public class ModelManufacturersVisualisation
 			attributes.put("Phone", manufacturersData.get(i).get(7));
 			
 			//Wartosc aktywnosci
-			Color activityColor = new Color(activityOfManufacturers.get(i).intValue(),0,0);		
+			Color activityColor = new Color(255,activityOfManufacturers.get(i).intValue(),activityOfManufacturers.get(i).intValue());		
 			int sizeOfSymbol = 30; //Jesli wielkosc tez bedzie parametrem wizualizacji bedzie sie zmieniac
 			
 			SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol, 
@@ -190,7 +189,7 @@ public class ModelManufacturersVisualisation
 	 */
 	private ArrayList<Double> evaluateActivityOfManufacturers(ArrayList<ArrayList<String>> manufacturersData)
 	{
-		int activityValueOfTheBest = 255;
+		int activityValueOfTheBest = 0;
 		
 		ArrayList<Double> activityOfManufacturers = new ArrayList<Double>();
 		double theBestEvaluation = -1;
@@ -201,7 +200,7 @@ public class ModelManufacturersVisualisation
 			int totalD = Integer.parseInt(manufacturersData.get(i).get(6));
 			double evaluationOfManufacturers = numberOfOr*totalValue/totalD;
 			
-			if( evaluationOfManufacturers > theBestEvaluation)
+			if( evaluationOfManufacturers < theBestEvaluation)
 				theBestEvaluation = evaluationOfManufacturers;
 			
 			activityOfManufacturers.add( evaluationOfManufacturers ); 
