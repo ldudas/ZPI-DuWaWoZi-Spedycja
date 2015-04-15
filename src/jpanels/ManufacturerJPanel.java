@@ -1,4 +1,6 @@
-package views;
+package jpanels;
+
+import interfaces.RoutePlanningPresenter;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -6,18 +8,20 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
-import presenters.PresenterManufacturersVisualisation;
-
-public class ViewManufacturersVisualisation_Manufacturer extends JPanel {
+public class ManufacturerJPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField man_to_textField;
 	private JTextField man_tripDate_textField;
 	private JTextField man_arrivalDate_textField;
-	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_ManufacturersVis;
 
 	/**
 	 * Create the panel.
 	 */
-	public ViewManufacturersVisualisation_Manufacturer() {
+	public ManufacturerJPanel() {
 		setLayout(null);
 		
 		man_to_textField = new JTextField();
@@ -69,7 +73,7 @@ public class ViewManufacturersVisualisation_Manufacturer extends JPanel {
 
 	}
 	
-	public void setPresenter(final PresenterManufacturersVisualisation presenter)
+	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_ManufacturersVis = presenter;
 	}

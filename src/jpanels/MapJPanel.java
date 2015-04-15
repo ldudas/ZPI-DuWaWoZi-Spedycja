@@ -1,5 +1,6 @@
-package views;
+package jpanels;
 
+import interfaces.RoutePlanningPresenter;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -8,19 +9,24 @@ import javax.swing.JComboBox;
 
 import com.esri.map.JMap;
 
-import presenters.PresenterManufacturersVisualisation;
 
-public class ViewManufacturersVisualisation_Map extends JPanel {
+public class MapJPanel extends JPanel {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JTextField map_count_textField;
 
 	/**
 	 * Create the panel.
 	 */
 	
-	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_ManufacturersVis;
 	private JTabbedPane map_tabbedPane;
 
-	public ViewManufacturersVisualisation_Map() {
+	public MapJPanel() {
 		setLayout(null);
 		
 		map_tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -66,7 +72,7 @@ public class ViewManufacturersVisualisation_Map extends JPanel {
 
 	}
 	
-	public void setPresenter(final PresenterManufacturersVisualisation presenter)
+	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_ManufacturersVis = presenter;
 	}

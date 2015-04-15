@@ -1,20 +1,15 @@
-package views;
+package jpanels;
 
-import javax.swing.JFrame;
+import interfaces.RoutePlanningPresenter;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-
-import presenters.PresenterManufacturersVisualisation;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ViewManufacturersVisualisation_Start extends JPanel {
+
+public class StartJPanel extends JPanel {
 	/**
 	 * 
 	 */
@@ -23,11 +18,11 @@ public class ViewManufacturersVisualisation_Start extends JPanel {
 	private JTextField start_to_textField;
 	private JTextField start_tripDate_textField;
 	private JTextField start_arrivalDate_textField;
-	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_ManufacturersVis;
 	/**
 	 * Create the panel.
 	 */
-	public ViewManufacturersVisualisation_Start() {
+	public StartJPanel() {
 		setLayout(null);
 		
 		start_from_textField = new JTextField();
@@ -77,7 +72,7 @@ public class ViewManufacturersVisualisation_Start extends JPanel {
 		
 	}
 	 
-	public void setPresenter(final PresenterManufacturersVisualisation presenter)
+	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_ManufacturersVis = presenter;
 	}

@@ -1,10 +1,12 @@
 package mainTest;
 
+import interfaces.RoutePlanningModel;
+import interfaces.RoutePlanningPresenter;
+import interfaces.RoutePlanningView;
+import maps.VMVPresenter;
+import maps.VMVModel;
+import maps.VMVView;
 import javax.swing.SwingUtilities;
-
-import models.ModelManufacturersVisualisation;
-import presenters.PresenterManufacturersVisualisation;
-import views.ViewManufacturersVisualisation;
 
 public class Main 
 {
@@ -16,14 +18,16 @@ public class Main
 			@Override
 			public void run() 
 			{
-				ViewManufacturersVisualisation view = new ViewManufacturersVisualisation();
-				PresenterManufacturersVisualisation presenter = 
-						new PresenterManufacturersVisualisation(view, new ModelManufacturersVisualisation());
-				
+				RoutePlanningView view = new RoutePlanningView();
+				VMVModel v_model = new VMVModel();
+				VMVView v_view = new VMVView();
+				VMVPresenter v_presenter = new VMVPresenter(v_view,v_model);
+				RoutePlanningPresenter presenter = 
+						new RoutePlanningPresenter(view, new RoutePlanningModel(),v_presenter);
+				v_presenter.set_route_presenter(presenter);
 				view.setPresenter(presenter);
 				view.setPresenters();
-				view.frame.setVisible(true);
-				//presenter.startManufacturersVisualisation("Wroc³aw");			
+				view.returnJFrame().setVisible(true);
 			}
 		});
 
