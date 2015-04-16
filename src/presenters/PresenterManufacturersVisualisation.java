@@ -35,7 +35,8 @@ public class PresenterManufacturersVisualisation
 		
 	}
 	
-	public void changeView(){
+	public void changeView()
+	{
 		view_ManufacturersVis.change_start_to_map();
 	}
 	
