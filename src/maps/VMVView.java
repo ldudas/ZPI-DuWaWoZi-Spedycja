@@ -1,5 +1,10 @@
 package maps;
 
-public class VMVView {
+public class VMVView 
+{
+	public VMVView()
+	{
+		
+	}
 
 }
