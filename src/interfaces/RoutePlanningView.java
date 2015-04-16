@@ -26,7 +26,8 @@ public class RoutePlanningView
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() 
+	{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 650, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +36,7 @@ public class RoutePlanningView
 		start = new StartJPanel();
 		manufacturer = new ManufacturerJPanel();
 		frame.add(start);
-		}
+	}
 	 
 	/**
 	 * Metoda ustawiajaca presentera podanego w parametrze.

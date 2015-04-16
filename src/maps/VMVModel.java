@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
@@ -14,6 +15,7 @@ import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.ArcGISTiledMapServiceLayer;
+import com.esri.map.FeatureLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
@@ -21,6 +23,7 @@ import com.esri.map.MapEventListener;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
+
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectManufacturersVisualisation;
 
@@ -104,7 +107,10 @@ public class VMVModel
 					//tu ma byc pojawianie sie nowego okna z danymi producenta
 					//w parametrze przekazywana kolekcja Map atrybutow danego producenta
 					Map<String, Object> attributes = manufacturer.getAttributes();
-					testReactionAferClick(attributes);					
+					testReactionAferClick(attributes);
+					graphicsLayer.select( (int)manufacturer.getId());
+					graphicsLayer.setSelectionColor(Color.BLUE);
+					
 		        }
 									
 			}
