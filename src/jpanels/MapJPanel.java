@@ -1,6 +1,8 @@
 package jpanels;
 
 import interfaces.RoutePlanningPresenter;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -8,6 +10,11 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
 import com.esri.map.JMap;
+
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class MapJPanel extends JPanel {
@@ -26,11 +33,12 @@ public class MapJPanel extends JPanel {
 	private RoutePlanningPresenter presenter_ManufacturersVis;
 	private JTabbedPane map_tabbedPane;
 
-	public MapJPanel() {
+	public MapJPanel() 
+	{
 		setLayout(null);
 		
 		map_tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		map_tabbedPane.setBounds(361, 45, 448, 443);
+		map_tabbedPane.setBounds(361, 45, 700, 480);
 		add(map_tabbedPane);
 		
 		JLabel lblPoka = new JLabel("Poka\u017C");
@@ -69,6 +77,16 @@ public class MapJPanel extends JPanel {
 		JComboBox map_count_comboBox = new JComboBox();
 		map_count_comboBox.setBounds(132, 147, 132, 20);
 		add(map_count_comboBox);
+		
+		JButton btn_chooseManufacturer = new JButton("Wybierz");
+		btn_chooseManufacturer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				presenter_ManufacturersVis.showManufacturerInfo();
+			}
+		});
+		btn_chooseManufacturer.setBounds(132, 386, 132, 49);
+		add(btn_chooseManufacturer);
 
 	}
 	
@@ -77,8 +95,8 @@ public class MapJPanel extends JPanel {
 		presenter_ManufacturersVis = presenter;
 	}
 	
-	public JTabbedPane return_tab(){
+	public JTabbedPane return_tab()
+	{
 		return map_tabbedPane;
 	}
-
 }

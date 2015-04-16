@@ -1,4 +1,4 @@
-package maps;
+package visualisations;
 
 import javax.swing.JTabbedPane;
 
@@ -8,15 +8,19 @@ public class VisualistaionManufacturersView {
 	
 	JTabbedPane tab;
 	
-	public VisualistaionManufacturersView(){
+	public VisualistaionManufacturersView()
+	{
+		
 		
 	}
 	
-	public void set_tab(JTabbedPane tab_){
+	public void set_tab(JTabbedPane tab_)
+	{
 		tab=tab_;
 	}
 	
-	public void add_map_to_tab(JMap mapka){
+	public void add_map_to_tab(JMap mapka)
+	{
 		tab.addTab("Trasa",mapka);
 	}
 

@@ -2,7 +2,8 @@ package interfaces;
 
 public class RoutePlanningModel 
 {
-	public RoutePlanningModel(){
+	public RoutePlanningModel()
+	{
 		
 	}
 }

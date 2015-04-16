@@ -31,6 +31,7 @@ public class StartJPanel extends JPanel {
 		start_from_textField.setColumns(10);
 		
 		start_to_textField = new JTextField();
+		start_to_textField.setText("Wroc\u0142aw");
 		start_to_textField.setBounds(425, 49, 86, 20);
 		add(start_to_textField);
 		start_to_textField.setColumns(10);
@@ -63,7 +64,8 @@ public class StartJPanel extends JPanel {
 		
 		JButton start_okButton = new JButton("OK");
 		start_okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				presenter_ManufacturersVis.changeView();
 			}
 		});
