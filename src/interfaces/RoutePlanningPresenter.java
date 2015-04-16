@@ -19,11 +19,11 @@ public class RoutePlanningPresenter
 	}
 	
 	public void changeView(){
-		start_city_visualisation();
+		send_city_name();
 		route_planning_view.change_start_to_map();
 	}
 	
-	public void start_city_visualisation(){
+	public void send_city_name(){
 		map_presenter.startManufacturersVisualisation(route_planning_view.city_to());
 	}
 	

@@ -83,6 +83,4 @@ public class RoutePlanningView
 	public ManufacturerJPanel returnManufacturer(){
 		return manufacturer;
 		}
-
-	
-}
+	}

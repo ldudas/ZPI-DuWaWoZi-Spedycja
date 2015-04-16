@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
@@ -14,6 +15,7 @@ import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.ArcGISTiledMapServiceLayer;
+import com.esri.map.FeatureLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
@@ -21,6 +23,7 @@ import com.esri.map.MapEventListener;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
+
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectManufacturersVisualisation;
 
@@ -104,7 +107,10 @@ public class VMVModel
 					//tu ma byc pojawianie sie nowego okna z danymi producenta
 					//w parametrze przekazywana kolekcja Map atrybutow danego producenta
 					Map<String, Object> attributes = manufacturer.getAttributes();
-					testReactionAferClick(attributes);					
+					testReactionAferClick(attributes);
+					graphicsLayer.select( (int)manufacturer.getId());
+					graphicsLayer.setSelectionColor(Color.BLUE);
+					
 		        }
 									
 			}
@@ -132,11 +138,13 @@ public class VMVModel
 	 * o producencie do Mapy atrybutow danego elementu grafiki. Zawartosc danych producenta
 	 * opisana ponizej.
 	 * @attributes HashMap (String, String) attr:
-	 * <br>attr.get("Name") -> nazwa
-	 * <br>attr.get("LastActivity") -> ostatnia aktywnosc
-	 * <br>attr.get("NumberOfOrders") -> liczba zlecen
-	 * <br>attr.get("TotalValuOfOrder") -> suma wartosci zlecen
-	 * <br>attr.get("TotalDays") -> suma dni wykonywanych zlecen
+	 * <br>attr.get("Nazwa: ") -> nazwa
+	 * <br>attr.get("Ostatnia aktywnoœæ: ") -> ostatnia aktywnosc
+	 * <br>attr.get("Liczba zleceñ: ") -> liczba zlecen
+	 * <br>attr.get("Suma wartoœci zleceñ: ") -> suma wartosci zlecen
+	 * <br>attr.get("Suma dni wykonywanych zleceñ: ") -> suma dni wykonywanych zlecen
+	 * <br>attr.get("Telefon: ") -> telefon
+	 * @author Kamil Zimny
 	 */
 	private void addManufacturerGraphicOnMap(final SpatialReference mapSR,final GraphicsLayer graphicsLayer, final String cityName)
 	{
@@ -151,15 +159,15 @@ public class VMVModel
 		{
 			//Dane producenta
 			Map<String,Object> attributes = new HashMap<String, Object>();
-			attributes.put("Name", manufacturersData.get(i).get(0));
-			attributes.put("LastActivity", manufacturersData.get(i).get(3));
-			attributes.put("NumberOfOrders", manufacturersData.get(i).get(4));
-			attributes.put("TotalValuOfOrder", manufacturersData.get(i).get(5));
-			attributes.put("TotalDays", manufacturersData.get(i).get(6));
-			attributes.put("Phone", manufacturersData.get(i).get(7));
+			attributes.put("Nazwa: ", manufacturersData.get(i).get(0));
+			attributes.put("Ostatnia aktywnoœæ: ", manufacturersData.get(i).get(3));
+			attributes.put("Liczba zleceñ: ", manufacturersData.get(i).get(4));
+			attributes.put("Suma wartoœci zleceñ: ", manufacturersData.get(i).get(5));
+			attributes.put("Suma dni wykonywanych zleceñ: ", manufacturersData.get(i).get(6));
+			attributes.put("Telefon: ", manufacturersData.get(i).get(7));
 			
 			//Wartosc aktywnosci
-			Color activityColor = new Color(activityOfManufacturers.get(i).intValue(),0,0);		
+			Color activityColor = new Color(255,activityOfManufacturers.get(i).intValue(),activityOfManufacturers.get(i).intValue());		
 			int sizeOfSymbol = 30; //Jesli wielkosc tez bedzie parametrem wizualizacji bedzie sie zmieniac
 			
 			SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol, 
@@ -183,7 +191,8 @@ public class VMVModel
 	 */
 	private ArrayList<Double> evaluateActivityOfManufacturers(ArrayList<ArrayList<String>> manufacturersData)
 	{
-		int activityValueOfTheBest = 255;
+		int activityValueOfTheBest = 0;
+		int activityValueOfTheWorst = 255;
 		
 		ArrayList<Double> activityOfManufacturers = new ArrayList<Double>();
 		double theBestEvaluation = -1;
@@ -202,7 +211,11 @@ public class VMVModel
 
 		for(int i=0; i<manufacturersData.size() ; i++)
 		{
-			double evaluationOfManufacturers = activityOfManufacturers.get(i)/theBestEvaluation*activityValueOfTheBest;
+			double evaluationOfManufacturers;
+			if(activityOfManufacturers.get(i) ==  activityValueOfTheBest)
+				evaluationOfManufacturers = 0;
+			else	
+				evaluationOfManufacturers = activityValueOfTheWorst- activityOfManufacturers.get(i)/theBestEvaluation*activityValueOfTheWorst;
 			activityOfManufacturers.set(i,evaluationOfManufacturers);
 		}
 		return activityOfManufacturers;
@@ -257,12 +270,12 @@ public class VMVModel
 	private void testReactionAferClick(Map<String, Object> attr)
 	{  
 		System.out.println("");
-		System.out.println("Nazwa " + attr.get("Name"));
-		System.out.println("Telefon " + attr.get("Phone"));
-		System.out.println("Ostatnia aktywnosc " + attr.get("LastActivity"));
-		System.out.println("Liczba zlecen " + attr.get("NumberOfOrders"));
-		System.out.println("Suma wartosci zlecen " + attr.get("TotalValuOfOrder"));
-		System.out.println("Suma dni wykonywanych zlecen " + attr.get("TotalDays"));
+		System.out.println("Nazwa " + attr.get("Nazwa: "));
+		System.out.println("Telefon " + attr.get("Telefon: "));
+		System.out.println("Ostatnia aktywnosc " + attr.get("Ostatnia aktywnoœæ: "));
+		System.out.println("Liczba zlecen " + attr.get("Liczba zleceñ: "));
+		System.out.println("Suma wartosci zlecen " + attr.get("Suma wartoœci zleceñ: "));
+		System.out.println("Suma dni wykonywanych zlecen " + attr.get("Suma dni wykonywanych zleceñ: "));
 	}
 	
 }
