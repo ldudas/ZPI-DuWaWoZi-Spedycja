@@ -7,29 +7,27 @@ import maps.VMVPresenter;
 
 public class RoutePlanningPresenter 
 {
-	private RoutePlanningModel model_ManufacturersVis;
-	private RoutePlanningView view_ManufacturersVis;
+	private RoutePlanningModel route_planning_model;
+	private RoutePlanningView route_planning_view;
 	private VMVPresenter map_presenter;
 	
 	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VMVPresenter map)
 	{
-		model_ManufacturersVis = model;
-		view_ManufacturersVis = view;
+		route_planning_model = model;
+		route_planning_view = view;
 		map_presenter=map;
 	}
 	
 	public void changeView(){
-		send_city_name();
-		view_ManufacturersVis.change_start_to_map();
+		start_city_visualisation();
+		route_planning_view.change_start_to_map();
 	}
 	
-	public void send_city_name(){
-		map_presenter.startManufacturersVisualisation(view_ManufacturersVis.city_to());
+	public void start_city_visualisation(){
+		map_presenter.startManufacturersVisualisation(route_planning_view.city_to());
 	}
 	
-	public void add_map(JMap map_to_set){
-		view_ManufacturersVis.returnMap().startuj(map_to_set);
+	public RoutePlanningView return_view(){
+		return route_planning_view;
 	}
-	
-	
 }

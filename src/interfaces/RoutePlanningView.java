@@ -9,7 +9,7 @@ import jpanels.StartJPanel;
 
 public class RoutePlanningView 
 {
-	private RoutePlanningPresenter presenter_ManufacturersVis;
+	private RoutePlanningPresenter route_planning_presenter;
 	private JFrame frame;
 	private RouteJPanel route;
 	private MapJPanel map;
@@ -43,7 +43,7 @@ public class RoutePlanningView
 	 */
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
-		presenter_ManufacturersVis = presenter;
+		route_planning_presenter = presenter;
 	}
 	
 	public void change_start_to_map(){
@@ -54,10 +54,10 @@ public class RoutePlanningView
 	}
 	
 	public void setPresenters(){
-		start.setPresenter(presenter_ManufacturersVis);
-		map.setPresenter(presenter_ManufacturersVis);
-		route.setPresenter(presenter_ManufacturersVis);
-		manufacturer.setPresenter(presenter_ManufacturersVis);
+		start.setPresenter(route_planning_presenter);
+		map.setPresenter(route_planning_presenter);
+		route.setPresenter(route_planning_presenter);
+		manufacturer.setPresenter(route_planning_presenter);
 	}
 	
 	public String city_to(){

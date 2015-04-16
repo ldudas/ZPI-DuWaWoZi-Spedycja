@@ -77,8 +77,8 @@ public class MapJPanel extends JPanel {
 		presenter_ManufacturersVis = presenter;
 	}
 	
-	public void startuj(JMap mapka){
-		map_tabbedPane.addTab("Trasa",mapka);
+	public JTabbedPane return_tab(){
+		return map_tabbedPane;
 	}
 
 }
