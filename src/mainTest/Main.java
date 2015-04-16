@@ -3,9 +3,9 @@ package mainTest;
 import interfaces.RoutePlanningModel;
 import interfaces.RoutePlanningPresenter;
 import interfaces.RoutePlanningView;
-import maps.VMVPresenter;
-import maps.VMVModel;
-import maps.VMVView;
+import maps.VisualistaionManufacturersPresenter;
+import maps.VisualisationManufacturersModel;
+import maps.VisualistaionManufacturersView;
 import javax.swing.SwingUtilities;
 
 public class Main 
@@ -19,9 +19,9 @@ public class Main
 			public void run() 
 			{
 				RoutePlanningView view = new RoutePlanningView();
-				VMVModel v_model = new VMVModel();
-				VMVView v_view = new VMVView();
-				VMVPresenter v_presenter = new VMVPresenter(v_view,v_model);
+				VisualisationManufacturersModel v_model = new VisualisationManufacturersModel();
+				VisualistaionManufacturersView v_view = new VisualistaionManufacturersView();
+				VisualistaionManufacturersPresenter v_presenter = new VisualistaionManufacturersPresenter(v_view,v_model);
 				RoutePlanningPresenter presenter = 
 						new RoutePlanningPresenter(view, new RoutePlanningModel(),v_presenter);
 				v_presenter.set_route_presenter(presenter);

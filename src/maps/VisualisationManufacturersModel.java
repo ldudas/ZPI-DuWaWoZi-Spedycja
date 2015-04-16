@@ -28,12 +28,12 @@ import database.DataAccessObjectFactory;
 import database.DataAccessObjectManufacturersVisualisation;
 
 @SuppressWarnings("deprecation")
-public class VMVModel 
+public class VisualisationManufacturersModel 
 {
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
 	
-	public VMVModel()
+	public VisualisationManufacturersModel()
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		DAO_ManufacturersVis = factory.getDataAccessObjectManufacturersVisualisation();
@@ -109,8 +109,7 @@ public class VMVModel
 					Map<String, Object> attributes = manufacturer.getAttributes();
 					testReactionAferClick(attributes);
 					graphicsLayer.select( (int)manufacturer.getId());
-					graphicsLayer.setSelectionColor(Color.BLUE);
-					
+					graphicsLayer.setSelectionColor(Color.BLUE);		
 		        }
 									
 			}

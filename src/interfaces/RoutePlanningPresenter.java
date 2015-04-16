@@ -1,7 +1,7 @@
 package interfaces;
 
 import com.esri.map.JMap;
-import maps.VMVPresenter;
+import maps.VisualistaionManufacturersPresenter;
 
 
 
@@ -9,9 +9,9 @@ public class RoutePlanningPresenter
 {
 	private RoutePlanningModel route_planning_model;
 	private RoutePlanningView route_planning_view;
-	private VMVPresenter map_presenter;
+	private VisualistaionManufacturersPresenter map_presenter;
 	
-	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VMVPresenter map)
+	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map)
 	{
 		route_planning_model = model;
 		route_planning_view = view;
