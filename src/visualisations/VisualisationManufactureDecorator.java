@@ -46,6 +46,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	private static final long serialVersionUID = 1L;
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
+	InfoPopupOverlay infoPopupOverlay;
 	
 	public VisualisationManufactureDecorator(String cityName)
 	{
@@ -132,7 +133,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	 */
 	private InfoPopupOverlay addResponseToMouseClickInfo(final GraphicsLayer graphicsLayer)
 	{		  
-		  final InfoPopupOverlay infoPopupOverlay = new InfoPopupOverlay(); 
+		  infoPopupOverlay = new InfoPopupOverlay(); 
 		  infoPopupOverlay.setName("Info");
 		  infoPopupOverlay.setPopupTitle("Dane producenta");
 		  infoPopupOverlay.addLayer(graphicsLayer);

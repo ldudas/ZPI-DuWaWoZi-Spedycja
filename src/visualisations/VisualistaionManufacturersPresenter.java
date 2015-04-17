@@ -9,7 +9,11 @@ import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
 import com.esri.map.MapOverlay;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
+import java.util.LinkedList;
+import java.util.List;
+
+
 
 import interfaces.RoutePlanningPresenter;
 
@@ -54,21 +58,21 @@ public class VisualistaionManufacturersPresenter
 			{
 				GraphicsLayer graphic = (GraphicsLayer) layer;
 				graphic.clearSelection();
-				java.util.List<MapOverlay> list =  map.getMapOverlays();
+				List<MapOverlay> list =  map.getMapOverlays();
+				List<MapOverlay> n_list =  new LinkedList<MapOverlay>();
+				
 				System.out.println(list.size());
 				int i = 0;
+				
 				for( MapOverlay elem : list)
 				{
-					if( elem.getName() == "Info")
+					if( elem.getName() != "Info")
 					{
-						System.out.println("Poszlo");
-
-						
-						return;
+						n_list.add(elem);
 					}
-					System.out.println("Cos");
-					i++;
 				}
+				
+				
 		
 			}
 			
