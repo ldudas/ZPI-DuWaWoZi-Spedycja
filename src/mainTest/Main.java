@@ -3,10 +3,12 @@ package mainTest;
 import interfaces.RoutePlanningModel;
 import interfaces.RoutePlanningPresenter;
 import interfaces.RoutePlanningView;
-import maps.VisualistaionManufacturersPresenter;
-import maps.VisualisationManufacturersModel;
-import maps.VisualistaionManufacturersView;
+
 import javax.swing.SwingUtilities;
+
+import visualisations.VisualisationManufacturersModel;
+import visualisations.VisualistaionManufacturersPresenter;
+import visualisations.VisualistaionManufacturersView;
 
 public class Main 
 {

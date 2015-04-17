@@ -1,4 +1,4 @@
-package maps;
+package visualisations;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.ArcGISTiledMapServiceLayer;
-import com.esri.map.FeatureLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
@@ -27,19 +26,23 @@ import com.esri.toolkit.overlays.HitTestOverlay;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectManufacturersVisualisation;
 
-@SuppressWarnings("deprecation")
-public class VisualisationManufacturersModel 
+public class VisualisationManufactureDecorator extends JMapDecorator
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
 	
-	public VisualisationManufacturersModel()
+	public VisualisationManufactureDecorator(String cityName)
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		DAO_ManufacturersVis = factory.getDataAccessObjectManufacturersVisualisation();
+		decorateMapWithVisualisationManufacturersInCity(cityName);
 	}
 	
-		
+	
 	/**
 	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
 	 * Na mape nanoszone sa obiekty w ktorych zawarte sa dane o producentach
@@ -47,18 +50,17 @@ public class VisualisationManufacturersModel
 	 * @return JMap
 	 * @author Kamil Zimny
 	 */
-	public JMap getMapWithVisualisationManufacturersInCity(final String cityName)
-	{
-		final JMap map = new JMap();
+	public void decorateMapWithVisualisationManufacturersInCity(final String cityName)
+	{				
 		ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer(
 				  "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
-		map.getLayers().add(tiledLayer);
+		this.getLayers().add(tiledLayer);
 		
 		final GraphicsLayer graphicsLayer = new GraphicsLayer();
 		graphicsLayer.setName("Manufacturers graphics");
-		map.getLayers().add(graphicsLayer);
+		this.getLayers().add(graphicsLayer);
 		
-		map.addMapEventListener(new MapEventListener() 
+		this.addMapEventListener(new MapEventListener() 
 		{
 
 		  @Override
@@ -66,12 +68,12 @@ public class VisualisationManufacturersModel
 		  {
 			  final SpatialReference mapSR = event.getMap().getSpatialReference();
 			  // Ustawianie mapy na obszar	
-			  map.setExtent(setCityAreaToDisplay(mapSR, cityName));
+			  event.getMap().setExtent(setCityAreaToDisplay(mapSR, cityName));
 			  // Dodaje producentow na mapie
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, cityName);
 			  // Reakcja na klikniecie myszy
-			  map.addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
-			  map.addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));		 
+			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
+			  event.getMap().addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));		 
 		  }
 
 		  @Override
@@ -80,10 +82,7 @@ public class VisualisationManufacturersModel
 		  @Override
 		  public void mapExtentChanged(MapEvent arg0) {}
 		 });
-		return map;
 	}
-	
-	 
 	
 	/**
 	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
@@ -104,10 +103,6 @@ public class VisualisationManufacturersModel
 				List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
 				for (Feature manufacturer : hitFeatures) 
 		        {	
-					//tu ma byc pojawianie sie nowego okna z danymi producenta
-					//w parametrze przekazywana kolekcja Map atrybutow danego producenta
-					Map<String, Object> attributes = manufacturer.getAttributes();
-					testReactionAferClick(attributes);
 					graphicsLayer.select( (int)manufacturer.getId());
 					graphicsLayer.setSelectionColor(Color.BLUE);		
 		        }
@@ -265,16 +260,5 @@ public class VisualisationManufacturersModel
 	    return result;
 	}
 
-	
-	private void testReactionAferClick(Map<String, Object> attr)
-	{  
-		System.out.println("");
-		System.out.println("Nazwa " + attr.get("Nazwa: "));
-		System.out.println("Telefon " + attr.get("Telefon: "));
-		System.out.println("Ostatnia aktywnosc " + attr.get("Ostatnia aktywnoœæ: "));
-		System.out.println("Liczba zlecen " + attr.get("Liczba zleceñ: "));
-		System.out.println("Suma wartosci zlecen " + attr.get("Suma wartoœci zleceñ: "));
-		System.out.println("Suma dni wykonywanych zlecen " + attr.get("Suma dni wykonywanych zleceñ: "));
-	}
-	
+
 }
