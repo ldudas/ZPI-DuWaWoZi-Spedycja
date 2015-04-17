@@ -15,7 +15,7 @@ public class VisualisationPathView {
     window = new JFrame();
     window.setSize(800, 600);
     window.setLocationRelativeTo(null); // center on screen
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     window.getContentPane().setLayout(new BorderLayout(0, 0));
 
     // dispose map just before application window is closed.

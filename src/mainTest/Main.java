@@ -22,7 +22,6 @@ public class Main
 				 VisualisationPathView view_path  = new VisualisationPathView();
 		          VisualisationPathPresenter pres_path = new VisualisationPathPresenter(view_path, new VisualisationPathModel());
 				
-				
 				RoutePlanningView view = new RoutePlanningView();
 				VisualisationManufacturersModel v_model = new VisualisationManufacturersModel();
 				VisualistaionManufacturersView v_view = new VisualistaionManufacturersView();

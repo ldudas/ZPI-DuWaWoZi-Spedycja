@@ -70,6 +70,6 @@ public class RoutePlanningPresenter
 	{
 		String city_to = route_planning_view.city_to();
 		String city_from = route_planning_view.city_from();
-		path_presenter.createInitialMap(city_to, city_from);
+		path_presenter.createInitialMap(city_from, city_to);
 	}
 }
