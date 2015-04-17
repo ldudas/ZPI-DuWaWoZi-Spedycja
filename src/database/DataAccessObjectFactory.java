@@ -14,4 +14,9 @@ public class DataAccessObjectFactory
 	{
 		return new DataAccessObjectManufacturersVisualisation();
 	}
+	
+	public DataAccessObjectPathVisualisation getDataAccessObjectPathVisualisation()
+	{
+		return new DataAccessObjectPathVisualisation();
+	}
 }

@@ -3,7 +3,7 @@ package interfaces;
 
 import java.util.Map;
 
-import visualisations.VisualistaionManufacturersPresenter;
+import visualisations.*;
 
 
 public class RoutePlanningPresenter 
@@ -11,12 +11,14 @@ public class RoutePlanningPresenter
 	private RoutePlanningModel route_planning_model;
 	private RoutePlanningView route_planning_view;
 	private VisualistaionManufacturersPresenter map_presenter;
+	private VisualisationPathPresenter path_presenter;
 	
-	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map)
+	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map, VisualisationPathPresenter path_p)
 	{
 		route_planning_model = model;
 		route_planning_view = view;
 		map_presenter = map;
+		path_presenter = path_p;
 	}
 	
 	public void changeView()
@@ -40,6 +42,11 @@ public class RoutePlanningPresenter
 			route_planning_view.show_ErrorMessage();			
 	}
 	
+	public void showPathMap()
+	{
+		path_presenter.showPathMap();
+	}
+	
 	/**
 	 * Zamyka okno informajci o producencie
 	 * @author Kamil Zimny
@@ -57,5 +64,12 @@ public class RoutePlanningPresenter
 	public RoutePlanningView return_view()
 	{
 		return route_planning_view;
+	}
+	
+	public void createInitialPathMap()
+	{
+		String city_to = route_planning_view.city_to();
+		String city_from = route_planning_view.city_from();
+		path_presenter.createInitialMap(city_to, city_from);
 	}
 }
