@@ -22,7 +22,6 @@ public class VisualistaionManufacturersPresenter
 	{
 		model_ManufacturersVis = model;
 		view_ManufacturersVis = view;
-		
 	}
 	
 	public void set_route_presenter(final RoutePlanningPresenter presenter)

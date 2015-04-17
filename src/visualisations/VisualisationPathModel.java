@@ -126,11 +126,7 @@ public class VisualisationPathModel {
 				GeometryEngine.project(secondCityCoordinate1,
 						   secondCityCoordinate2, 
 						   mapSR);
-		
-		Point middleLocation = GeometryEngine.project((firstCityCoordinate1+secondCityCoordinate1)/2,
-				(firstCityCoordinate2+secondCityCoordinate2)/2, 
-				   mapSR);
-		
+
 		 	Polyline polyline = new Polyline();
 		    polyline.startPath(firstCityLocation);
 		    polyline.lineTo(secondCityLocation);
@@ -147,7 +143,7 @@ public class VisualisationPathModel {
 		    tang =   Math.abs((firstCityCoordinate1 - secondCityCoordinate1)) / Math.abs((firstCityCoordinate2 - secondCityCoordinate2));
 		    degrees = Math.toDegrees(Math.atan(tang));
 		    
-		    degrees -= 0.5*degrees;
+		    //degrees -= 0.5*degrees;
 		    }
 		    else if (secondCityCoordinate1 > firstCityCoordinate1 && secondCityCoordinate2 < firstCityCoordinate2)
 		    {
@@ -181,7 +177,7 @@ public class VisualisationPathModel {
 		graphicsLayer.addGraphic(new Graphic(firstCityLocation, symbol1));
 		graphicsLayer.addGraphic(new Graphic(secondCityLocation, symbol2));
 		graphicsLayer.addGraphic(new Graphic(polyline, symbol));
-		 graphicsLayer.addGraphic(new Graphic(middleLocation, blackTriangle));
+		 graphicsLayer.addGraphic(new Graphic(secondCityLocation, blackTriangle));
 
 		addCityToPath("Gdañsk");
 	}
@@ -224,10 +220,6 @@ public class VisualisationPathModel {
 						secondCityCoordinate2, 
 						   mapSR);
 		
-		Point middleLocation = GeometryEngine.project((firstCityCoordinate1+secondCityCoordinate1)/2,
-				(firstCityCoordinate2+secondCityCoordinate2)/2, 
-				   mapSR);
-		
 
 	    SimpleLineSymbol symbol = new SimpleLineSymbol(Color.blue, 4);
 	    symbol.setStyle(SimpleLineSymbol.Style.DASH);
@@ -241,7 +233,7 @@ public class VisualisationPathModel {
 	    tang =   Math.abs((firstCityCoordinate1 - secondCityCoordinate1)) / Math.abs((firstCityCoordinate2 - secondCityCoordinate2));
 	    degrees = Math.toDegrees(Math.atan(tang));
 	    
-	    degrees -= 0.5*degrees;
+	    //degrees -= 0.5*degrees;
 	    }
 	    else if (secondCityCoordinate1 > firstCityCoordinate1 && secondCityCoordinate2 < firstCityCoordinate2)
 	    {
@@ -278,7 +270,7 @@ public class VisualisationPathModel {
 	    
 	    graphicsLayer.addGraphic(new Graphic(secondCityLocation, symbol1));
 		graphicsLayer.addGraphic(new Graphic(polyline, symbol));
-		graphicsLayer.addGraphic(new Graphic(middleLocation, blackTriangle));
+		graphicsLayer.addGraphic(new Graphic(secondCityLocation, blackTriangle));
 	    
 		
 	}
