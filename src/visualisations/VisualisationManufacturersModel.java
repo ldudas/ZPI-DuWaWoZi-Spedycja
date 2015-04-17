@@ -21,7 +21,7 @@ public class VisualisationManufacturersModel
 	public JMap getMapWithVisualisationManufacturersInCity(final String cityName)
 	{
 		map = new VisualisationManufactureDecorator(cityName);
-	
+
 		return map;
 	}
 	

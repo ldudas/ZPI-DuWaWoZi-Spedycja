@@ -32,10 +32,14 @@ public class RoutePlanningPresenter
 	 */
 	public void showManufacturerInfo()
 	{
-		Map<String, Object> attributes = map_presenter.getIdOfSelectedManufacturers();
+		Map<String, Object> attributes = map_presenter.getAttributeOfSelectedManufacturers();
 
 		if( attributes != null )
+		{
+			map_presenter.clearSelection();
 			route_planning_view.show_manfacturerInfo(attributes);
+			
+		}
 		else
 			route_planning_view.show_ErrorMessage();			
 	}
@@ -52,6 +56,13 @@ public class RoutePlanningPresenter
 	public void send_city_name()
 	{
 		map_presenter.startManufacturersVisualisation(route_planning_view.city_to());
+	}
+	
+	public void send_nextCityNameAfterConfirm()
+	{
+		map_presenter.clearSelection();
+		map_presenter.startManufacturersVisualisation(route_planning_view.city_nextCityAfterComfirm());		
+		route_planning_view.changeTabOfMap();
 	}
 	
 	public RoutePlanningView return_view()

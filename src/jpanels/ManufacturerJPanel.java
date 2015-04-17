@@ -31,6 +31,7 @@ public class ManufacturerJPanel extends JPanel {
 		setLayout(null);
 		
 		man_to_textField = new JTextField();
+		man_to_textField.setText("Warszawa");
 		man_to_textField.setBounds(68, 54, 109, 20);
 		add(man_to_textField);
 		man_to_textField.setColumns(10);
@@ -61,7 +62,8 @@ public class ManufacturerJPanel extends JPanel {
 		man_confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				//Tu wywolanie metody zmieniajacej mape na inny obszar oraz dodanie 
+				presenter_ManufacturersVis.send_nextCityNameAfterConfirm();
+				presenter_ManufacturersVis.closeManufacturerInfo();
 			}
 		});
 		man_confirmButton.setBounds(24, 266, 109, 32);
@@ -107,7 +109,6 @@ public class ManufacturerJPanel extends JPanel {
 	 */
 	public void setInfoAboutManufacturerInToList( Map<String, Object> attr)
 	{ 
-			System.out.println("");
 			String [] details = new String [6];
 			details[0] = "Nazwa : " + attr.get("Nazwa: ");
 			details[1] = "Telefon : " + attr.get("Telefon: ");
@@ -119,6 +120,11 @@ public class ManufacturerJPanel extends JPanel {
 			man_list = new JList<String>(details);
 			man_list.setBounds(300, 78, 280, 140);
 			add(man_list);	
+	}
+	
+	public String getNextCityName()
+	{
+		return man_to_textField.getText();
 	}
 
 }

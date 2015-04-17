@@ -8,6 +8,8 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
+import com.esri.map.MapOverlay;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import interfaces.RoutePlanningPresenter;
 
@@ -37,7 +39,41 @@ public class VisualistaionManufacturersPresenter
 	public void startManufacturersVisualisation(final String cityName)
 	{
 		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
-		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName));
+		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
+	}
+	
+	public void clearSelection()
+	{
+		JMap map = model_ManufacturersVis.getMap();
+		LayerList layerlist = map.getLayers();
+
+		for( Layer layer : layerlist)
+		{
+
+			if( layer.getName().toString() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
+			{
+				GraphicsLayer graphic = (GraphicsLayer) layer;
+				graphic.clearSelection();
+				java.util.List<MapOverlay> list =  map.getMapOverlays();
+				System.out.println(list.size());
+				int i = 0;
+				for( MapOverlay elem : list)
+				{
+					if( elem.getName() == "Info")
+					{
+						System.out.println("Poszlo");
+
+						
+						return;
+					}
+					System.out.println("Cos");
+					i++;
+				}
+		
+			}
+			
+		}
+		map.getMapOverlays().clear();
 	}
 	
 	/**
@@ -45,10 +81,9 @@ public class VisualistaionManufacturersPresenter
 	 * @return Map<String, Object> atrybutyZaznaczonegoObiektu
 	 * @author Kamil Zimny
 	 */
-	public Map<String, Object> getIdOfSelectedManufacturers()
+	public Map<String, Object> getAttributeOfSelectedManufacturers()
 	{
 		JMap map = model_ManufacturersVis.getMap();
-
 		LayerList layerlist = map.getLayers();
 
 		int [] id_ofSelectedManufacturers = null;

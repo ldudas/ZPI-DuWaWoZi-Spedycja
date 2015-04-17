@@ -1,10 +1,14 @@
 package visualisations;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JComponent;
 
 import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.core.geometry.Envelope;
@@ -13,12 +17,20 @@ import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
+import com.esri.core.map.popup.PopupMediaInfo;
+import com.esri.core.map.popup.PopupMediaValue;
+import com.esri.core.map.popup.PopupMediaValue.VALUE_TYPE;
+import com.esri.core.portal.WebMapPopupInfo;
 import com.esri.core.symbol.SimpleMarkerSymbol;
+import com.esri.map.ArcGISFeatureLayer;
+import com.esri.map.ArcGISPopupInfo;
 import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
+import com.esri.map.popup.PopupMediaView;
+import com.esri.map.popup.PopupView;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
@@ -73,7 +85,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, cityName);
 			  // Reakcja na klikniecie myszy
 			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
-			  event.getMap().addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));		 
+			  event.getMap().addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));
 		  }
 
 		  @Override
@@ -102,7 +114,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 				
 				List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
 				for (Feature manufacturer : hitFeatures) 
-		        {	
+		        {	  
 					graphicsLayer.select( (int)manufacturer.getId());
 					graphicsLayer.setSelectionColor(Color.BLUE);		
 		        }
@@ -119,12 +131,14 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	 * @author Kamil Zimny
 	 */
 	private InfoPopupOverlay addResponseToMouseClickInfo(final GraphicsLayer graphicsLayer)
-	{
+	{		  
 		  final InfoPopupOverlay infoPopupOverlay = new InfoPopupOverlay(); 
+		  infoPopupOverlay.setName("Info");
 		  infoPopupOverlay.setPopupTitle("Dane producenta");
 		  infoPopupOverlay.addLayer(graphicsLayer);
 
 		  return infoPopupOverlay;
+		 
 	}
 	
 	/**
