@@ -1,21 +1,24 @@
-package views;
+package jpanels;
 
+import interfaces.RoutePlanningPresenter;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JList;
 import javax.swing.JButton;
 
-import presenters.PresenterManufacturersVisualisation;
+public class RouteJPanel extends JPanel {
 
-public class ViewManufacturersVisualisation_Route extends JPanel {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Create the panel.
 	 */
 	
-	private PresenterManufacturersVisualisation presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_ManufacturersVis;
 
-	public ViewManufacturersVisualisation_Route() {
+	public RouteJPanel() {
 		setLayout(null);
 		
 		JTabbedPane route_tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -32,7 +35,7 @@ public class ViewManufacturersVisualisation_Route extends JPanel {
 
 	}
 	
-	public void setPresenter(final PresenterManufacturersVisualisation presenter)
+	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_ManufacturersVis = presenter;
 	}
