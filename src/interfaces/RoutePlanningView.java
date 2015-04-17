@@ -119,6 +119,11 @@ public class RoutePlanningView
 		return start.get_city_to();
 	}
 	
+	public String city_from()
+	{
+		return start.get_city_from();
+	}
+	
 	public JFrame returnJFrame()
 	{
 		return frame;

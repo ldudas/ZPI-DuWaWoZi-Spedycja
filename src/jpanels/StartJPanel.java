@@ -1,6 +1,6 @@
 package jpanels;
 
-import interfaces.RoutePlanningPresenter;
+import interfaces.*;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -18,7 +18,7 @@ public class StartJPanel extends JPanel {
 	private JTextField start_to_textField;
 	private JTextField start_tripDate_textField;
 	private JTextField start_arrivalDate_textField;
-	private RoutePlanningPresenter presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_route_planning;
 	/**
 	 * Create the panel.
 	 */
@@ -66,7 +66,8 @@ public class StartJPanel extends JPanel {
 		start_okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				presenter_ManufacturersVis.changeView();
+				presenter_route_planning.changeView();
+				presenter_route_planning.createInitialPathMap();
 			}
 		});
 		start_okButton.setBounds(276, 160, 89, 23);
@@ -76,11 +77,15 @@ public class StartJPanel extends JPanel {
 	 
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
-		presenter_ManufacturersVis = presenter;
+		presenter_route_planning = presenter;
 	}
 	
 	public String get_city_to()
 	{
 		return start_to_textField.getText();
+	}
+	
+	public String get_city_from(){
+		return start_from_textField.getText();
 	}
 }

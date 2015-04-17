@@ -85,8 +85,18 @@ public class MapJPanel extends JPanel {
 				presenter_ManufacturersVis.showManufacturerInfo();
 			}
 		});
-		btn_chooseManufacturer.setBounds(132, 386, 132, 49);
+		btn_chooseManufacturer.setBounds(184, 390, 132, 49);
 		add(btn_chooseManufacturer);
+		
+		JButton btnPokaTras = new JButton("Poka\u017C tras\u0119");
+		btnPokaTras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				presenter_ManufacturersVis.showPathMap();
+			}
+		});
+		btnPokaTras.setBounds(184, 331, 132, 45);
+		add(btnPokaTras);
 
 	}
 	
