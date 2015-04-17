@@ -19,9 +19,9 @@ public class VisualistaionManufacturersView {
 		tab=tab_;
 	}
 	
-	public void add_map_to_tab(JMap mapka)
+	public void add_map_to_tab(JMap map, String cityName)
 	{
-		tab.addTab("Trasa",mapka);
+		tab.addTab(cityName,map);
 	}
 
 }

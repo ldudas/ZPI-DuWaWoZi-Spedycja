@@ -104,6 +104,16 @@ public class RoutePlanningView
 		manufacturer.setPresenter(route_planning_presenter);
 	}
 	
+	public void changeTabOfMap()
+	{
+		map.setCurrentTabOfMap();
+	}
+	
+	public String city_nextCityAfterComfirm()
+	{
+		return manufacturer.getNextCityName();
+	}
+	
 	public String city_to()
 	{
 		return start.get_city_to();

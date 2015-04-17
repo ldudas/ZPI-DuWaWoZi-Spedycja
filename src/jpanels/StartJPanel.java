@@ -80,7 +80,8 @@ public class StartJPanel extends JPanel {
 		presenter_route_planning = presenter;
 	}
 	
-	public String get_city_to(){
+	public String get_city_to()
+	{
 		return start_to_textField.getText();
 	}
 	

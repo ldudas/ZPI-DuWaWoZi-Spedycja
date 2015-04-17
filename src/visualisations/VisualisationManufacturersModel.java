@@ -1,5 +1,6 @@
 package visualisations;
 
+import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.map.JMap;
 
 
@@ -9,7 +10,7 @@ public class VisualisationManufacturersModel
 	private JMap map;
 	public VisualisationManufacturersModel()
 	{}
-	
+	VisualisationManufactureDecorator dec;
 		
 	/**
 	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
@@ -20,14 +21,16 @@ public class VisualisationManufacturersModel
 	 */
 	public JMap getMapWithVisualisationManufacturersInCity(final String cityName)
 	{
-		map = new VisualisationManufactureDecorator(cityName);
-	
+		dec = new VisualisationManufactureDecorator(cityName);
+
+		map =  dec;
 		return map;
 	}
 	
-	public void selectTheBestManufacturersInRange(int range)
+
+	public InfoPopupOverlay del()
 	{
-		
+		return dec.infoPopupOverlay;
 	}
 	
 	public JMap getMap()

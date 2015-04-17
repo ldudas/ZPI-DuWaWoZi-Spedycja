@@ -8,6 +8,12 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
+import com.esri.map.MapOverlay;
+
+import java.util.LinkedList;
+import java.util.List;
+
+
 
 import interfaces.RoutePlanningPresenter;
 
@@ -36,7 +42,41 @@ public class VisualistaionManufacturersPresenter
 	public void startManufacturersVisualisation(final String cityName)
 	{
 		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
-		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName));
+		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
+	}
+	
+	public void clearSelection()
+	{
+		JMap map = model_ManufacturersVis.getMap();
+		LayerList layerlist = map.getLayers();
+
+		for( Layer layer : layerlist)
+		{
+
+			if( layer.getName().toString() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
+			{
+				GraphicsLayer graphic = (GraphicsLayer) layer;
+				graphic.clearSelection();
+				List<MapOverlay> list =  map.getMapOverlays();
+				List<MapOverlay> n_list =  new LinkedList<MapOverlay>();
+				
+				System.out.println(list.size());
+				int i = 0;
+				
+				for( MapOverlay elem : list)
+				{
+					if( elem.getName() != "Info")
+					{
+						n_list.add(elem);
+					}
+				}
+				
+				
+		
+			}
+			
+		}
+		map.getMapOverlays().clear();
 	}
 	
 	/**
@@ -44,10 +84,9 @@ public class VisualistaionManufacturersPresenter
 	 * @return Map<String, Object> atrybutyZaznaczonegoObiektu
 	 * @author Kamil Zimny
 	 */
-	public Map<String, Object> getIdOfSelectedManufacturers()
+	public Map<String, Object> getAttributeOfSelectedManufacturers()
 	{
 		JMap map = model_ManufacturersVis.getMap();
-
 		LayerList layerlist = map.getLayers();
 
 		int [] id_ofSelectedManufacturers = null;

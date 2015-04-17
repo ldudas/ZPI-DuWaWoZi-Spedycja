@@ -109,4 +109,9 @@ public class MapJPanel extends JPanel {
 	{
 		return map_tabbedPane;
 	}
+	
+	public void setCurrentTabOfMap()
+	{
+		map_tabbedPane.setSelectedIndex(map_tabbedPane.getTabCount()-1);
+	}
 }
