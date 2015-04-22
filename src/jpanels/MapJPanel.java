@@ -30,7 +30,7 @@ public class MapJPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private RoutePlanningPresenter presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_route_planning;
 	private JTabbedPane map_tabbedPane;
 
 	public MapJPanel() 
@@ -82,27 +82,27 @@ public class MapJPanel extends JPanel {
 		btn_chooseManufacturer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				presenter_ManufacturersVis.showManufacturerInfo();
+				presenter_route_planning.showManufacturerInfo();
 			}
 		});
 		btn_chooseManufacturer.setBounds(184, 390, 132, 49);
 		add(btn_chooseManufacturer);
 		
-		JButton btnPokaTras = new JButton("Poka\u017C tras\u0119");
-		btnPokaTras.addActionListener(new ActionListener() {
+		JButton btnUsuOstatnie = new JButton("Usu\u0144 ostatnie");
+		btnUsuOstatnie.setBounds(227, 318, 89, 23);
+		add(btnUsuOstatnie);
+		btnUsuOstatnie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				presenter_ManufacturersVis.showPathMap();
+				presenter_route_planning.removeLastCity();
 			}
 		});
-		btnPokaTras.setBounds(184, 331, 132, 45);
-		add(btnPokaTras);
 
 	}
 	
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
-		presenter_ManufacturersVis = presenter;
+		presenter_route_planning = presenter;
 	}
 	
 	public JTabbedPane return_tab()

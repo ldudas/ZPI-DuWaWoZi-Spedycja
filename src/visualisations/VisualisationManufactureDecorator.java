@@ -1,10 +1,14 @@
 package visualisations;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JComponent;
 
 import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.core.geometry.Envelope;
@@ -13,13 +17,20 @@ import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
-import com.esri.core.renderer.SimpleRenderer;
+import com.esri.core.map.popup.PopupMediaInfo;
+import com.esri.core.map.popup.PopupMediaValue;
+import com.esri.core.map.popup.PopupMediaValue.VALUE_TYPE;
+import com.esri.core.portal.WebMapPopupInfo;
 import com.esri.core.symbol.SimpleMarkerSymbol;
+import com.esri.map.ArcGISFeatureLayer;
+import com.esri.map.ArcGISPopupInfo;
 import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
+import com.esri.map.popup.PopupMediaView;
+import com.esri.map.popup.PopupView;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
@@ -27,39 +38,21 @@ import com.esri.toolkit.overlays.HitTestOverlay;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectManufacturersVisualisation;
 
-
-public class VisualisationManufacturersModel 
-{	
-	private JMap map;
+public class VisualisationManufactureDecorator extends JMapDecorator
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
-	private SimpleMarkerSymbol symbol;
+	InfoPopupOverlay infoPopupOverlay;
 	
-	public VisualisationManufacturersModel()
+	public VisualisationManufactureDecorator(String cityName)
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		DAO_ManufacturersVis = factory.getDataAccessObjectManufacturersVisualisation();
-		
-	}
-		
-	/**
-	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
-	 * Na mape nanoszone sa obiekty w ktorych zawarte sa dane o producentach
-	 * ich aktywnosci i przydatnosci wyboru.
-	 * @return JMap
-	 * @author Kamil Zimny
-	 */
-	public JMap getMapWithVisualisationManufacturersInCity(final String cityName, VisualistaionManufacturersPresenter pres)
-	{
-		map = new JMap();
-		createMapWithVisualisationManufacturersInCity(cityName,pres);
-		return map;
-	}
-	
-	
-	public JMap getMap()
-	{
-		return map;
+		decorateMapWithVisualisationManufacturersInCity(cityName);
 	}
 	
 	
@@ -70,18 +63,17 @@ public class VisualisationManufacturersModel
 	 * @return JMap
 	 * @author Kamil Zimny
 	 */
-	private void createMapWithVisualisationManufacturersInCity(final String cityName,final VisualistaionManufacturersPresenter pres)
+	public void decorateMapWithVisualisationManufacturersInCity(final String cityName)
 	{				
 		ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer(
 				  "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
-		map.getLayers().add(tiledLayer);
+		this.getLayers().add(tiledLayer);
 		
 		final GraphicsLayer graphicsLayer = new GraphicsLayer();
-		graphicsLayer.setRenderer( new SimpleRenderer(symbol));		
 		graphicsLayer.setName("Manufacturers graphics");
-		map.getLayers().add(graphicsLayer);
+		this.getLayers().add(graphicsLayer);
 		
-		map.addMapEventListener(new MapEventListener() 
+		this.addMapEventListener(new MapEventListener() 
 		{
 
 		  @Override
@@ -93,8 +85,8 @@ public class VisualisationManufacturersModel
 			  // Dodaje producentow na mapie
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, cityName);
 			  // Reakcja na klikniecie myszy
-			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer,pres)); 
-			  //event.getMap().addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));
+			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
+			  event.getMap().addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));
 		  }
 
 		  @Override
@@ -111,7 +103,7 @@ public class VisualisationManufacturersModel
 	 * @return HitTestOverlay
 	 * @author Kamil Zimny
 	 */
-	private HitTestOverlay addResponseToMouseClick(final GraphicsLayer graphicsLayer,final VisualistaionManufacturersPresenter pres)
+	private HitTestOverlay addResponseToMouseClick(final GraphicsLayer graphicsLayer)
 	{
 		  final HitTestOverlay hitTestOverlay = new HitTestOverlay(graphicsLayer);
 		  hitTestOverlay.addHitTestListener(new HitTestListener() 
@@ -126,8 +118,7 @@ public class VisualisationManufacturersModel
 		        {	  
 					graphicsLayer.select( (int)manufacturer.getId());
 					graphicsLayer.setSelectionColor(Color.BLUE);
-					pres.showManufacturerInfo();
-
+					
 		        }
 									
 			}
@@ -141,7 +132,7 @@ public class VisualisationManufacturersModel
 	 * @return InfoPopupOverlay
 	 * @author Kamil Zimny
 	 */
-/*	private InfoPopupOverlay addResponseToMouseClickInfo(final GraphicsLayer graphicsLayer)
+	private InfoPopupOverlay addResponseToMouseClickInfo(final GraphicsLayer graphicsLayer)
 	{		  
 		  infoPopupOverlay = new InfoPopupOverlay(); 
 		  infoPopupOverlay.setName("Info");
@@ -150,7 +141,7 @@ public class VisualisationManufacturersModel
 
 		  return infoPopupOverlay;
 		 
-	}*/
+	}
 	
 	/**
 	 * Dodaje elementy wizualizacji dotyczace producentow, oraz dodaje wszystkie informacje 
@@ -173,7 +164,6 @@ public class VisualisationManufacturersModel
 			return;
 		//Obliczanie aktywnosci producentow
 		ArrayList<Double> activityOfManufacturers = evaluateActivityOfManufacturers(manufacturersData);
-		ArrayList<Double> sizeOfManufacturers = evaluateSizeOfManufacturers(manufacturersData);
 		 //dla kazdego producenta
 		for(int i=0 ; i<manufacturersData.size() ; i++)
 		{
@@ -188,9 +178,9 @@ public class VisualisationManufacturersModel
 			
 			//Wartosc aktywnosci
 			Color activityColor = new Color(255,activityOfManufacturers.get(i).intValue(),activityOfManufacturers.get(i).intValue());		
-			int sizeOfSymbol = sizeOfManufacturers.get(i).intValue(); //Jesli wielkosc tez bedzie parametrem wizualizacji bedzie sie zmieniac
+			int sizeOfSymbol = 30; //Jesli wielkosc tez bedzie parametrem wizualizacji bedzie sie zmieniac
 			
-			symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol, 
+			SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol, 
 											SimpleMarkerSymbol.Style.CIRCLE);
 			
 			Point manufacturerLocation = 
@@ -202,48 +192,6 @@ public class VisualisationManufacturersModel
 		}
 		
 	}
-	
-	/**
-	 * Metoda obliczajaca wielkosc kazdego producenta na podstawie danych pobranych z bazy.
-	 * @return ArrayList<Double> 
-	 * <br> Tablica wartosci obliczonych dla kazdego producenta.
-	 * @author Kamil Zimny
-	 */
-	private ArrayList<Double> evaluateSizeOfManufacturers(ArrayList<ArrayList<String>> manufacturersData)
-	{
-		int sizeValueOfTheBest = 50;
-		int sizeValueOfTheWorst = 20;
-		
-		ArrayList<Double> activityOfManufacturers = new ArrayList<Double>();
-		double theBestEvaluation = -1;
-		for(int i=0; i<manufacturersData.size() ; i++)
-		{
-			int numberOfOr = Integer.parseInt(manufacturersData.get(i).get(4));
-			double evaluationOfManufacturers = numberOfOr;
-			
-			if( evaluationOfManufacturers > theBestEvaluation)
-				theBestEvaluation = evaluationOfManufacturers;
-			
-			activityOfManufacturers.add( evaluationOfManufacturers ); 
-		}
-
-		for(int i=0; i<manufacturersData.size() ; i++)
-		{
-			double evaluationOfManufacturers;
-			if(activityOfManufacturers.get(i) ==  theBestEvaluation)
-				evaluationOfManufacturers = sizeValueOfTheBest;
-			else
-			{
-				evaluationOfManufacturers = activityOfManufacturers.get(i)/theBestEvaluation*sizeValueOfTheBest;
-				if(evaluationOfManufacturers <  sizeValueOfTheWorst )
-					evaluationOfManufacturers = sizeValueOfTheWorst ;
-			}
-				activityOfManufacturers.set(i,evaluationOfManufacturers);
-		}
-		return activityOfManufacturers;
-	}
-	
-	
 	
 	/**
 	 * Metoda obliczajaca aktywnosc kazdego producenta na podstawie danych pobranych z bazy.
@@ -260,9 +208,10 @@ public class VisualisationManufacturersModel
 		double theBestEvaluation = -1;
 		for(int i=0; i<manufacturersData.size() ; i++)
 		{
+			int numberOfOr = Integer.parseInt(manufacturersData.get(i).get(4));
 			double totalValue = Double.parseDouble(manufacturersData.get(i).get(5));
 			int totalD = Integer.parseInt(manufacturersData.get(i).get(6));
-			double evaluationOfManufacturers = totalValue/totalD;
+			double evaluationOfManufacturers = numberOfOr*totalValue/totalD;
 			
 			if( evaluationOfManufacturers > theBestEvaluation)
 				theBestEvaluation = evaluationOfManufacturers;
@@ -273,10 +222,10 @@ public class VisualisationManufacturersModel
 		for(int i=0; i<manufacturersData.size() ; i++)
 		{
 			double evaluationOfManufacturers;
-			if(activityOfManufacturers.get(i) ==  theBestEvaluation)
-				evaluationOfManufacturers = activityValueOfTheBest;
+			if(activityOfManufacturers.get(i) ==  activityValueOfTheBest)
+				evaluationOfManufacturers = 0;
 			else	
-				evaluationOfManufacturers = activityValueOfTheWorst - activityOfManufacturers.get(i)/theBestEvaluation*activityValueOfTheWorst;
+				evaluationOfManufacturers = activityValueOfTheWorst- activityOfManufacturers.get(i)/theBestEvaluation*activityValueOfTheWorst;
 			activityOfManufacturers.set(i,evaluationOfManufacturers);
 		}
 		return activityOfManufacturers;
@@ -326,8 +275,6 @@ public class VisualisationManufacturersModel
 	    
 	    return result;
 	}
-	
-	 
 
-	
+
 }

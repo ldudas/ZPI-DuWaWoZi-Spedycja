@@ -28,7 +28,6 @@ public class VisualistaionManufacturersPresenter
 	{
 		model_ManufacturersVis = model;
 		view_ManufacturersVis = view;
-		
 	}
 	
 	public void set_route_presenter(final RoutePlanningPresenter presenter)
@@ -42,8 +41,13 @@ public class VisualistaionManufacturersPresenter
 	 */
 	public void startManufacturersVisualisation(final String cityName)
 	{
+<<<<<<< HEAD
 		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName,this),cityName);
+=======
+		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMapJPanel().return_tab());
+		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
+>>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 	}
 	
 	public void clearSelection()
@@ -81,12 +85,16 @@ public class VisualistaionManufacturersPresenter
 			}
 			
 		}
+<<<<<<< HEAD
 
 	}
 	
 	public void showManufacturerInfo()
 	{
 		route_planning_presenter.showManufacturerInfo();
+=======
+		//map.getMapOverlays().clear();
+>>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 	}
 	
 	/**
