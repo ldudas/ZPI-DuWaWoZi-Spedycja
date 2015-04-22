@@ -43,7 +43,7 @@ public class VisualistaionManufacturersPresenter
 	public void startManufacturersVisualisation(final String cityName)
 	{
 		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
-		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
+		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName,this),cityName);
 	}
 	
 	public void clearSelection()
@@ -58,26 +58,35 @@ public class VisualistaionManufacturersPresenter
 			{
 				GraphicsLayer graphic = (GraphicsLayer) layer;
 				graphic.clearSelection();
-				List<MapOverlay> list =  map.getMapOverlays();
-				List<MapOverlay> n_list =  new LinkedList<MapOverlay>();
 				
-				System.out.println(list.size());
+				List<MapOverlay> list =  map.getMapOverlays();
+			
 				int i = 0;
 				
 				for( MapOverlay elem : list)
 				{
-					if( elem.getName() != "Info")
+					
+					if( elem.getName() == "Info")
 					{
-						n_list.add(elem);
+						break;
 					}
+					i++;
 				}
 				
-				
+				//map.removeMapOverlay(i);
+				//map.refreshMapTips();
+				//map.updateUI();
+				graphic.select(0);
 		
 			}
 			
 		}
-		map.getMapOverlays().clear();
+
+	}
+	
+	public void showManufacturerInfo()
+	{
+		route_planning_presenter.showManufacturerInfo();
 	}
 	
 	/**
@@ -94,7 +103,7 @@ public class VisualistaionManufacturersPresenter
 		Map<String, Object> attributes = null;
 		for( Layer layer : layerlist)
 		{
-			if( layer.getName().toString() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
+			if( layer.getName() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
 			{
 				id_ofSelectedManufacturers = ((GraphicsLayer) layer).getSelectionIDs(); //pobieramy indeksy zaznaczonych obiektow
 				

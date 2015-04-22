@@ -37,13 +37,10 @@ public class RoutePlanningPresenter
 		Map<String, Object> attributes = map_presenter.getAttributeOfSelectedManufacturers();
 
 		if( attributes != null )
-		{
-			map_presenter.clearSelection();
 			route_planning_view.show_manfacturerInfo(attributes);
-			
-		}
+
 		else
-			route_planning_view.show_ErrorMessage();			
+			route_planning_view.show_ErrorMessage();		
 	}
 	
 	public void showPathMap()
@@ -67,7 +64,6 @@ public class RoutePlanningPresenter
 	
 	public void send_nextCityNameAfterConfirm()
 	{
-		map_presenter.clearSelection();
 		map_presenter.startManufacturersVisualisation(route_planning_view.city_nextCityAfterComfirm());		
 		route_planning_view.changeTabOfMap();
 	}
