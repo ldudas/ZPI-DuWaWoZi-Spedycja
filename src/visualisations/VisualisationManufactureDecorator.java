@@ -117,7 +117,8 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 				for (Feature manufacturer : hitFeatures) 
 		        {	  
 					graphicsLayer.select( (int)manufacturer.getId());
-					graphicsLayer.setSelectionColor(Color.BLUE);		
+					graphicsLayer.setSelectionColor(Color.BLUE);
+					
 		        }
 									
 			}

@@ -67,7 +67,11 @@ public class StartJPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				presenter_route_planning.changeView();
+				
+				//utworz wizualizacje w dwoma poczatkowymi miastami
 				presenter_route_planning.createInitialPathMap();
+				//pokaz wizualizaje trasy
+				presenter_route_planning.showPathMap();
 			}
 		});
 		start_okButton.setBounds(276, 160, 89, 23);

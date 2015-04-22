@@ -41,7 +41,7 @@ public class VisualistaionManufacturersPresenter
 	 */
 	public void startManufacturersVisualisation(final String cityName)
 	{
-		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
+		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMapJPanel().return_tab());
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
 	}
 	
@@ -76,7 +76,7 @@ public class VisualistaionManufacturersPresenter
 			}
 			
 		}
-		map.getMapOverlays().clear();
+		//map.getMapOverlays().clear();
 	}
 	
 	/**
