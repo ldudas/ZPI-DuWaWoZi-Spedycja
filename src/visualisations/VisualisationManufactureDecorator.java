@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 
+import jpanels.DiscriptionOnMapJPanel;
+
 import com.esri.client.toolkit.overlays.InfoPopupOverlay;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
@@ -21,6 +23,7 @@ import com.esri.core.map.popup.PopupMediaInfo;
 import com.esri.core.map.popup.PopupMediaValue;
 import com.esri.core.map.popup.PopupMediaValue.VALUE_TYPE;
 import com.esri.core.portal.WebMapPopupInfo;
+import com.esri.core.renderer.SimpleRenderer;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.ArcGISFeatureLayer;
 import com.esri.map.ArcGISPopupInfo;
@@ -46,13 +49,16 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	private static final long serialVersionUID = 1L;
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
-	InfoPopupOverlay infoPopupOverlay;
+	private SimpleMarkerSymbol symbol;
+	private DiscriptionOnMapJPanel discription;
 	
 	public VisualisationManufactureDecorator(String cityName)
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		DAO_ManufacturersVis = factory.getDataAccessObjectManufacturersVisualisation();
 		decorateMapWithVisualisationManufacturersInCity(cityName);
+		discription = new DiscriptionOnMapJPanel();
+		add(discription);
 	}
 	
 	
@@ -70,6 +76,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		this.getLayers().add(tiledLayer);
 		
 		final GraphicsLayer graphicsLayer = new GraphicsLayer();
+		graphicsLayer.setRenderer(new SimpleRenderer(symbol));
 		graphicsLayer.setName("Manufacturers graphics");
 		this.getLayers().add(graphicsLayer);
 		
@@ -86,7 +93,6 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, cityName);
 			  // Reakcja na klikniecie myszy
 			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
-			  event.getMap().addMapOverlay(addResponseToMouseClickInfo(graphicsLayer));
 		  }
 
 		  @Override
@@ -107,41 +113,40 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	{
 		  final HitTestOverlay hitTestOverlay = new HitTestOverlay(graphicsLayer);
 		  hitTestOverlay.addHitTestListener(new HitTestListener() 
-		  {							
+		  {		
+			String NEW_LINE_SEP = System.getProperty("line.separator");
+			
 			@Override
 			public void featureHit(HitTestEvent arg0) 
 			{		
 				graphicsLayer.clearSelection();
-				
 				List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
+				
+				StringBuilder str = new StringBuilder();
+		        str.append("Zaznaczono producentów: " + hitFeatures.size());
+		        str.append(NEW_LINE_SEP);
+		        str.append(NEW_LINE_SEP);
+		        int index = 1;
+		        
 				for (Feature manufacturer : hitFeatures) 
 		        {	  
 					graphicsLayer.select( (int)manufacturer.getId());
 					graphicsLayer.setSelectionColor(Color.BLUE);
+			        str.append(index++ + ") ");
+			        // get the damaged place name value from the graphic
+			        str.append(manufacturer.getAttributeValue("Nazwa: "));
+			        str.append(NEW_LINE_SEP);
+					
 					
 		        }
+				discription.getDiscriptionArea().setText("");
+				discription.getDiscriptionArea().setText(str.toString());
 									
 			}
 		  });
 		  return hitTestOverlay;
 	}
 	
-	/**
-	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
-	 * czyli wszystkie obiekty.
-	 * @return InfoPopupOverlay
-	 * @author Kamil Zimny
-	 */
-	private InfoPopupOverlay addResponseToMouseClickInfo(final GraphicsLayer graphicsLayer)
-	{		  
-		  infoPopupOverlay = new InfoPopupOverlay(); 
-		  infoPopupOverlay.setName("Info");
-		  infoPopupOverlay.setPopupTitle("Dane producenta");
-		  infoPopupOverlay.addLayer(graphicsLayer);
-
-		  return infoPopupOverlay;
-		 
-	}
 	
 	/**
 	 * Dodaje elementy wizualizacji dotyczace producentow, oraz dodaje wszystkie informacje 
@@ -180,7 +185,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			Color activityColor = new Color(255,activityOfManufacturers.get(i).intValue(),activityOfManufacturers.get(i).intValue());		
 			int sizeOfSymbol = 30; //Jesli wielkosc tez bedzie parametrem wizualizacji bedzie sie zmieniac
 			
-			SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol, 
+			symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol, 
 											SimpleMarkerSymbol.Style.CIRCLE);
 			
 			Point manufacturerLocation = 
