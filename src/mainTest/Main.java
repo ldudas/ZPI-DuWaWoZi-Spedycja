@@ -20,19 +20,19 @@ public class Main
 			public void run() 
 			{
 				 VisualisationPathView view_path  = new VisualisationPathView();
-		          VisualisationPathPresenter pres_path = new VisualisationPathPresenter(view_path, new VisualisationPathModel());
+		          VisualisationPathPresenter presenter_path = new VisualisationPathPresenter(view_path, new VisualisationPathModel());
 				
-				
-				RoutePlanningView view = new RoutePlanningView();
-				VisualisationManufacturersModel v_model = new VisualisationManufacturersModel();
-				VisualistaionManufacturersView v_view = new VisualistaionManufacturersView();
-				VisualistaionManufacturersPresenter v_presenter = new VisualistaionManufacturersPresenter(v_view,v_model);
-				RoutePlanningPresenter presenter = 
-						new RoutePlanningPresenter(view, new RoutePlanningModel(),v_presenter,pres_path);
-				v_presenter.set_route_presenter(presenter);
-				view.setPresenter(presenter);
-				view.setPresenters();
-				view.returnJFrame().setVisible(true);
+				RoutePlanningView view_route = new RoutePlanningView();
+				VisualisationManufacturersModel model_man = new VisualisationManufacturersModel();
+				VisualistaionManufacturersView view_man = new VisualistaionManufacturersView();
+				VisualistaionManufacturersPresenter presenter_man = new VisualistaionManufacturersPresenter(view_man,model_man);
+				RoutePlanningPresenter presenter_route = 
+						new RoutePlanningPresenter(view_route, new RoutePlanningModel(),presenter_man,presenter_path);
+				presenter_man.set_route_presenter(presenter_route);
+				presenter_path.set_route_presenter(presenter_route);
+				view_route.setPresenter(presenter_route);
+				view_route.setPresenters();
+				view_route.returnJFrame().setVisible(true);
 			}
 		});
 

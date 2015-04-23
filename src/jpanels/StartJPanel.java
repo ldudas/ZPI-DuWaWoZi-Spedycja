@@ -67,7 +67,11 @@ public class StartJPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				presenter_route_planning.changeView();
+				
+				//utworz wizualizacje w dwoma poczatkowymi miastami
 				presenter_route_planning.createInitialPathMap();
+				//pokaz wizualizaje trasy
+				presenter_route_planning.showPathMap();
 			}
 		});
 		start_okButton.setBounds(276, 160, 89, 23);
@@ -80,7 +84,8 @@ public class StartJPanel extends JPanel {
 		presenter_route_planning = presenter;
 	}
 	
-	public String get_city_to(){
+	public String get_city_to()
+	{
 		return start_to_textField.getText();
 	}
 	

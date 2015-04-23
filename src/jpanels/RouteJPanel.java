@@ -26,7 +26,7 @@ public class RouteJPanel extends JPanel {
 		add(route_tabbedPane);
 		
 		JList route_list = new JList();
-		route_list.setBounds(87, 45, 200, 50);
+		route_list.setBounds(87, 45, 200, 76);
 		add(route_list);
 		
 		JButton route_saveButton = new JButton("Zapisz tras\u0119");

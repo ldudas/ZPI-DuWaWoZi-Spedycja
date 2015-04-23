@@ -15,10 +15,10 @@ public class RoutePlanningView
 {
 	private RoutePlanningPresenter route_planning_presenter;
 	private JFrame frame;
-	private RouteJPanel route;
-	private MapJPanel map;
-	private StartJPanel start;
-	private ManufacturerJPanel manufacturer;
+	private RouteJPanel routeJPanel;
+	private MapJPanel mapJPanel;
+	private StartJPanel startJPanel;
+	private ManufacturerJPanel manufacturerJPanel;
 	
 	
 	private JFrame manufacturerFrame;
@@ -37,11 +37,11 @@ public class RoutePlanningView
 		frame = new JFrame();
 		frame.setBounds(100, 100, 650, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		route = new RouteJPanel();
-		map = new MapJPanel();
-		start = new StartJPanel();
-		manufacturer = new ManufacturerJPanel();
-		frame.add(start);
+		routeJPanel = new RouteJPanel();
+		mapJPanel = new MapJPanel();
+		startJPanel = new StartJPanel();
+		manufacturerJPanel = new ManufacturerJPanel();
+		frame.add(startJPanel);
 	}
 	 
 	/**
@@ -55,9 +55,9 @@ public class RoutePlanningView
 	
 	public void change_start_to_map()
 	{
-		frame.remove(start);
+		frame.remove(startJPanel);
 		frame.setBounds(50, 50, 1120, 600);
-		frame.add(map);
+		frame.add(mapJPanel);
 		frame.invalidate();
 		frame.validate();
 	}
@@ -72,8 +72,8 @@ public class RoutePlanningView
 		manufacturerFrame.setBounds(100, 100, 650, 500);
 		manufacturerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		manufacturer.setInfoAboutManufacturerInToList(attributes);
-		manufacturerFrame.add(manufacturer);
+		manufacturerJPanel.setInfoAboutManufacturerInToList(attributes);
+		manufacturerFrame.add(manufacturerJPanel);
 		manufacturerFrame.setVisible(true);
 		
 	}
@@ -98,20 +98,30 @@ public class RoutePlanningView
 	
 	public void setPresenters()
 	{
-		start.setPresenter(route_planning_presenter);
-		map.setPresenter(route_planning_presenter);
-		route.setPresenter(route_planning_presenter);
-		manufacturer.setPresenter(route_planning_presenter);
+		startJPanel.setPresenter(route_planning_presenter);
+		mapJPanel.setPresenter(route_planning_presenter);
+		routeJPanel.setPresenter(route_planning_presenter);
+		manufacturerJPanel.setPresenter(route_planning_presenter);
+	}
+	
+	public void changeTabOfMap()
+	{
+		mapJPanel.setCurrentTabOfMap();
+	}
+	
+	public String city_nextCityAfterComfirm()
+	{
+		return manufacturerJPanel.getNextCityName();
 	}
 	
 	public String city_to()
 	{
-		return start.get_city_to();
+		return startJPanel.get_city_to();
 	}
 	
 	public String city_from()
 	{
-		return start.get_city_from();
+		return startJPanel.get_city_from();
 	}
 	
 	public JFrame returnJFrame()
@@ -119,19 +129,19 @@ public class RoutePlanningView
 		return frame;
 	}
 	
-	public RouteJPanel returnRoute(){
-		return route;
+	public RouteJPanel returnRouteJPanel(){
+		return routeJPanel;
 		}
 	
-	public MapJPanel returnMap(){
-		return map;
+	public MapJPanel returnMapJPanel(){
+		return mapJPanel;
 		}
 	
-	public StartJPanel returnStart(){
-		return start;
+	public StartJPanel returnStartJPanel(){
+		return startJPanel;
 		}
 	
-	public ManufacturerJPanel returnManufacturer(){
-		return manufacturer;
+	public ManufacturerJPanel returnManufacturerJPanel(){
+		return manufacturerJPanel;
 		}
 	}
