@@ -42,13 +42,15 @@ public class RoutePlanningPresenter
 		Map<String, Object> attributes = manu_presenter.getAttributeOfSelectedManufacturers();
 
 		if( attributes != null )
+<<<<<<< HEAD
+=======
 		{
 			manu_presenter.clearSelection();
+>>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 			route_planning_view.show_manfacturerInfo(attributes);
-			
-		}
+
 		else
-			route_planning_view.show_ErrorMessage();			
+			route_planning_view.show_ErrorMessage();		
 	}
 	
 	public void removeLastCity()
@@ -86,8 +88,12 @@ public class RoutePlanningPresenter
 	
 	public void send_nextCityNameAfterConfirm()
 	{
+<<<<<<< HEAD
+		map_presenter.startManufacturersVisualisation(route_planning_view.city_nextCityAfterComfirm());		
+=======
 		manu_presenter.clearSelection();
 		manu_presenter.startManufacturersVisualisation(route_planning_view.city_nextCityAfterComfirm());		
+>>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 		route_planning_view.changeTabOfMap();
 	}
 	

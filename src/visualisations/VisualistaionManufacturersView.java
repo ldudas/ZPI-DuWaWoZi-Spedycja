@@ -21,6 +21,7 @@ public class VisualistaionManufacturersView {
 	
 	public void add_map_to_tab(JMap map, String cityName)
 	{
+		tab.removeAll();
 		tab.addTab(cityName,map);
 	}
 

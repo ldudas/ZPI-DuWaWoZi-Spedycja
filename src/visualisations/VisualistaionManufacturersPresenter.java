@@ -41,8 +41,13 @@ public class VisualistaionManufacturersPresenter
 	 */
 	public void startManufacturersVisualisation(final String cityName)
 	{
+<<<<<<< HEAD
+		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
+		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName,this),cityName);
+=======
 		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMapJPanel().return_tab());
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
+>>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 	}
 	
 	public void clearSelection()
@@ -57,26 +62,39 @@ public class VisualistaionManufacturersPresenter
 			{
 				GraphicsLayer graphic = (GraphicsLayer) layer;
 				graphic.clearSelection();
-				List<MapOverlay> list =  map.getMapOverlays();
-				List<MapOverlay> n_list =  new LinkedList<MapOverlay>();
 				
-				System.out.println(list.size());
+				List<MapOverlay> list =  map.getMapOverlays();
+			
 				int i = 0;
 				
 				for( MapOverlay elem : list)
 				{
-					if( elem.getName() != "Info")
+					
+					if( elem.getName() == "Info")
 					{
-						n_list.add(elem);
+						break;
 					}
+					i++;
 				}
 				
-				
+				//map.removeMapOverlay(i);
+				//map.refreshMapTips();
+				//map.updateUI();
+				graphic.select(0);
 		
 			}
 			
 		}
+<<<<<<< HEAD
+
+	}
+	
+	public void showManufacturerInfo()
+	{
+		route_planning_presenter.showManufacturerInfo();
+=======
 		//map.getMapOverlays().clear();
+>>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 	}
 	
 	/**
@@ -93,7 +111,7 @@ public class VisualistaionManufacturersPresenter
 		Map<String, Object> attributes = null;
 		for( Layer layer : layerlist)
 		{
-			if( layer.getName().toString() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
+			if( layer.getName() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
 			{
 				id_ofSelectedManufacturers = ((GraphicsLayer) layer).getSelectionIDs(); //pobieramy indeksy zaznaczonych obiektow
 				
