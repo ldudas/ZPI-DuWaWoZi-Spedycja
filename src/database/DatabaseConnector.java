@@ -22,7 +22,7 @@ public class DatabaseConnector
 	
 	public DatabaseConnector()
 	{
-		database_urlConnector = "jdbc:mysql://powerfulyy.nazwa.pl:3307/powerfulyy?user=powerfulyy&password=qwePOI12";
+		database_urlConnector = "jdbc:mysql://powerful.nazwa.pl:3307/powerful?user=powerful&password=qweDSA12";
 		database_Connector = null;
 	}
 	
@@ -40,6 +40,7 @@ public class DatabaseConnector
 	 *  <br>res.get(i).get(j) -> j-ta kolumna w i-tym wierszu 
 	 *  @author Kamil Zimny
 	 */
+	@SuppressWarnings("finally")
 	public ArrayList<ArrayList<Object>> getResultOfMySqlQuery(final String mySqlQuery,final int numberOfResultColumns) 
 			throws DatabaseConnectionExeption
 	{
@@ -49,12 +50,13 @@ public class DatabaseConnector
 			throw new DatabaseConnectionExeption("Blad: Brak polaczenia z z baza danych.");
 		
 		ResultSet resultOfQuery = null;
+		Statement statment = null;
 		ArrayList<ArrayList<Object>> queryResult = new ArrayList<ArrayList<Object>>();
 		
 		try 
         {		
             Class.forName("com.mysql.jdbc.Driver");
-            Statement statment = database_Connector.createStatement();
+            statment = database_Connector.createStatement();
 			resultOfQuery = statment.executeQuery(mySqlQuery);
 			int indexOfnextArray = 0;
 			
@@ -65,16 +67,19 @@ public class DatabaseConnector
 				   queryResult.get(indexOfnextArray).add(resultOfQuery.getObject(i));
 			   indexOfnextArray++;	   
 			}
-			
-			if( !closeConnectToDatabase() )
-				throw new DatabaseConnectionExeption("Blad: Nie udalo sie zakonczyc polaczenia z baza danych.");
-					
-			return queryResult ;
+			statment.close();
+
 		} 		
 		catch (SQLException | ClassNotFoundException e) 
 		{
 			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
 		}	
+		finally
+		{			
+			if( !closeConnectToDatabase() )
+				throw new DatabaseConnectionExeption("Blad: Nie udalo sie zakonczyc polaczenia z baza danych.");
+			return queryResult ;
+		}
 	}
 			
 	/**

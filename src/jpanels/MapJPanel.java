@@ -2,116 +2,87 @@ package jpanels;
 
 import interfaces.RoutePlanningPresenter;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
-import com.esri.map.JMap;
+import java.awt.Color;
 
-import javax.swing.JButton;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import dataModels.Order;
 
 
-public class MapJPanel extends JPanel {
-	
-	/**
-	 * 
-	 */
+public class MapJPanel extends JComponent 
+{
+
 	private static final long serialVersionUID = 1L;
-
-	private JTextField map_count_textField;
 
 	/**
 	 * Create the panel.
 	 */
 	
-	private RoutePlanningPresenter presenter_route_planning;
+	private ManufacturerManagementJPanel man_managmentJPanel;
+	private PathManagementJPanel path__managmentJPanel;
+	
 	private JTabbedPane map_tabbedPane;
+	private RoutePlanningPresenter presenter_route_planning;
 
 	public MapJPanel() 
 	{
+		setForeground(Color.WHITE);
+		setBackground(Color.RED);
 		setLayout(null);
 		
+		man_managmentJPanel = new ManufacturerManagementJPanel();
+		man_managmentJPanel.setBounds(45, 21, 341, 458);
+		add(man_managmentJPanel);
+		
+		path__managmentJPanel = new PathManagementJPanel();
+		path__managmentJPanel .setBounds(10, 30, 380, 458);
+		add( path__managmentJPanel );
+		path__managmentJPanel.setVisible(false);
+		
 		map_tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		map_tabbedPane.setBounds(361, 45, 700, 480);
+		map_tabbedPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) 
+			{
+				presenter_route_planning.tabChanged();
+			}
+		});
+		map_tabbedPane.setBounds(396, 40, 700, 480);
 		add(map_tabbedPane);
-		
-		JLabel lblPoka = new JLabel("Poka\u017C");
-		lblPoka.setBounds(59, 59, 39, 14);
-		add(lblPoka);
-		
-		map_count_textField = new JTextField();
-		map_count_textField.setBounds(132, 56, 19, 20);
-		add(map_count_textField);
-		map_count_textField.setColumns(10);
-		
-		JLabel lblNajbardziejAktywnych = new JLabel("najbardziej aktywnych");
-		lblNajbardziejAktywnych.setBounds(156, 59, 132, 14);
-		add(lblNajbardziejAktywnych);
-		
-		JLabel lblOkres = new JLabel("Okres");
-		lblOkres.setBounds(59, 87, 46, 14);
-		add(lblOkres);
-		
-		JComboBox map_period_comboBox = new JComboBox();
-		map_period_comboBox.setBounds(132, 84, 132, 20);
-		add(map_period_comboBox);
-		
-		JLabel lblJednostka = new JLabel("Jednostka");
-		lblJednostka.setBounds(59, 119, 62, 14);
-		add(lblJednostka);
-		
-		JComboBox map_unit_comboBox = new JComboBox();
-		map_unit_comboBox.setBounds(132, 116, 132, 20);
-		add(map_unit_comboBox);
-		
-		JLabel lblNewLabel = new JLabel("Liczba");
-		lblNewLabel.setBounds(59, 153, 46, 14);
-		add(lblNewLabel);
-		
-		JComboBox map_count_comboBox = new JComboBox();
-		map_count_comboBox.setBounds(132, 147, 132, 20);
-		add(map_count_comboBox);
-		
-		JButton btn_chooseManufacturer = new JButton("Wybierz");
-		btn_chooseManufacturer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				presenter_route_planning.showManufacturerInfo();
-			}
-		});
-		btn_chooseManufacturer.setBounds(184, 390, 132, 49);
-		add(btn_chooseManufacturer);
-		
-		JButton btnUsuOstatnie = new JButton("Usu\u0144 ostatnie");
-		btnUsuOstatnie.setBounds(227, 318, 89, 23);
-		add(btnUsuOstatnie);
-		btnUsuOstatnie.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				presenter_route_planning.removeLastCity();
-			}
-		});
-
 	}
 	
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_route_planning = presenter;
+		man_managmentJPanel.setPresenter(presenter);
+		path__managmentJPanel.setPresenter(presenter);
 	}
 	
-	public JTabbedPane return_tab()
+	public JTabbedPane getTabWithMaps()
 	{
 		return map_tabbedPane;
+	}
+	
+	public ManufacturerManagementJPanel getManufacturerManagementJPanel()
+	{
+		return man_managmentJPanel;
+	}
+	
+	public PathManagementJPanel getPathManagementJPanel()
+	{
+		return path__managmentJPanel;
 	}
 	
 	public void setCurrentTabOfMap()
 	{
 		map_tabbedPane.setSelectedIndex(map_tabbedPane.getTabCount()-1);
+	}
+	
+	public void addOrderToMap(final Order order)
+	{
+		path__managmentJPanel.addOrderToTab(order);
 	}
 }

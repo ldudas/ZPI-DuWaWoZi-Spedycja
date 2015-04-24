@@ -51,6 +51,7 @@ public class EvaluatorOfManufacturers
 		}
 	}
 	
+	
 	/**
 	 * Metoda obliczajaca awielkosc kazdego producenta na podstawie danych pobranych z bazy.
 	 * @return ArrayList<Double> 
@@ -78,7 +79,7 @@ public class EvaluatorOfManufacturers
 		for(int i=0; i<manufacturers.size() ; i++)
 		{
 			double evaluationOfManufacturers;
-			if(sizesOfManufacturers.get(i).equals(theBestEvaluation) )
+			if(sizesOfManufacturers.get(i).equals( theBestEvaluation) )
 				evaluationOfManufacturers = sizeValueOfTheBest;
 			else	
 			{

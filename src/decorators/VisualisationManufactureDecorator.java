@@ -35,6 +35,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings("unused")
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
 	private final static int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;

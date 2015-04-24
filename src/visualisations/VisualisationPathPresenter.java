@@ -1,5 +1,6 @@
 package visualisations;
 
+import dataModels.City;
 import interfaces.RoutePlanningPresenter;
 
 public class VisualisationPathPresenter {
@@ -57,12 +58,18 @@ public class VisualisationPathPresenter {
 	 */
 	public void startPathVisualisation()
 	{
-		view_PathVis.set_tab(route_planning_presenter.return_view().returnMapJPanel().return_tab());
+		view_PathVis.set_tab(route_planning_presenter.return_view().getMapJPanel().getTabWithMaps());
 		view_PathVis.add_map_to_tab(model_PathVis.getPathMap());
 	}
 	
 	public void removeLastCity(){
 		model_PathVis.removeLastCityFormPath();
 	}
+	
+	public void addCityToPath(City city)
+	{
+		model_PathVis.addCityToPath(city.getCityName());
+	}
+	
 
 }

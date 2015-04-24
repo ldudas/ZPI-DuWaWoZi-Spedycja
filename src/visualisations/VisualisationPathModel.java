@@ -16,7 +16,7 @@ import com.esri.map.JMap;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
 
-import dataModel.City;
+import dataModels.City;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectPathVisualisation;
 
@@ -256,8 +256,8 @@ public class VisualisationPathModel {
 		
 		
 		//pobierz jego wspolrzedne
-		double firstCityCoordinate1 = city_from.getFirstCordiante();
-		double firstCityCoordinate2 = city_from.getSecondCordiante();
+		double firstCityCoordinate1 = city_from.getLatitude();
+		double firstCityCoordinate2 = city_from.getLongtitude();
 	
 		//z wspolrzednych jako double utworz obiekty Ponit
 		Point firstCityLocation = GeometryEngine.project(firstCityCoordinate1, firstCityCoordinate2, mapSR);

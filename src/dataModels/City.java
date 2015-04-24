@@ -1,16 +1,17 @@
-package dataModel;
+package dataModels;
 
-public class City {
+public class City 
+{
 
 	private String city_name;
-	double cor_1;
-	double cor_2;
+	double latitude;
+	double longtitude;
 	
-	public City(String city_name, double cor_1, double cor_2)
+	public City(String city_name, double latitude, double longtitude)
 	{
-		this.city_name=city_name;
-		this.cor_1=cor_1;
-		this.cor_2=cor_2;
+		this.city_name = city_name;
+		this.latitude = latitude;
+		this.longtitude = longtitude;
 	}
 	
 	public String getCityName()
@@ -18,20 +19,24 @@ public class City {
 		return city_name;
 	}
 	
-	public double getFirstCordiante()
+	public double getLatitude()
 	{
-		return cor_1;
+		return latitude;
 	}
 	
-	public double getSecondCordiante()
+	public double getLongtitude()
 	{
-		return cor_2;
+		return longtitude;
 	}
 	
-	@Override
-	public boolean equals(Object o)
+	public void test()
 	{
-		return ((City) o).getCityName().equals(city_name);
+		
+	}
+	
+	public boolean isEquals(City city)
+	{
+		return ( city != null ) ? city.city_name.equals(city_name) : false;
 	}
 	
 }

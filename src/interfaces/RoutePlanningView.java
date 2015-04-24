@@ -1,13 +1,12 @@
 package interfaces;
 
-import java.util.Map;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import dataModels.Manufacturer;
+import dataModels.Order;
 import jpanels.ManufacturerJPanel;
 import jpanels.MapJPanel;
-import jpanels.RouteJPanel;
 import jpanels.StartJPanel;
 
 
@@ -15,11 +14,9 @@ public class RoutePlanningView
 {
 	private RoutePlanningPresenter route_planning_presenter;
 	private JFrame frame;
-	private RouteJPanel routeJPanel;
 	private MapJPanel mapJPanel;
 	private StartJPanel startJPanel;
 	private ManufacturerJPanel manufacturerJPanel;
-	
 	
 	private JFrame manufacturerFrame;
 	/**
@@ -37,7 +34,6 @@ public class RoutePlanningView
 		frame = new JFrame();
 		frame.setBounds(100, 100, 650, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		routeJPanel = new RouteJPanel();
 		mapJPanel = new MapJPanel();
 		startJPanel = new StartJPanel();
 		manufacturerJPanel = new ManufacturerJPanel();
@@ -66,13 +62,13 @@ public class RoutePlanningView
 	 * Tworzy nowe okno z danymi producenta i opcjami które mo¿emy wykonaæ.
 	 * @author Kamil Zimny
 	 */
-	public void show_manfacturerInfo(Map<String, Object> attributes)
+	public void show_manfacturerInfo(Manufacturer manufacturer)
 	{
 		manufacturerFrame = new JFrame();
 		manufacturerFrame.setBounds(100, 100, 650, 500);
 		manufacturerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		manufacturerJPanel.setInfoAboutManufacturerInToList(attributes);
+		manufacturerJPanel.setInfoAboutManufacturerInToList(manufacturer);
 		manufacturerFrame.add(manufacturerJPanel);
 		manufacturerFrame.setVisible(true);
 		
@@ -100,13 +96,7 @@ public class RoutePlanningView
 	{
 		startJPanel.setPresenter(route_planning_presenter);
 		mapJPanel.setPresenter(route_planning_presenter);
-		routeJPanel.setPresenter(route_planning_presenter);
 		manufacturerJPanel.setPresenter(route_planning_presenter);
-	}
-	
-	public void changeTabOfMap()
-	{
-		mapJPanel.setCurrentTabOfMap();
 	}
 	
 	public String city_nextCityAfterComfirm()
@@ -124,24 +114,57 @@ public class RoutePlanningView
 		return startJPanel.get_city_from();
 	}
 	
-	public JFrame returnJFrame()
+	public String getStartDate()
+	{
+		return startJPanel.getStartDate();
+	}
+	
+	public String getFinishDate()
+	{
+		return startJPanel.getFinishDate();
+	}
+	
+	public String getNextStartDate()
+	{
+		return manufacturerJPanel.getStartDate();
+	}
+	
+	public String getNextFinishDate()
+	{
+		return manufacturerJPanel.getFinishDate();
+	}
+	
+	public String getNextCityTo()
+	{
+		return manufacturerJPanel.getNextCityName();
+	}
+	
+	public JFrame getJFrame()
 	{
 		return frame;
 	}
 	
-	public RouteJPanel returnRouteJPanel(){
-		return routeJPanel;
-		}
+	public String getNameOfNextCity()
+	{
+		return manufacturerJPanel.getNextCityName();
+	}
 	
-	public MapJPanel returnMapJPanel(){
+	
+	public MapJPanel getMapJPanel(){
 		return mapJPanel;
 		}
 	
-	public StartJPanel returnStartJPanel(){
+	public StartJPanel getStartJPanel(){
 		return startJPanel;
 		}
 	
-	public ManufacturerJPanel returnManufacturerJPanel(){
+	public ManufacturerJPanel getManufacturerJPanel(){
 		return manufacturerJPanel;
 		}
+	
+	public void addOrderToTab(final Order order)
+	{
+		mapJPanel.addOrderToMap(order);
+	}
+	
 	}
