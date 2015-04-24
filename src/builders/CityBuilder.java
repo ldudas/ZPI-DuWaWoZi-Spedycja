@@ -17,6 +17,4 @@ public class CityBuilder
 		return new City(name, converterCoordination.parseCoordinate(latitude),  converterCoordination.parseCoordinate(longtitude));
 	}
 	
-	
-	
 }
