@@ -27,11 +27,6 @@ private DatabaseConnector databaseConnector;
 			e.printStackTrace();
 		}
 		
-		/*if( resultOfQuery != null && resultOfQuery.size() > 0)
-		{
-			coordinates[0] = (String)resultOfQuery.get(0).get(0);
-			coordinates[1] = (String)resultOfQuery.get(0).get(1);
-		}*/
 		
 		return resultOfQuery;
 	}

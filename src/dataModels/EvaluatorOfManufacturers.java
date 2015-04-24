@@ -43,13 +43,14 @@ public class EvaluatorOfManufacturers
 		for(int i=0; i<manufacturers.size() ; i++)
 		{
 			double evaluationOfManufacturers;
-			if(activityOfManufacturers.get(i) ==  theBestEvaluation)
+			if(activityOfManufacturers.get(i).equals( theBestEvaluation )  )
 				evaluationOfManufacturers = activityValueOfTheBest;
 			else	
 				evaluationOfManufacturers = activityValueOfTheWorst - activityOfManufacturers.get(i)/theBestEvaluation*activityValueOfTheWorst;
 			manufacturers.get(i).setRankOfDailyProfit((int)evaluationOfManufacturers);
 		}
 	}
+	
 	
 	/**
 	 * Metoda obliczajaca awielkosc kazdego producenta na podstawie danych pobranych z bazy.
@@ -78,7 +79,7 @@ public class EvaluatorOfManufacturers
 		for(int i=0; i<manufacturers.size() ; i++)
 		{
 			double evaluationOfManufacturers;
-			if(sizesOfManufacturers.get(i) ==  theBestEvaluation)
+			if(sizesOfManufacturers.get(i).equals( theBestEvaluation) )
 				evaluationOfManufacturers = sizeValueOfTheBest;
 			else	
 			{

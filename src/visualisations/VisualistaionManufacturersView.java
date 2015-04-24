@@ -4,9 +4,10 @@ import javax.swing.JTabbedPane;
 
 import com.esri.map.JMap;
 
-public class VisualistaionManufacturersView {
+public class VisualistaionManufacturersView 
+{
 	
-	JTabbedPane tab;
+	private JTabbedPane tab;
 	
 	public VisualistaionManufacturersView()
 	{
@@ -21,8 +22,13 @@ public class VisualistaionManufacturersView {
 	
 	public void add_map_to_tab(JMap map, String cityName)
 	{
-		tab.removeAll();
-		tab.addTab(cityName,map);
+		if( tab.getTabCount() < 2 )
+			tab.addTab(cityName,map);
+		else			
+		{
+			tab.removeTabAt(0);
+			tab.insertTab(cityName, null, map, null, 0);
+		}
 	}
 
 }

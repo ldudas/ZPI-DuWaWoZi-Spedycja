@@ -1,20 +1,18 @@
 package visualisations;
 
 
+import java.awt.Color;
 import java.util.Map;
 
 import com.esri.core.map.Graphic;
+import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
-import com.esri.map.MapOverlay;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
-
+import dataModels.Manufacturer;
 import interfaces.RoutePlanningPresenter;
 
 public class VisualistaionManufacturersPresenter 
@@ -24,7 +22,7 @@ public class VisualistaionManufacturersPresenter
 	private VisualistaionManufacturersView view_ManufacturersVis;
 	private RoutePlanningPresenter route_planning_presenter;
 	
-	public VisualistaionManufacturersPresenter(final VisualistaionManufacturersView view,final VisualisationManufacturersModel model)
+	public VisualistaionManufacturersPresenter(final VisualistaionManufacturersView view, final VisualisationManufacturersModel model)
 	{
 		model_ManufacturersVis = model;
 		view_ManufacturersVis = view;
@@ -41,90 +39,70 @@ public class VisualistaionManufacturersPresenter
 	 */
 	public void startManufacturersVisualisation(final String cityName)
 	{
-<<<<<<< HEAD
-		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMap().return_tab());
-		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName,this),cityName);
-=======
-		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().returnMapJPanel().return_tab());
+		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().getMapJPanel().getTabWithMaps());
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
->>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
 	}
 	
-	public void clearSelection()
-	{
-		JMap map = model_ManufacturersVis.getMap();
-		LayerList layerlist = map.getLayers();
-
-		for( Layer layer : layerlist)
-		{
-
-			if( layer.getName().toString() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
-			{
-				GraphicsLayer graphic = (GraphicsLayer) layer;
-				graphic.clearSelection();
-				
-				List<MapOverlay> list =  map.getMapOverlays();
-			
-				int i = 0;
-				
-				for( MapOverlay elem : list)
-				{
-					
-					if( elem.getName() == "Info")
-					{
-						break;
-					}
-					i++;
-				}
-				
-				//map.removeMapOverlay(i);
-				//map.refreshMapTips();
-				//map.updateUI();
-				graphic.select(0);
-		
-			}
-			
-		}
-<<<<<<< HEAD
-
-	}
-	
-	public void showManufacturerInfo()
-	{
-		route_planning_presenter.showManufacturerInfo();
-=======
-		//map.getMapOverlays().clear();
->>>>>>> branch 'master' of https://github.com/ldudas/ZPI-DuWaWoZi-Spedycja.git
-	}
 	
 	/**
 	 * Metoda zwracajaca atrybuty charakteryzujace danego Producenta.
 	 * @return Map<String, Object> atrybutyZaznaczonegoObiektu
 	 * @author Kamil Zimny
 	 */
-	public Map<String, Object> getAttributeOfSelectedManufacturers()
+	public Manufacturer getAttributeOfSelectedManufacturers()
 	{
 		JMap map = model_ManufacturersVis.getMap();
 		LayerList layerlist = map.getLayers();
 
 		int [] id_ofSelectedManufacturers = null;
-		Map<String, Object> attributes = null;
+		Manufacturer manufacturer = null;
 		for( Layer layer : layerlist)
 		{
-			if( layer.getName() == "Manufacturers graphics" )//Znajdujemy odpowiedzni layer
+			if( layer.getName().toString().equals("Manufacturers graphics") )//Znajdujemy odpowiedzni layer
 			{
 				id_ofSelectedManufacturers = ((GraphicsLayer) layer).getSelectionIDs(); //pobieramy indeksy zaznaczonych obiektow
 				
 				if( id_ofSelectedManufacturers.length == 1 )//jesli zaznaczony tylko jeden obiekt to pobierz jego atrybuty
 				{
 					Graphic graphic = ((GraphicsLayer) layer).getGraphic(id_ofSelectedManufacturers[0]);
-					attributes = graphic.getAttributes();
+					Map<String, Object>  attributes = graphic.getAttributes();		
+					String ID = (String) attributes.get("ID");
+					manufacturer = model_ManufacturersVis.getManufacturerByID(ID);
 				}			
 				break;
 			}
+			
 		}
 		
-		return attributes;
+		return manufacturer;
+	}
+	
+	/**
+	 * Metoda ustawiajaca symbol na mapie na czarny krzyz oznaczajacy ze dany producent nie odpowiada naszym 
+	 * wymagania spedytora.
+	 * @author Kamil Zimny
+	 */
+	public void markAsUnsuitable()
+	{
+		JMap map = model_ManufacturersVis.getMap();
+		LayerList layerlist = map.getLayers();
+
+		for( Layer layer : layerlist)
+		{
+			if( layer.getName().toString().equals( "Manufacturers graphics" ) )//Znajdujemy odpowiedzni layer
+			{		
+				int idOfGraphic = ((GraphicsLayer) layer).getSelectionIDs()[0];
+				Graphic graphic = ((GraphicsLayer) layer).getGraphic( idOfGraphic );
+				SimpleMarkerSymbol symbol = (SimpleMarkerSymbol)  graphic.getSymbol() ;			
+				symbol.setColor(Color.BLACK);
+				symbol.setAngle(45);
+				symbol.setSize(30);
+				symbol.setStyle(SimpleMarkerSymbol.Style.CROSS);
+				
+				((GraphicsLayer) layer).updateGraphic(idOfGraphic, symbol);
+				break;
+			}
+		}
 	}
 
 	

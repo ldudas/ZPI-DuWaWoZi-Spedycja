@@ -8,11 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+import dataModels.Manufacturer;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
-public class ManufacturerJPanel extends JPanel {
+public class ManufacturerJPanel extends JPanel 
+{
 	/**
 	 * 
 	 */
@@ -21,7 +24,7 @@ public class ManufacturerJPanel extends JPanel {
 	private JTextField man_tripDate_textField;
 	private JTextField man_arrivalDate_textField;
 	private JList<String> man_list;
-	private RoutePlanningPresenter presenter_ManufacturersVis;
+	private RoutePlanningPresenter presenter_RoutePlanning;
 
 	/**
 	 * Create the panel.
@@ -62,8 +65,12 @@ public class ManufacturerJPanel extends JPanel {
 		man_confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				presenter_ManufacturersVis.send_nextCityNameAfterConfirm();
-				presenter_ManufacturersVis.closeManufacturerInfo();
+				presenter_RoutePlanning.send_nextCityNameAfterConfirm();
+				presenter_RoutePlanning.closeManufacturerInfo();
+				presenter_RoutePlanning.addCityToPath();
+				
+				presenter_RoutePlanning.addNextOrder();
+				presenter_RoutePlanning.addOrderToTab();
 			}
 		});
 		man_confirmButton.setBounds(24, 266, 109, 32);
@@ -73,7 +80,8 @@ public class ManufacturerJPanel extends JPanel {
 		man_notConfirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				presenter_RoutePlanning.markAsUnsuitable();
+				presenter_RoutePlanning.closeManufacturerInfo();
 			}
 		});
 		man_notConfirmButton.setBounds(146, 266, 139, 32);
@@ -83,7 +91,7 @@ public class ManufacturerJPanel extends JPanel {
 		man_cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				presenter_ManufacturersVis.closeManufacturerInfo();
+				presenter_RoutePlanning.closeManufacturerInfo();
 			}
 		});
 		man_cancelButton.setBounds(351, 266, 118, 32);
@@ -99,7 +107,7 @@ public class ManufacturerJPanel extends JPanel {
 	
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
-		presenter_ManufacturersVis = presenter;
+		presenter_RoutePlanning = presenter;
 	}
 	
 	/**
@@ -107,16 +115,17 @@ public class ManufacturerJPanel extends JPanel {
 	 * @param attr
 	 * @author Kamil Zimny
 	 */
-	public void setInfoAboutManufacturerInToList( Map<String, Object> attr)
+	public void setInfoAboutManufacturerInToList( Manufacturer manufacturer)
 	{ 
+			if(man_list != null)
+				remove(man_list);
 			String [] details = new String [6];
-			details[0] = "Nazwa : " + attr.get("Nazwa: ");
-			details[1] = "Telefon : " + attr.get("Telefon: ");
-			details[2] = "Ostatnia aktywnosc : " + attr.get("Ostatnia aktywnoœæ: ");
-			details[3] = "Liczba zlecen : " + attr.get("Liczba zleceñ: ");
-			details[4] = "Suma wartosci zlecen : " + attr.get("Suma wartoœci zleceñ: ");
-			details[5] = "Suma dni wykonywanych zlecen : " + attr.get("Suma dni wykonywanych zleceñ: ");
-			
+			details[0] = "Nazwa: " + manufacturer.getName();
+			details[1] = "Telefon: " + manufacturer.getPhone();
+			details[2] = "Ostatnia aktywnoœæ: " + manufacturer.getLastActivity();
+			details[3] = "Liczba zleceñ: " + manufacturer.getNumberOfOrders();
+			details[4] = "Suma wartoœci zleceñ: " + manufacturer.getSumOfOrdersValue();
+			details[5] = "Suma dni wykonywanych zleceñ: " + manufacturer.getSumOfDays();
 			man_list = new JList<String>(details);
 			man_list.setBounds(300, 78, 280, 140);
 			add(man_list);	
@@ -125,6 +134,16 @@ public class ManufacturerJPanel extends JPanel {
 	public String getNextCityName()
 	{
 		return man_to_textField.getText();
+	}
+	
+	public String getStartDate()
+	{
+		return man_tripDate_textField.getText();
+	}
+	
+	public String getFinishDate()
+	{
+		return man_arrivalDate_textField.getText();
 	}
 
 }

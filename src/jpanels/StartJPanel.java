@@ -1,10 +1,12 @@
 package jpanels;
 
 import interfaces.*;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -63,7 +65,8 @@ public class StartJPanel extends JPanel {
 		add(lblDataPrzyjazdu);
 		
 		JButton start_okButton = new JButton("OK");
-		start_okButton.addActionListener(new ActionListener() {
+		start_okButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				presenter_route_planning.changeView();
@@ -72,6 +75,9 @@ public class StartJPanel extends JPanel {
 				presenter_route_planning.createInitialPathMap();
 				//pokaz wizualizaje trasy
 				presenter_route_planning.showPathMap();
+				
+				presenter_route_planning.addFirstOrder();
+				presenter_route_planning.addOrderToTab();
 			}
 		});
 		start_okButton.setBounds(276, 160, 89, 23);
@@ -91,5 +97,15 @@ public class StartJPanel extends JPanel {
 	
 	public String get_city_from(){
 		return start_from_textField.getText();
+	}
+	
+	public String getStartDate()
+	{
+		return start_tripDate_textField.getText();
+	}
+	
+	public String getFinishDate()
+	{
+		return start_arrivalDate_textField.getText();
 	}
 }

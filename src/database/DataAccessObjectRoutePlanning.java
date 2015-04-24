@@ -23,7 +23,9 @@ public class DataAccessObjectRoutePlanning
 	 */
 	public String [] getCityCoordinates(final String cityName)
 	{
-		String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
+
+		final String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
+		
 		String [] coordinates = null;
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
