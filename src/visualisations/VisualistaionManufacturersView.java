@@ -11,8 +11,6 @@ public class VisualistaionManufacturersView
 	
 	public VisualistaionManufacturersView()
 	{
-		
-		
 	}
 	
 	public void set_tab(JTabbedPane tab_)

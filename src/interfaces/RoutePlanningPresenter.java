@@ -1,5 +1,7 @@
 package interfaces;
 
+import javax.swing.JTabbedPane;
+
 import builders.CityBuilder;
 import builders.OrderBuilder;
 import dataModels.City;
@@ -131,7 +133,7 @@ public class RoutePlanningPresenter
 	 */
 	public void tabChanged()
 	{
-		int index = route_planning_view.getMapJPanel().getTabWithMaps().getSelectedIndex();
+		int index = route_planning_view.getTabSelectedIndex();
 		if ( index == 0 )
 			setVisibleOfManagementJPanels(true);
 		else
@@ -141,8 +143,7 @@ public class RoutePlanningPresenter
 
 	private void setVisibleOfManagementJPanels(boolean visibilityOfZeroTab)
 	{
-		route_planning_view.getMapJPanel().getManufacturerManagementJPanel().setVisible(visibilityOfZeroTab);
-		route_planning_view.getMapJPanel().getPathManagementJPanel().setVisible(!visibilityOfZeroTab);
+		route_planning_view.setVisibleOfManagementJPanels(visibilityOfZeroTab);
 	}
 	
 	public void addFirstOrder()
@@ -187,6 +188,11 @@ public class RoutePlanningPresenter
 	public void addOrderToTab()
 	{
 		route_planning_view.addOrderToTab( route_planning_model.getLastOrder() );
+	}
+	
+	public JTabbedPane getTabWithMaps()
+	{
+		return route_planning_view.getTabWithMaps();
 	}
 	
 	

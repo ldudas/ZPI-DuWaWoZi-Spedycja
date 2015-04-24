@@ -4,7 +4,8 @@ import javax.swing.JTabbedPane;
 
 import com.esri.map.JMap;
 
-public class VisualisationPathView {
+public class VisualisationPathView 
+{
 	
 	/**
 	 * Referencja do panelu zakladek w ktorym widok umieszcza wizualizacje

@@ -39,7 +39,7 @@ public class VisualistaionManufacturersPresenter
 	 */
 	public void startManufacturersVisualisation(final String cityName)
 	{
-		view_ManufacturersVis.set_tab(route_planning_presenter.return_view().getMapJPanel().getTabWithMaps());
+		view_ManufacturersVis.set_tab(route_planning_presenter.getTabWithMaps());
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
 	}
 	

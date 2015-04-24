@@ -58,7 +58,7 @@ public class VisualisationPathPresenter {
 	 */
 	public void startPathVisualisation()
 	{
-		view_PathVis.set_tab(route_planning_presenter.return_view().getMapJPanel().getTabWithMaps());
+		view_PathVis.set_tab(route_planning_presenter.getTabWithMaps());
 		view_PathVis.add_map_to_tab(model_PathVis.getPathMap());
 	}
 	
