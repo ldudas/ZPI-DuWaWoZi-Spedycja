@@ -1,4 +1,4 @@
-package visualisations;
+Ôªøpackage visualisations;
 
 import javax.swing.JTabbedPane;
 
@@ -14,7 +14,7 @@ public class VisualisationPathView {
   	/**
 	 * Ustaw panel zakladek widokowi
 	 * @param  tabP Panel zakladek 
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void set_tab(JTabbedPane tabP)
 	{
@@ -25,7 +25,7 @@ public class VisualisationPathView {
 	/**
 	 * Dodaj mape(wizualizacje) do panelu zakladek
 	 * @param  map mapa do dodania
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void add_map_to_tab(JMap map)
 	{

@@ -1,4 +1,4 @@
-package decorators;
+﻿package decorators;
 import com.esri.map.*;
 
 abstract class JMapDecorator extends JMap

@@ -1,4 +1,4 @@
-package jpanels;
+ï»¿package jpanels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +21,7 @@ public class DiscriptionOnMapJPanel extends JPanel
 	{
 		// status UI to display the selected features
 	    txtStatus = new JTextArea();
-	    txtStatus.setText("Nazwy zaznaczonych producentów.");
+	    txtStatus.setText("Nazwy zaznaczonych producentÃ³w.");
 	    txtStatus.setLineWrap(true);
 	    txtStatus.setWrapStyleWord(true);
 	    txtStatus.setFont(new Font(txtStatus.getFont().getName(), txtStatus.getFont().getStyle(), 12));
@@ -32,7 +32,7 @@ public class DiscriptionOnMapJPanel extends JPanel
 
 	    // description
 	    JTextArea description = new JTextArea(
-	        "Kliknij na obiekty by zaznaczyæ producenta.");
+	        "Kliknij na obiekty by zaznaczyÄ‡ producenta.");
 	    description.setForeground(Color.WHITE);
 	    description.setBackground(new Color(0, 0, 0, 80));
 	    description.setEditable(false);

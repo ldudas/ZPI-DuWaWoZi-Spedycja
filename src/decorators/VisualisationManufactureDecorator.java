@@ -1,4 +1,4 @@
-package decorators;
+﻿package decorators;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -113,7 +113,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 				List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
 				
 				StringBuilder str = new StringBuilder();
-		        str.append("Zaznaczono producent�w: " + hitFeatures.size());
+		        str.append("Zaznaczono producentów: " + hitFeatures.size());
 		        str.append(NEW_LINE_SEP);
 		        str.append(NEW_LINE_SEP);
 		        int index = 1;

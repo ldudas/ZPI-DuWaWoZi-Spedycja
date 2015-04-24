@@ -1,4 +1,4 @@
-package visualisations;
+Ôªøpackage visualisations;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class VisualisationPathModel {
 	private ArrayList<ArrayList<Integer>> path_cities_vis_objects; 
 	
 	/**
-	 * Liczba miast wchodzπca w sk≥ad wizualizacji
+	 * Liczba miast wchodzƒÖca w sk≈Çad wizualizacji
 	 */ 
 	private int number_of_cities;
 	
@@ -85,7 +85,7 @@ public class VisualisationPathModel {
 	 * miastami
 	 * @param  cityNameFrom Nazwa miasta startu.    
 	 * @param  cityNameFrom Nazwa miasta konca.        
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void createInitialMap(final String cityNameFrom, final String cityNameTo){
 		path_map = getMapWithInitialCities(cityNameFrom, cityNameTo);
@@ -95,7 +95,7 @@ public class VisualisationPathModel {
 	/**
 	 * Zwraca aktualna mape modelu.
 	 * @return Aktualna mapa modelu.        
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public JMap getPathMap(){
 		return path_map;
@@ -108,7 +108,7 @@ public class VisualisationPathModel {
 	 * @param  cityNameFrom Nazwa miasta startu.    
 	 * @param  cityNameFrom Nazwa miasta konca.    
 	 * @return   Mapa z naniesionymi dwoma poczatkowymi miastami   
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	private JMap getMapWithInitialCities(final String cityNameFrom, final String cityNameTo)
 	{
@@ -153,7 +153,7 @@ public class VisualisationPathModel {
 	 * Dodaje poczatkowe miasta na warstwe graficzna mapy
 	 * @param  cityNameFrom Nazwa miasta startu.    
 	 * @param  cityNameFrom Nazwa miasta konca.      
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	private void addInitialPathGraphicsOnMap(final String cityNameFrom, final String cityNameTo)
 	{
@@ -226,7 +226,7 @@ public class VisualisationPathModel {
 	/**
 	 * Dodaje kolejne miasto do wizualizacji
 	 * @param  cityName Nazwa miasta do dodania.       
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void addCityToPath(String cityName)
 	{
@@ -306,7 +306,7 @@ public class VisualisationPathModel {
 	/**
 	 * Usuwa ostatnie miasto z wizualizacji
 	 * @param  cityName Nazwa miasta do dodania.       
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void removeLastCityFormPath()
 	{
@@ -337,7 +337,7 @@ public class VisualisationPathModel {
 	 */
 	private double parseCoordinate(String coordinate)
 	{        
-		int index1 = coordinate.indexOf("∞");
+		int index1 = coordinate.indexOf("¬∞");
 		int index2 = coordinate.indexOf("'");
 		String part1 = coordinate.substring(0,index1);
 		String part2 = coordinate.substring(index1+1,index2);	  
