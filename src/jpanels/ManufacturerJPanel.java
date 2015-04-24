@@ -1,4 +1,4 @@
-package jpanels;
+ï»¿package jpanels;
 
 import interfaces.RoutePlanningPresenter;
 
@@ -111,7 +111,7 @@ public class ManufacturerJPanel extends JPanel
 	}
 	
 	/**
-	 * Metoda dodajaca do listy informacje o produceñcie
+	 * Metoda dodajaca do listy informacje o produceÅ„cie
 	 * @param attr
 	 * @author Kamil Zimny
 	 */
@@ -122,10 +122,10 @@ public class ManufacturerJPanel extends JPanel
 			String [] details = new String [6];
 			details[0] = "Nazwa: " + manufacturer.getName();
 			details[1] = "Telefon: " + manufacturer.getPhone();
-			details[2] = "Ostatnia aktywnoœæ: " + manufacturer.getLastActivity();
-			details[3] = "Liczba zleceñ: " + manufacturer.getNumberOfOrders();
-			details[4] = "Suma wartoœci zleceñ: " + manufacturer.getSumOfOrdersValue();
-			details[5] = "Suma dni wykonywanych zleceñ: " + manufacturer.getSumOfDays();
+			details[2] = "Ostatnia aktywnoÅ›Ä‡: " + manufacturer.getLastActivity();
+			details[3] = "Liczba zleceÅ„: " + manufacturer.getNumberOfOrders();
+			details[4] = "Suma wartoÅ›ci zleceÅ„: " + manufacturer.getSumOfOrdersValue();
+			details[5] = "Suma dni wykonywanych zleceÅ„: " + manufacturer.getSumOfDays();
 			man_list = new JList<String>(details);
 			man_list.setBounds(300, 78, 280, 140);
 			add(man_list);	

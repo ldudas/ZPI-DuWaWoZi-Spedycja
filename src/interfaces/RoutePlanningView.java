@@ -1,4 +1,4 @@
-package interfaces;
+ï»¿package interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -60,7 +60,7 @@ public class RoutePlanningView
 	}
 	
 	/**
-	 * Tworzy nowe okno z danymi producenta i opcjami które mo¿emy wykonaæ.
+	 * Tworzy nowe okno z danymi producenta i opcjami ktÃ³re moÅ¼emy wykonaÄ‡.
 	 * @author Kamil Zimny
 	 */
 	public void show_manfacturerInfo(Manufacturer manufacturer)
@@ -81,8 +81,8 @@ public class RoutePlanningView
 	 */
 	public void show_ErrorMessage()
 	{
-		JOptionPane.showMessageDialog(null,"Aby wyœwietliæ dane o producencie nale¿y na mapie zaznaczyæ tylko jednego producenta, a nastêpnie ponownie klikn¹æ przycisk wybierz.",
-				"Zaznaczono nie poprawn¹ liczbê poducentów",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null,"Aby wyÅ›wietliÄ‡ dane o producencie naleÅ¼y na mapie zaznaczyÄ‡ tylko jednego producenta, a nastÄ™pnie ponownie kliknÄ…Ä‡ przycisk wybierz.",
+				"Zaznaczono nie poprawnÄ… liczbÄ™ poducentÃ³w",JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Zamyka okno informajci o producencie

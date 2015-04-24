@@ -1,4 +1,4 @@
-package interfaces;
+Ôªøpackage interfaces;
 
 import javax.swing.JTabbedPane;
 
@@ -71,7 +71,7 @@ public class RoutePlanningPresenter
 	
 	/**
 	 * Pokaz wizualizacje trasy     
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void showPathMap()
 	{
@@ -88,8 +88,8 @@ public class RoutePlanningPresenter
 	}
 	 
 	/**
-	 * Uruchamia metodÍ prezentera wizualizacji producentÛw 
-	 * startujπcπ wizualizacjÍ producentÛw
+	 * Uruchamia metodƒô prezentera wizualizacji producent√≥w 
+	 * startujƒÖcƒÖ wizualizacjƒô producent√≥w
 	 */
 	public void startManuVisualisation()
 	{
@@ -109,8 +109,8 @@ public class RoutePlanningPresenter
 	
 	
 	/**
-	 * UtwÛrz w modelu path model mape z pierwszymi dwoma miastami   
-	 * @author £ukasz Dudaszek
+	 * Utw√≥rz w modelu path model mape z pierwszymi dwoma miastami   
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void createInitialPathMap()
 	{
@@ -118,7 +118,7 @@ public class RoutePlanningPresenter
 		String city_to = route_planning_view.city_to();
 		//pobierz miasto docelowe z widoku
 		String city_from = route_planning_view.city_from();
-		//UtwÛrz w modelu path model mape z pierwszymi dwoma miastami  
+		//Utw√≥rz w modelu path model mape z pierwszymi dwoma miastami  
 		path_presenter.createInitialMap(city_from, city_to);
 	}
 	

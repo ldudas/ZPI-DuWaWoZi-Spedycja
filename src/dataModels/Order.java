@@ -1,4 +1,4 @@
-package dataModels;
+﻿package dataModels;
 
 public class Order 
 {
@@ -29,7 +29,6 @@ public class Order
 		this.cityTo = cityTo;
 		this.startDate = startDate;
 		this.finishDate = finishDate;
-
 	}
 	
 	public String getCityNameFrom()

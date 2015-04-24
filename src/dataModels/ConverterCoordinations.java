@@ -1,4 +1,4 @@
-package dataModels;
+ï»¿package dataModels;
 
 public class ConverterCoordinations 
 {
@@ -11,11 +11,11 @@ public class ConverterCoordinations
 	 * Zamiana wspolrzednej geograficznej na liczbe dziesietna 
 	 * odpowiadajaca tej wspolrzednej (tylko stopnie i minuty).
 	 * @return double coordiante
-	 * @author Piotr Wo³oszyk
+	 * @author Piotr WoÅ‚oszyk
 	 */
 	public double parseCoordinate(String coordinate)
 	{        
-		int index1 = coordinate.indexOf("°");
+		int index1 = coordinate.indexOf("Â°");
 		int index2 = coordinate.indexOf("'");
 		String part1 = coordinate.substring(0,index1);
 		String part2 = coordinate.substring(index1+1,index2);	  

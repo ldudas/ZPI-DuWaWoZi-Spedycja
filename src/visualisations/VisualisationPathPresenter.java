@@ -1,4 +1,4 @@
-package visualisations;
+Ôªøpackage visualisations;
 
 import dataModels.City;
 import interfaces.RoutePlanningPresenter;
@@ -29,10 +29,10 @@ public class VisualisationPathPresenter {
 	
 	
 	/**
-	 * UtrwÛrz w modelu mape z pierwszymi dwoma miastami
+	 * Utrw√≥rz w modelu mape z pierwszymi dwoma miastami
 	 * @param  cityNameFrom Nazwa miasta startu.    
 	 * @param  cityNameTo Nazwa miasta konca.    
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void createInitialMap(final String cityNameFrom, final String cityNameTo)
 	{
@@ -43,7 +43,7 @@ public class VisualisationPathPresenter {
 	/**
 	 * Ustaw prezentera interfejsu route planning.
 	 * @param  presenter Prezenter do ustawienia    
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void set_route_presenter(final RoutePlanningPresenter presenter)
 	{
@@ -54,7 +54,7 @@ public class VisualisationPathPresenter {
 	/**
 	 * Podaj widokowi wizualizacji zakladke w ktorej umiesci wizualizacje 
 	 * oraz dodaj aktualna mape z modelu do tej zakladki    
-	 * @author £ukasz Dudaszek
+	 * @author ≈Åukasz Dudaszek
 	 */
 	public void startPathVisualisation()
 	{

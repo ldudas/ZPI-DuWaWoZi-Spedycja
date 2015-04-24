@@ -1,4 +1,4 @@
-package jpanels;
+ï»¿package jpanels;
 
 import interfaces.RoutePlanningPresenter;
 
@@ -53,7 +53,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		map_period_comboBox.setBounds(132, 111, 132, 20);
 		map_period_comboBox.addItem("");
 		map_period_comboBox.addItem("Okres wstecz");
-		map_period_comboBox.addItem("Przedzia³ czasowy");
+		map_period_comboBox.addItem("PrzedziaÅ‚ czasowy");
 		add(map_period_comboBox);
 		
 		JLabel lblJednostka = new JLabel("Jednostka");
@@ -134,7 +134,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		combo.addItem("");
 		combo.addItem("Dni");
 		combo.addItem("Tygodnie");
-		combo.addItem("Miesi¹ce");
+		combo.addItem("MiesiÄ…ce");
 		combo.addItem("Lata");
 	}
 	
