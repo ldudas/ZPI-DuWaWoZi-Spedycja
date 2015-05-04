@@ -19,4 +19,9 @@ public class DataAccessObjectFactory
 	{
 		return new DataAccessObjectPathVisualisation();
 	}
+	
+	public DataAccessObjectTransportersVisualisation getDataAccessObjectTransportersVisualisation()
+	{
+		return new DataAccessObjectTransportersVisualisation();
+	}
 }
