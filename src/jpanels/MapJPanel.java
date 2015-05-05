@@ -66,14 +66,10 @@ public class MapJPanel extends JComponent
 		return map_tabbedPane;
 	}
 	
-	public ManufacturerManagementJPanel getManufacturerManagementJPanel()
+	public void setManagementJPanelVisibility(boolean vis)
 	{
-		return man_managmentJPanel;
-	}
-	
-	public PathManagementJPanel getPathManagementJPanel()
-	{
-		return path__managmentJPanel;
+		man_managmentJPanel.setVisible(vis);
+		path__managmentJPanel.setVisible(!vis);
 	}
 	
 	public void setCurrentTabOfMap()

@@ -32,7 +32,7 @@ public class Main
 				presenter_path.set_route_presenter(presenter_route);
 				view_route.setPresenter(presenter_route);
 				view_route.setPresenters();
-				view_route.getJFrame().setVisible(true);
+				view_route.setJFrameVisibility(true);
 			}
 		});
 

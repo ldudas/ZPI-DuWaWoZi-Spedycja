@@ -2,6 +2,7 @@ package interfaces;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 
 import dataModels.Manufacturer;
 import dataModels.Order;
@@ -139,9 +140,9 @@ public class RoutePlanningView
 		return manufacturerJPanel.getNextCityName();
 	}
 	
-	public JFrame getJFrame()
+	public void setJFrameVisibility(boolean vis)
 	{
-		return frame;
+		frame.setVisible(vis);;
 	}
 	
 	public String getNameOfNextCity()
@@ -150,21 +151,24 @@ public class RoutePlanningView
 	}
 	
 	
-	public MapJPanel getMapJPanel(){
-		return mapJPanel;
-		}
+	public void setVisibleOfManagementJPanels(boolean vis)
+	{
+		mapJPanel.setManagementJPanelVisibility(vis);
+	}
 	
-	public StartJPanel getStartJPanel(){
-		return startJPanel;
-		}
+	public int getTabSelectedIndex()
+	{
+		return mapJPanel.getTabWithMaps().getSelectedIndex();
+	}
 	
-	public ManufacturerJPanel getManufacturerJPanel(){
-		return manufacturerJPanel;
-		}
+	public JTabbedPane getTabWithMaps()
+	{
+		return mapJPanel.getTabWithMaps();
+	}
 	
 	public void addOrderToTab(final Order order)
 	{
 		mapJPanel.addOrderToMap(order);
 	}
 	
-	}
+}
