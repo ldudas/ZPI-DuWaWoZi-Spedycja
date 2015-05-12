@@ -21,14 +21,14 @@ public class VisualisationTransportersView
 	    {
 	        /*System.out.println("Created GUI on EDT? "+
 	        SwingUtilities.isEventDispatchThread());*/
-	        JFrame f = new JFrame("Wizualizacja przewoŸników");
+	        JFrame f = new JFrame("Wizualizacja przewoÅºnikÃ³w");
 	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        f.getContentPane().add(new MyPanel());
 	        
 	        //f.pack();
 	        f.setVisible(true);
 	        f.setSize(700, 500);
-	        f.setResizable(false);
+	        //f.setResizable(false);
 	       
 	    }
 	    
@@ -45,11 +45,11 @@ public class VisualisationTransportersView
 		    {
 		        setBorder(BorderFactory.createLineBorder(Color.red));
 		    }*/
-	    	/*
+	    	
 		    public Dimension getPreferredSize() 
 		    {
 		        return new Dimension(700,500);
-		    }*/
+		    }
 
 		    public void paintComponent(Graphics g) 
 		    {
@@ -80,11 +80,11 @@ public class VisualisationTransportersView
 				
 				if (oval.contains(e.getX(), e.getY()) ) {
 				      //repaint();
-				     System.out.println("Klikniêto na oval");
+				     System.out.println("Klikniï¿½to na oval");
 				   }
 				else
 				   {
-					   System.out.println("Klikniêto poza ovalem");
+					   System.out.println("Klikniï¿½to poza ovalem");
 				   }
 				
 			}
@@ -92,7 +92,7 @@ public class VisualisationTransportersView
 			@Override
 			public void mouseEntered(MouseEvent e) 
 			{
-				     System.out.println("Myszka nad p³ótnem");
+				     System.out.println("Myszka nad pï¿½ï¿½tnem");
 			
 			}
 
@@ -101,7 +101,7 @@ public class VisualisationTransportersView
 			{
 			
 				      //repaint();
-				     System.out.println("Myszka poza p³ótnem");
+				     System.out.println("Myszka poza pï¿½ï¿½tnem");
 				   
 			}
 

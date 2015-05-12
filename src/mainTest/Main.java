@@ -33,6 +33,7 @@ public class Main
 				view_route.setPresenter(presenter_route);
 				view_route.setPresenters();
 				view_route.setJFrameVisibility(true);
+				System.out.println("Running");
 			}
 		});
 
