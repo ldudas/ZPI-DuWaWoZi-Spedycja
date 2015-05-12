@@ -7,9 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 
 public class VisualisationTransportersView 
@@ -63,7 +66,7 @@ public class VisualisationTransportersView
 		        
 		        Graphics2D g2d = (Graphics2D) g;
 		        
-		        
+		        ArrayList<String> a = new ArrayList<String>();
 		        
 		        oval = new Ellipse2D.Double(panel_width/2, panel_height/2, 100, 100);
 		        
