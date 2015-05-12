@@ -1,4 +1,4 @@
-﻿package visualisations;
+package visualisations;
 
 import javax.swing.JTabbedPane;
 

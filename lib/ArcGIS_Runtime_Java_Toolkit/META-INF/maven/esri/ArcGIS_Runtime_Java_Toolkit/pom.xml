@@ -1,0 +1,221 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- Run this with:  
+	mvn clean package javadoc:jar verify
+	
+	If running in a directory structure that differs to that in starteam (eg. if running
+	from a git repository somewhere) or if the applications directory is not at the root
+	of a drive, the following property may need to be set:
+	
+	-Dapplication-dir=<location of \applications>
+-->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>esri</groupId>
+  <artifactId>ArcGIS_Runtime_Java_Toolkit</artifactId>
+  <version>10.2.4</version>
+  <name>ArcGIS_Runtime_Java_Toolkit</name>
+  <build>
+  	<plugins>
+  		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.3.1</version>
+			<configuration>
+				<source>1.7</source>
+				<target>1.7</target>
+			</configuration>
+  		</plugin>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-jar-plugin</artifactId>
+  			<version>2.3.1</version>
+  			<configuration>
+  				<excludes>
+  					<exclude>**/symbols/</exclude>
+  				</excludes>
+  				<archive>
+  					<manifest>
+  						<addClasspath>true</addClasspath>
+  					</manifest>
+  					<manifestEntries>
+  						<Implementation-Build>${properties.buildNumber}</Implementation-Build>
+  					</manifestEntries>
+  				</archive>
+  			</configuration>
+  		</plugin>  		
+		<plugin>
+			<artifactId>maven-antrun-plugin</artifactId>
+			<version>1.7</version>
+			<executions>
+				<execution>
+					<id>buildNumber</id>
+					<phase>compile</phase>
+					<goals>
+						<goal>run</goal>
+					</goals>
+					<configuration>
+						<target>
+							<loadfile srcFile="${build-num-header}" failonerror="true" property="properties.buildNumber">
+								<filterchain>
+									<linecontains>
+										<contains value="#define BUILD_VER"/>
+									</linecontains>
+									<tokenfilter>
+										<replacestring from="#define BUILD_VER" to=""/>
+										<replacestring from="," to="."/>
+										<trim/>
+									</tokenfilter>
+								</filterchain>
+							</loadfile>
+							<echo message="Build number: ${properties.buildNumber}"/>
+						</target>
+						<exportAntProperties>true</exportAntProperties>
+					</configuration>
+				</execution>
+				<execution>
+					<id>copyToOutput</id>
+					<phase>verify</phase>
+					<goals>
+						<goal>run</goal>
+					</goals>
+					<configuration>
+						<target>
+							<copy todir="${output-dir}/jar_release">
+								<fileset dir="${project.build.directory}">
+									<include name="*.jar"/>
+								</fileset>
+							</copy>
+						</target>
+						<exportAntProperties>true</exportAntProperties>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			<version>2.7</version>
+			<configuration>
+				<sourcepath>src</sourcepath>
+				<destDir>${intermediate-dir}/toolkit_javadoc</destDir>
+				<reportOutputDirectory>.</reportOutputDirectory>
+				<doclet>org.jboss.apiviz.APIviz</doclet>
+				<docletArtifact>
+					<groupId>org.jboss.apiviz</groupId>
+					<artifactId>apiviz</artifactId>
+					<version>1.3.1.GA</version>
+				</docletArtifact>
+				<useStandardDocletOptions>true</useStandardDocletOptions>
+				<charset>UTF-8</charset>
+				<encoding>UTF-8</encoding>
+				<docencoding>UTF-8</docencoding>
+				<breakiterator>true</breakiterator>
+				<version>true</version>
+				<author>true</author>
+				<keywords>true</keywords>
+				<additionalparam>
+					-sourceclasspath ${project.build.outputDirectory}
+				</additionalparam>
+			</configuration>
+		</plugin>
+      	<plugin>
+        	<groupId>org.apache.maven.plugins</groupId>
+        	<artifactId>maven-source-plugin</artifactId>
+        	<version>2.1.2</version>
+        	<executions>
+          	<execution>
+            	<id>attach-sources</id>
+            	<phase>package</phase>
+            	<goals>
+              		<goal>jar-no-fork</goal>
+            	</goals>
+          	</execution>
+        	</executions>
+        	<configuration>
+        		<excludes>
+        			<exclude>**/symbols/</exclude>
+        		</excludes>
+        	</configuration>
+      	</plugin>
+  	</plugins>
+  	<sourceDirectory>src</sourceDirectory>
+  	<outputDirectory>${intermediate-dir}/classes/toolkit</outputDirectory>
+  	<defaultGoal>package</defaultGoal>
+  	<directory>${intermediate-dir}/toolkit_jars</directory>
+  	<finalName>${project.artifactId}</finalName>
+  	<resources>
+  		<resource>
+  			<targetPath>com/esri/client/toolkit/images</targetPath>
+  			<directory>src/com/esri/client/toolkit/images</directory>
+  			<includes>
+  				<include>*.png</include>
+  			</includes>
+  		</resource>
+      <resource>
+        <targetPath>com/esri/toolkit/images</targetPath>
+        <directory>src/com/esri/toolkit/images</directory>
+        <includes>
+          <include>*.png</include>
+        </includes>
+      </resource>
+  		<resource>
+  			<targetPath>com/esri/client/toolkit/templates</targetPath>
+  			<directory>src/com/esri/client/toolkit/templates</directory>
+  		</resource>
+  	</resources>
+  </build>
+  <repositories>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+			<id>central</id>
+			<url>http://android:8080/artifactory/repo</url>
+		</repository>
+		<repository>
+			<id>jboss.releases</id>
+			<name>JBoss releases</name>
+			<url>http://repository.jboss.org.maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-lgpl</artifactId>
+      <version>1.6.4</version>
+    </dependency>
+	<dependency>
+		<groupId>org.apache.james</groupId>
+		<artifactId>apache-mime4j</artifactId>
+		<version>0.6</version>
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency>
+    <dependency>
+    	<groupId>esri</groupId>
+    	<artifactId>ArcGIS_Runtime_Java</artifactId>
+    	<version>1.0</version>
+    	<scope>system</scope>
+    	<systemPath>${sdk-jar-loc}</systemPath>
+    </dependency>
+  </dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<application-dir>/applications</application-dir>
+		<output-dir>${application-dir}/output</output-dir>
+  		<intermediate-dir>${output-dir}/intermediate/java/javase</intermediate-dir>
+  		<sdk-jar-loc>${output-dir}/jar_release/ArcGIS_Runtime_Java.jar</sdk-jar-loc>
+  		<build-num-header>${application-dir}/buildnum/buildnum.h</build-num-header>
+  		<buildNumber>10.2.4</buildNumber>
+	</properties>
+</project>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bldgis
+Build-Jdk: 1.7.0_55
+Implementation-Build: 10.2.4.748
+Class-Path: jackson-core-lgpl-1.6.4.jar apache-mime4j-0.6.jar commons-
+ logging-1.1.1.jar
+

@@ -1,4 +1,4 @@
-﻿package visualisations;
+package visualisations;
 
 import java.util.ArrayList;
 
