@@ -1,5 +1,7 @@
 package visualisations;
 
+import java.util.ArrayList;
+
 public class VisualisationTransportersPresenter 
 {
 	
@@ -18,6 +20,11 @@ public class VisualisationTransportersPresenter
 	{
 		model_transporters = model;
 		view_transporters = view;
+	}
+	
+	public void drawTransporters()
+	{
+		view_transporters.drawTransporters(model_transporters.getFilteredTransporters());
 	}
 
 }

@@ -1,19 +1,31 @@
 package visualisations;
 
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import dataModels.*;
 
 
 public class VisualisationTransportersView 
 {
+	private MyPanel mp;
+	private ArrayList<Transporter> transporters;
+	private ArrayList<Shape> drawnShapes;
+	private int max_capacity;
 	
 	    public VisualisationTransportersView () 
 	    {
@@ -21,7 +33,7 @@ public class VisualisationTransportersView
 	        SwingUtilities.isEventDispatchThread());*/
 	        JFrame f = new JFrame("Wizualizacja przewoźników");
 	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        MyPanel mp = new MyPanel();
+	        mp = new MyPanel();
 	        mp.addMouseListener(mp);
 	        f.getContentPane().add(mp);
 	        
@@ -29,7 +41,16 @@ public class VisualisationTransportersView
 	        f.setVisible(true);
 	        f.setSize(700, 500);
 	        //f.setResizable(false);
+	        
+	        drawnShapes = new ArrayList<Shape>();
 	       
+	    }
+	    
+	    public void drawTransporters(ArrayList<Transporter> transporters)
+	    {
+	    	this.transporters = transporters;
+	    	max_capacity = transporters.get(0).getCapacity();
+	    	mp.repaint();
 	    }
 	    
 	    
@@ -95,8 +116,35 @@ public class VisualisationTransportersView
 		        g2d.setStroke(bs2);
 		        g2d.drawLine(y_line_x_beg, y_line_y_beg, y_line_x_end, y_line_y_end);
 		        
-		     
-		      
+		        //punkt odniesienia jako poczatek ukladu wspolrzednych
+		       g2d.translate(x_line_x_beg, x_line_y_beg);
+		        
+		        //
+		        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+		                RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        rh.put(RenderingHints.KEY_RENDERING,
+		                RenderingHints.VALUE_RENDER_QUALITY);
+
+		        g2d.setRenderingHints(rh);
+
+		        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+		                1f));
+		        //
+		        
+		        int x_obj;
+		        drawnShapes.clear();
+		        for(Transporter t:transporters)
+		        {
+		        	x_obj = (t.getCapacity()/max_capacity) * (x_line_x_end - x_line_x_beg);
+		        	System.out.println(t.getCapacity()+" - "+x_obj+ " "+ x_line_x_end+ " " + x_line_x_beg+ " "+ max_capacity);
+		        
+		        	
+		        	g2d.setColor(new Color(255,0,0));
+		        	Rectangle2D rect = new Rectangle2D.Double(x_obj, -100, 10, 10);
+		        	drawnShapes.add(rect);
+		        	g2d.fill(rect);
+		        };
 		        
 		    }
 
@@ -117,7 +165,7 @@ public class VisualisationTransportersView
 			@Override
 			public void mouseEntered(MouseEvent e) 
 			{
-				     System.out.println("Myszka nad p��tnem");
+				//mp.repaint();
 			
 			}
 

@@ -10,10 +10,10 @@ public class Transporter
 	private int capacity; //ładowność
 	private int volume;//pojemość
 	private int delay; //opoznienia
-	private int executed; //stosunek niezreal/zreal
+	private double executed; //stosunek niezreal/zreal
 	
 	
-	public Transporter(int id_trans,SizeCategory sizeCategory, int number_of_orders, double cost, int capacity, int volume, int delay, int executed)
+	public Transporter(int id_trans,SizeCategory sizeCategory, int number_of_orders, double cost, int capacity, int volume, int delay, double executed)
 	{
 		this.id_trans=id_trans;
 		this.sizeCategory=sizeCategory;
@@ -81,13 +81,22 @@ public class Transporter
 	{
 		this.delay = delay;
 	}
-	public int getExecuted() 
+	public double getExecuted() 
 	{
 		return executed;
 	}
-	public void setExecuted(int executed) 
+	public void setExecuted(double executed) 
 	{
 		this.executed = executed;
+	}
+	
+	public String toString(){
+		return id_trans+ " - " + capacity;
+	}
+	
+	public static int compareByCapacity(Transporter t1, Transporter t2)
+	{
+		return Integer.compare(t2.getCapacity(), t1.getCapacity());
 	}
 	
 }

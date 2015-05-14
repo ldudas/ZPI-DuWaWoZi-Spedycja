@@ -18,6 +18,8 @@ public class MainTransporters {
             	VisualisationTransportersView trans_view = new VisualisationTransportersView();
             	VisualisationTransportersPresenter trans_pres = new VisualisationTransportersPresenter(trans_view, trasn_model);
             	System.out.println("Running");
+            	
+            	trans_pres.drawTransporters();
             }
         });
     }
