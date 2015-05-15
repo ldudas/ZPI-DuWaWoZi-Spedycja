@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jpanels.DiscriptionOnMapJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.DiscriptionOnMapJPanel;
 
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;

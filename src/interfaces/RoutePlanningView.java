@@ -6,9 +6,9 @@ import javax.swing.JTabbedPane;
 
 import dataModels.Manufacturer;
 import dataModels.Order;
-import jpanels.ManufacturerJPanel;
-import jpanels.MapJPanel;
-import jpanels.StartJPanel;
+import jpanels.ManufacturerVisualization.MapJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerJPanel;
+import jpanels.startWindow.StartJPanel;
 
 
 public class RoutePlanningView 
@@ -33,7 +33,8 @@ public class RoutePlanningView
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 650, 300);
+		frame.setResizable(false);
+		frame.setBounds(300, 100, 630, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mapJPanel = new MapJPanel();
 		startJPanel = new StartJPanel();
@@ -66,7 +67,8 @@ public class RoutePlanningView
 	public void show_manfacturerInfo(Manufacturer manufacturer)
 	{
 		manufacturerFrame = new JFrame();
-		manufacturerFrame.setBounds(100, 100, 650, 500);
+		manufacturerFrame.setResizable(false);
+		manufacturerFrame.setBounds(100, 100, 600, 345);
 		manufacturerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		manufacturerJPanel.setInfoAboutManufacturerInToList(manufacturer);

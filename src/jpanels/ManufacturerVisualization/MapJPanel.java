@@ -1,4 +1,4 @@
-package jpanels;
+package jpanels.ManufacturerVisualization;
 
 import interfaces.RoutePlanningPresenter;
 

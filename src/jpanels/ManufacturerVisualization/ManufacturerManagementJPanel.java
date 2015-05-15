@@ -1,4 +1,4 @@
-package jpanels;
+package jpanels.ManufacturerVisualization;
 
 import interfaces.RoutePlanningPresenter;
 
@@ -11,8 +11,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class ManufacturerManagementJPanel extends JPanel 
 {

@@ -1,4 +1,4 @@
-package jpanels;
+package jpanels.ManufacturerVisualization.ManufactureInfo;
 
 import java.awt.Color;
 import java.awt.Dimension;

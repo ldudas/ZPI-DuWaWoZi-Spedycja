@@ -18,6 +18,10 @@ public class RoutePlanningModel
 	}
 	
 	
+	public ArrayList<String> getAllCityNames()
+	{
+		return dao_routePlanning.getAllCityNames();
+	}
 	
 	public ArrayList<Order> getOrdersCollection()
 	{

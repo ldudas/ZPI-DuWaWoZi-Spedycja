@@ -1,5 +1,10 @@
 package interfaces;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 
 import builders.CityBuilder;
@@ -195,5 +200,57 @@ public class RoutePlanningPresenter
 		return route_planning_view.getTabWithMaps();
 	}
 	
+	/**
+	 * Sprawdzanie porpawnosci wprowadzanych danych w oknie startowym
+	 * @return Opis bledu lub null jesli wszystko ok.
+	 * @author Kamil Zimny
+	 */
+	public String checkCorrectnessOfData()
+	{
+		if( route_planning_view.city_from() == null || route_planning_view.city_from().equals("") ) 
+			return "Nie wybrano miasta startowego...";
+		if( route_planning_view.city_to() == null || route_planning_view.city_to().equals("") ) 
+			return "Nie wybrano miasta docelowego...";
+		if( route_planning_view.city_from().equals(route_planning_view.city_to()) )
+			return "Miasto startowe jest takie samo jak miasto docelowe...";
+		if( route_planning_view.getStartDate() == null || route_planning_view.getStartDate().equals("") ) 
+			return "Nie wybrano daty wyjazdu...";
+		if( route_planning_view.getFinishDate() == null || route_planning_view.getFinishDate().equals("") ) 
+			return "Nie wybrano daty przyjazdu...";
+		SimpleDateFormat sDateFormat; 
+		try 
+		{
+			sDateFormat  = new SimpleDateFormat("yyyy-MM-dd");
+			
+			if( sDateFormat.parse(route_planning_view.getStartDate()).compareTo
+				(sDateFormat.parse(route_planning_view.getFinishDate())) > 0 ) 
+				return "Data przyjazdu jest wcześniejsza niż data wyjazdu...";
+			if( sDateFormat.parse(route_planning_view.getStartDate()).compareTo
+					( sDateFormat.parse(sDateFormat.format(new Date())) ) < 0 )
+				return "Data wyjazdu jest wcześniejsza niż obecna data...";
+			
+		} 
+		catch (ParseException e) 
+		{
+			return "Problem z datami...";
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Metoda dodajaca wszystkie miasta do podanych w parametrze comoboBox'ow
+	 * @param comboBox
+	 * @param comboBoxSecond
+	 * @author Kamil Zimny
+	 */
+	public void addAllCityToList(JComboBox<String> comboBox,JComboBox<String> comboBoxSecond)
+	{
+		for ( String cityName : route_planning_model.getAllCityNames() )
+		{
+			comboBox.addItem(cityName);
+			comboBoxSecond.addItem(cityName);
+		}
+	}
 	
 }
