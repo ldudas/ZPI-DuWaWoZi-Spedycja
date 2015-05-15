@@ -327,7 +327,10 @@ public class VisualisationPathModel {
 		
 	}
 	
-	
+	public int getNumberOfCities()
+	{
+		return number_of_cities;
+	}
 	
 	/**
 	 * Zamienia wspolrzedna geograficzna ze String na double

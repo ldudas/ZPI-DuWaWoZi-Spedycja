@@ -68,8 +68,12 @@ public class VisualisationPathPresenter {
 	
 	public void addCityToPath(City city)
 	{
-		model_PathVis.addCityToPath(city.getCityName());
+		model_PathVis.addCityToPath(city.getCityName());	
 	}
 	
+	public int getNumberOfCities()
+	{
+		return model_PathVis.getNumberOfCities();
+	}
 
 }

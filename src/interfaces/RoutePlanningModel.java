@@ -17,8 +17,6 @@ public class RoutePlanningModel
 		dao_routePlanning = new DataAccessObjectRoutePlanning();
 	}
 	
-	
-	
 	public ArrayList<Order> getOrdersCollection()
 	{
 		return ordersData;

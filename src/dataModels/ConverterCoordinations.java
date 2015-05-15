@@ -29,7 +29,7 @@ public class ConverterCoordinations
 	        String part3 = coordinate.substring(index2+1,index3);
 	        double c = Double.parseDouble(part3);
 	        result += c/3600;
-	     }
+	    }
 	    
 	    return result;
 	}
