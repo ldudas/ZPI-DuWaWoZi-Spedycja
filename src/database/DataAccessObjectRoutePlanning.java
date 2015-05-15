@@ -25,7 +25,11 @@ public class DataAccessObjectRoutePlanning
 	{
 		final String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
 		
+		if(cityName.isEmpty())
+			return null;
+		
 		String [] coordinates = null;
+		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
 		{
