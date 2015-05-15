@@ -74,8 +74,8 @@ public class VisualisationTransportersModel
 	
 	private void sortTransporters()
 	{
-		//transporters = transporters.stream().sorted(Transporter::compareByCapacity).collect(Collectors.toCollection(ArrayList::new));
-		transporters = transporters.stream().sorted((a, b) -> Transporter.compareByCapacity(a, b)).collect(Collectors.toCollection(ArrayList::new));
+		transporters = transporters.stream().sorted(Transporter::compareByCapacity).collect(Collectors.toCollection(ArrayList::new));
+		//transporters = transporters.stream().sorted((a, b) -> Transporter.compareByCapacity(a, b)).collect(Collectors.toCollection(ArrayList::new));
 		System.out.println("Po: "+transporters);
 	}
 	
