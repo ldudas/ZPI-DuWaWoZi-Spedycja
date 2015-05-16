@@ -253,4 +253,9 @@ public class RoutePlanningPresenter
 		}
 	}
 	
+	public void openNextManufacturerInfoFrame_OrderData()
+	{
+		route_planning_view.
+	}
+	
 }

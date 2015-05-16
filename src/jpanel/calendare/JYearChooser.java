@@ -32,7 +32,11 @@ import javax.swing.JFrame;
  * @version 1.2
  */
 public class JYearChooser extends JSpinField {
-    protected JDayChooser dayChooser;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected JDayChooser dayChooser;
     protected int startYear;
     protected int endYear;
 

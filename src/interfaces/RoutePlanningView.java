@@ -6,8 +6,9 @@ import javax.swing.JTabbedPane;
 
 import dataModels.Manufacturer;
 import dataModels.Order;
-import jpanels.ManufacturerVisualization.MapJPanel;
-import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerJPanel;
+import jpanels.ManufacturerVisualization.ManufacturerVisuzalizationJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerOrderDataJPanel;
 import jpanels.startWindow.StartJPanel;
 
 
@@ -15,15 +16,17 @@ public class RoutePlanningView
 {
 	private RoutePlanningPresenter route_planning_presenter;
 	private JFrame frame;
-	private MapJPanel mapJPanel;
+	private ManufacturerVisuzalizationJPanel manufacturerVisualizationWithMapJPanel;
 	private StartJPanel startJPanel;
-	private ManufacturerJPanel manufacturerJPanel;
+	private ManufacturerOrderDataJPanel manufacturerJPanel;
+	private ManufacturerDetailsJPanel manufacturerDetailsJPanel;
 	
 	private JFrame manufacturerFrame;
 	/**
 	 * Create the application.
 	 */
-	public RoutePlanningView() {
+	public RoutePlanningView() 
+	{
 		initialize();
 	}
 
@@ -36,9 +39,10 @@ public class RoutePlanningView
 		frame.setResizable(false);
 		frame.setBounds(300, 100, 630, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mapJPanel = new MapJPanel();
+		manufacturerVisualizationWithMapJPanel = new ManufacturerVisuzalizationJPanel();
 		startJPanel = new StartJPanel();
-		manufacturerJPanel = new ManufacturerJPanel();
+		manufacturerJPanel = new ManufacturerOrderDataJPanel();
+		manufacturerDetailsJPanel = new ManufacturerDetailsJPanel();
 		frame.add(startJPanel);
 	}
 	 
@@ -51,13 +55,22 @@ public class RoutePlanningView
 		route_planning_presenter = presenter;
 	}
 	
-	public void change_start_to_map()
+	
+	/**
+	 * Zmienia widok ze startowego do widoku wizualizacji producentow na mapie
+	 */
+	public void change_start_to_manufacturerVisualization()
 	{
 		frame.remove(startJPanel);
 		frame.setBounds(50, 50, 1120, 600);
-		frame.add(mapJPanel);
+		frame.add(manufacturerVisualizationWithMapJPanel);
 		frame.invalidate();
 		frame.validate();
+	}
+	
+	public void change_manufactruerDetails_to_manufacturerOrderData()
+	{
+		
 	}
 	
 	/**
@@ -87,7 +100,7 @@ public class RoutePlanningView
 				"Zaznaczono nie poprawną liczbę poducentów",JOptionPane.ERROR_MESSAGE);
 	}
 	/**
-	 * Zamyka okno informajci o producencie
+	 * Zamyka okno informacji o producencie
 	 * @author Kamil Zimny
 	 */
 	public void closeManufacturerInfoFrame()
@@ -98,8 +111,9 @@ public class RoutePlanningView
 	public void setPresenters()
 	{
 		startJPanel.setPresenter(route_planning_presenter);
-		mapJPanel.setPresenter(route_planning_presenter);
+		manufacturerVisualizationWithMapJPanel.setPresenter(route_planning_presenter);
 		manufacturerJPanel.setPresenter(route_planning_presenter);
+		manufacturerDetailsJPanel.setPresenter(route_planning_presenter);
 	}
 	
 	public String city_nextCityAfterComfirm()
@@ -155,22 +169,24 @@ public class RoutePlanningView
 	
 	public void setVisibleOfManagementJPanels(boolean vis)
 	{
-		mapJPanel.setManagementJPanelVisibility(vis);
+		manufacturerVisualizationWithMapJPanel.setManagementJPanelVisibility(vis);
 	}
 	
 	public int getTabSelectedIndex()
 	{
-		return mapJPanel.getTabWithMaps().getSelectedIndex();
+		return manufacturerVisualizationWithMapJPanel.getTabWithMaps().getSelectedIndex();
 	}
 	
 	public JTabbedPane getTabWithMaps()
 	{
-		return mapJPanel.getTabWithMaps();
+		return manufacturerVisualizationWithMapJPanel.getTabWithMaps();
 	}
 	
 	public void addOrderToTab(final Order order)
 	{
-		mapJPanel.addOrderToMap(order);
+		manufacturerVisualizationWithMapJPanel.addOrderToMap(order);
 	}
+	
+	
 	
 }

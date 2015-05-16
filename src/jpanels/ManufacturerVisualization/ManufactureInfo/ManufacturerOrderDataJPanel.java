@@ -4,7 +4,6 @@ import interfaces.RoutePlanningPresenter;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -25,7 +24,7 @@ import javax.swing.JComboBox;
 import jpanel.calendare.JCalendar;
 
 
-public class ManufacturerJPanel extends JPanel 
+public class ManufacturerOrderDataJPanel extends JPanel 
 {
 	/**
 	 * 
@@ -42,7 +41,7 @@ public class ManufacturerJPanel extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public ManufacturerJPanel() 
+	public ManufacturerOrderDataJPanel() 
 	{
 		setForeground(new Color(255, 204, 0));
 		
@@ -167,7 +166,7 @@ public class ManufacturerJPanel extends JPanel
 	public static void main(String [] args)
 	{
 		JFrame frame = new JFrame();
-		ManufacturerJPanel panel = new ManufacturerJPanel();
+		ManufacturerOrderDataJPanel panel = new ManufacturerOrderDataJPanel();
 		
 		Manufacturer man = new Manufacturer("AAAA", 123.2, 123.2, 
 				"1993-09-28", 20, 33, 12, "987-123-123", "d");

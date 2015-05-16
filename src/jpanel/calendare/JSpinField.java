@@ -49,6 +49,11 @@ import javax.swing.event.ChangeListener;
  * @version 1.2
  */
 public class JSpinField extends JPanel implements ChangeListener, CaretListener, ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected JSpinner spinner;
 
 	/** the text (number) field */

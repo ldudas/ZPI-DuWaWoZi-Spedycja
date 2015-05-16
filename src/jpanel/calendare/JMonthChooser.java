@@ -44,6 +44,10 @@ import javax.swing.event.ChangeListener;
  * @version 1.2
  */
 public class JMonthChooser extends JPanel implements ItemListener, ChangeListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** true, if the month chooser has a spinner component */
 	protected boolean hasSpinner;
 	private Locale locale;
@@ -53,7 +57,7 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 	// needed for comparison
 	private JDayChooser dayChooser;
 	private JYearChooser yearChooser;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private JSpinner spinner;
 	private boolean initialized;
 	private boolean localInitialize;
@@ -78,7 +82,7 @@ public class JMonthChooser extends JPanel implements ItemListener, ChangeListene
 
 		setLayout(new BorderLayout());
 
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.addItemListener(this);
 
 		// comboBox.addPopupMenuListener(this);

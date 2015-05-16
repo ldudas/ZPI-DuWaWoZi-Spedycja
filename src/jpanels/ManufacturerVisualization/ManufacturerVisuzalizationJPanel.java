@@ -13,7 +13,7 @@ import javax.swing.event.ChangeEvent;
 import dataModels.Order;
 
 
-public class MapJPanel extends JComponent 
+public class ManufacturerVisuzalizationJPanel extends JComponent 
 {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class MapJPanel extends JComponent
 	private JTabbedPane map_tabbedPane;
 	private RoutePlanningPresenter presenter_route_planning;
 
-	public MapJPanel() 
+	public ManufacturerVisuzalizationJPanel() 
 	{
 		setForeground(Color.WHITE);
 		setBackground(Color.RED);

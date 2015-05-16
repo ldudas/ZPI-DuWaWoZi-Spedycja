@@ -52,7 +52,11 @@ import javax.swing.JPanel;
  */
 public class JDayChooser extends JPanel implements ActionListener, KeyListener,
     FocusListener {
-    protected JButton[] days;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected JButton[] days;
     protected JButton[] weeks;
     protected JButton selectedDay;
     protected JPanel weekPanel;
@@ -115,7 +119,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
                     // changes.
                     // Thanks to Thomas Schaefer for the focus hint :)
                     days[index] = new JButton() {
-                                public void addMouseListener(MouseListener l) {
+                                /**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+
+								public void addMouseListener(MouseListener l) {
                                 }
 
                                 public boolean isFocusable() {
@@ -145,7 +154,12 @@ public class JDayChooser extends JPanel implements ActionListener, KeyListener,
 
         for (int i = 0; i < 7; i++) {
             weeks[i] = new JButton() {
-                        public void addMouseListener(MouseListener l) {
+                        /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+						public void addMouseListener(MouseListener l) {
                         }
 
                         public boolean isFocusable() {
