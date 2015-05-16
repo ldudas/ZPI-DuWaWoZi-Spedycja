@@ -1,4 +1,4 @@
-package visualisations;
+package visualisations.Manufacturers;
 
 import javax.swing.JTabbedPane;
 

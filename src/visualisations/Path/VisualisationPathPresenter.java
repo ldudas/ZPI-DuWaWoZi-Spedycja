@@ -1,4 +1,4 @@
-package visualisations;
+package visualisations.Path;
 
 import dataModels.City;
 import interfaces.RoutePlanningPresenter;

@@ -8,6 +8,12 @@ import interfaces.RoutePlanningView;
 import javax.swing.SwingUtilities;
 
 import visualisations.*;
+import visualisations.Manufacturers.VisualisationManufacturersModel;
+import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
+import visualisations.Manufacturers.VisualistaionManufacturersView;
+import visualisations.Path.VisualisationPathModel;
+import visualisations.Path.VisualisationPathPresenter;
+import visualisations.Path.VisualisationPathView;
 
 public class Main 
 {

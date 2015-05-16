@@ -1,4 +1,4 @@
-package visualisations;
+package visualisations.Manufacturers;
 
 
 import java.awt.Color;
@@ -10,6 +10,9 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
+
+
+
 
 
 import dataModels.Manufacturer;

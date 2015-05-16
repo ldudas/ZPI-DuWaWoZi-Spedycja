@@ -1,4 +1,4 @@
-package visualisations;
+package visualisations.Path;
 import java.awt.Color;
 import java.util.ArrayList;
 

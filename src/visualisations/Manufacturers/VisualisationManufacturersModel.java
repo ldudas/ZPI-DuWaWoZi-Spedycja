@@ -1,4 +1,4 @@
-package visualisations;
+package visualisations.Manufacturers;
 
 import java.util.ArrayList;
 
