@@ -23,7 +23,8 @@ import javax.swing.JComboBox;
 import jpanel.calendare.JCalendar;
 
 
-public class StartJPanel extends JPanel {
+public class StartJPanel extends JPanel 
+{
 	/**
 	 * 
 	 */
@@ -46,7 +47,6 @@ public class StartJPanel extends JPanel {
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		dateFormat = new SimpleDateFormat(DATE_FORMAT);
-		
 		JPanel panel_from = new JPanel();	
 		panel_from.setBackground(SystemColor.inactiveCaptionText);
 		panel_from.setBounds(10, 11, 300, 353);
@@ -163,7 +163,7 @@ public class StartJPanel extends JPanel {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				String error = presenter_route_planning.checkCorrectnessOfData();
+				String error = presenter_route_planning.checkCorrectnessOfData_firstOrder();
 				if( error == null )
 				{
 					int dialogResult = JOptionPane.showConfirmDialog(StartJPanel.this, "Czy podane dane się zgadzają:"
@@ -174,7 +174,7 @@ public class StartJPanel extends JPanel {
 							"Potwierdzenie", JOptionPane.YES_NO_OPTION);
 					if(dialogResult == JOptionPane.YES_OPTION) 
 					{
-						presenter_route_planning.changeView();
+						presenter_route_planning.changeStart_to_manufacturerVisualization();
 						
 						//utworz wizualizacje w dwoma poczatkowymi miastami
 						presenter_route_planning.createInitialPathMap();
@@ -186,7 +186,6 @@ public class StartJPanel extends JPanel {
 					} 
 				}
 				else
-		
 					JOptionPane.showMessageDialog(StartJPanel.this, "Bład wprowadzanych danych:\n" + error, "Błąd danych", 
 													JOptionPane.ERROR_MESSAGE);		
 			}
@@ -228,5 +227,6 @@ public class StartJPanel extends JPanel {
 		UIManager.put("OptionPane.noButtonText", "Nie");
 	    UIManager.put("OptionPane.okButtonText", "Ok");
 	    UIManager.put("OptionPane.yesButtonText", "Tak");
+	    UIManager.put("OptionPane.cancelButtonText", "Anuluj");
 	}
 }

@@ -23,9 +23,9 @@ public class RoutePlanningModel
 		return dao_routePlanning.getAllCityNames();
 	}
 	
-	public ArrayList<Order> getOrdersCollection()
+	public void addNewOrder(Order order)
 	{
-		return ordersData;
+		ordersData.add(order);
 	}
 	
 	public Order getLastOrder()

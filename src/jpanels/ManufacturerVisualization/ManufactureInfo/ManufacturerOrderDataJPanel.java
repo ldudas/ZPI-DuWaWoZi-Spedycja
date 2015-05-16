@@ -3,12 +3,10 @@ package jpanels.ManufacturerVisualization.ManufactureInfo;
 import interfaces.RoutePlanningPresenter;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JList;
-
-import dataModels.Manufacturer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,6 +14,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.Color;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -24,13 +23,14 @@ import javax.swing.JComboBox;
 import jpanel.calendare.JCalendar;
 
 
+
 public class ManufacturerOrderDataJPanel extends JPanel 
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JList<String> man_list;
+	private final String DATE_FORMAT = "yyyy-MM-dd";
 	private RoutePlanningPresenter presenter_RoutePlanning;
 	
 	private JCalendar calendare_dateFrom;
@@ -41,8 +41,10 @@ public class ManufacturerOrderDataJPanel extends JPanel
 	/**
 	 * Create the panel.
 	 */
+
 	public ManufacturerOrderDataJPanel() 
 	{
+		dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		setForeground(new Color(255, 204, 0));
 		
 		setBorder(null);
@@ -54,9 +56,9 @@ public class ManufacturerOrderDataJPanel extends JPanel
 		calendare_dateFrom.getYearChooser().getSpinner().setForeground(SystemColor.desktop);
 		calendare_dateFrom.getYearChooser().getSpinner().setBackground(SystemColor.activeCaption);
 		calendare_dateFrom.getDayChooser().getDayPanel().setBackground(SystemColor.inactiveCaptionText);
-		calendare_dateFrom.setBounds(24, 133, 200, 180);
+		calendare_dateFrom.setBounds(24, 83, 280, 240);
 		calendare_dateFrom.setLocale(new Locale("pl", "PL"));
-		//add(calendare_dateFrom);
+		
 		
 		calendare_dateTo = new JCalendar();
 		calendare_dateTo.getMonthChooser().getComboBox().setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
@@ -64,72 +66,65 @@ public class ManufacturerOrderDataJPanel extends JPanel
 		calendare_dateTo.getYearChooser().getSpinner().setForeground(SystemColor.desktop);
 		calendare_dateTo.getYearChooser().getSpinner().setBackground(SystemColor.activeCaption);
 		calendare_dateTo.getDayChooser().getDayPanel().setBackground(SystemColor.inactiveCaptionText);
-		calendare_dateTo.setBounds(227, 133, 200, 180);
+		calendare_dateTo.setBounds(318, 83, 280, 240);
 		calendare_dateTo.setLocale(new Locale("pl", "PL"));
 		calendare_dateTo.setDate( new Date(calendare_dateFrom.getDate().getTime() + (1000 * 60 * 60 * 24)) );
-		//add(calendare_dateTo);
-		
-		JLabel lblDaneProducenta = new JLabel("Dane producenta:\r\n");
-		lblDaneProducenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lblDaneProducenta.setForeground(new Color(255, 204, 0));
-		lblDaneProducenta.setBounds(453, 101, 148, 14);
-		add(lblDaneProducenta);
 		
 		JPanel panel_data = new JPanel();
 		panel_data.setBackground(SystemColor.inactiveCaptionText);
-		panel_data.setBounds(10, 11, 634, 328);
+		panel_data.setBounds(10, 11, 621, 328);
 		panel_data.add(calendare_dateFrom);
 		panel_data.add(calendare_dateTo);
 		add(panel_data);
 		panel_data.setLayout(null);
 		
-		JComboBox<String> comboBox_nextCityName_1 = new JComboBox<String>();
-		comboBox_nextCityName_1.setBounds(41, 36, 288, 32);
-		panel_data.add(comboBox_nextCityName_1);
-		comboBox_nextCityName_1.setBackground(SystemColor.activeCaption);
-		comboBox_nextCityName_1.setForeground(SystemColor.desktop);
-		comboBox_nextCityName_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		comboBox_nextCityName = new JComboBox<String>();
+		comboBox_nextCityName.setBounds(143, 19, 303, 32);
+		panel_data.add(comboBox_nextCityName);
+		comboBox_nextCityName.setBackground(SystemColor.activeCaption);
+		comboBox_nextCityName.setForeground(SystemColor.desktop);
+		comboBox_nextCityName.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JLabel lblMiastoDo = new JLabel("Miasto do:");
-		lblMiastoDo.setBounds(41, 11, 96, 14);
+		lblMiastoDo.setBounds(24, 28, 96, 14);
 		panel_data.add(lblMiastoDo);
 		lblMiastoDo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lblMiastoDo.setForeground(new Color(255, 204, 0));
 		
 		JLabel lblDataWyjazdu = new JLabel("Data wyjazdu:");
-		lblDataWyjazdu.setBounds(20, 91, 127, 14);
+		lblDataWyjazdu.setBounds(24, 63, 127, 14);
 		panel_data.add(lblDataWyjazdu);
 		lblDataWyjazdu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lblDataWyjazdu.setForeground(new Color(255, 204, 0));
 		
 		JLabel lblDataPrzyjazdu = new JLabel("Data przyjazdu: ");
-		lblDataPrzyjazdu.setBounds(218, 91, 111, 14);
+		lblDataPrzyjazdu.setBounds(316, 63, 111, 14);
 		panel_data.add(lblDataPrzyjazdu);
 		lblDataPrzyjazdu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lblDataPrzyjazdu.setForeground(new Color(255, 204, 0));
 		
 		JPanel panel_buttons = new JPanel();
 		panel_buttons.setBackground(SystemColor.inactiveCaptionText);
-		panel_buttons.setBounds(10, 341, 634, 86);
+		panel_buttons.setBounds(10, 341, 621, 86);
 		add(panel_buttons);
 		panel_buttons.setLayout(null);
 		
 		JButton man_cancelButton = new JButton("Anuluj");
-		man_cancelButton.setBounds(10, 11, 164, 62);
+		man_cancelButton.setBounds(23, 11, 135, 62);
 		panel_buttons.add(man_cancelButton);
 		man_cancelButton.setBackground(SystemColor.activeCaption);
 		man_cancelButton.setForeground(SystemColor.desktop);
 		man_cancelButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
-		JButton man_notConfirmButton = new JButton("Nie odpowiada");
-		man_notConfirmButton.setBounds(180, 11, 180, 62);
-		panel_buttons.add(man_notConfirmButton);
-		man_notConfirmButton.setBackground(SystemColor.activeCaption);
-		man_notConfirmButton.setForeground(SystemColor.desktop);
-		man_notConfirmButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		JButton man_back = new JButton("Wróć");
+		man_back.setBounds(168, 11, 135, 62);
+		panel_buttons.add(man_back);
+		man_back.setBackground(SystemColor.activeCaption);
+		man_back.setForeground(SystemColor.desktop);
+		man_back.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JButton man_confirmButton = new JButton("Zatwierd\u017A");
-		man_confirmButton.setBounds(439, 11, 171, 62);
+		man_confirmButton.setBounds(462, 11, 135, 62);
 		panel_buttons.add(man_confirmButton);
 		man_confirmButton.setBackground(SystemColor.activeCaption);
 		man_confirmButton.setForeground(SystemColor.desktop);
@@ -137,19 +132,35 @@ public class ManufacturerOrderDataJPanel extends JPanel
 		man_confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				presenter_RoutePlanning.send_nextCityNameAfterConfirm();
-				presenter_RoutePlanning.closeManufacturerInfo();
-				presenter_RoutePlanning.addCityToPath();
 				
-				presenter_RoutePlanning.addNextOrder();
-				presenter_RoutePlanning.addOrderToTab();
+				String error = presenter_RoutePlanning.checkCorrectnessOfData_nextOrders();
+				if( error == null )
+				{
+					int dialogResult = JOptionPane.showConfirmDialog(ManufacturerOrderDataJPanel.this, "Czy podane dane się zgadzają:"
+							+ "\n\nData wyjazdu: " + getStartDate() 
+							+ "\nData przyjazdu: " + getFinishDate()
+							+ "\nMiasto docelowe: " + getNextCityName() +"\n\n", 
+							"Potwierdzenie", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION) 
+					{
+						presenter_RoutePlanning.send_nextCityNameAfterConfirm();
+						presenter_RoutePlanning.closeManufacturerInfo();
+						presenter_RoutePlanning.addCityToPath();
+					
+						presenter_RoutePlanning.addNextOrder();
+						presenter_RoutePlanning.addOrderToTab();
+					}
+				}
+				else
+					JOptionPane.showMessageDialog(ManufacturerOrderDataJPanel.this, "Bład wprowadzanych danych:\n" + error, "Błąd danych", 
+							JOptionPane.ERROR_MESSAGE);	
 			}
 		});
-		man_notConfirmButton.addActionListener(new ActionListener() {
+		man_back.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				presenter_RoutePlanning.markAsUnsuitable();
-				presenter_RoutePlanning.closeManufacturerInfo();
+				presenter_RoutePlanning.changeManufacturerOrderData_manufacturerInfoFrame();
 			}
 		});
 		man_cancelButton.addActionListener(new ActionListener() {
@@ -158,8 +169,6 @@ public class ManufacturerOrderDataJPanel extends JPanel
 				presenter_RoutePlanning.closeManufacturerInfo();
 			}
 		});
-		
-
 
 	}
 	
@@ -168,11 +177,7 @@ public class ManufacturerOrderDataJPanel extends JPanel
 		JFrame frame = new JFrame();
 		ManufacturerOrderDataJPanel panel = new ManufacturerOrderDataJPanel();
 		
-		Manufacturer man = new Manufacturer("AAAA", 123.2, 123.2, 
-				"1993-09-28", 20, 33, 12, "987-123-123", "d");
-		panel.setInfoAboutManufacturerInToList( man );
-		
-		frame.setBounds(10, 10, 800, 500);
+		frame.setBounds(10, 10, 658, 475);
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		
@@ -181,29 +186,7 @@ public class ManufacturerOrderDataJPanel extends JPanel
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_RoutePlanning = presenter;
-		
-	}
-	
-	/**
-	 * Metoda dodajaca do listy informacje o produceńcie
-	 * @param attr
-	 * @author Kamil Zimny
-	 */
-	public void setInfoAboutManufacturerInToList( Manufacturer manufacturer)
-	{ 
-			if(man_list != null)
-				remove(man_list);
-			String [] details = new String [6];
-			details[0] = "Nazwa: " + manufacturer.getName();
-			details[1] = "Telefon: " + manufacturer.getPhone();
-			details[2] = "Ostatnia aktywność: " + manufacturer.getLastActivity();
-			details[3] = "Liczba zleceń: " + manufacturer.getNumberOfOrders();
-			details[4] = "Suma wartości zleceń: " + manufacturer.getSumOfOrdersValue();
-			details[5] = "Suma dni wykonywanych zleceń: " + manufacturer.getSumOfDays();
-			man_list = new JList<String>(details);
-			man_list.setBounds(452, 130, 280, 140);
-			man_list.setBackground(SystemColor.activeCaption);
-			add(man_list);	
+		presenter_RoutePlanning.addAllCityToList(comboBox_nextCityName,null);
 	}
 	
 	public String getNextCityName()
@@ -220,5 +203,11 @@ public class ManufacturerOrderDataJPanel extends JPanel
 	public String getFinishDate()
 	{
 		return dateFormat.format(calendare_dateTo.getDate());
+	}
+	
+	public void setStartDateOn(Date date)
+	{
+		calendare_dateFrom.setDate( date );
+		calendare_dateTo.setDate( new Date(date.getTime() + (1000 * 60 * 60 * 24)) );
 	}
 }

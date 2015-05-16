@@ -61,6 +61,13 @@ public class VisualisationManufacturersModel
 		return map;
 	}
 	
+	/**
+	 * Metoda zwracajaca producenta o okreslonym id z kolekcji wszystkich 
+	 * producentow w wybranym obszarze.
+	 * @param ID
+	 * @return Manufacturer jesli znalazl || null jestli nie znalazl
+	 * @author Kamil Zimny
+	 */
 	public Manufacturer getManufacturerByID(String ID)
 	{
 		for( Manufacturer man : manufacturersData )
@@ -71,8 +78,5 @@ public class VisualisationManufacturersModel
 		
 		return null;
 	}
-	
-	 
-
 	
 }

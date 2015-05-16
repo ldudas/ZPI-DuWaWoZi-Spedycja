@@ -16,6 +16,8 @@ public class Manufacturer
 	private int rankOfNumberOfOrders;
 	private int rankOfDailyProfit;
 	
+	private String additionInfo;
+	
 	public Manufacturer(String name,  double longitude, double latitude, String lastActivity,int numberOfOrders,
 			double sumOfOrdersValue, int sumOfDays, String phone, String ID)
 	{
@@ -28,6 +30,7 @@ public class Manufacturer
 		this.sumOfDays = sumOfDays;
 		this.phone = phone;
 		this.ID = ID;
+		this.additionInfo = "Brak";
 	}
 	
 	public String getID()
@@ -93,6 +96,16 @@ public class Manufacturer
 	public void setRankOfDailyProfit(int rank)
 	{
 		rankOfDailyProfit = rank;
+	}
+	
+	public String getAdditionInfo()
+	{
+		return additionInfo;
+	}
+	
+	public void setInfoAboutManufacturer(String info)
+	{
+		additionInfo = info;
 	}
 	
 	

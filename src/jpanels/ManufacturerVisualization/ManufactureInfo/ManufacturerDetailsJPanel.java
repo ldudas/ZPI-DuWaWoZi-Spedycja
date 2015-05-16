@@ -6,10 +6,11 @@ import javax.swing.JPanel;
 
 import java.awt.SystemColor;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import dataModels.Manufacturer;
 
@@ -18,11 +19,17 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JTextArea;
+
 public class ManufacturerDetailsJPanel extends JPanel
 {
-	private JList<String> man_list;
 	private RoutePlanningPresenter presenter_RoutePlanning;
 	private JPanel panel_data;
+	private Manufacturer currentManufacturer;
+	
+	private JTextArea textArea_manufacturerAdditionalInfo;
+	private JScrollPane scrollManufacturerAddition;
+	private JList<String> man_list;
 	
 	public ManufacturerDetailsJPanel() 
 	{
@@ -31,7 +38,7 @@ public class ManufacturerDetailsJPanel extends JPanel
 		
 		panel_data = new JPanel();
 		panel_data.setBackground(SystemColor.inactiveCaptionText);
-		panel_data.setBounds(10, 11, 627, 302);
+		panel_data.setBounds(10, 11, 627, 306);
 		add(panel_data);
 		panel_data.setLayout(null);
 		
@@ -49,9 +56,23 @@ public class ManufacturerDetailsJPanel extends JPanel
 		lblNewLabel_1.setBounds(257, 11, 264, 23);
 		panel_data.add(lblNewLabel_1);
 		
+		textArea_manufacturerAdditionalInfo = new JTextArea();
+		scrollManufacturerAddition = new JScrollPane(textArea_manufacturerAdditionalInfo);
+		
+		textArea_manufacturerAdditionalInfo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		textArea_manufacturerAdditionalInfo.setBackground(SystemColor.activeCaption);
+		textArea_manufacturerAdditionalInfo.setForeground(new Color(139, 0, 0));
+		textArea_manufacturerAdditionalInfo.setEditable(false);
+		textArea_manufacturerAdditionalInfo.setLineWrap(true);
+		textArea_manufacturerAdditionalInfo.setWrapStyleWord(true);
+		scrollManufacturerAddition.setBackground(SystemColor.activeCaption);
+		scrollManufacturerAddition.setBounds(10, 166, 220, 66);
+		scrollManufacturerAddition.setVisible(false);
+		panel_data.add(scrollManufacturerAddition);
+		
 		JPanel panel_buttons = new JPanel();
 		panel_buttons.setBackground(SystemColor.inactiveCaptionText);
-		panel_buttons.setBounds(10, 319, 627, 73);
+		panel_buttons.setBounds(10, 319, 627, 85);
 		add(panel_buttons);
 		panel_buttons.setLayout(null);
 		
@@ -65,57 +86,48 @@ public class ManufacturerDetailsJPanel extends JPanel
 		btn_cancel.setBackground(SystemColor.activeCaption);
 		btn_cancel.setForeground(SystemColor.desktop);
 		btn_cancel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_cancel.setBounds(10, 11, 145, 51);
+		btn_cancel.setBounds(10, 11, 135, 62);
 		panel_buttons.add(btn_cancel);
 		
 		JButton btn_unpropertyChoose = new JButton("Nie Odpowiada\r\n");
 		btn_unpropertyChoose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				presenter_RoutePlanning.markAsUnsuitable();
-				presenter_RoutePlanning.closeManufacturerInfo();
+				String reason = (String) JOptionPane.showInputDialog(ManufacturerDetailsJPanel.this,"Proszę podać powód odrzucenia producenta: ",
+						"Odrzucenie producenta",JOptionPane.QUESTION_MESSAGE ,null,null,"Powód odrzucenia" );
+
+				if( reason != null )
+				{
+					presenter_RoutePlanning.setManufacturerAttribut_additionInfo(currentManufacturer, reason);
+					presenter_RoutePlanning.markAsUnsuitable();
+					presenter_RoutePlanning.closeManufacturerInfo();
+				}
 			}
 		});
 		btn_unpropertyChoose.setBackground(SystemColor.activeCaption);
 		btn_unpropertyChoose.setForeground(SystemColor.desktop);
 		btn_unpropertyChoose.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_unpropertyChoose.setBounds(165, 11, 145, 51);
+		btn_unpropertyChoose.setBounds(155, 11, 135, 62);
 		panel_buttons.add(btn_unpropertyChoose);
 		
 		JButton btn_propertyChoose = new JButton("Odpowiada\r\n");
 		btn_propertyChoose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				presenter_RoutePlanning.changeManufacturerInfoFrame_manufacturerOrderData();
 			}
 		});
 		btn_propertyChoose.setBackground(SystemColor.activeCaption);
 		btn_propertyChoose.setForeground(SystemColor.desktop);
 		btn_propertyChoose.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_propertyChoose.setBounds(472, 11, 145, 51);
+		btn_propertyChoose.setBounds(482, 11, 135, 62);
 		panel_buttons.add(btn_propertyChoose);
-		
-	}
-	
-	public static void main(String [] args)
-	{
-		JFrame frame = new JFrame();
-		ManufacturerDetailsJPanel panel = new ManufacturerDetailsJPanel();
-		
-		Manufacturer man = new Manufacturer("AAAA", 123.2, 123.2, 
-				"1993-09-28", 20, 33, 12, "987-123-123", "d");
-		panel.setInfoAboutManufacturerInToList( man );
-		
-		frame.setBounds(10, 10, 800, 500);
-		frame.getContentPane().add(panel);
-		frame.setVisible(true);
 		
 	}
 	
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
-		presenter_RoutePlanning = presenter;
-		
+		presenter_RoutePlanning = presenter;		
 	}
 	
 	/**
@@ -125,8 +137,13 @@ public class ManufacturerDetailsJPanel extends JPanel
 	 */
 	public void setInfoAboutManufacturerInToList( Manufacturer manufacturer)
 	{ 
+			currentManufacturer = manufacturer;
+
 			if(man_list != null)
-				remove(man_list);
+			{
+				panel_data.remove(man_list);
+			}
+
 			String [] details = new String [8];
 			details[0] = "Nazwa: " + manufacturer.getName();
 			details[1] = "Telefon: " + manufacturer.getPhone();
@@ -134,13 +151,23 @@ public class ManufacturerDetailsJPanel extends JPanel
 			details[3] = "Liczba zleceń: " + manufacturer.getNumberOfOrders();
 			details[4] = "Suma wartości zleceń: " + manufacturer.getSumOfOrdersValue();
 			details[5] = "Suma dni wykonywanych zleceń: " + manufacturer.getSumOfDays();
-			details[6] = "Dodatkowe informacje: " ;
-			details[7] = " dosajdisajdiajsidjisajdisajd";
+			
+			if( !manufacturer.getAdditionInfo().equals("Brak") )
+			{		
+				scrollManufacturerAddition.setVisible(true);
+				textArea_manufacturerAdditionalInfo.setText("Powód odrzucenia: \n" + manufacturer.getAdditionInfo());
+			}
+			else
+				scrollManufacturerAddition.setVisible(false);
+
+
 			man_list = new JList<String>(details);
-			man_list.setBounds(10, 40, 220, 170);
+			man_list.setBounds(10, 40, 220, 130);
 			man_list.setBackground(SystemColor.activeCaption);
 			panel_data.add(man_list);	
+			
 	}
+	
 
 	/**
 	 * 

@@ -73,7 +73,6 @@ public class VisualistaionManufacturersPresenter
 			}
 			
 		}
-		
 		return manufacturer;
 	}
 	
@@ -103,6 +102,18 @@ public class VisualistaionManufacturersPresenter
 				break;
 			}
 		}
+	}
+	
+	/**
+	 * Metoda ustawiajaca wybranemu producentowi pole dodatkowe inforamcje na 
+	 * wartosc podana w parametrze info
+	 * @param manufacturer
+	 * @param info
+	 * @author Kamil Zimny
+	 */
+	public void setManufacturerAttribut_additionInfo(Manufacturer manufacturer,String info)
+	{
+		model_ManufacturersVis.getManufacturerByID(manufacturer.getID()).setInfoAboutManufacturer(info);
 	}
 
 	
