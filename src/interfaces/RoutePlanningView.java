@@ -214,6 +214,11 @@ public class RoutePlanningView
 		manufacturerOrderDataJPanel.setStartDateOn(date);
 	}
 	
+	public void removeLastOrderFromTab()
+	{
+		manufacturerVisualizationWithMapJPanel.removeLastOrderFromTab();
+	}
+	
 	
 	
 }

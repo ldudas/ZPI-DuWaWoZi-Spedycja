@@ -3,8 +3,8 @@ package dataModels;
 public class Order 
 {
 	
-	private String cityNameFrom;
-	private String cityNameTo;
+//	private String cityNameFrom;
+//	private String cityNameTo;
 	private String startDate;
 	private String finishDate;
 	private String idManufacturer;
@@ -15,8 +15,8 @@ public class Order
 	
 	public Order(String cityNameFrom, String cityNameTo,String startDate, String finishDate,String idManufacturer,String idTrasnporter)
 	{
-		this.cityNameFrom = cityNameFrom;
-		this.cityNameTo = cityNameTo;
+	//	this.cityNameFrom = cityNameFrom;
+	//	this.cityNameTo = cityNameTo;
 		this.startDate = startDate;
 		this.finishDate = finishDate;
 		this.idManufacturer = idManufacturer;
@@ -29,16 +29,6 @@ public class Order
 		this.cityTo = cityTo;
 		this.startDate = startDate;
 		this.finishDate = finishDate;
-	}
-	
-	public String getCityNameFrom()
-	{
-		return cityNameFrom;
-	}
-	
-	public String getCityNameTo()
-	{
-		return cityNameTo;
 	}
 	
 	public String getStartDate()

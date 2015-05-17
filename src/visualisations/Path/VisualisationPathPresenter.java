@@ -62,7 +62,8 @@ public class VisualisationPathPresenter {
 		view_PathVis.add_map_to_tab(model_PathVis.getPathMap());
 	}
 	
-	public void removeLastCity(){
+	public void removeLastCity()
+	{
 		model_PathVis.removeLastCityFormPath();
 	}
 	

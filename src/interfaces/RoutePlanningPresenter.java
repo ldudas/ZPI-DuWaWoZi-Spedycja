@@ -13,7 +13,6 @@ import builders.OrderBuilder;
 import dataModels.City;
 import dataModels.Manufacturer;
 import dataModels.Order;
-import visualisations.*;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Path.VisualisationPathPresenter;
 
@@ -133,8 +132,15 @@ public class RoutePlanningPresenter
 	
 	public void send_nextCityNameAfterConfirm()
 	{
-		manu_presenter.startManufacturersVisualisation(route_planning_view.city_nextCityAfterComfirm());
-		
+		manu_presenter.startManufacturersVisualisation(route_planning_view.city_nextCityAfterComfirm());		
+	}
+	
+	/**
+	 * Ustawia vizualizacje producentow na poprzednie miasto, przed usunieciem ostatniego zamowienia z listy
+	 */
+	public void set_priviousCityToVisualisation()
+	{
+		manu_presenter.startManufacturersVisualisation(route_planning_model.getLastOrder().getCityFrom().getCityName());
 	}
 	
 	public RoutePlanningView return_view()
@@ -245,6 +251,15 @@ public class RoutePlanningPresenter
 	}
 	
 	/**
+	 * Usuwa ostatnio dodane zlecenie, nie bierze pod uwage pierwszego zlecenia ( nie usuwa go)
+	 * @author Kamil Zimny
+	 */
+	public void removeLastOrder()
+	{
+		route_planning_model.removeLastOrder();
+	}
+	
+	/**
 	 * Zwraca ostatnie zlecenie z kolekcji zleceń dokonanych podczas pojedyńczej trasy
 	 * @return Order 
 	 * @author Kamil Zimny
@@ -262,6 +277,16 @@ public class RoutePlanningPresenter
 	public void addOrderToTab()
 	{
 		route_planning_view.addOrderToTab( route_planning_model.getLastOrder() );
+	}
+	
+	/**
+	 * Usuwa ostatnio dodane zlecenie z tabeli wyswietlajacej 
+	 * podstawowe dane zlecenia.
+	 * @author Kamil Zimny
+	 */
+	public void removeLastOrderFromTab()
+	{
+		route_planning_view.removeLastOrderFromTab();
 	}
 	
 	/**

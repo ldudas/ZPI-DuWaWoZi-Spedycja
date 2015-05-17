@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import java.awt.SystemColor;
 
 public class DiscriptionOnMapJPanel extends JPanel 
 {
@@ -24,17 +25,18 @@ public class DiscriptionOnMapJPanel extends JPanel
 	    txtStatus.setText("Nazwy zaznaczonych producentów.");
 	    txtStatus.setLineWrap(true);
 	    txtStatus.setWrapStyleWord(true);
-	    txtStatus.setFont(new Font(txtStatus.getFont().getName(), txtStatus.getFont().getStyle(), 12));
-	    txtStatus.setBackground(Color.BLACK);
-	    txtStatus.setForeground(Color.WHITE);
+	    txtStatus.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+	    txtStatus.setBackground(SystemColor.inactiveCaptionText);
+	    txtStatus.setForeground(new Color(255, 204, 0));
 	    txtStatus.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 	    txtStatus.setEditable(false);
 
 	    // description
 	    JTextArea description = new JTextArea(
 	        "Kliknij na obiekty by zaznaczyć producenta.");
-	    description.setForeground(Color.WHITE);
-	    description.setBackground(new Color(0, 0, 0, 80));
+	    description.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 10));
+	    description.setForeground(SystemColor.desktop);
+	    description.setBackground(SystemColor.activeCaption);
 	    description.setEditable(false);
 	    description.setLineWrap(true);
 	    description.setWrapStyleWord(true);

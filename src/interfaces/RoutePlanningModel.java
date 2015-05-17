@@ -37,4 +37,14 @@ public class RoutePlanningModel
 	{
 		return dao_routePlanning.getCityCoordinates(cityName);
 	}
+	
+	/**
+	 * Usuwa ostatnio dodane zlecenie, nie bierze pod uwage pierwszego zlecenia ( nie usuwa go)
+	 * @author Kamil Zimny
+	 */
+	public void removeLastOrder()
+	{
+		if( ordersData.size() > 0 )
+			ordersData.remove(ordersData.size() - 1);
+	}
 }

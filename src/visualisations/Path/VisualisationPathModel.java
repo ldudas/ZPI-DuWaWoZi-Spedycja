@@ -21,7 +21,8 @@ import database.DataAccessObjectFactory;
 import database.DataAccessObjectPathVisualisation;
 
 
-public class VisualisationPathModel {
+public class VisualisationPathModel 
+{
 	
 	
 	/**
