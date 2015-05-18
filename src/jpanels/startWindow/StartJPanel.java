@@ -142,7 +142,6 @@ public class StartJPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-
 				int dialogResult = JOptionPane.showConfirmDialog(StartJPanel.this, "Czy na pewno chcesz wyczyścić uzupełnione pola?", 
 																	"Czyszczenie", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 

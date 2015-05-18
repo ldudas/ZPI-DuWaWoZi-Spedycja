@@ -2,20 +2,18 @@ package visualisations.Manufacturers;
 
 
 import java.awt.Color;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.GraphicsLayer;
-import com.esri.map.JMap;
-import com.esri.map.Layer;
-import com.esri.map.LayerList;
-
-
-
 
 
 import dataModels.Manufacturer;
+import decorators.VisualisationManufactureDecorator;
 import interfaces.RoutePlanningPresenter;
 
 public class VisualistaionManufacturersPresenter 
@@ -54,28 +52,20 @@ public class VisualistaionManufacturersPresenter
 	 */
 	public Manufacturer getAttributeOfSelectedManufacturers()
 	{
-		JMap map = model_ManufacturersVis.getMap();
-		LayerList layerlist = map.getLayers();
-
 		int [] id_ofSelectedManufacturers = null;
 		Manufacturer manufacturer = null;
-		for( Layer layer : layerlist)
+
+		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
+		id_ofSelectedManufacturers = layer.getSelectionIDs(); //pobieramy indeksy zaznaczonych obiektow
+		
+		if( id_ofSelectedManufacturers.length == 1 )//jesli zaznaczony tylko jeden obiekt to pobierz jego atrybuty
 		{
-			if( layer.getName().toString().equals("Manufacturers graphics") )//Znajdujemy odpowiedzni layer
-			{
-				id_ofSelectedManufacturers = ((GraphicsLayer) layer).getSelectionIDs(); //pobieramy indeksy zaznaczonych obiektow
-				
-				if( id_ofSelectedManufacturers.length == 1 )//jesli zaznaczony tylko jeden obiekt to pobierz jego atrybuty
-				{
-					Graphic graphic = ((GraphicsLayer) layer).getGraphic(id_ofSelectedManufacturers[0]);
-					Map<String, Object>  attributes = graphic.getAttributes();		
-					String ID = (String) attributes.get("ID");
-					manufacturer = model_ManufacturersVis.getManufacturerByID(ID);
-				}			
-				break;
-			}
+			Graphic graphic = layer.getGraphic(id_ofSelectedManufacturers[0]);
+			Map<String, Object>  attributes = graphic.getAttributes();		
+			String ID = (String) attributes.get("ID");
+			manufacturer = model_ManufacturersVis.getManufacturerByID(ID);
+		}			
 			
-		}
 		return manufacturer;
 	}
 	
@@ -85,26 +75,17 @@ public class VisualistaionManufacturersPresenter
 	 * @author Kamil Zimny
 	 */
 	public void markAsUnsuitable()
-	{
-		JMap map = model_ManufacturersVis.getMap();
-		LayerList layerlist = map.getLayers();
-
-		for( Layer layer : layerlist)
-		{
-			if( layer.getName().toString().equals( "Manufacturers graphics" ) )//Znajdujemy odpowiedzni layer
-			{		
-				int idOfGraphic = ((GraphicsLayer) layer).getSelectionIDs()[0];
-				Graphic graphic = ((GraphicsLayer) layer).getGraphic( idOfGraphic );
-				SimpleMarkerSymbol symbol = (SimpleMarkerSymbol)  graphic.getSymbol() ;			
-				symbol.setColor(Color.BLACK);
-				symbol.setAngle(45);
-				symbol.setSize(30);
-				symbol.setStyle(SimpleMarkerSymbol.Style.CROSS);
-				
-				((GraphicsLayer) layer).updateGraphic(idOfGraphic, symbol);
-				break;
-			}
-		}
+	{	
+		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
+		int idOfGraphic = layer.getSelectionIDs()[0];
+		Graphic graphic =  layer.getGraphic( idOfGraphic );
+		SimpleMarkerSymbol symbol = (SimpleMarkerSymbol)  graphic.getSymbol() ;			
+		symbol.setColor(Color.BLACK);
+		symbol.setAngle(45);
+		symbol.setSize(30);
+		symbol.setStyle(SimpleMarkerSymbol.Style.CROSS);
+		
+		layer.updateGraphic(idOfGraphic, symbol);
 	}
 	
 	/**
@@ -118,6 +99,72 @@ public class VisualistaionManufacturersPresenter
 	{
 		model_ManufacturersVis.getManufacturerByID(manufacturer.getID()).setInfoAboutManufacturer(info);
 	}
+	
+	
+	/**
+	 * Metoda filtrująca producentow na mapie pod wzgledem ich aktywności
+	 * ilość producentów wyświetlanych będzie co najwyżej równa parametrowi int
+	 * @param numberOfMostActive - ilosc producentow do wyswietlenia
+	 * @author Kamil Zimny
+	 */
+	public void filterCountOfMostActiveManufacturers(int numberOfMostActive)
+	{
+	//	model_ManufacturersVis.sortManufacturerCollection(new ComparatorManufactureActivite());
+	
+		VisualisationManufactureDecorator decorator = new VisualisationManufactureDecorator();
+		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
+		layer.removeAll();
+		
+		decorator.addManufacturerGraphicOnMap(model_ManufacturersVis.getMap().getSpatialReference(),  layer, 
+				model_ManufacturersVis.getNumberOfManufacturerFromBegin(numberOfMostActive));
+	}
+	
+	
+	/**
+	 * Metoda filtrująca producentów pod względem aktywności po określonej dacie w parametrze.
+	 * @param numberOfDays
+	 * @author Kamil Zimny
+	 */
+	public void filterManfacturersBySinceDate(int numberOfDays)
+	{
+		Calendar calendar = new GregorianCalendar();
+		calendar.add(Calendar.DAY_OF_YEAR, -numberOfDays);
+
+		VisualisationManufactureDecorator decorator = new VisualisationManufactureDecorator();
+			
+		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
+		layer.removeAll();
+				
+		decorator.addManufacturerGraphicOnMap(model_ManufacturersVis.getMap().getSpatialReference(),  layer, 
+						model_ManufacturersVis.getManufacturersWhoseLastActiviteIsBeforeDate(calendar.getTime()));
+				
+	}
+	
+	/**
+	 * Metoda filtrujaca proucentow na mapie, ktorych ostatnia aktywnosc znajduje sie pomiedzy obliczonymi
+	 * datami na podstawie parametrow.
+	 * @param numberOfDaysAgo
+	 * @param numberOfDayTolerance
+	 * @author Kamil Zimny
+	 */
+	public void filterManufacturersBetweenDate(int numberOfDaysAgo, int numberOfDayTolerance)
+	{
+		Calendar calendar = new GregorianCalendar();
+		calendar.add(Calendar.DAY_OF_YEAR, -(numberOfDaysAgo+numberOfDayTolerance));
+		Date dateFrom = calendar.getTime();
+		calendar.add(Calendar.DAY_OF_YEAR, 2*(numberOfDaysAgo+numberOfDayTolerance) );
+		Date dateTo = calendar.getTime();
+		
+		VisualisationManufactureDecorator decorator = new VisualisationManufactureDecorator();
+		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
+		layer.removeAll();
+		
+		decorator.addManufacturerGraphicOnMap(model_ManufacturersVis.getMap().getSpatialReference(),  layer, 
+				model_ManufacturersVis.getManufacturersWhoseLastActiviteIsBetween(dateFrom, dateTo));
+		
+	}
+	
+	
 
 	
 	

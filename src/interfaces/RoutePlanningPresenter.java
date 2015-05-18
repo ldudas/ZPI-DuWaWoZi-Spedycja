@@ -391,6 +391,39 @@ public class RoutePlanningPresenter
 		}
 	}
 	
+	/**
+	 * Metoda filtrująca producentow na mapie pod wzgledem ich aktywności
+	 * ilość producentów wyświetlanych będzie co najwyżej równa parametrowi int
+	 * @param numberOfMostActive - ilosc producentow do wyswietlenia
+	 * @author Kamil Zimny
+	 */
+	public void filterCountOfMostActiveManufacturers(int numberOfMostActive)
+	{
+		
+		manu_presenter.filterCountOfMostActiveManufacturers(numberOfMostActive);
+	}
+	
+	/**
+	 * Metoda filtrująca producentów pod względem aktywności po określonej dacie w parametrze.
+	 * @param numberOfDays
+	 * @author Kamil Zimny
+	 */
+	public void filterManfacturersBySinceDate(int numberOfDays)
+	{
+		manu_presenter.filterManfacturersBySinceDate(numberOfDays);
+	}
+	
+	/**
+	 * Metoda filtrujaca proucentow na mapie, ktorych ostatnia aktywnosc znajduje sie pomiedzy obliczonymi
+	 * datami na podstawie parametrow.
+	 * @param numberOfDaysAgo
+	 * @param numberOfDayTolerance
+	 * @author Kamil Zimny
+	 */
+	public void filterManufacturersBetweenDate(int numberOfDaysAgo, int numberOfDayTolerance)
+	{
+		manu_presenter.filterManufacturersBetweenDate(numberOfDaysAgo, numberOfDayTolerance);
+	}
 	
 	
 

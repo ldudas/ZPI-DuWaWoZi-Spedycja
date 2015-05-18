@@ -51,6 +51,10 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		add(discription);
 	}
 	
+	public VisualisationManufactureDecorator()
+	{
+	}
+	
 	
 	/**
 	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
@@ -151,7 +155,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	 * * <br>attr.get("ID") -> identyfikator 
 	 * @author Kamil Zimny
 	 */
-	private void addManufacturerGraphicOnMap(final SpatialReference mapSR,final GraphicsLayer graphicsLayer, final ArrayList<Manufacturer> manufacturers)
+	public void addManufacturerGraphicOnMap(final SpatialReference mapSR,final GraphicsLayer graphicsLayer, final ArrayList<Manufacturer> manufacturers)
 	{
 
 		 //dla kazdego producenta

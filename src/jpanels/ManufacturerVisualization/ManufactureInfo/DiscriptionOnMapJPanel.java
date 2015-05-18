@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+import java.awt.Component;
 
 public class DiscriptionOnMapJPanel extends JPanel 
 {
@@ -34,6 +35,8 @@ public class DiscriptionOnMapJPanel extends JPanel
 	    // description
 	    JTextArea description = new JTextArea(
 	        "Kliknij na obiekty by zaznaczyć producenta.");
+	    description.setLocation(5, 5);
+	    description.setTabSize(10);
 	    description.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 10));
 	    description.setForeground(SystemColor.desktop);
 	    description.setBackground(SystemColor.activeCaption);
@@ -41,19 +44,17 @@ public class DiscriptionOnMapJPanel extends JPanel
 	    description.setLineWrap(true);
 	    description.setWrapStyleWord(true);
 	    description.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-	    description.setSize(200, 60);
+	    description.setSize(222, 36);
 	    description.setMaximumSize(new Dimension(200, 60));
-
-	    // group the above UI items into a panel
-	    BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-	    setLayout(boxLayout);
 	    setLocation(10, 10);
-	    setSize(200, 190);
+	    setSize(232, 162);
 	    setBackground(new Color(0, 0, 0, 80));
 	    setBorder(new LineBorder(Color.BLACK, 5, false));
 
 	    // Scroll pane for reporting features
 	    scrollPane = new JScrollPane(txtStatus);
+	    scrollPane.setBounds(5, 41, 222, 115);
+	    setLayout(null);
 
 	    add(description);
 	    add(scrollPane);
