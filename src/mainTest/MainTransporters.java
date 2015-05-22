@@ -1,27 +1,32 @@
 package mainTest;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
-import visualisations.VisualisationTransportersModel;
-import visualisations.VisualisationTransportersPresenter;
-import visualisations.VisualisationTransportersView;
+import visualisations.Transporters.VisualisationTransportersModel;
+import visualisations.Transporters.VisualisationTransportersPresenter;
+import visualisations.Transporters.VisualisationTransportersView;
 
 public class MainTransporters {
 
 	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	
-            	VisualisationTransportersModel trasn_model = new VisualisationTransportersModel();
-            	VisualisationTransportersView trans_view = new VisualisationTransportersView();
-            	VisualisationTransportersPresenter trans_pres = new VisualisationTransportersPresenter(trans_view, trasn_model);
-            	System.out.println("Running");
-            	
-            	trans_pres.drawTransporters();
-            }
-        });
-    }
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VisualisationTransportersModel trasn_model = new VisualisationTransportersModel();
+	            	VisualisationTransportersView trans_view = new VisualisationTransportersView();
+	            	VisualisationTransportersPresenter trans_pres = new VisualisationTransportersPresenter(trans_view, trasn_model);
+	            	trans_view.setPresenter(trans_pres);
+	            	System.out.println("Running");
+	            	
+	            	//trans_pres.drawTransporters();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 }

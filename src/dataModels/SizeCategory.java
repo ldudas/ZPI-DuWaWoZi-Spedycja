@@ -2,5 +2,5 @@ package dataModels;
 
 public enum SizeCategory 
 {
-	SMALL,MEDIUM,BIG;
+	ALL,SMALL,MEDIUM,BIG;
 }
