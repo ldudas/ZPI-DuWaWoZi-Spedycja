@@ -70,10 +70,14 @@ public class DatabaseConnector
 			statment.close();
 
 		} 		
-		catch (SQLException | ClassNotFoundException e) 
+		catch (SQLException e)
 		{
 			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
-		}	
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
+		}
 		finally
 		{			
 			if( !closeConnectToDatabase() )

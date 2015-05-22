@@ -35,6 +35,9 @@ public class DataAccessObjectManufacturersVisualisation
 	public ArrayList<ArrayList<String>> getDataAboutManufacturerToVizualization(final String cityName, final Integer intervalValue,
 			final String intervalType, final Integer intervalValue2, final String intervalType2)
 	{
+		if(cityName.isEmpty())
+			return null;
+		
 		String additionQueryOfSinceTime = "";
 		String additionQueryOfTimeAgo = "";
 		
@@ -96,6 +99,9 @@ public class DataAccessObjectManufacturersVisualisation
 	@SuppressWarnings("finally")
 	public String [] getCityCoordinates(final String cityName)
 	{
+		if(cityName.isEmpty())
+			return null;
+		
 		String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
 		String [] coordinates = null;
 		ArrayList<ArrayList<Object>> resultOfQuery = null;

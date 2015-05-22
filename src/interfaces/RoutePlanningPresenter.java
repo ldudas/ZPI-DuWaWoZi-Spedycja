@@ -81,7 +81,6 @@ public class RoutePlanningPresenter
 		if( manufacturer != null )
 		{
 			route_planning_view.show_manfacturerInfo(manufacturer);
-			
 		}
 		else
 			route_planning_view.show_ErrorMessage();			
