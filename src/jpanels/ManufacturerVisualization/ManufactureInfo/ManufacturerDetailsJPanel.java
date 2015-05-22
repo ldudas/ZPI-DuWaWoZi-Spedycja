@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
+import java.awt.CardLayout;
 
 public class ManufacturerDetailsJPanel extends JPanel
 {
@@ -53,7 +54,7 @@ public class ManufacturerDetailsJPanel extends JPanel
 		lblNewLabel_1.setForeground(new Color(255, 204, 0));
 		lblNewLabel_1.setBackground(SystemColor.inactiveCaptionText);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lblNewLabel_1.setBounds(257, 11, 264, 23);
+		lblNewLabel_1.setBounds(240, 11, 264, 23);
 		panel_data.add(lblNewLabel_1);
 		
 		textArea_manufacturerAdditionalInfo = new JTextArea();
@@ -69,6 +70,18 @@ public class ManufacturerDetailsJPanel extends JPanel
 		scrollManufacturerAddition.setBounds(10, 166, 220, 66);
 		scrollManufacturerAddition.setVisible(false);
 		panel_data.add(scrollManufacturerAddition);
+		
+		JPanel panel_chart = new JPanel();
+		panel_chart.setBackground(SystemColor.inactiveCaption);
+		panel_chart.setBounds(240, 45, 377, 250);
+		panel_data.add(panel_chart);
+		panel_chart.setLayout(new CardLayout(0, 0));
+		
+		RingChartJPanel chartJPanel = new RingChartJPanel();
+		chartJPanel.setBackground(SystemColor.activeCaption);
+		chartJPanel.setLayout(new CardLayout(0, 0));
+		panel_chart.add(chartJPanel);
+		
 		
 		JPanel panel_buttons = new JPanel();
 		panel_buttons.setBackground(SystemColor.inactiveCaptionText);

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mapOverlay.MyOverlay;
 import jpanels.ManufacturerVisualization.ManufactureInfo.DiscriptionOnMapJPanel;
 
 import com.esri.core.geometry.Envelope;
@@ -20,6 +21,7 @@ import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
+import com.esri.map.MapOverlay;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
@@ -87,6 +89,10 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, manfacturers);
 			  // Reakcja na klikniecie myszy
 			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
+			//  graphicsLayer.
+			  
+			  event.getMap().addMapOverlay( new MyOverlay() );
+			 // event.getMap().addMapOverlay(addMouseMoutionListener(graphicsLayer));
 		  }
 
 		  @Override
@@ -96,6 +102,17 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		  public void mapExtentChanged(MapEvent arg0) {}
 		 });
 	}
+	
+/*	pirvate MapOverlay addMouseMoutionListener(final GraphicsLayer graphicsLayer)
+	{
+		MapOverlay mouseMountion = new MapOverlay() {
+
+			
+		};
+		
+		return mouseMountion;
+	}
+*/
 	
 	/**
 	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
