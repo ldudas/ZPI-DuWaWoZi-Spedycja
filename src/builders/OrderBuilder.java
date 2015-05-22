@@ -11,6 +11,9 @@ public class OrderBuilder
 	
 	public Order buildOrder(City cityTo, City cityFrom ,String startDate, String finishDate)
 	{
+		if(cityTo == null || cityFrom == null || startDate.isEmpty() || finishDate.isEmpty())
+			return null;
+		
 		return new Order(cityFrom, cityTo, startDate, finishDate);
 	}
 }

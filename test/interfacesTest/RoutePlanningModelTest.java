@@ -12,8 +12,8 @@ public class RoutePlanningModelTest {
 
 	RoutePlanningModel rpm = new RoutePlanningModel();
 	
-	final static String NAZWA_MIASTA = "Kielce";
-	final static String[] WSPOLRZEDNE = {"20°37'E","50°53'N"};
+	final static String CITY_NAME = "Kielce";
+	final static String[] COORDINATES = {"20°37'E","50°53'N"};
 	
 	@Test
 	public void testGetOrderCollection()
@@ -43,12 +43,12 @@ public class RoutePlanningModelTest {
 	
 	@Test
 	public void testGetProperNumberOfCityCoordinates() {
-		assertEquals(2, rpm.getCityCoordinates(NAZWA_MIASTA).length);
+		assertEquals(2, rpm.getCityCoordinates(CITY_NAME).length);
 	}
 	
 	@Test
 	public void testGetProperCityCoordinates() {
-		assertArrayEquals(WSPOLRZEDNE, rpm.getCityCoordinates(NAZWA_MIASTA));
+		assertArrayEquals(COORDINATES, rpm.getCityCoordinates(CITY_NAME));
 	}
 
 }

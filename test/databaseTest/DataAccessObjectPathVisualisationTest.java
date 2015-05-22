@@ -9,11 +9,11 @@ import database.DataAccessObjectPathVisualisation;
 public class DataAccessObjectPathVisualisationTest {
 
 	DataAccessObjectPathVisualisation dao = new DataAccessObjectPathVisualisation();
-	final static int LICZBA_MIAST = 692;
+	final static int NUMBER_OF_CITIES = 692;
 	
 	@Test
 	public void testGetProperNumberOfCities() {
-		assertEquals(LICZBA_MIAST, dao.getCitiesCoordinates().size());
+		assertEquals(NUMBER_OF_CITIES, dao.getCitiesCoordinates().size());
 	}
 
 }

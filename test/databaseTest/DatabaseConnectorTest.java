@@ -10,8 +10,8 @@ import exceptions.DatabaseConnectionExeption;
 public class DatabaseConnectorTest {
 
 	DatabaseConnector db = new DatabaseConnector();
-	final static int LICZBA_MIAST = 692;
-	final static int ILOSC_KOLUMN_MIASTA = 3;
+	final static int NUMBER_OF_CITIES = 692;
+	final static int NUMBER_OF_CITY_COLUMNS = 3;
 	
 	@Test
 	public void testReturnZeroTuple() throws DatabaseConnectionExeption {
@@ -30,7 +30,7 @@ public class DatabaseConnectorTest {
 	
 	@Test
 	public void testReturnAllTuples() throws DatabaseConnectionExeption {
-		assertEquals(LICZBA_MIAST, db.getResultOfMySqlQuery("SELECT * FROM Miasta", ILOSC_KOLUMN_MIASTA).size());
+		assertEquals(NUMBER_OF_CITIES, db.getResultOfMySqlQuery("SELECT * FROM Miasta", NUMBER_OF_CITY_COLUMNS).size());
 	}
 
 }
