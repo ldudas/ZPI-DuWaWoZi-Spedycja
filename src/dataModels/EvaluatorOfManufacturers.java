@@ -1,5 +1,6 @@
 package dataModels;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class EvaluatorOfManufacturers 
@@ -13,6 +14,7 @@ public class EvaluatorOfManufacturers
 	{
 		evaluateActivityOfManufacturers(manufacturers);
 		evaluateSizeOfManufacturers(manufacturers);
+		evaluateMonthActivityOfManufacturers(manufacturers);
 	}
 	
 	/**
@@ -89,6 +91,46 @@ public class EvaluatorOfManufacturers
 			}
 			manufacturers.get(i).setRankOfNumberOfOrders((int)evaluationOfManufacturers);
 		}
-
 	}
+	
+	/***
+	 * Metoda obliczajaca i ustawiajaca kolory odpowiadajace aktywnosci producentow 
+	 * kazdego miesiaca roku
+	 * @param manufacturers
+	 * @author Kamil Zimny
+	 */
+	private void evaluateMonthActivityOfManufacturers(ArrayList<Manufacturer> manufacturers)
+	{
+		ArrayList<Color> activityColors = new ArrayList<Color>(12);
+		int activityValueOfTheWorst = 255;
+		int activityValueOfTheBest = 0;
+		int theBestEvaluation = -1;
+		int activityColorEvaluation = 0;
+		
+		for(Manufacturer man : manufacturers)
+		{
+			activityValueOfTheBest = 0;
+			theBestEvaluation = -1;
+			for(int i=0; i<12 ;i++)
+			{
+				if(theBestEvaluation < man.getMonthActivity(i) )
+					theBestEvaluation = man.getMonthActivity(i);		
+			}
+			
+			for(int i=0; i<12 ;i++)
+			{
+				if(man.getMonthActivity(i) == ( theBestEvaluation )  )
+					activityColorEvaluation = activityValueOfTheBest;
+				else	
+					activityColorEvaluation = activityValueOfTheWorst - man.getMonthActivity(i)/theBestEvaluation*activityValueOfTheWorst;
+				
+				activityColors.add(new Color(255,activityColorEvaluation,activityColorEvaluation) );
+			}
+			
+			System.out.println(activityColors);
+			man.setMonthsActivityColors(activityColors);
+			activityColors.clear();
+		}
+	}
+	
 }

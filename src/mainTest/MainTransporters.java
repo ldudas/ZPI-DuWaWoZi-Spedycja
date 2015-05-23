@@ -1,9 +1,6 @@
 package mainTest;
 
 import java.awt.EventQueue;
-import java.util.ArrayList;
-
-import javax.swing.SwingUtilities;
 
 import visualisations.Transporters.VisualisationTransportersModel;
 import visualisations.Transporters.VisualisationTransportersPresenter;

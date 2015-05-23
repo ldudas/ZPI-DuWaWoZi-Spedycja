@@ -104,7 +104,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		comboBox_map_period.setForeground(new Color(0, 0, 0));
 		comboBox_map_period.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
-		JComboBox<String> comboBox_map_unit = new JComboBox<String>();
+		final JComboBox<String> comboBox_map_unit = new JComboBox<String>();
 		comboBox_map_unit.setBounds(116, 115, 153, 22);
 		panel.add(comboBox_map_unit);
 		comboBox_map_unit.setBackground(SystemColor.activeCaption);
@@ -112,7 +112,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		comboBox_map_unit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		addUnitToComboBox(comboBox_map_unit);
 		
-		JComboBox<Integer> comboBox_map_count = new JComboBox<Integer>();
+		final JComboBox<Integer> comboBox_map_count = new JComboBox<Integer>();
 		comboBox_map_count.setBounds(116, 140, 153, 22);
 		panel.add(comboBox_map_count);
 		comboBox_map_count.setBackground(SystemColor.activeCaption);

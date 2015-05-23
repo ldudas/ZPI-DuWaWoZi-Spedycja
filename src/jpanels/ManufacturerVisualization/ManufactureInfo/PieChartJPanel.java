@@ -11,9 +11,12 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.plot.RingPlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
+
+import dataModels.Manufacturer;
 
 
 
@@ -45,23 +48,22 @@ public class PieChartJPanel extends JPanel
     	
         DefaultPieDataset result = new DefaultPieDataset();
 
-        result.setValue("Styczeń", 30);
-        result.setValue("Luty", 30);
-        result.setValue("Marzec", 30);
-        result.setValue("Kwiecień", 30);
-        result.setValue("Maj", 30);
-        result.setValue("Czerwiec", 30);
-        result.setValue("Lipiec", 30);
-        result.setValue("Sierpień", 30);
-        result.setValue("Wrzesień", 30);
-        result.setValue("Październik", 30);
-        result.setValue("Listopad", 30);
-        result.setValue("Grudzień", 30);
-        
+        result.setValue("Zima", 30);
+        result.setValue("Wiosna", 30);
+        result.setValue("Lato", 30);
+        result.setValue("Jesień", 30);
         
         return result;       
     }
     
+  /*  public void setColors(final Manufacturer manufacturer)
+    {
+  	  PiePlot3D plot = (PiePlot3D) chart.getPlot();
+  	  
+  	  for(int i= 0 ; i<12 ;i++)
+  		  plot.setSectionPaint(months.get(i), manufacturer.getMonthActivityColor(i));
+
+    }*/
     
 /**
      * Creates a chart
@@ -77,7 +79,7 @@ public class PieChartJPanel extends JPanel
 
         PiePlot3D plot = (PiePlot3D) chart.getPlot(); 
         plot.setBackgroundPaint(SystemColor.activeCaption);
-        plot.setLabelFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 10));
+        plot.setLabelFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
         plot.setLabelPaint(new Color(255, 204, 0));
         plot.setLabelLinkMargin(0.01);
         plot.setLabelBackgroundPaint(SystemColor.inactiveCaptionText);

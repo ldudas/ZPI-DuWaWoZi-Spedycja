@@ -14,7 +14,8 @@ import com.esri.map.MapOverlay;
 	  {
 	        // TODO Auto-generated method stub
 		  System.out.println("Move!");
-		  super.onMouseDragged(event);
+		//  event.getComponent().
+		  //super.onMouseDragged(event);
 	  }
  
 	  @Override

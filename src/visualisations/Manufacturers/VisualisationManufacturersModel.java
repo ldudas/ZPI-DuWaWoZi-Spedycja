@@ -53,8 +53,11 @@ public class VisualisationManufacturersModel
 	public JMap getMapWithVisualisationManufacturersInCity(final String cityName)
 	{
 		ManufacturersCollectionBuilder manufacturersCollectionBuilder = new ManufacturersCollectionBuilder();
-		manufacturersData = manufacturersCollectionBuilder.buildManufacturersCollection(
-						    dao_manufacturersVis.getDataAboutManufacturerToVizualization(cityName,null,null,null,null) );
+		manufacturersData = manufacturersCollectionBuilder.buildManufacturersCollection
+							(
+									dao_manufacturersVis.getDataAboutManufacturerToVizualization(cityName,null,null,null,null), 
+									dao_manufacturersVis.getManufacturersActivityInEachMonth(cityName)
+						    );
 		
 		manufacturersData.stream().forEach(currentDisplayManufacturersData::add);
 		

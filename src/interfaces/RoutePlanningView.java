@@ -113,6 +113,8 @@ public class RoutePlanningView
 		manufacturerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		manufacturerDetailsJPanel.setInfoAboutManufacturerInToList(manufacturer);
+		manufacturerDetailsJPanel.setChartActivityColor(manufacturer);
+		
 		manufacturerFrame.add(manufacturerDetailsJPanel);
 		manufacturerFrame.setVisible(true);		
 	}
@@ -217,8 +219,5 @@ public class RoutePlanningView
 	public void removeLastOrderFromTab()
 	{
 		manufacturerVisualizationWithMapJPanel.removeLastOrderFromTab();
-	}
-	
-	
-	
+	}	
 }

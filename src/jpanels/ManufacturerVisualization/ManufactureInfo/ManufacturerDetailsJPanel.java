@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
+
 import java.awt.CardLayout;
 
 public class ManufacturerDetailsJPanel extends JPanel
@@ -30,6 +31,7 @@ public class ManufacturerDetailsJPanel extends JPanel
 	
 	private JTextArea textArea_manufacturerAdditionalInfo;
 	private JScrollPane scrollManufacturerAddition;
+	private RingChartJPanel chartJPanel;
 	private JList<String> man_list;
 	
 	public ManufacturerDetailsJPanel() 
@@ -73,14 +75,14 @@ public class ManufacturerDetailsJPanel extends JPanel
 		
 		JPanel panel_chart = new JPanel();
 		panel_chart.setBackground(SystemColor.inactiveCaption);
-		panel_chart.setBounds(240, 45, 377, 250);
+		panel_chart.setBounds(240, 38, 377, 248);
 		panel_data.add(panel_chart);
 		panel_chart.setLayout(new CardLayout(0, 0));
 		
-		RingChartJPanel chartJPanel = new RingChartJPanel();
+		chartJPanel = new RingChartJPanel();
+		panel_chart.add(chartJPanel, "name_19959547016006");
 		chartJPanel.setBackground(SystemColor.activeCaption);
 		chartJPanel.setLayout(new CardLayout(0, 0));
-		panel_chart.add(chartJPanel);
 		
 		
 		JPanel panel_buttons = new JPanel();
@@ -141,6 +143,16 @@ public class ManufacturerDetailsJPanel extends JPanel
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_RoutePlanning = presenter;		
+	}
+	
+	/***
+	 * Metoda ustawiajaca kolory aktywnosci producentow.
+	 * @param activitiesColor
+	 * @author Kamil Zimny
+	 */
+	public void setChartActivityColor(final Manufacturer manufacturer )
+	{
+		chartJPanel.setColors(manufacturer);
 	}
 	
 	/**

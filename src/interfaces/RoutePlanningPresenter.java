@@ -424,7 +424,4 @@ public class RoutePlanningPresenter
 		manu_presenter.filterManufacturersBetweenDate(numberOfDaysAgo, numberOfDayTolerance);
 	}
 	
-	
-
-	
 }

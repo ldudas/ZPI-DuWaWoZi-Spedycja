@@ -50,7 +50,7 @@ public class DataAccessObjectManufacturersVisualisation
 										"AND Z.data_rozp_plan > date_sub( date_sub(sysdate(),INTERVAL " + intervalValue + " " + intervalType + ")"+
 										" , INTERVAL "+ intervalValue2 + " " + intervalType2 + ")";
 		
-		String query = "SELECT nazwa_prod, P.dlugosc, P.szerokosc, MAX(Z.data_zak_plan), "
+		String query = "SELECT nazwa_prod, P.dlugosc, P.szerokosc, MAX(Z.data_rozp_plan), "
 				+ "COUNT(*) , SUM(Z.wartosc_zlec) , SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), P.telefon, P.id_prod "
 				+ "FROM Zlecenia Z JOIN Producenci P ON Z.id_prod = P.id_prod "
 				+ "JOIN Miasta M ON Z.z_miasta = M.id_miasta "
@@ -59,7 +59,7 @@ public class DataAccessObjectManufacturersVisualisation
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		ArrayList<ArrayList<String>> resultInString = null;
-		int coutOfResultColumns = 9;
+		final int coutOfResultColumns = 9;
 		try 
 		{
 			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query,coutOfResultColumns);
@@ -85,7 +85,69 @@ public class DataAccessObjectManufacturersVisualisation
 			}
 			return resultInString;	
 		}
-
+	}
+	
+	/***
+	 * Metoda zwracajaca aktywnosci producentów w każdym z miesiąców w danym mieście.
+	 * @param cityName
+	 * @return NULL OR ArrayList<ArrayList<String>> res : 
+	 *  <br>res.get(0) -> producent pierwszy 
+	 * 	<br>res.get(0).get(0) -> identyfikator producenta
+	 *  <br>res.get(0).get(1) -> liczba aktywnosci w styczniu
+	 *  <br>res.get(0).get(2) -> liczba aktywnosci w lutym
+	 *  <br>[...]
+	 *  <br>res.get(0).get(12) -> liczba aktywnosci w grudniu
+	 * @author Kamil Zimny
+	 */
+	@SuppressWarnings("finally")
+	public ArrayList<ArrayList<String>> getManufacturersActivityInEachMonth(final String cityName)
+	{
+		final String query = "SELECT "+
+									  "Z.id_prod, " +
+									  "sum(if(month(Z.data_rozp_plan) = 1, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 2, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 3, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 4, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 5, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 6, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 7, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 8, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 9, 1, 0))  ," +
+									  "sum(if(month(Z.data_rozp_plan) = 10, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 11, 1, 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 12, 1, 0)) " +
+									"FROM Zlecenia Z JOIN Miasta M ON Z.z_miasta = M.id_miasta " +
+									"WHERE M.nazwa_miasta = '"+ cityName +"' " +
+									"GROUP BY Z.id_prod;";
+		
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		ArrayList<ArrayList<String>> resultInString = null;
+		final int coutOfResultColumns = 13;
+		try 
+		{
+			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query,coutOfResultColumns);
+			resultInString = new ArrayList<ArrayList<String>>();
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if( resultOfQuery != null && resultInString != null && resultOfQuery.size() > 0)
+			{
+				for(int i=0;i<resultOfQuery.size();i++)
+				{
+					resultInString.add(new ArrayList<String>());
+					for(int j=0;j<coutOfResultColumns;j++)
+					{
+						resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
+					}
+						
+				}
+			}
+			return resultInString;	
+		}
 	}
 	
 	/**
@@ -102,7 +164,7 @@ public class DataAccessObjectManufacturersVisualisation
 		if(cityName.isEmpty())
 			return null;
 		
-		String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
+		final String query = "SELECT dlugosc,szerokosc FROM Miasta WHERE nazwa_miasta = '"+ cityName +"';";
 		String [] coordinates = null;
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 

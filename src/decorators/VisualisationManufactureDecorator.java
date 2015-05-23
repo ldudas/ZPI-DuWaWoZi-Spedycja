@@ -1,12 +1,14 @@
 package decorators;
 
 import java.awt.Color;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mapOverlay.MyOverlay;
 import jpanels.ManufacturerVisualization.ManufactureInfo.DiscriptionOnMapJPanel;
 
 import com.esri.core.geometry.Envelope;
@@ -21,7 +23,6 @@ import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
-import com.esri.map.MapOverlay;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
@@ -89,10 +90,8 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, manfacturers);
 			  // Reakcja na klikniecie myszy
 			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
-			//  graphicsLayer.
 			  
-			  event.getMap().addMapOverlay( new MyOverlay() );
-			 // event.getMap().addMapOverlay(addMouseMoutionListener(graphicsLayer));
+			  //event.getMap().addMapOverlay( new MyOverlay() );
 		  }
 
 		  @Override
@@ -102,17 +101,6 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		  public void mapExtentChanged(MapEvent arg0) {}
 		 });
 	}
-	
-/*	pirvate MapOverlay addMouseMoutionListener(final GraphicsLayer graphicsLayer)
-	{
-		MapOverlay mouseMountion = new MapOverlay() {
-
-			
-		};
-		
-		return mouseMountion;
-	}
-*/
 	
 	/**
 	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
@@ -147,13 +135,62 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			        // get the damaged place name value from the graphic
 			        str.append(manufacturer.getAttributeValue("Name"));
 			        str.append(NEW_LINE_SEP);
-
 		        }
+				
 				discription.getDiscriptionArea().setText("");
 				discription.getDiscriptionArea().setText(str.toString());
 									
 			}
 		  });
+		  
+		  hitTestOverlay.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("realase!");
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Press!");
+				List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
+		    
+				if( hitFeatures!= null && !hitFeatures.isEmpty())
+				for (Feature manufacturer : hitFeatures) 
+		        {	  
+					graphicsLayer.select( (int)manufacturer.getId());
+					
+			        System.out.println( graphicsLayer.getGraphic((int)manufacturer.getId()).getAttributeValue("Name") );
+		        }
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Exit!");
+				
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Enter!");
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Click!");
+				
+			}
+		});
+			
 		  return hitTestOverlay;
 	}
 	

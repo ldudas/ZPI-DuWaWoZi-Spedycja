@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -15,6 +14,8 @@ import org.jfree.chart.plot.RingPlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
+
+import dataModels.Manufacturer;
 
 
 public class RingChartJPanel extends JPanel
@@ -60,12 +61,12 @@ public class RingChartJPanel extends JPanel
       months.add("Gru");
   }
   
-  public void setColors(ArrayList<Color> colors)
+  public void setColors(final Manufacturer manufacturer)
   {
 	  RingPlot plot = (RingPlot) chart.getPlot();
 	  
-	  for(int i= 0 ; i<colors.size() ;i++)
-		  plot.setSectionPaint(months.get(i), colors.get(i));
+	  for(int i= 0 ; i<12 ;i++)
+		  plot.setSectionPaint(months.get(i), manufacturer.getMonthActivityColor(i));
 
   }
         
@@ -97,6 +98,8 @@ public class RingChartJPanel extends JPanel
             false,                   // include legend
             true,
             false);
+        
+        chart.setBackgroundPaint(SystemColor.inactiveCaptionText);
 
         RingPlot plot = (RingPlot) chart.getPlot();
         plot.setBackgroundPaint(SystemColor.activeCaption);
@@ -111,7 +114,7 @@ public class RingChartJPanel extends JPanel
         return chart; 
     }
     
-    public static void main(String[] args) 
+  /*  public static void main(String[] args) 
     {
         RingChartJPanel pieChart = new RingChartJPanel();
         JFrame frame = new JFrame();
@@ -119,23 +122,9 @@ public class RingChartJPanel extends JPanel
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        ArrayList<Color> colors = new ArrayList<Color>();
-        
-        colors.add(Color.RED);
-        colors.add(Color.blue);
-        colors.add(Color.RED);
-        colors.add(Color.blue);
-        colors.add(Color.RED);
-        colors.add(Color.blue);
-        colors.add(Color.RED);
-        colors.add(Color.blue);
-        colors.add(Color.RED);
-        colors.add(Color.blue);
-        colors.add(Color.RED);
-        colors.add(Color.blue);
-        
-        pieChart.setColors(colors);
+      //  pieChart.setColors(colors);
         
         frame.add(pieChart);
     }
+    */
 }
