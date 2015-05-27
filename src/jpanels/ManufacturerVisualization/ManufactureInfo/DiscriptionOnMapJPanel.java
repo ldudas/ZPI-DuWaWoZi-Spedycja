@@ -48,7 +48,7 @@ public class DiscriptionOnMapJPanel extends JPanel
 	    setSize(232, 162);
 	    setBackground(new Color(0, 0, 0, 80));
 	    setBorder(new LineBorder(Color.BLACK, 5, false));
-
+	    
 	    // Scroll pane for reporting features
 	    scrollPane = new JScrollPane(txtStatus);
 	    scrollPane.setBounds(5, 41, 222, 115);
