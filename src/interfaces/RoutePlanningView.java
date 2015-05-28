@@ -1,10 +1,18 @@
 package interfaces;
 
+import java.awt.CardLayout;
+import java.awt.SystemColor;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
 
 import dataModels.Manufacturer;
 import dataModels.Order;
@@ -64,10 +72,34 @@ public class RoutePlanningView
 	public void change_start_to_manufacturerVisualization()
 	{
 		mainFrame.remove(startJPanel);
-		mainFrame.setBounds(50, 50, 1120, 600);
-		mainFrame.add(manufacturerVisualizationWithMapJPanel);
-		mainFrame.invalidate();
-		mainFrame.validate();
+		mainFrame.setBounds(300, 100, 500, 300);
+
+		ImageIcon loading = new ImageIcon("images/ajax-loader.gif");
+		
+		JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
+		JPanel background = new JPanel();
+		background.setLayout(new CardLayout(0, 0));
+		background.setBounds(0, 0, 500, 300);
+		background.setBackground(SystemColor.inactiveCaption);
+		background.add(loadingLabel);
+		mainFrame.add(background);
+		
+		
+		Timer timer = new Timer();
+		
+		timer.schedule(new TimerTask() 
+		{	
+			@Override
+			public void run() 
+			{
+				mainFrame.remove(background);
+				mainFrame.setBounds(50, 50, 1120, 600);
+				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
+				mainFrame.invalidate();
+				mainFrame.validate();
+			}
+		}, 7000);
+		
 	}
 	
 	/**

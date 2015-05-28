@@ -28,7 +28,7 @@ public class StartJPanel extends JPanel
 	/**
 	 * 
 	 */
-	private final String DATE_FORMAT = "yyyy-MM-dd";
+	private final static String DATE_FORMAT = "yyyy-MM-dd";
 	
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> comboBox_cityFrom;
@@ -38,6 +38,7 @@ public class StartJPanel extends JPanel
 	private DateFormat dateFormat;
 	private JCalendar calendare_dateFrom;
 	private JCalendar calendare_dateTo;
+	private JButton btn_Clear;
 	
 	/**
 	 * Create the panel.
@@ -136,7 +137,8 @@ public class StartJPanel extends JPanel
 		
 		setUIOptionPane();
 		
-		JButton btn_Clear = new JButton("Wyczyść");
+		btn_Clear = new JButton("Wyczyść");
+		btn_Clear.setBorder(UIManager.getBorder("Button.border"));
 		btn_Clear.setForeground(SystemColor.desktop);
 		btn_Clear.addActionListener(new ActionListener() 
 		{
@@ -156,7 +158,7 @@ public class StartJPanel extends JPanel
 		});
 		btn_Clear.setBackground(SystemColor.activeCaption);
 		btn_Clear.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
-		btn_Clear.setBounds(39, 11, 224, 68);
+		btn_Clear.setBounds(39, 16, 224, 68);
 		panel.add(btn_Clear);
 		start_okButton.addActionListener(new ActionListener() 
 		{

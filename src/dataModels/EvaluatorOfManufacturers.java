@@ -15,6 +15,7 @@ public class EvaluatorOfManufacturers
 		evaluateActivityOfManufacturers(manufacturers);
 		evaluateSizeOfManufacturers(manufacturers);
 		evaluateMonthActivityOfManufacturers(manufacturers);
+		evaluateQuarterActivityOfManufacturers(manufacturers);
 	}
 	
 	/**
@@ -104,7 +105,7 @@ public class EvaluatorOfManufacturers
 		ArrayList<Color> activityColors = new ArrayList<Color>(12);
 		int activityValueOfTheWorst = 255;
 		int activityValueOfTheBest = 0;
-		int theBestEvaluation = -1;
+		double theBestEvaluation = -1;
 		int activityColorEvaluation = 0;
 		
 		for(Manufacturer man : manufacturers)
@@ -122,13 +123,52 @@ public class EvaluatorOfManufacturers
 				if(man.getMonthActivity(i) == ( theBestEvaluation )  )
 					activityColorEvaluation = activityValueOfTheBest;
 				else	
-					activityColorEvaluation = activityValueOfTheWorst - man.getMonthActivity(i)/theBestEvaluation*activityValueOfTheWorst;
+					activityColorEvaluation = (int) (activityValueOfTheWorst - man.getMonthActivity(i)/theBestEvaluation*activityValueOfTheWorst);
 				
 				activityColors.add(new Color(255,activityColorEvaluation,activityColorEvaluation) );
 			}
 			
-			System.out.println(activityColors);
 			man.setMonthsActivityColors(activityColors);
+			activityColors.clear();
+		}
+	}
+	
+	/***
+	 * Metoda obliczajaca i ustawiajaca kolory odpowiadajace aktywnosci producentow 
+	 * w kazdym kwartale 
+	 * @param manufacturers
+	 * @author Kamil Zimny
+	 */
+	private void evaluateQuarterActivityOfManufacturers(ArrayList<Manufacturer> manufacturers)
+	{
+
+		ArrayList<Color> activityColors = new ArrayList<Color>(4);
+		int activityValueOfTheWorst = 255;
+		int activityValueOfTheBest = 0;
+		double theBestEvaluation = -1;
+		int activityColorEvaluation = 0;
+		
+		for(Manufacturer man : manufacturers)
+		{
+			activityValueOfTheBest = 0;
+			theBestEvaluation = -1;
+			for(int i=0; i<4 ;i++)
+			{
+				if(theBestEvaluation < man.getQuarterActivity(i) )
+					theBestEvaluation = man.getQuarterActivity(i);		
+			}
+			
+			for(int i=0; i<4 ;i++)
+			{
+				if(man.getQuarterActivity(i) == ( theBestEvaluation )  )
+					activityColorEvaluation = activityValueOfTheBest;
+				else	
+					activityColorEvaluation = (int) (activityValueOfTheWorst - man.getQuarterActivity(i)/theBestEvaluation*activityValueOfTheWorst);
+				
+				activityColors.add(new Color(255,activityColorEvaluation,activityColorEvaluation) );
+			}
+			
+			man.setQuarterActivityColor(activityColors);
 			activityColors.clear();
 		}
 	}

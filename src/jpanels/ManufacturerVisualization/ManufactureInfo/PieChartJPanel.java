@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -15,27 +15,42 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
+import dataModels.Manufacturer;
 
-
+import java.awt.CardLayout;
+import java.util.ArrayList;
 
 public class PieChartJPanel extends JPanel
 {
 
   private static final long serialVersionUID = 1L;
+  private JFreeChart chart;
+  private ArrayList<String> quarters;
 
   public PieChartJPanel() 
   {
-
+	    createQuartesName();
         PieDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset);
+        createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(377, 250));
-        add(chartPanel);
+        chartPanel.setPreferredSize(new java.awt.Dimension(232, 162));
+	    setLocation(10, 10);
+	    setSize(232, 162);
+	    setBorder(new LineBorder(Color.BLACK, 5, false));
+        setLayout(new CardLayout(0, 0));
+        add(chartPanel, "name_6269072302659");
    }
   
   
-  
-    
+  private void createQuartesName()
+  {
+	  quarters = new ArrayList<String>(4);
+	  
+	  quarters.add("Wio");
+	  quarters.add("Lat");
+	  quarters.add("Jes");
+	  quarters.add("Zim"); 
+  }
     
 /**
      * Creates a sample dataset 
@@ -43,37 +58,33 @@ public class PieChartJPanel extends JPanel
 
     private  PieDataset createDataset() 
     {
-    	
-        DefaultPieDataset result = new DefaultPieDataset();
-
-        result.setValue("Zima", 30);
-        result.setValue("Wiosna", 30);
-        result.setValue("Lato", 30);
-        result.setValue("Jesień", 30);
+        DefaultPieDataset monthChar = new DefaultPieDataset();
         
-        return result;       
+        for( String q : quarters)
+        	monthChar.setValue(q, 30);  
+        
+        return monthChar;       
     }
     
-  /*  public void setColors(final Manufacturer manufacturer)
+    public void setColors(final Manufacturer manufacturer)
     {
-  	  PiePlot3D plot = (PiePlot3D) chart.getPlot();
+    	PiePlot3D plot = (PiePlot3D) chart.getPlot();
   	  
-  	  for(int i= 0 ; i<12 ;i++)
-  		  plot.setSectionPaint(months.get(i), manufacturer.getMonthActivityColor(i));
+  	  for(int i= 0 ; i<quarters.size() ;i++)
+  		  plot.setSectionPaint(quarters.get(i), manufacturer.getQuarterActivityColor(i));
 
-    }*/
+    }
     
 /**
      * Creates a chart
      */
 
-    private JFreeChart createChart(PieDataset dataset) 
+    private void createChart(PieDataset dataset) 
     {
+        chart = ChartFactory.createPieChart3D("Aktywność kwartalna",dataset,false,true,false);
         
-        JFreeChart chart = ChartFactory.createPieChart3D("",dataset,false,true,false);
-        
-        chart.setBackgroundPaint(SystemColor.inactiveCaptionText);
-     
+        chart.setBackgroundPaint(SystemColor.inactiveCaptionText); 
+        chart.getTitle().setPaint(new Color(255, 204, 0));
 
         PiePlot3D plot = (PiePlot3D) chart.getPlot(); 
         plot.setBackgroundPaint(SystemColor.activeCaption);
@@ -83,24 +94,8 @@ public class PieChartJPanel extends JPanel
         plot.setLabelBackgroundPaint(SystemColor.inactiveCaptionText);
         plot.setStartAngle(290);
         plot.setDirection(Rotation.CLOCKWISE);
-        plot.setForegroundAlpha(0.9f);
-        
-        
-        return chart;
-        
+        plot.setForegroundAlpha(0.9f);     
     }
     
-    public static void main(String[] args) 
-    {
-        PieChartJPanel pieChart = new PieChartJPanel();
-        JFrame frame = new JFrame();
-        frame.setBounds(100, 100, 500, 500);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        frame.add(pieChart);
-      //  demo.pack();
-       // demo.setVisible(true);
-    }
  
 }

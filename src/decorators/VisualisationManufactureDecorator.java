@@ -1,15 +1,17 @@
 package decorators;
 
 import java.awt.Color;
-
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import jpanels.ManufacturerVisualization.ManufactureInfo.DiscriptionOnMapJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.PieChartJPanel;
 
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
@@ -45,6 +47,8 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	private SimpleMarkerSymbol symbol;
 	private DiscriptionOnMapJPanel discription;
 	
+	private PieChartJPanel pieChart;
+	
 	public VisualisationManufactureDecorator(final City city,final ArrayList<Manufacturer> manfacturers)
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
@@ -52,6 +56,10 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		decorateMapWithVisualisationManufacturersInCity(city, manfacturers);
 		discription = new DiscriptionOnMapJPanel();
 		add(discription);
+		
+		pieChart = new PieChartJPanel();
+		pieChart.setVisible(false);
+		add(pieChart);
 	}
 	
 	public VisualisationManufactureDecorator()
@@ -89,9 +97,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			  // Dodaje producentow na mapie
 			  addManufacturerGraphicOnMap(mapSR, graphicsLayer, manfacturers);
 			  // Reakcja na klikniecie myszy
-			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer)); 
-			  
-			  //event.getMap().addMapOverlay( new MyOverlay() );
+			  event.getMap().addMapOverlay(addResponseToMouseClick(graphicsLayer,manfacturers)); 
 		  }
 
 		  @Override
@@ -108,7 +114,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	 * @return HitTestOverlay
 	 * @author Kamil Zimny
 	 */
-	private HitTestOverlay addResponseToMouseClick(final GraphicsLayer graphicsLayer)
+	private HitTestOverlay addResponseToMouseClick(final GraphicsLayer graphicsLayer,final ArrayList<Manufacturer> manfacturers)
 	{
 		  final HitTestOverlay hitTestOverlay = new HitTestOverlay(graphicsLayer);
 		  hitTestOverlay.addHitTestListener(new HitTestListener() 
@@ -143,54 +149,66 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			}
 		  });
 		  
-		  hitTestOverlay.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("realase!");
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Press!");
-				List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
-		    
-				if( hitFeatures!= null && !hitFeatures.isEmpty())
-				for (Feature manufacturer : hitFeatures) 
-		        {	  
-					graphicsLayer.select( (int)manufacturer.getId());
-					
-			        System.out.println( graphicsLayer.getGraphic((int)manufacturer.getId()).getAttributeValue("Name") );
+		  hitTestOverlay.addMouseListener(new MouseAdapter() 
+		  {
+			    private Timer timer;
+			    
+		        @Override
+		        public void mousePressed(MouseEvent e) 
+		        {
+		        	if(timer == null)
+                        timer = new Timer();
+
+                    timer.schedule(new TimerTask()
+                    {
+                        public void run()
+                        {
+                        	List<Feature> hitFeatures = hitTestOverlay.getHitFeatures();
+                		    
+            				if( hitFeatures!= null && hitFeatures.size() == 1)
+            				{
+            					discription.setVisible(false);
+            					
+            					int [] id_ofSelectedManufacturers = null;
+            					Manufacturer currentMan = null;
+
+            					id_ofSelectedManufacturers = graphicsLayer.getSelectionIDs(); //pobieramy indeksy zaznaczonych obiektow
+            					
+            					if( id_ofSelectedManufacturers.length == 1 )//jesli zaznaczony tylko jeden obiekt to pobierz jego atrybuty
+            					{
+            						Graphic graphic = graphicsLayer.getGraphic(id_ofSelectedManufacturers[0]);
+            						String ID = (String) graphic.getAttributes().get("ID");
+            						
+            						for( Manufacturer man : manfacturers)
+            						{
+            							if( man.getID().equals(ID))
+            							{
+            								currentMan = man;
+            								break;
+            							}  							
+            						}
+            						
+            						pieChart.setColors(currentMan);
+            					}			
+            					
+            					pieChart.setVisible(true);
+            				}
+                        }
+                    },500,500);
 		        }
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Exit!");
-				
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Enter!");
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Click!");
-				
-			}
-		});
-			
+		        @Override
+		        public void mouseReleased(MouseEvent e) 
+		        {
+		        	discription.setVisible(true);
+					pieChart.setVisible(false);
+		        	if(timer != null)
+	                {
+	                    timer.cancel();
+	                    timer = null;
+	                }
+		        }
+		  });
+		  
 		  return hitTestOverlay;
 	}
 	

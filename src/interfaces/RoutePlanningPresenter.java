@@ -54,9 +54,12 @@ public class RoutePlanningPresenter
 		{
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			route_planning_view.setCalendareDate_StartNewOrder(dateFormat.parse(route_planning_model.getLastOrder().getFinishDate()));
+			route_planning_view.change_manufactruerDetails_to_manufacturerOrderData();
 		} 
-		catch (ParseException e) {}
-		route_planning_view.change_manufactruerDetails_to_manufacturerOrderData();
+		catch (Exception e) 
+		{
+			System.out.println(e.getMessage());
+		}	
 	}
 	
 	/**

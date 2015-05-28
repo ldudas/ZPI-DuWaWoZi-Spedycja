@@ -32,7 +32,7 @@ public class RingChartJPanel extends JPanel
         // This will create the dataset 
         PieDataset dataset = createDataset();
         // based on the dataset we create the chart
-        JFreeChart chart = createChart(dataset);
+        createChart(dataset);
         // we put the chart into a panel
         ChartPanel chartPanel = new ChartPanel(chart);
         // default size
@@ -65,7 +65,7 @@ public class RingChartJPanel extends JPanel
   {
 	  RingPlot plot = (RingPlot) chart.getPlot();
 	  
-	  for(int i= 0 ; i<12 ;i++)
+	  for(int i= 0 ; i<months.size() ;i++)
 		  plot.setSectionPaint(months.get(i), manufacturer.getMonthActivityColor(i));
 
   }
@@ -90,7 +90,7 @@ public class RingChartJPanel extends JPanel
      * Creates a chart
      */
 
-    private JFreeChart createChart(PieDataset dataset) 
+    private void createChart(PieDataset dataset) 
     {
         
         chart = ChartFactory.createRingChart("",          // chart title
@@ -110,8 +110,6 @@ public class RingChartJPanel extends JPanel
         plot.setStartAngle(290);
         plot.setDirection(Rotation.CLOCKWISE);
         plot.setForegroundAlpha(0.9f);
-        
-        return chart; 
     }
     
   /*  public static void main(String[] args) 

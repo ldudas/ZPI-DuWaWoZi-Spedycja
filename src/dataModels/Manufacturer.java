@@ -23,6 +23,7 @@ public class Manufacturer
 	
 	private ArrayList<Integer> monthActivity;
 	private ArrayList<Color> monthActivityColors;
+	private ArrayList<Color> quarterActivityColors;
 	
 	
 	public Manufacturer(String name,  double longitude, double latitude, String lastActivity,int numberOfOrders,
@@ -40,6 +41,7 @@ public class Manufacturer
 		this.additionInfo = "Brak";
 		this.monthActivity = new ArrayList<Integer>(12);
 		this.monthActivityColors = new ArrayList<Color>(12);
+		this.quarterActivityColors = new ArrayList<Color>(4); 
 	}
 	
 	
@@ -133,7 +135,6 @@ public class Manufacturer
 	
 	public void setMonthsActivityColors(ArrayList<Color> monthA)
 	{
-		System.out.println(monthActivity);
 		for(int i=0;i<monthA.size(); i++)
 		{
 			monthActivityColors.add( monthA.get(i) );
@@ -142,9 +143,54 @@ public class Manufacturer
 	
 	public Color getMonthActivityColor(int monthNum)
 	{ 
-		return (monthNum > -1 && monthNum < 12) ? monthActivityColors.get(monthNum) : null;
+		return (monthNum > -1 && monthNum < 12) ? monthActivityColors.get(monthNum) : new Color(0,0,0);
 	}
 	
+	public void setQuarterActivityColor(ArrayList<Color> quarterA)
+	{
+		for(int i=0;i<quarterA.size(); i++)
+		{
+			quarterActivityColors.add( quarterA.get(i) );
+		}
+	}
+	
+	/***
+	 * int quarter = 0 -> Wiosna
+	 * int quarter = 1 -> Lato
+	 * int quarter = 2 -> Jesien
+	 * int quarter = 3 -> Zima
+	 * @return Color of activity in quarter
+	 * @author Kamil Zimny
+	 */
+	public Color getQuarterActivityColor(int quarter)
+	{
+		return (quarter > -1 && quarter < 4) ? quarterActivityColors.get(quarter) : new Color(0,0,0);
+	}
+	
+	/***
+	 * int quarter = 0 -> Wiosna
+	 * int quarter = 1 -> Lato
+	 * int quarter = 2 -> Jesien
+	 * int quarter = 3 -> Zima
+	 * @return int  activity in quarter
+	 * @author Kamil Zimny
+	 */
+	public int getQuarterActivity(int quarter)
+	{
+		switch( quarter)
+		{
+		    case 0: //Wiosna
+		    	return monthActivity.get(2) + monthActivity.get(3) + monthActivity.get(4); //Marzec,Kwiecen,Maj
+		    case 1: //Lato
+		    	return monthActivity.get(5) + monthActivity.get(6) + monthActivity.get(7); //Czerwiec,Lipiec, Sierpien
+		    case 2: //Jesien
+		    	return monthActivity.get(8) + monthActivity.get(9) + monthActivity.get(10); //Wrzesien,Pazdziernik, Listopad
+		    case 3: //Zima
+		    	return monthActivity.get(11) + monthActivity.get(0) + monthActivity.get(1); //Grudzien, Styczen, Luty
+		    default : 
+		    		return 0; //nie powinno sie zdarzyc
+		}
+	}
 	
 
 }

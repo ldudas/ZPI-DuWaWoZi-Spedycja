@@ -167,7 +167,7 @@ public class ManufacturerManagementJPanel extends JPanel
 					if(comboBox_map_period.getSelectedItem().toString().equals("Przedział czasowy"))
 					{	
 						if(!comboBox_map_unit.getSelectedItem().equals("") && !comboBox_map_count.getSelectedItem().equals(0) 
-						   && !comboBox_tolerance_unit.equals("") )
+						   && !comboBox_tolerance_unit.getSelectedItem().equals("") )
 						{
 							int daysAgo = countDaysFromComboBoxs(comboBox_map_unit,comboBox_map_count);
 							int dayTolerance = countDaysFromComboBoxs(comboBox_tolerance_unit,comboBox_tolerance_count);

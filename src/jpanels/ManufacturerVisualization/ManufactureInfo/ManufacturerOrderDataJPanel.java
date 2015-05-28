@@ -30,7 +30,7 @@ public class ManufacturerOrderDataJPanel extends JPanel
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String DATE_FORMAT = "yyyy-MM-dd";
+	private final static String DATE_FORMAT = "yyyy-MM-dd";
 	private RoutePlanningPresenter presenter_RoutePlanning;
 	
 	private JCalendar calendare_dateFrom;
