@@ -116,5 +116,17 @@ public class VisualisationTransportersModel
 		}
 		return transporters_filtered;
 	}
+	
+	public Transporter getTransporter(int id_trans)
+	{
+		for(Transporter t: transporters_filtered)
+		{
+			if(t.getId_trans() == id_trans)
+			{
+				return t;
+			}
+		}
+		return null;
+	}
 
 }

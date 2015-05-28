@@ -1,8 +1,11 @@
 package visualisations.Transporters;
 
 
+import interfaces.RoutePlanningPresenter;
+
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,7 +29,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import dataModels.*;
 
@@ -34,6 +41,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
+
+import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.RingChartJPanel;
+import jpanels.TransportersVisualisation.TransporterInfo.TransporterDetailsJPanel;
 
 
 public class VisualisationTransportersView 
@@ -237,6 +248,20 @@ public class VisualisationTransportersView
 	    	max_executed = transporters.stream().max(Transporter::compareByExecuted).get().getExecuted();
 	    	visualization.repaint();
 	    }
+	 
+	 public void showTransporterDetailsWindow(Transporter t)
+	 {
+				
+				JFrame detailsWindow = new JFrame();
+				detailsWindow.setResizable(false);
+				detailsWindow.setBounds(100, 100, 665, 452);
+				detailsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				
+				TransporterDetailsJPanel transDetailsPanel = new TransporterDetailsJPanel();
+				transDetailsPanel.setInfoAboutTransporterInToList(t);
+				detailsWindow.add(transDetailsPanel);
+				detailsWindow.setVisible(true);		
+	 }
 	 
 	 class TransVisJPanel extends JPanel  implements MouseListener, MouseMotionListener
 	    {
@@ -576,6 +601,7 @@ public class VisualisationTransportersView
 					{
 						Transporter t = transporters.get(drawnShapes.indexOf(s));
 						System.out.println("Wybrano: "+t.getName()+"\n"+t.getPhone_num());
+						trans_presenter.showTransporterDetails(t.getId_trans());
 					}
 				}
 				
@@ -620,6 +646,9 @@ public class VisualisationTransportersView
 	 
 	    
 }
+
+
+
 
 	
 
