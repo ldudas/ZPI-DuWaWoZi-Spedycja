@@ -16,15 +16,21 @@ import javax.swing.JTextArea;
 
 import dataModels.SizeCategory;
 import dataModels.Transporter;
+import javax.swing.SwingConstants;
 
 public class TransporterDetailsJPanel extends JPanel
 {
 	private JPanel panel_data;
 	private Transporter currentTransporter;
-	
-	private JTextArea textArea_manufacturerAdditionalInfo;
-	private JScrollPane scrollManufacturerAddition;
-	private JList<String> trans_list;
+	private JLabel lblNazwaValue;
+	private JLabel lblTelefonValue;
+	private JLabel lblZleceniaValue;
+	private JLabel lblKosztValue;
+	private JLabel lblPojemnoscValue;
+	private JLabel lblLadownoscValue;
+	private JLabel lblDniOpoznieniaValue;
+	private JLabel lblNiezrealValue;
+	private JLabel lblKategoriaValue;
 	
 	public TransporterDetailsJPanel() 
 	{
@@ -33,52 +39,125 @@ public class TransporterDetailsJPanel extends JPanel
 		
 		panel_data = new JPanel();
 		panel_data.setBackground(SystemColor.inactiveCaptionText);
-		panel_data.setBounds(10, 11, 627, 298);
+		panel_data.setBounds(10, 11, 436, 298);
 		add(panel_data);
 		panel_data.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Dane przewoźnika:");
 		lblNewLabel.setForeground(new Color(255, 204, 0));
 		lblNewLabel.setBackground(SystemColor.inactiveCaptionText);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lblNewLabel.setBounds(10, 11, 129, 23);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblNewLabel.setBounds(10, 11, 209, 23);
 		panel_data.add(lblNewLabel);
-		scrollManufacturerAddition = new JScrollPane();
-		scrollManufacturerAddition.setBackground(SystemColor.activeCaption);
-		scrollManufacturerAddition.setBounds(10, 45, 488, 66);
-		scrollManufacturerAddition.setVisible(false);
-		panel_data.add(scrollManufacturerAddition);
 		
-		textArea_manufacturerAdditionalInfo = new JTextArea();
-		scrollManufacturerAddition.setViewportView(textArea_manufacturerAdditionalInfo);
+		JLabel lblNazwa = new JLabel("Nazwa:");
+		lblNazwa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNazwa.setForeground(Color.YELLOW);
+		lblNazwa.setBounds(20, 40, 146, 23);
+		panel_data.add(lblNazwa);
 		
-		textArea_manufacturerAdditionalInfo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		textArea_manufacturerAdditionalInfo.setBackground(SystemColor.activeCaption);
-		textArea_manufacturerAdditionalInfo.setForeground(new Color(139, 0, 0));
-		textArea_manufacturerAdditionalInfo.setEditable(false);
-		textArea_manufacturerAdditionalInfo.setLineWrap(true);
-		textArea_manufacturerAdditionalInfo.setWrapStyleWord(true);
+		JLabel lblKategoriaRozmiaruPojazdw = new JLabel("Kategoria rozmiaru pojazdów:");
+		lblKategoriaRozmiaruPojazdw.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblKategoriaRozmiaruPojazdw.setForeground(Color.YELLOW);
+		lblKategoriaRozmiaruPojazdw.setBounds(20, 80, 199, 23);
+		panel_data.add(lblKategoriaRozmiaruPojazdw);
+		
+		JLabel lblTelefon = new JLabel("Telefon:");
+		lblTelefon.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTelefon.setForeground(Color.YELLOW);
+		lblTelefon.setBounds(20, 120, 157, 23);
+		panel_data.add(lblTelefon);
+		
+		JLabel lblLiczbaZlece = new JLabel("Liczba zleceń:");
+		lblLiczbaZlece.setForeground(Color.YELLOW);
+		lblLiczbaZlece.setBounds(20, 160, 89, 14);
+		panel_data.add(lblLiczbaZlece);
+		
+		JLabel lblredniKoszt = new JLabel("Średni koszt (zł):");
+		lblredniKoszt.setForeground(Color.YELLOW);
+		lblredniKoszt.setBounds(20, 180, 119, 14);
+		panel_data.add(lblredniKoszt);
 		
 		
 		
-		JPanel panel_buttons = new JPanel();
-		panel_buttons.setBackground(SystemColor.inactiveCaptionText);
-		panel_buttons.setBounds(10, 319, 627, 85);
-		add(panel_buttons);
-		panel_buttons.setLayout(null);
+		JLabel lblSredniaPojemnoPojazdow = new JLabel("Średnia pojemność pojazdów w kategorii:");
+		lblSredniaPojemnoPojazdow.setForeground(Color.YELLOW);
+		lblSredniaPojemnoPojazdow.setBounds(20, 200, 277, 14);
+		panel_data.add(lblSredniaPojemnoPojazdow);
 		
-		JButton btn_cancel = new JButton("Anuluj\r\n");
-		btn_cancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				// zamknij okno
-			}
-		});
-		btn_cancel.setBackground(SystemColor.activeCaption);
-		btn_cancel.setForeground(SystemColor.desktop);
-		btn_cancel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_cancel.setBounds(10, 11, 135, 62);
-		panel_buttons.add(btn_cancel);
+		JLabel lblLadownosc = new JLabel("Średnia ładowność pojazdów w kategorii:");
+		lblLadownosc.setForeground(Color.YELLOW);
+		lblLadownosc.setBounds(20, 220, 277, 14);
+		panel_data.add(lblLadownosc);
+		
+		JLabel lblStosunekDniOpnienia = new JLabel("Stosunek dni opóźnienia do łącznej liczby dni zleceń:");
+		lblStosunekDniOpnienia.setForeground(Color.YELLOW);
+		lblStosunekDniOpnienia.setBounds(20, 240, 329, 14);
+		panel_data.add(lblStosunekDniOpnienia);
+		
+		JLabel lblStosunekZleceZrealizowanych = new JLabel("Stosunek zleceń zrealizowanych do łącznej liczby zleceń:");
+		lblStosunekZleceZrealizowanych.setForeground(Color.YELLOW);
+		lblStosunekZleceZrealizowanych.setBounds(20, 260, 329, 14);
+		panel_data.add(lblStosunekZleceZrealizowanych);
+		
+		lblNazwaValue = new JLabel("New label");
+		lblNazwaValue.setForeground(Color.ORANGE);
+		lblNazwaValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNazwaValue.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNazwaValue.setBounds(325, 40, 80, 29);
+		panel_data.add(lblNazwaValue);
+		
+		lblKategoriaValue = new JLabel("New label");
+		lblKategoriaValue.setForeground(Color.ORANGE);
+		lblKategoriaValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblKategoriaValue.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblKategoriaValue.setBounds(302, 80, 103, 29);
+		panel_data.add(lblKategoriaValue);
+		
+		
+		lblTelefonValue = new JLabel("New label");
+		lblTelefonValue.setForeground(Color.ORANGE);
+		lblTelefonValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTelefonValue.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTelefonValue.setBounds(291, 120, 114, 29);
+		panel_data.add(lblTelefonValue);
+		
+		lblZleceniaValue = new JLabel("New label");
+		lblZleceniaValue.setForeground(Color.ORANGE);
+		lblZleceniaValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblZleceniaValue.setBounds(325, 160, 80, 14);
+		panel_data.add(lblZleceniaValue);
+		
+		lblKosztValue = new JLabel("New label");
+		lblKosztValue.setForeground(Color.ORANGE);
+		lblKosztValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblKosztValue.setBounds(335, 180, 70, 14);
+		panel_data.add(lblKosztValue);
+		
+		
+		lblPojemnoscValue = new JLabel("New label");
+		lblPojemnoscValue.setForeground(Color.ORANGE);
+		lblPojemnoscValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPojemnoscValue.setBounds(335, 200, 70, 14);
+		panel_data.add(lblPojemnoscValue);
+		
+		lblLadownoscValue = new JLabel("New label");
+		lblLadownoscValue.setForeground(Color.ORANGE);
+		lblLadownoscValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblLadownoscValue.setBounds(335, 220, 70, 14);
+		panel_data.add(lblLadownoscValue);
+		
+		lblDniOpoznieniaValue = new JLabel("New label");
+		lblDniOpoznieniaValue.setForeground(Color.ORANGE);
+		lblDniOpoznieniaValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDniOpoznieniaValue.setBounds(335, 240, 70, 14);
+		panel_data.add(lblDniOpoznieniaValue);
+		
+		lblNiezrealValue = new JLabel("New label");
+		lblNiezrealValue.setForeground(Color.ORANGE);
+		lblNiezrealValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNiezrealValue.setBounds(302, 260, 103, 14);
+		panel_data.add(lblNiezrealValue);
 		
 	}
 	
@@ -87,38 +166,17 @@ public class TransporterDetailsJPanel extends JPanel
 	{ 
 			currentTransporter = tansporter;
 
-			if(trans_list != null)
-			{
-				panel_data.remove(trans_list);
-			}
-
-			String [] details = new String [9];
-			details[0] = "Nazwa: " + currentTransporter.getName();
-			details[1] = "Telefon: " + currentTransporter.getPhone_num();
-			details[2] = "Liczba zleceń: " + currentTransporter.getNumber_of_orders();
-			details[3] = "Średni koszt: " + currentTransporter.getCost() + " zł";
-			details[4] = "Kategoria rozmiaru pojazdów: " + (currentTransporter.getSizeCategory() == SizeCategory.SMALL?"Małe":
+			lblNazwaValue.setText(currentTransporter.getName());
+			lblTelefonValue.setText(currentTransporter.getPhone_num()+"");
+			lblZleceniaValue.setText(currentTransporter.getNumber_of_orders()+"");
+			lblKosztValue.setText(currentTransporter.getCost()+"");
+			lblKategoriaValue.setText(currentTransporter.getSizeCategory() == SizeCategory.SMALL?"Małe":
 															currentTransporter.getSizeCategory() == SizeCategory.MEDIUM?"Średnie":
 															"Duże");
-			details[5] = "Średnia pojemność pojazdów w kategorii: " + currentTransporter.getVolume();
-			details[6] = "Średnia ładowność pojazdów w kategorii: " + currentTransporter.getCapacity();
-			details[7] = "Stosunek dni opóźnienia do łącznej liczby dni zleceń: " + currentTransporter.getDelay();
-			details[8] = "Stosunek zleceń zrealizowanych do łącznej liczby zleceń: " + currentTransporter.getExecuted();
-			/*
-			if( !transporter.getAdditionInfo().equals("Brak") )
-			{		
-				scrollManufacturerAddition.setVisible(true);
-				textArea_manufacturerAdditionalInfo.setText("Powód odrzucenia: \n" + transporter.getAdditionInfo());
-			}
-			else
-				scrollManufacturerAddition.setVisible(false);*/
-
-
-			trans_list = new JList<String>(details);
-			trans_list.setBounds(10, 40, 220, 130);
-			trans_list.setBackground(SystemColor.activeCaption);
-			panel_data.add(trans_list);	
-			
+		 lblPojemnoscValue.setText(currentTransporter.getVolume()+"");
+		 lblLadownoscValue.setText(currentTransporter.getCapacity()+"");
+		 lblDniOpoznieniaValue.setText(currentTransporter.getDelay()<0.001?"<0.001":currentTransporter.getDelay()+"");
+		 lblNiezrealValue.setText(currentTransporter.getExecuted()<0.001?"<0.001":currentTransporter.getExecuted()+"");
 	}
 	
 
