@@ -3,6 +3,7 @@ package visualisations.Transporters;
 import java.util.ArrayList;
 
 import dataModels.SizeCategory;
+import dataModels.Transporter;
 
 public class VisualisationTransportersPresenter 
 {
@@ -27,6 +28,12 @@ public class VisualisationTransportersPresenter
 	public void drawTransporters(String city_from, String city_to, SizeCategory sc)
 	{
 		view_transporters.drawTransporters(model_transporters.getFilteredTransporters(city_from,city_to,sc));
+	}
+	
+	public void showTransporterDetails(int id_trans)
+	{
+		Transporter t = model_transporters.getTransporter(id_trans);
+		view_transporters.showTransporterDetailsWindow(t);
 	}
 
 }

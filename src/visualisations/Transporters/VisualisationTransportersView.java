@@ -1,8 +1,11 @@
 package visualisations.Transporters;
 
 
+import interfaces.RoutePlanningPresenter;
+
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,7 +29,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import dataModels.*;
 
@@ -35,13 +42,19 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
 
+import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
+import jpanels.ManufacturerVisualization.ManufactureInfo.RingChartJPanel;
+import jpanels.TransportersVisualisation.TransporterInfo.TransporterDetailsJPanel;
+
 
 public class VisualisationTransportersView 
 {
 	private VisualisationTransportersPresenter trans_presenter;
-	String city_from;
-	String city_to;
-	SizeCategory sc;
+	private String city_from;
+	private String city_to;
+	private SizeCategory sc;
+	
+	private int lastWindowPos;
 	
 	private JFrame carrierVisualization;
 	private JPanel visualization;
@@ -66,6 +79,7 @@ public class VisualisationTransportersView
 		city_to = "";
 		sc = null;
 		initialize();
+		lastWindowPos = 50;
 	}
 	
 	public void setPresenter(VisualisationTransportersPresenter pres)
@@ -128,16 +142,16 @@ public class VisualisationTransportersView
 		comboBox_size.setSelectedIndex(0);
 		comboBox_size.setBackground(SystemColor.inactiveCaption);
 		comboBox_size.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		comboBox_size.setBounds(552, 69, 96, 31);
+		comboBox_size.setBounds(670, 45, 96, 31);
 		control.add(comboBox_size);
 		
-		JComboBox<String> comboBox_specialType = new JComboBox<String>();
+		/*JComboBox<String> comboBox_specialType = new JComboBox<String>();
 		comboBox_specialType.setModel(new DefaultComboBoxModel(new String[] {"Wszytkie", "Chłodnia", "Cysterna"}));
 		comboBox_specialType.setBackground(SystemColor.inactiveCaption);
 		comboBox_specialType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		comboBox_specialType.setBounds(552, 33, 96, 31);
 		control.add(comboBox_specialType);
-		
+		*/
 		
 		btn_confirmPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,15 +190,15 @@ public class VisualisationTransportersView
 		lbl_size.setForeground(new Color(255, 204, 0));
 		lbl_size.setLabelFor(comboBox_size);
 		lbl_size.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lbl_size.setBounds(674, 69, 96, 31);
+		lbl_size.setBounds(564, 45, 96, 31);
 		control.add(lbl_size);
 		
-		JLabel lbl_specjalType = new JLabel("Typ Specjalny");
+		/*JLabel lbl_specjalType = new JLabel("Typ Specjalny");
 		lbl_specjalType.setForeground(new Color(255, 204, 0));
 		lbl_specjalType.setLabelFor(comboBox_specialType);
 		lbl_specjalType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lbl_specjalType.setBounds(674, 33, 96, 31);
-		control.add(lbl_specjalType);
+		control.add(lbl_specjalType);*/
 		
 		visualization = new JPanel();
 		//visualization.addMouseListener(visualization);
@@ -237,6 +251,23 @@ public class VisualisationTransportersView
 	    	max_executed = transporters.stream().max(Transporter::compareByExecuted).get().getExecuted();
 	    	visualization.repaint();
 	    }
+	 
+	 public void showTransporterDetailsWindow(Transporter t)
+	 {
+				
+				JFrame detailsWindow = new JFrame(t.getName() + " - " + (t.getSizeCategory() == SizeCategory.SMALL?"Małe":
+																t.getSizeCategory() == SizeCategory.MEDIUM?"Średnie":
+																											"Duże"));
+				detailsWindow.setResizable(false);
+				detailsWindow.setBounds(lastWindowPos, lastWindowPos, 460, 350);
+				detailsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				
+				TransporterDetailsJPanel transDetailsPanel = new TransporterDetailsJPanel();
+				transDetailsPanel.setInfoAboutTransporterInToList(t);
+				detailsWindow.getContentPane().add(transDetailsPanel);
+				detailsWindow.setVisible(true);		
+				lastWindowPos += 25;
+	 }
 	 
 	 class TransVisJPanel extends JPanel  implements MouseListener, MouseMotionListener
 	    {
@@ -569,13 +600,14 @@ public class VisualisationTransportersView
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-		
+				lastWindowPos = 50;
 				for(Shape s: drawnShapes)
 				{
 					if(s.contains(e.getX(), e.getY()))
 					{
 						Transporter t = transporters.get(drawnShapes.indexOf(s));
 						System.out.println("Wybrano: "+t.getName()+"\n"+t.getPhone_num());
+						trans_presenter.showTransporterDetails(t.getId_trans());
 					}
 				}
 				
@@ -620,6 +652,9 @@ public class VisualisationTransportersView
 	 
 	    
 }
+
+
+
 
 	
 
