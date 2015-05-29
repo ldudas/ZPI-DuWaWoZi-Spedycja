@@ -53,6 +53,7 @@ public class RoutePlanningView
 		startJPanel = new StartJPanel();
 		manufacturerOrderDataJPanel = new ManufacturerOrderDataJPanel();
 		manufacturerDetailsJPanel = new ManufacturerDetailsJPanel();
+		mainFrame.setTitle("Dane zlecenia");
 		mainFrame.add(startJPanel);
 	}
 	 
@@ -73,7 +74,7 @@ public class RoutePlanningView
 	{
 		mainFrame.remove(startJPanel);
 		mainFrame.setBounds(300, 100, 500, 300);
-
+		mainFrame.setTitle("Ładowanie");
 		ImageIcon loading = new ImageIcon("images/ajax-loader.gif");
 		
 		JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
@@ -95,10 +96,11 @@ public class RoutePlanningView
 				mainFrame.remove(background);
 				mainFrame.setBounds(50, 50, 1120, 600);
 				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
+				mainFrame.setTitle("Producenci");
 				mainFrame.invalidate();
 				mainFrame.validate();
 			}
-		}, 7000);
+		}, 5000);
 		
 	}
 	
@@ -112,6 +114,7 @@ public class RoutePlanningView
 		manufacturerFrame.remove(manufacturerDetailsJPanel);
 		manufacturerFrame.setBounds(100, 100, 658, 475);
 		manufacturerFrame.add(manufacturerOrderDataJPanel);
+		manufacturerFrame.setTitle("Kolejna trasa");
 		manufacturerFrame.invalidate();
 		manufacturerFrame.validate();
 	}
@@ -126,6 +129,7 @@ public class RoutePlanningView
 		manufacturerFrame.remove(manufacturerOrderDataJPanel);
 		manufacturerFrame.setBounds(100, 100, 665, 452);
 		manufacturerFrame.add(manufacturerDetailsJPanel);
+		manufacturerFrame.setTitle("Dane producenta");
 		manufacturerFrame.invalidate();
 		manufacturerFrame.validate();
 	}
@@ -143,6 +147,7 @@ public class RoutePlanningView
 		manufacturerFrame.setResizable(false);
 		manufacturerFrame.setBounds(100, 100, 665, 452);
 		manufacturerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		manufacturerFrame.setTitle("Dane producenta");
 		
 		manufacturerDetailsJPanel.setInfoAboutManufacturerInToList(manufacturer);
 		manufacturerDetailsJPanel.setChartActivityColor(manufacturer);
@@ -251,5 +256,10 @@ public class RoutePlanningView
 	public void removeLastOrderFromTab()
 	{
 		manufacturerVisualizationWithMapJPanel.removeLastOrderFromTab();
-	}	
+	}
+	
+	public void closeMainFrame_ManufacturerVisualization()
+	{
+		mainFrame.dispose();
+	}
 }

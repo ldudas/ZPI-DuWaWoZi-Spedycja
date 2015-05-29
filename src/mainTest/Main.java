@@ -13,6 +13,9 @@ import visualisations.Manufacturers.VisualistaionManufacturersView;
 import visualisations.Path.VisualisationPathModel;
 import visualisations.Path.VisualisationPathPresenter;
 import visualisations.Path.VisualisationPathView;
+import visualisations.Transporters.VisualisationTransportersModel;
+import visualisations.Transporters.VisualisationTransportersPresenter;
+import visualisations.Transporters.VisualisationTransportersView;
 
 public class Main 
 {
@@ -24,18 +27,27 @@ public class Main
 			@Override	
 			public void run() 
 			{
-				 VisualisationPathView view_path  = new VisualisationPathView();
-		          VisualisationPathPresenter presenter_path = new VisualisationPathPresenter(view_path, new VisualisationPathModel());
+				VisualisationPathModel path_model = new VisualisationPathModel();
+				VisualisationPathView path_view  = new VisualisationPathView();
+		        VisualisationPathPresenter path_presenter = new VisualisationPathPresenter(path_view, path_model);
+								
+				VisualisationManufacturersModel manu_model = new VisualisationManufacturersModel();
+				VisualistaionManufacturersView manu_view = new VisualistaionManufacturersView();
+				VisualistaionManufacturersPresenter manu_presenter = new VisualistaionManufacturersPresenter(manu_view,manu_model);
 				
-				RoutePlanningView view_route = new RoutePlanningView();
-				VisualisationManufacturersModel model_man = new VisualisationManufacturersModel();
-				VisualistaionManufacturersView view_man = new VisualistaionManufacturersView();
-				VisualistaionManufacturersPresenter presenter_man = new VisualistaionManufacturersPresenter(view_man,model_man);
+				VisualisationTransportersModel trasn_model = new VisualisationTransportersModel();
+            	VisualisationTransportersView trans_view = new VisualisationTransportersView();
+            	VisualisationTransportersPresenter trans_presenter = new VisualisationTransportersPresenter(trans_view, trasn_model);
+				
+            	RoutePlanningModel route_model =  new RoutePlanningModel();
+            	RoutePlanningView view_route = new RoutePlanningView();
 				RoutePlanningPresenter presenter_route = 
-						new RoutePlanningPresenter(view_route, new RoutePlanningModel(),presenter_man,presenter_path);
-				presenter_man.set_route_presenter(presenter_route);
-				presenter_path.set_route_presenter(presenter_route);
+						new RoutePlanningPresenter(view_route,route_model,manu_presenter,path_presenter,trans_presenter);
+				
+				manu_presenter.set_route_presenter(presenter_route);
+				path_presenter.set_route_presenter(presenter_route);
 				view_route.setPresenter(presenter_route);
+				trans_view.setPresenter(trans_presenter);
 				view_route.setPresenters();
 				view_route.setJFrameVisibility(true);
 				System.out.println("Running");

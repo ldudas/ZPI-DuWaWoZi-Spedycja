@@ -15,6 +15,7 @@ import dataModels.Manufacturer;
 import dataModels.Order;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Path.VisualisationPathPresenter;
+import visualisations.Transporters.VisualisationTransportersPresenter;
 
 
 public class RoutePlanningPresenter 
@@ -23,24 +24,34 @@ public class RoutePlanningPresenter
 	private RoutePlanningView route_planning_view;
 	private VisualistaionManufacturersPresenter manu_presenter;
 	private VisualisationPathPresenter path_presenter;
+	private VisualisationTransportersPresenter trans_presenter;
 	
-	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map, VisualisationPathPresenter path_p)
+	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map, 
+								  final VisualisationPathPresenter path_p, VisualisationTransportersPresenter trans_p)
 	{
 		route_planning_model = model;
 		route_planning_view = view;
 		manu_presenter = map;
 		path_presenter = path_p;
+		trans_presenter = trans_p;
 	}
 	
 	
 	/**
 	 * Zmienia widok ze starowego okna na okno z wizualizacja producentow 
 	 * oraz wizulaizacja trasy 
+	 * @author Kamil Zimny
 	 */
 	public void changeStart_to_manufacturerVisualization()
 	{
 		startManuVisualisation();
 		route_planning_view.change_start_to_manufacturerVisualization();
+	}
+	
+	public void changeManufacurerVisualization_to_TransportVisualization()
+	{
+		route_planning_view.closeMainFrame_ManufacturerVisualization();
+		trans_presenter.startTransportersVisualization_inNewFrame();
 	}
 	
 	/**
@@ -58,7 +69,6 @@ public class RoutePlanningPresenter
 		} 
 		catch (Exception e) 
 		{
-			System.out.println(e.getMessage());
 		}	
 	}
 	
@@ -126,6 +136,7 @@ public class RoutePlanningPresenter
 	/**
 	 * Uruchamia metodę prezentera wizualizacji producentów 
 	 * startującą wizualizację producentów
+	 * @author Kamil Zimny
 	 */
 	public void startManuVisualisation()
 	{

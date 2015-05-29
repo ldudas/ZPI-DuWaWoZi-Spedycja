@@ -1,11 +1,9 @@
 package visualisations.Transporters;
 
 
-import interfaces.RoutePlanningPresenter;
 
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,7 +11,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.SystemColor;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.MouseEvent;
@@ -29,11 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import dataModels.*;
 
@@ -42,8 +35,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
 
-import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
-import jpanels.ManufacturerVisualization.ManufactureInfo.RingChartJPanel;
 import jpanels.TransportersVisualisation.TransporterInfo.TransporterDetailsJPanel;
 
 
@@ -72,13 +63,14 @@ public class VisualisationTransportersView
 
 
 
-	public VisualisationTransportersView() {
+	public VisualisationTransportersView() 
+	{
 		drawnShapes = new ArrayList<>();
 		isVisualisationStarted = false;
 		city_from = "";
 		city_to = "";
 		sc = null;
-		initialize();
+	//	initialize();
 		lastWindowPos = 50;
 	}
 	
@@ -88,9 +80,8 @@ public class VisualisationTransportersView
 	}
 
 	
-	private void initialize() {
-		
-		
+	public void initialize() 
+	{		
 		carrierVisualization = new JFrame();
 		//carrierVisualization.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/025581022.jpg")));
 		carrierVisualization.setResizable(false);
@@ -115,7 +106,7 @@ public class VisualisationTransportersView
 		control.add(btn_confirmPath);
 		
 		JComboBox<String> comboBox_cityTo = new JComboBox<String>();
-		comboBox_cityTo.setModel(new DefaultComboBoxModel(new String[] {"Warszawa"}));
+		comboBox_cityTo.setModel(new DefaultComboBoxModel<String>(new String[] {"Warszawa"}));
 		comboBox_cityTo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		comboBox_cityTo.setBackground(SystemColor.inactiveCaption);
 		comboBox_cityTo.setBounds(137, 33, 128, 31);
@@ -123,7 +114,7 @@ public class VisualisationTransportersView
 			
 		
 		JComboBox<String> comboBox_CityFrom = new JComboBox<String>();
-		comboBox_CityFrom.setModel(new DefaultComboBoxModel(new String[] {"Wrocław"}));
+		comboBox_CityFrom.setModel(new DefaultComboBoxModel<String>(new String[] {"Wrocław"}));
 		comboBox_CityFrom.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		comboBox_CityFrom.setBackground(SystemColor.inactiveCaption);
 		comboBox_CityFrom.setBounds(10, 33, 128, 31);
@@ -138,7 +129,7 @@ public class VisualisationTransportersView
 		control.add(lbl_cityFrom);
 		
 		JComboBox<String> comboBox_size = new JComboBox<String>();
-		comboBox_size.setModel(new DefaultComboBoxModel(new String[] {"Wszystkie", "Małe", "Średnie", "Duże"}));
+		comboBox_size.setModel(new DefaultComboBoxModel<String>(new String[] {"Wszystkie", "Małe", "Średnie", "Duże"}));
 		comboBox_size.setSelectedIndex(0);
 		comboBox_size.setBackground(SystemColor.inactiveCaption);
 		comboBox_size.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
@@ -223,6 +214,8 @@ public class VisualisationTransportersView
 		carrierVisualization.setBounds(250, 30, 825, 700);
 		carrierVisualization.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		carrierVisualization.setVisible(true);
+		carrierVisualization.invalidate();
+		carrierVisualization.validate();
 	}
 	
 	 public void drawTransporters(ArrayList<Transporter> transporters)
@@ -270,9 +263,8 @@ public class VisualisationTransportersView
 	 }
 	 
 	 class TransVisJPanel extends JPanel  implements MouseListener, MouseMotionListener
-	    {
-	    	
-	    	 private final int x_gap = 20;
+	    {  
+			 private final int x_gap = 20;
 		     private final int y_gap = 20;
 		     private final int line_thickness = 2;
 		     

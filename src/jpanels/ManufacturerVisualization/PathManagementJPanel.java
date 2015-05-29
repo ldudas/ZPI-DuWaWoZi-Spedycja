@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 
+
 public class PathManagementJPanel extends JPanel 
 {
 
@@ -119,7 +120,13 @@ public class PathManagementJPanel extends JPanel
 		btn_saveRoute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
+				int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno chcesz zapisać trasę i zakończyć edycje,\n"+
+																						    " oraz przejść do wyboru przewoźnika?", 
+																						    "Potwierdzenie zapisu", JOptionPane.YES_NO_OPTION);
+				if(dialogResult == JOptionPane.YES_OPTION) 
+				{
+					 presenter_route_planning.changeManufacurerVisualization_to_TransportVisualization();
+				} 
 			}
 		});
 

@@ -1,7 +1,5 @@
 package visualisations.Transporters;
 
-import java.util.ArrayList;
-
 import dataModels.SizeCategory;
 import dataModels.Transporter;
 
@@ -34,6 +32,11 @@ public class VisualisationTransportersPresenter
 	{
 		Transporter t = model_transporters.getTransporter(id_trans);
 		view_transporters.showTransporterDetailsWindow(t);
+	}
+	
+	public void startTransportersVisualization_inNewFrame()
+	{
+		view_transporters.initialize();
 	}
 
 }

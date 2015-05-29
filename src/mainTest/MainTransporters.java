@@ -9,7 +9,8 @@ import visualisations.Transporters.VisualisationTransportersView;
 public class MainTransporters {
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() 
+		{
 			public void run() {
 				try {
 					VisualisationTransportersModel trasn_model = new VisualisationTransportersModel();
