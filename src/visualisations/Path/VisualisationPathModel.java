@@ -17,6 +17,7 @@ import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
 
 import dataModels.City;
+import dataModels.User;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectPathVisualisation;
 
@@ -72,12 +73,23 @@ public class VisualisationPathModel
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		DAO_PathVis = factory.getDataAccessObjectPathVisualisation();
-		cities_coordinates = DAO_PathVis.getCitiesCoordinates();
 		path_cities = new ArrayList<City>();
 		path_cities_vis_objects = new ArrayList<ArrayList<Integer>>();
 		path_cities_vis_objects.add(new ArrayList<Integer>());
 		path_cities_vis_objects.add(new ArrayList<Integer>());
 		number_of_cities = 0;
+	}
+	
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		if( currentLoggedUser != null )
+		{
+			DAO_PathVis.setExternalDatabaseConnectionProperty(currentLoggedUser.getServerAddress(), 
+				currentLoggedUser.getServerPort(),currentLoggedUser.getDatabaseName(), 
+				currentLoggedUser.getDatabaseLogin(), currentLoggedUser.getDatabasePassword());
+		}
+		else
+			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
 	
@@ -158,7 +170,7 @@ public class VisualisationPathModel
 	 */
 	private void addInitialPathGraphicsOnMap(final String cityNameFrom, final String cityNameTo)
 	{
-		
+		cities_coordinates = DAO_PathVis.getCitiesCoordinates();
 		SpatialReference mapSR = path_map.getSpatialReference();
 		
 		//znajdz indeksy podanych miast cityNameTo, cityNameFrom
@@ -231,6 +243,7 @@ public class VisualisationPathModel
 	 */
 	public void addCityToPath(String cityName)
 	{
+		cities_coordinates = DAO_PathVis.getCitiesCoordinates();
 		SpatialReference mapSR = path_map.getSpatialReference();
 		
 		//znajdz indeks podanego miasta cityName

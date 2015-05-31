@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import dataModels.City;
 import dataModels.SizeCategory;
 import dataModels.Transporter;
+import dataModels.User;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectPathVisualisation;
 import database.DataAccessObjectTransportersVisualisation;
@@ -57,6 +58,18 @@ public class VisualisationTransportersModel
 		cityFrom="";
 		cityTo="";
 		size_category = null;
+	}
+	
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		if( currentLoggedUser != null )
+		{
+			DAO_TransVis.setExternalDatabaseConnectionProperty(currentLoggedUser.getServerAddress(), 
+				currentLoggedUser.getServerPort(),currentLoggedUser.getDatabaseName(), 
+				currentLoggedUser.getDatabaseLogin(), currentLoggedUser.getDatabasePassword());
+		}
+		else
+			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
 	private void getTranspotersFormDatabase(String city_from, String city_to)

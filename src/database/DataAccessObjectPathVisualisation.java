@@ -7,11 +7,14 @@ import exceptions.DatabaseConnectionExeption;
 public class DataAccessObjectPathVisualisation
 {
 	
-private DatabaseConnector databaseConnector;
+	private DatabaseConnector databaseConnector;
 	
 	public DataAccessObjectPathVisualisation()
+	{}
+	
+	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
 	{
-		databaseConnector = new DatabaseConnector();
+		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
 	
 	public ArrayList<ArrayList<Object>> getCitiesCoordinates()
@@ -20,7 +23,7 @@ private DatabaseConnector databaseConnector;
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
 		{
-			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query,3);
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{

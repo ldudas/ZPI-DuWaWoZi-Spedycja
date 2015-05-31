@@ -37,7 +37,7 @@ public class PathManagementJPanel extends JPanel
 		btn_removeLast.setBackground(SystemColor.activeCaption);
 		btn_removeLast.setForeground(SystemColor.desktop);
 		btn_removeLast.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_removeLast.setBounds(201, 388, 147, 45);
+		btn_removeLast.setBounds(178, 388, 175, 45);
 		btn_removeLast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -74,12 +74,12 @@ public class PathManagementJPanel extends JPanel
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton btn_saveRoute = new JButton("Zapisz tras\u0119");
-		btn_saveRoute.setBounds(191, 323, 147, 50);
-		panel.add(btn_saveRoute);
-		btn_saveRoute.setBackground(SystemColor.activeCaption);
-		btn_saveRoute.setForeground(SystemColor.desktop);
-		btn_saveRoute.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		JButton btn_showTransporters = new JButton("Pokaż przewoźników");
+		btn_showTransporters.setBounds(168, 322, 176, 50);
+		panel.add(btn_showTransporters);
+		btn_showTransporters.setBackground(SystemColor.activeCaption);
+		btn_showTransporters.setForeground(SystemColor.desktop);
+		btn_showTransporters.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		table_routeDiscription = new JTable();
 		table_routeDiscription.setOpaque(true);
@@ -117,15 +117,15 @@ public class PathManagementJPanel extends JPanel
 		JScrollPane scroll = new JScrollPane(table_routeDiscription);
 		scroll.setBounds(10, 26, 347, 236);
 		panel.add(scroll);
-		btn_saveRoute.addActionListener(new ActionListener() {
+		btn_showTransporters.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno chcesz zapisać trasę i zakończyć edycje,\n"+
-																						    " oraz przejść do wyboru przewoźnika?", 
-																						    "Potwierdzenie zapisu", JOptionPane.YES_NO_OPTION);
+				int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno akceptujesz trasę\n"+
+																						    " i chcesz przejść do wyboru przewoźnika?", 
+																						    "Potwierdzenie edycji trasy", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					 presenter_route_planning.changeManufacurerVisualization_to_TransportVisualization();
+					 presenter_route_planning.changeManufacurerVisualization_to_transportVisualization();
 				} 
 			}
 		});

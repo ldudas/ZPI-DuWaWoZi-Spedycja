@@ -2,6 +2,7 @@ package visualisations.Transporters;
 
 import dataModels.SizeCategory;
 import dataModels.Transporter;
+import dataModels.User;
 
 public class VisualisationTransportersPresenter 
 {
@@ -37,6 +38,12 @@ public class VisualisationTransportersPresenter
 	public void startTransportersVisualization_inNewFrame()
 	{
 		view_transporters.initialize();
+	}
+	
+
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		model_transporters.setExternalDatabaseConnectionProperty(currentLoggedUser);
 	}
 
 }

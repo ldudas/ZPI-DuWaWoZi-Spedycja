@@ -198,6 +198,10 @@ public class StartJPanel extends JPanel
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_route_planning = presenter;
+	}
+	
+	public void addAllCityToList()
+	{
 		presenter_route_planning.addAllCityToList(comboBox_cityFrom,comboBox_cityTo);
 	}
 	

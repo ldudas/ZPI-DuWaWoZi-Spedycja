@@ -14,11 +14,18 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
+
+
+
+
 import dataModels.Manufacturer;
 import dataModels.Order;
 import jpanels.ManufacturerVisualization.ManufacturerVisuzalizationJPanel;
 import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
 import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerOrderDataJPanel;
+import jpanels.startWindow.LogJPanel;
+import jpanels.startWindow.MenuJPanel;
+import jpanels.startWindow.RegistryJPanel;
 import jpanels.startWindow.StartJPanel;
 
 
@@ -30,6 +37,9 @@ public class RoutePlanningView
 	private StartJPanel startJPanel;
 	private ManufacturerOrderDataJPanel manufacturerOrderDataJPanel;
 	private ManufacturerDetailsJPanel manufacturerDetailsJPanel;
+	private MenuJPanel menuJPanel;
+	private LogJPanel logJPanel;
+	private RegistryJPanel registryJPanel;
 	
 	private JFrame manufacturerFrame;
 	/**
@@ -47,14 +57,20 @@ public class RoutePlanningView
 	{
 		mainFrame = new JFrame();
 		mainFrame.setResizable(false);
-		mainFrame.setBounds(300, 100, 630, 500);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		manufacturerVisualizationWithMapJPanel = new ManufacturerVisuzalizationJPanel();
 		startJPanel = new StartJPanel();
 		manufacturerOrderDataJPanel = new ManufacturerOrderDataJPanel();
 		manufacturerDetailsJPanel = new ManufacturerDetailsJPanel();
-		mainFrame.setTitle("Dane zlecenia");
-		mainFrame.add(startJPanel);
+		menuJPanel = new MenuJPanel();
+		logJPanel = new LogJPanel();
+		registryJPanel = new RegistryJPanel();
+		
+		mainFrame.setBounds(250, 150, 290, 400);
+		mainFrame.setTitle("Menu");
+		mainFrame.add(menuJPanel);
+		mainFrame.invalidate();
+		mainFrame.validate();
 	}
 	 
 	/**
@@ -66,25 +82,76 @@ public class RoutePlanningView
 		route_planning_presenter = presenter;
 	}
 	
+	public void change_menu_to_startPlanning()
+	{
+		mainFrame.remove(menuJPanel);
+		mainFrame.setBounds(300, 100, 630, 500);
+		mainFrame.setTitle("Dane zlecenia");
+		mainFrame.add(startJPanel);
+		mainFrame.invalidate();
+		mainFrame.validate();
+	}
+	
+	public void change_menu_to_registryUser()
+	{
+		mainFrame.remove(menuJPanel);
+		mainFrame.setBounds(300, 100, 415, 468);
+		mainFrame.setTitle("Rejestracja");
+		mainFrame.add(registryJPanel);
+		mainFrame.invalidate();
+		mainFrame.validate();
+	}
+	
+	public void change_registryUser_to_menu()
+	{
+		mainFrame.remove(registryJPanel);
+		mainFrame.setBounds(250, 150, 290, 400);
+		mainFrame.setTitle("Menu");
+		mainFrame.add(menuJPanel);
+		mainFrame.invalidate();
+		mainFrame.validate();
+	}
+	
+	public void change_menu_to_loginUser()
+	{
+		mainFrame.remove(menuJPanel);
+		mainFrame.setBounds(300, 100, 275, 240);
+		mainFrame.setTitle("Logowanie");
+		mainFrame.add(logJPanel);
+		mainFrame.invalidate();
+		mainFrame.validate();
+	}
+	
+	public void change_loginUser_to_menu()
+	{
+		mainFrame.remove(logJPanel);
+		mainFrame.setBounds(250, 150, 290, 400);
+		mainFrame.setTitle("Menu");
+		mainFrame.add(menuJPanel);
+		mainFrame.invalidate();
+		mainFrame.validate();
+	}
+	
 	
 	/**
 	 * Zmienia widok ze startowego do widoku wizualizacji producentow na mapie
 	 */
 	public void change_start_to_manufacturerVisualization()
 	{
-		mainFrame.remove(startJPanel);
-		mainFrame.setBounds(300, 100, 500, 300);
-		mainFrame.setTitle("Ładowanie");
-		ImageIcon loading = new ImageIcon("images/ajax-loader.gif");
-		
+		ImageIcon loading = new ImageIcon("images/ajax-loader.gif");		
 		JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
 		JPanel background = new JPanel();
 		background.setLayout(new CardLayout(0, 0));
 		background.setBounds(0, 0, 500, 300);
 		background.setBackground(SystemColor.inactiveCaption);
 		background.add(loadingLabel);
-		mainFrame.add(background);
 		
+		mainFrame.remove(startJPanel);
+		mainFrame.setBounds(300, 100, 500, 300);
+		mainFrame.setTitle("Ładowanie");
+		mainFrame.add(background);
+		mainFrame.invalidate();
+		mainFrame.validate();
 		
 		Timer timer = new Timer();
 		
@@ -95,8 +162,8 @@ public class RoutePlanningView
 			{
 				mainFrame.remove(background);
 				mainFrame.setBounds(50, 50, 1120, 600);
-				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
 				mainFrame.setTitle("Producenci");
+				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
 				mainFrame.invalidate();
 				mainFrame.validate();
 			}
@@ -177,6 +244,9 @@ public class RoutePlanningView
 	
 	public void setPresenters()
 	{
+		menuJPanel.setPresenter(route_planning_presenter);
+		logJPanel.setPresenter(route_planning_presenter);
+		registryJPanel.setPresenter(route_planning_presenter);
 		startJPanel.setPresenter(route_planning_presenter);
 		manufacturerVisualizationWithMapJPanel.setPresenter(route_planning_presenter);
 		manufacturerOrderDataJPanel.setPresenter(route_planning_presenter);
@@ -262,4 +332,78 @@ public class RoutePlanningView
 	{
 		mainFrame.dispose();
 	}
+	
+	public void setNewLoggedUser(String login)
+	{
+		menuJPanel.setNewLoggedUser(login);
+	}
+	
+	public void setNotLoggedUser()
+	{
+		menuJPanel.setNotLoggedUser();
+	}
+	
+	public String getLogin()
+	{
+		return registryJPanel.getLogin();
+	}
+	
+	/**
+	 * Metoda zwracajaca podane przez u�ytkownika has�a.
+	 * @return [] String
+	 * <br> [0] -> password
+	 * <br> [1] -> repeat password
+	 * @author Kamil Zimny
+	 */
+	public String [] getPasswords()
+	{
+		return registryJPanel.getPasswords();
+	}
+	
+	public String getServerAddress()
+	{
+		return registryJPanel.getServerAddress();
+	}
+	
+	public String getServerPort()
+	{
+		return registryJPanel.getServerPort();
+	}
+	
+	public String getDatabaseName()
+	{
+		return registryJPanel.getDatabaseName();
+	}
+	
+	public String getDatabaseLogin()
+	{
+		return registryJPanel.getDatabaseLogin();
+	}
+	
+	public String getDatabasePassword()
+	{
+		return registryJPanel.getDatabasePassword();
+	}
+	
+	public String getLogin_Login()
+	{
+		return logJPanel.getLogin();
+	}
+	
+	public String getPassword_Login()
+	{
+		return logJPanel.getPassword();
+	}
+	
+	public void setEnableButtonsToUserAction(boolean flag)
+	{
+		menuJPanel.setEnableButtonsToUserAction(flag);
+	}
+	
+	public void addAllCityToList()
+	{
+		startJPanel.addAllCityToList();
+		manufacturerOrderDataJPanel.addAllCityToList();
+	}
+	
 }
