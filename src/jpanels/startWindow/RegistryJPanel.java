@@ -285,6 +285,18 @@ public class RegistryJPanel extends JPanel
 		return passwords;
 	}
 	
+	public void clearText()
+	{
+		textField_databaseLogin.setText("");
+		textField_databaseName.setText("");
+		textField_login.setText("");
+		textField_serverAddress.setText("");
+		textField_serverPort.setText("");
+		passwordField_databasePassword.setText("");
+		passwordField_password.setText("");
+		passwordField_passwordRepeat.setText("");
+	}
+	
 	public String getServerAddress()
 	{
 		return textField_serverAddress.getText();

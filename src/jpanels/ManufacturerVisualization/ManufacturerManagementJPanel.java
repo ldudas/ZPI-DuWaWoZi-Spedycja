@@ -32,7 +32,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(10, 11, 327, 459);
+		panel.setBounds(0, 0, 401, 536);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -49,25 +49,25 @@ public class ManufacturerManagementJPanel extends JPanel
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		
 		JLabel lblNajbardziejAktywnych = new JLabel("najbardziej aktywnych");
-		lblNajbardziejAktywnych.setBounds(177, 40, 150, 14);
+		lblNajbardziejAktywnych.setBounds(194, 40, 150, 14);
 		panel.add(lblNajbardziejAktywnych);
 		lblNajbardziejAktywnych.setForeground(new Color(255, 204, 0));
 		lblNajbardziejAktywnych.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JLabel lblOkres = new JLabel("Typ");
-		lblOkres.setBounds(26, 94, 46, 14);
+		lblOkres.setBounds(54, 94, 46, 14);
 		panel.add(lblOkres);
 		lblOkres.setForeground(new Color(255, 204, 0));
 		lblOkres.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JLabel lblJednostka = new JLabel("Jednostka");
-		lblJednostka.setBounds(26, 119, 74, 14);
+		lblJednostka.setBounds(54, 119, 74, 14);
 		panel.add(lblJednostka);
 		lblJednostka.setForeground(new Color(255, 204, 0));
 		lblJednostka.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JLabel lblNewLabel = new JLabel("Liczba");
-		lblNewLabel.setBounds(26, 144, 46, 14);
+		lblNewLabel.setBounds(54, 144, 46, 14);
 		panel.add(lblNewLabel);
 		lblNewLabel.setForeground(new Color(255, 204, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
@@ -79,33 +79,33 @@ public class ManufacturerManagementJPanel extends JPanel
 		lblTolerancja.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		
 		lblNewLabel_1 = new JLabel("Jednostka");
-		lblNewLabel_1.setBounds(26, 230, 74, 14);
+		lblNewLabel_1.setBounds(54, 230, 74, 14);
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setForeground(new Color(255, 204, 0));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		lblNewLabel_2 = new JLabel("Liczba");
-		lblNewLabel_2.setBounds(26, 255, 46, 14);
+		lblNewLabel_2.setBounds(54, 255, 46, 14);
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setForeground(new Color(255, 204, 0));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JButton btn_chooseManufacturer = new JButton("Wybierz");
-		btn_chooseManufacturer.setBounds(165, 318, 132, 49);
+		btn_chooseManufacturer.setBounds(165, 386, 179, 61);
 		panel.add(btn_chooseManufacturer);
 		btn_chooseManufacturer.setForeground(SystemColor.desktop);
 		btn_chooseManufacturer.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btn_chooseManufacturer.setBackground(SystemColor.activeCaption);
 		
 		final JComboBox<String> comboBox_map_period = new JComboBox<String>();
-		comboBox_map_period.setBounds(116, 90, 153, 22);
+		comboBox_map_period.setBounds(165, 90, 153, 22);
 		panel.add(comboBox_map_period);
 		comboBox_map_period.setBackground(SystemColor.activeCaption);
 		comboBox_map_period.setForeground(new Color(0, 0, 0));
 		comboBox_map_period.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		final JComboBox<String> comboBox_map_unit = new JComboBox<String>();
-		comboBox_map_unit.setBounds(116, 115, 153, 22);
+		comboBox_map_unit.setBounds(165, 115, 153, 22);
 		panel.add(comboBox_map_unit);
 		comboBox_map_unit.setBackground(SystemColor.activeCaption);
 		comboBox_map_unit.setForeground(new Color(0, 0, 0));
@@ -113,7 +113,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		addUnitToComboBox(comboBox_map_unit);
 		
 		final JComboBox<Integer> comboBox_map_count = new JComboBox<Integer>();
-		comboBox_map_count.setBounds(116, 140, 153, 22);
+		comboBox_map_count.setBounds(165, 140, 153, 22);
 		panel.add(comboBox_map_count);
 		comboBox_map_count.setBackground(SystemColor.activeCaption);
 		comboBox_map_count.setForeground(new Color(0, 0, 0));
@@ -121,7 +121,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		addCountToComboBox(comboBox_map_count);
 		
 		comboBox_tolerance_unit = new JComboBox<String>();
-		comboBox_tolerance_unit.setBounds(116, 226, 153, 22);
+		comboBox_tolerance_unit.setBounds(165, 226, 153, 22);
 		panel.add(comboBox_tolerance_unit);
 		comboBox_tolerance_unit.setBackground(SystemColor.activeCaption);
 		comboBox_tolerance_unit.setForeground(new Color(0, 0, 0));
@@ -129,7 +129,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		addUnitToComboBox(comboBox_tolerance_unit);
 		
 		comboBox_tolerance_count = new JComboBox<Integer>();
-		comboBox_tolerance_count.setBounds(116, 251, 153, 22);
+		comboBox_tolerance_count.setBounds(165, 251, 153, 22);
 		panel.add(comboBox_tolerance_count);
 		comboBox_tolerance_count.setBackground(SystemColor.activeCaption);
 		comboBox_tolerance_count.setForeground(new Color(0, 0, 0));
@@ -139,7 +139,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		JComboBox<String> comboBox_numberOfMostActive = new JComboBox<String>();
 		comboBox_numberOfMostActive.setBackground(SystemColor.activeCaption);
 		comboBox_numberOfMostActive.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		comboBox_numberOfMostActive.setBounds(59, 37, 114, 20);
+		comboBox_numberOfMostActive.setBounds(70, 37, 114, 20);
 		panel.add(comboBox_numberOfMostActive);
 		comboBox_numberOfMostActive.addItem("wszystkich");
 		comboBox_numberOfMostActive.addItem("2");
@@ -191,7 +191,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		});
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btnNewButton.setBounds(10, 318, 132, 49);
+		btnNewButton.setBounds(165, 317, 179, 61);
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Wyczyść");
@@ -209,7 +209,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btnNewButton_1.setForeground(SystemColor.desktop);
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		btnNewButton_1.setBounds(10, 377, 132, 49);
+		btnNewButton_1.setBounds(10, 317, 141, 61);
 		panel.add(btnNewButton_1);
 		
 		comboBox_map_period.addItem("Okres wstecz");

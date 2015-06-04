@@ -117,7 +117,7 @@ public class LogJPanel extends JPanel
 		return textField_login.getText();
 	}
 	
-	private void clearTexts()
+	public void clearTexts()
 	{
 		textField_login.setText("");
 		passwordField_password.setText("");

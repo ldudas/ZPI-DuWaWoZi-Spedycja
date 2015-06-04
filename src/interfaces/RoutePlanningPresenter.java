@@ -72,7 +72,7 @@ public class RoutePlanningPresenter
 	public void changeStart_to_manufacturerVisualization()
 	{
 		startManuVisualisation();
-		route_planning_view.change_start_to_manufacturerVisualization();
+		route_planning_view.change_startPlanning_to_manufacturerVisualization();
 	}
 	
 	public void changeManufacurerVisualization_to_transportVisualization()
@@ -152,12 +152,21 @@ public class RoutePlanningPresenter
 	}
 	
 	/**
-	 * Zamyka okno informajci o producencie
+	 * Zamyka okno informacji o producencie
 	 * @author Kamil Zimny
 	 */
 	public void closeManufacturerInfo()
 	{
 		route_planning_view.closeManufacturerInfoFrame();
+	}
+	
+	/**
+	 * Zamyka okno informacji o programie
+	 * @author Kamil Zimny
+	 */
+	public void closeAbout()
+	{
+		route_planning_view.closeAboutFrame();
 	}
 	 
 	/**

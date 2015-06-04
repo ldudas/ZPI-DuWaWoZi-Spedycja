@@ -21,29 +21,33 @@ public class MenuJPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	private RoutePlanningPresenter presenter_route_planning;
+	
 	private String loggedUser;
 	private final String NOT_LOGGED_USER = "Brak";
 	private JLabel lblNewLabel;
 	private JButton btn_startPlanning;
 	private JButton btn_commisionEdit;
+	private JButton btn_showTransporters;
+	private JButton btn_logIn;
+	private JButton btn_registery;
 	
 	public MenuJPanel() 
 	{	
 		loggedUser = NOT_LOGGED_USER;
-		setBackground(SystemColor.inactiveCaption);
+		setBackground(SystemColor.inactiveCaptionText);
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
 		
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(22, 38, 242, 313);
+		panel.setBounds(0, 0, 247, 444);
 		add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblMenu = new JLabel("Menu");
 		lblMenu.setForeground(new Color(255, 204, 0));
-		lblMenu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
-		lblMenu.setBounds(82, 10, 84, 51);
+		lblMenu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 28));
+		lblMenu.setBounds(83, 44, 84, 51);
 		panel.add(lblMenu);
 		
 		btn_startPlanning = new JButton("Rozpocznij planowanie");
@@ -56,11 +60,11 @@ public class MenuJPanel extends JPanel
 		});
 		btn_startPlanning.setEnabled(false);
 		btn_startPlanning.setBackground(SystemColor.activeCaption);
-		btn_startPlanning.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_startPlanning.setBounds(33, 184, 184, 51);
+		btn_startPlanning.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btn_startPlanning.setBounds(10, 230, 224, 51);
 		panel.add(btn_startPlanning);
 		
-		JButton btn_registery = new JButton("Rejestracja");
+	    btn_registery = new JButton("Rejestracja");
 		btn_registery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -68,22 +72,22 @@ public class MenuJPanel extends JPanel
 			}
 		});
 		btn_registery.setBackground(SystemColor.activeCaption);
-		btn_registery.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_registery.setBounds(33, 128, 184, 51);
+		btn_registery.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btn_registery.setBounds(10, 168, 224, 51);
 		panel.add(btn_registery);
 		
 		btn_commisionEdit = new JButton("Edycja zlece\u0144");
 		btn_commisionEdit.setEnabled(false);
 		btn_commisionEdit.setBackground(SystemColor.activeCaption);
-		btn_commisionEdit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_commisionEdit.setBounds(33, 240, 184, 51);
+		btn_commisionEdit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btn_commisionEdit.setBounds(10, 354, 224, 51);
 		panel.add(btn_commisionEdit);
 		
-		JButton btn_logIn = new JButton("Logowanie");
+		btn_logIn = new JButton("Logowanie");
 		btn_logIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				if( loggedUser.equals(NOT_LOGGED_USER) )
+				if( !isUserLogged() )
 					presenter_route_planning.changeMenu_to_loginUser();
 				else
 				{
@@ -93,20 +97,36 @@ public class MenuJPanel extends JPanel
 					if(dialogResult == JOptionPane.YES_OPTION) 
 					{
 						loggedUser = NOT_LOGGED_USER;
-						presenter_route_planning.changeMenu_to_loginUser();				
+						presenter_route_planning.changeMenu_to_loginUser();	
+						presenter_route_planning.setNotLoggedUser();
+						presenter_route_planning.setEnableButtonsToUserAction(false);
 					}
 				}
 			}
 		});
 		btn_logIn.setBackground(SystemColor.activeCaption);
-		btn_logIn.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_logIn.setBounds(33, 72, 184, 51);
+		btn_logIn.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btn_logIn.setBounds(10, 106, 224, 51);
 		panel.add(btn_logIn);
 		
 		lblNewLabel = new JLabel("Użytkownik: "+loggedUser);
+		lblNewLabel.setForeground(new Color(255, 204, 0));
+		lblNewLabel.setBounds(10, 11, 242, 16);
+		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lblNewLabel.setBounds(22, 11, 251, 16);
-		add(lblNewLabel);
+		
+		btn_showTransporters = new JButton("Pokaż przewoźników");
+		btn_showTransporters.setEnabled(false);
+		btn_showTransporters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				presenter_route_planning.changeManufacurerVisualization_to_transportVisualization();
+			}
+		});
+		btn_showTransporters.setBackground(SystemColor.activeCaption);
+		btn_showTransporters.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btn_showTransporters.setBounds(10, 292, 224, 51);
+		panel.add(btn_showTransporters);
 	}
 	
 	public void setNewLoggedUser(String login)
@@ -121,6 +141,11 @@ public class MenuJPanel extends JPanel
 		lblNewLabel.setText("Użytkownik: "+loggedUser);
 	}
 	
+	public boolean isUserLogged()
+	{
+		return !loggedUser.equals(NOT_LOGGED_USER);
+	}
+	
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_route_planning = presenter;
@@ -130,5 +155,18 @@ public class MenuJPanel extends JPanel
 	{
 		btn_startPlanning.setEnabled(flag);
 		btn_commisionEdit.setEnabled(flag);
+		btn_showTransporters.setEnabled(flag);
+	}
+	
+	public void setEnableButtonsFirstAction(boolean flag)
+	{
+		btn_logIn.setEnabled(flag);
+		btn_registery.setEnabled(flag);
+	}
+	
+	public void setEnableAllButtons(boolean flag)
+	{
+		setEnableButtonsToUserAction(flag);
+		setEnableButtonsFirstAction(flag);
 	}
 }
