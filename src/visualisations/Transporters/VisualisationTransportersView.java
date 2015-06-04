@@ -35,6 +35,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
 
+import com.esri.map.JMap;
+
 import jpanels.TransportersVisualisation.TransporterInfo.TransporterDetailsJPanel;
 
 
@@ -70,7 +72,7 @@ public class VisualisationTransportersView
 		city_from = "";
 		city_to = "";
 		sc = null;
-	//	initialize();
+		initialize();
 		lastWindowPos = 50;
 	}
 	
@@ -245,18 +247,19 @@ public class VisualisationTransportersView
 	    	visualization.repaint();
 	    }
 	 
-	 public void showTransporterDetailsWindow(Transporter t)
+	 public void showTransporterDetailsWindow(Transporter t,JMap routes)
 	 {
 				
 				JFrame detailsWindow = new JFrame(t.getName() + " - " + (t.getSizeCategory() == SizeCategory.SMALL?"Małe":
 																t.getSizeCategory() == SizeCategory.MEDIUM?"Średnie":
 																											"Duże"));
 				detailsWindow.setResizable(false);
-				detailsWindow.setBounds(lastWindowPos, lastWindowPos, 460, 350);
+				detailsWindow.setBounds(lastWindowPos, lastWindowPos, 910, 350);
 				detailsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
 				TransporterDetailsJPanel transDetailsPanel = new TransporterDetailsJPanel();
 				transDetailsPanel.setInfoAboutTransporterInToList(t);
+				transDetailsPanel.setRoutesMap(routes);
 				detailsWindow.getContentPane().add(transDetailsPanel);
 				detailsWindow.setVisible(true);		
 				lastWindowPos += 25;
@@ -531,7 +534,6 @@ public class VisualisationTransportersView
 		        	exec = t.getExecuted()>max_exec?max_exec:
 		        									t.getExecuted();
 		        	alpha = 2- ((((1.0/max_exec) * exec) * (max_alpha_minus - min_alpha_minus) + min_alpha_minus)+1);
-		        	System.out.println(exec+" "+alpha);
 			        	 	
 		        	//ustawianie alpha rysowania
 		        	alcom = AlphaComposite.getInstance(
@@ -609,14 +611,14 @@ public class VisualisationTransportersView
 			@Override
 			public void mouseMoved(MouseEvent e) 
 			{
-				for(Shape s: drawnShapes)
+				/*for(Shape s: drawnShapes)
 				{
 					if(s.contains(e.getX(), e.getY()))
 					{
 						Transporter t = transporters.get(drawnShapes.indexOf(s));
 						System.out.println("Jestem nad: "+t.getName()+"\n"+t.getPhone_num());
 					}
-				}
+				}*/
 			} 
 			
 			@Override

@@ -1,5 +1,9 @@
 package visualisations.Transporters;
 
+import java.util.ArrayList;
+
+import com.esri.map.JMap;
+
 import dataModels.SizeCategory;
 import dataModels.Transporter;
 
@@ -31,7 +35,8 @@ public class VisualisationTransportersPresenter
 	public void showTransporterDetails(int id_trans)
 	{
 		Transporter t = model_transporters.getTransporter(id_trans);
-		view_transporters.showTransporterDetailsWindow(t);
+		JMap routes_of_transporter = model_transporters.getTransporterRoutesMap(id_trans) ;
+		view_transporters.showTransporterDetailsWindow(t,routes_of_transporter);
 	}
 	
 	public void startTransportersVisualization_inNewFrame()

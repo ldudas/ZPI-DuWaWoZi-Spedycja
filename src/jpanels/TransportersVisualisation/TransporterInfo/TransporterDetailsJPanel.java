@@ -1,6 +1,7 @@
 package jpanels.TransportersVisualisation.TransporterInfo;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -16,11 +18,15 @@ import javax.swing.JTextArea;
 
 import dataModels.SizeCategory;
 import dataModels.Transporter;
+
 import javax.swing.SwingConstants;
+
+import com.esri.map.JMap;
 
 public class TransporterDetailsJPanel extends JPanel
 {
 	private JPanel panel_data;
+	private JPanel panel_map;
 	private Transporter currentTransporter;
 	private JLabel lblNazwaValue;
 	private JLabel lblTelefonValue;
@@ -31,6 +37,7 @@ public class TransporterDetailsJPanel extends JPanel
 	private JLabel lblDniOpoznieniaValue;
 	private JLabel lblNiezrealValue;
 	private JLabel lblKategoriaValue;
+
 	
 	public TransporterDetailsJPanel() 
 	{
@@ -42,6 +49,10 @@ public class TransporterDetailsJPanel extends JPanel
 		panel_data.setBounds(10, 11, 436, 298);
 		add(panel_data);
 		panel_data.setLayout(null);
+		
+		panel_map = new JPanel(new BorderLayout());
+		panel_map.setBounds(456, 11, 436, 298);
+		add(panel_map);
 		
 		JLabel lblNewLabel = new JLabel("Dane przewoźnika:");
 		lblNewLabel.setForeground(new Color(255, 204, 0));
@@ -104,14 +115,14 @@ public class TransporterDetailsJPanel extends JPanel
 		lblNazwaValue.setForeground(Color.ORANGE);
 		lblNazwaValue.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNazwaValue.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNazwaValue.setBounds(325, 40, 80, 29);
+		lblNazwaValue.setBounds(135, 40, 270, 29);
 		panel_data.add(lblNazwaValue);
 		
 		lblKategoriaValue = new JLabel("New label");
 		lblKategoriaValue.setForeground(Color.ORANGE);
 		lblKategoriaValue.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblKategoriaValue.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblKategoriaValue.setBounds(302, 80, 103, 29);
+		lblKategoriaValue.setBounds(215, 80, 190, 29);
 		panel_data.add(lblKategoriaValue);
 		
 		
@@ -119,7 +130,7 @@ public class TransporterDetailsJPanel extends JPanel
 		lblTelefonValue.setForeground(Color.ORANGE);
 		lblTelefonValue.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTelefonValue.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTelefonValue.setBounds(291, 120, 114, 29);
+		lblTelefonValue.setBounds(135, 120, 270, 29);
 		panel_data.add(lblTelefonValue);
 		
 		lblZleceniaValue = new JLabel("New label");
@@ -159,6 +170,8 @@ public class TransporterDetailsJPanel extends JPanel
 		lblNiezrealValue.setBounds(302, 260, 103, 14);
 		panel_data.add(lblNiezrealValue);
 		
+		
+		
 	}
 	
 
@@ -179,9 +192,10 @@ public class TransporterDetailsJPanel extends JPanel
 		 lblNiezrealValue.setText(currentTransporter.getExecuted()<0.001?"<0.001":currentTransporter.getExecuted()+"");
 	}
 	
+	public void setRoutesMap(JMap map)
+	{
+		panel_map.add(map);
+	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 }
