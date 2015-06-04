@@ -78,7 +78,7 @@ public class RoutePlanningPresenter
 	public void changeManufacurerVisualization_to_transportVisualization()
 	{
 		route_planning_view.closeMainFrame_ManufacturerVisualization();
-		trans_presenter.startTransportersVisualization_inNewFrame();
+		trans_presenter.startTransportersVisualization_inNewFrame(route_planning_view.getMainFrame());
 	}
 	
 	/**
@@ -337,6 +337,7 @@ public class RoutePlanningPresenter
 	{
 		route_planning_view.removeLastOrderFromTab();
 	}
+
 	
 	/**
 	 * Metoda sprawdzajaca poprawnosc wprowadzonych danych 
@@ -538,6 +539,22 @@ public class RoutePlanningPresenter
 			return "Błędne hasło.";
 		
 		return null;
+	}
+	
+	public void clearTransporterVisualizationFrame()
+	{
+		trans_presenter.clearTransportersFrame();
+	}
+	
+	public void logOutUser()
+	{
+		trans_presenter.clearTransportersFrame();
+		route_planning_model.clearData();
+		route_planning_view.clearOrderTab();
+	    route_planning_view.clearMainFrame();
+	    path_presenter.clearDataInModel();
+	    manu_presenter.clearDataInModel();
+	    trans_presenter.clearDataInModel();
 	}
 	
 	public void setEnableButtonsToUserAction(boolean flag)

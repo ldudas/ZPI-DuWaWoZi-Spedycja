@@ -55,6 +55,12 @@ public class RoutePlanningModel
 			ordersData.remove(ordersData.size() - 1);
 	}
 	
+	public void clearData()
+	{
+		if( ordersData != null)
+			ordersData.clear();
+	}
+	
 	public void setCurrentUser(String login, String password)
 	{
 		ArrayList<String> userData = dao_userAccount.getLoggedUserData(login);

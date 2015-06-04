@@ -1,6 +1,6 @@
 package visualisations.Transporters;
 
-import java.util.ArrayList;
+import javax.swing.JFrame;
 
 import com.esri.map.JMap;
 
@@ -40,15 +40,25 @@ public class VisualisationTransportersPresenter
 		view_transporters.showTransporterDetailsWindow(t,routes_of_transporter);
 	}
 	
-	public void startTransportersVisualization_inNewFrame()
+	public void startTransportersVisualization_inNewFrame(JFrame mainFrame)
 	{
-		view_transporters.initialize();
+		view_transporters.initialize(mainFrame);
 	}
 	
 
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
 		model_transporters.setExternalDatabaseConnectionProperty(currentLoggedUser);
+	}
+	
+	public void clearTransportersFrame()
+	{
+		view_transporters.clearCarrierVisualizationFrame();
+	}
+	
+	public void clearDataInModel()
+	{
+		model_transporters.clearData();
 	}
 
 }

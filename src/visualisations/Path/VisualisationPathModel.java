@@ -92,6 +92,18 @@ public class VisualisationPathModel
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
+	public void clearData()
+	{
+		if( path_cities_vis_objects != null )
+			path_cities_vis_objects.clear();
+		if( path_cities != null )
+			path_cities.clear();
+		if( cities_coordinates != null )
+			cities_coordinates.clear();
+		number_of_cities = 0;
+	}
+	
+	
 	
 	/**
 	 * Ustawia mape modelu jako mape z naniesionymi dwoma poczatkowymi                         

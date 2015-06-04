@@ -88,6 +88,21 @@ public class VisualisationTransportersModel
 		size_category = null;
 	}
 	
+	public void clearData()
+	{
+		if( transporters != null)
+			transporters.clear();
+		if( transporters_filtered != null)
+			transporters_filtered.clear();
+		if( maps_cache != null)
+			maps_cache.clear();
+		if( cities_coordinates != null)
+			cities_coordinates.clear();
+		cityFrom="";
+		cityTo="";
+		size_category = null;
+	}
+	
 	private void getTranspotersFormDatabase(String city_from, String city_to)
 	{
 		//pobieranie listy przewoźnikow z bazy 

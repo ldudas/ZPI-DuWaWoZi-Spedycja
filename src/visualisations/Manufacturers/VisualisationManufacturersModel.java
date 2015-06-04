@@ -44,6 +44,16 @@ public class VisualisationManufacturersModel
 		path_cities = new ArrayList<City>();
 	}
 	
+	public void clearData()
+	{
+		if( manufacturersData != null )
+			manufacturersData.clear();
+		if( currentDisplayManufacturersData != null)
+			currentDisplayManufacturersData.clear();
+		if( path_cities != null)
+			path_cities.clear();
+	}
+	
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
 		if( currentLoggedUser != null )
