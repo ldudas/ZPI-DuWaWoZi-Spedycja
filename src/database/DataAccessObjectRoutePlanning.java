@@ -12,7 +12,11 @@ public class DataAccessObjectRoutePlanning
 	
 	public DataAccessObjectRoutePlanning()
 	{
-		databaseConnector = new DatabaseConnector();
+	}
+	
+	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
+	{
+		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
 	/**
 	 * Metoda zwracajaca tablice wspolrzednych geograficznych miasta o nazwie
@@ -34,7 +38,7 @@ public class DataAccessObjectRoutePlanning
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
 		{
-			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query,2);
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
 			coordinates = new String[2];
 		} 
 		catch (DatabaseConnectionExeption e) 
@@ -58,7 +62,7 @@ public class DataAccessObjectRoutePlanning
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
 		{
-			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query,1);
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{

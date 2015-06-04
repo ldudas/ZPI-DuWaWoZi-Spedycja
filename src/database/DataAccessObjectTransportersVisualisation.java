@@ -10,16 +10,11 @@ public class DataAccessObjectTransportersVisualisation
 	
 	private DatabaseConnector databaseConnector;
 	
-	public DataAccessObjectTransportersVisualisation()
-	{
-		databaseConnector = new DatabaseConnector();
-	}
 	
 	public ArrayList<Transporter> getTranspoters(String city_from, String city_to)
 	{
 		return null;
 	}
-	
 	
 	/***
 	 * Metoda zwracajaca liczbę przejazdów między miastami przewoznika o podanym id
@@ -42,7 +37,7 @@ public class DataAccessObjectTransportersVisualisation
 		
 		try 
 		{
-			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query,coutOfResultColumns);
+			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query);
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{
@@ -59,7 +54,7 @@ public class DataAccessObjectTransportersVisualisation
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
 		{
-			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query,3);
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{
@@ -70,4 +65,8 @@ public class DataAccessObjectTransportersVisualisation
 		return resultOfQuery;
 	}
 
+	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
+	{
+		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
+	}
 }

@@ -13,7 +13,11 @@ public class DataAccessObjectManufacturersVisualisation
 	
 	public DataAccessObjectManufacturersVisualisation()
 	{
-		databaseConnector = new DatabaseConnector();
+	}
+	
+	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
+	{
+		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
 
 	/**
@@ -59,10 +63,9 @@ public class DataAccessObjectManufacturersVisualisation
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		ArrayList<ArrayList<String>> resultInString = null;
-		final int coutOfResultColumns = 9;
 		try 
 		{
-			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query,coutOfResultColumns);
+			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query);
 			resultInString = new ArrayList<ArrayList<String>>();
 		} 
 		catch (DatabaseConnectionExeption e) 
@@ -76,7 +79,7 @@ public class DataAccessObjectManufacturersVisualisation
 				for(int i=0;i<resultOfQuery.size();i++)
 				{
 					resultInString.add(new ArrayList<String>());
-					for(int j=0;j<coutOfResultColumns;j++)
+					for(int j=0;j<resultOfQuery.get(i).size();j++)
 					{
 						resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
 					}
@@ -122,10 +125,9 @@ public class DataAccessObjectManufacturersVisualisation
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		ArrayList<ArrayList<String>> resultInString = null;
-		final int coutOfResultColumns = 13;
 		try 
 		{
-			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query,coutOfResultColumns);
+			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query);
 			resultInString = new ArrayList<ArrayList<String>>();
 		} 
 		catch (DatabaseConnectionExeption e) 
@@ -139,7 +141,7 @@ public class DataAccessObjectManufacturersVisualisation
 				for(int i=0;i<resultOfQuery.size();i++)
 				{
 					resultInString.add(new ArrayList<String>());
-					for(int j=0;j<coutOfResultColumns;j++)
+					for(int j=0;j<resultOfQuery.get(i).size();j++)
 					{
 						resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
 					}
@@ -169,7 +171,7 @@ public class DataAccessObjectManufacturersVisualisation
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 
 		{
-			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query,2);
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
 			coordinates = new String[2];
 		} 
 		catch (DatabaseConnectionExeption e) 

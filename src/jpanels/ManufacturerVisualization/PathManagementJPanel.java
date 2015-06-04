@@ -33,53 +33,18 @@ public class PathManagementJPanel extends JPanel
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
-		JButton btn_removeLast = new JButton("Usu\u0144 ostatnie");
-		btn_removeLast.setBackground(SystemColor.activeCaption);
-		btn_removeLast.setForeground(SystemColor.desktop);
-		btn_removeLast.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_removeLast.setBounds(201, 388, 147, 45);
-		btn_removeLast.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				if(  model.getRowCount() > 1  )
-				{
-					int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno usunąć poniższy wpis:"
-							+ "\n\nData wyjazdu: " + presenter_route_planning.getLastOrder().getFinishDate()
-							+ "\nMiasto z: " + presenter_route_planning.getLastOrder().getCityFrom().getCityName()
-							+ "\nData przyjazdu: " + presenter_route_planning.getLastOrder().getFinishDate()
-							+ "\nMiasto do: " +presenter_route_planning.getLastOrder().getCityTo().getCityName() +"\n\n", 
-							"Potwierdzenie", JOptionPane.YES_NO_OPTION);
-					if( dialogResult == JOptionPane.YES_OPTION)
-					{
-						presenter_route_planning.removeLastCity();
-						presenter_route_planning.set_priviousCityToVisualisation();
-						presenter_route_planning.removeLastOrder();
-						presenter_route_planning.removeLastOrderFromTab();
-						JOptionPane.showMessageDialog(PathManagementJPanel.this, "Ostatnio dodane zlecenie zostało usunięte...", "Usunięto", 
-								JOptionPane.INFORMATION_MESSAGE);	
-					}
-					
-				}
-				else
-					JOptionPane.showMessageDialog(PathManagementJPanel.this, "Nie można usunąć pierwszego zlecenia...", "Błąd usuwania", 
-							JOptionPane.ERROR_MESSAGE);	
-				
-			}
-		});
-		add(btn_removeLast);
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(10, 11, 367, 434);
+		panel.setBounds(0, -1, 388, 565);
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton btn_saveRoute = new JButton("Zapisz tras\u0119");
-		btn_saveRoute.setBounds(191, 323, 147, 50);
-		panel.add(btn_saveRoute);
-		btn_saveRoute.setBackground(SystemColor.activeCaption);
-		btn_saveRoute.setForeground(SystemColor.desktop);
-		btn_saveRoute.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		JButton btn_showTransporters = new JButton("Pokaż przewoźników");
+		btn_showTransporters.setBounds(169, 399, 198, 62);
+		panel.add(btn_showTransporters);
+		btn_showTransporters.setBackground(SystemColor.activeCaption);
+		btn_showTransporters.setForeground(SystemColor.desktop);
+		btn_showTransporters.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		table_routeDiscription = new JTable();
 		table_routeDiscription.setOpaque(true);
@@ -115,17 +80,52 @@ public class PathManagementJPanel extends JPanel
 		model = (DefaultTableModel) table_routeDiscription.getModel();
 		
 		JScrollPane scroll = new JScrollPane(table_routeDiscription);
-		scroll.setBounds(10, 26, 347, 236);
+		scroll.setBounds(10, 25, 357, 253);
 		panel.add(scroll);
-		btn_saveRoute.addActionListener(new ActionListener() {
+		
+		JButton btn_removeLast = new JButton("Usu\u0144 ostatnie");
+		btn_removeLast.setBounds(169, 319, 198, 62);
+		panel.add(btn_removeLast);
+		btn_removeLast.setBackground(SystemColor.activeCaption);
+		btn_removeLast.setForeground(SystemColor.desktop);
+		btn_removeLast.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		btn_removeLast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(  model.getRowCount() > 1  )
+				{
+					int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno usunąć poniższy wpis:"
+							+ "\n\nData wyjazdu: " + presenter_route_planning.getLastOrder().getFinishDate()
+							+ "\nMiasto z: " + presenter_route_planning.getLastOrder().getCityFrom().getCityName()
+							+ "\nData przyjazdu: " + presenter_route_planning.getLastOrder().getFinishDate()
+							+ "\nMiasto do: " +presenter_route_planning.getLastOrder().getCityTo().getCityName() +"\n\n", 
+							"Potwierdzenie", JOptionPane.YES_NO_OPTION);
+					if( dialogResult == JOptionPane.YES_OPTION)
+					{
+						presenter_route_planning.removeLastCity();
+						presenter_route_planning.set_priviousCityToVisualisation();
+						presenter_route_planning.removeLastOrder();
+						presenter_route_planning.removeLastOrderFromTab();
+						JOptionPane.showMessageDialog(PathManagementJPanel.this, "Ostatnio dodane zlecenie zostało usunięte...", "Usunięto", 
+								JOptionPane.INFORMATION_MESSAGE);	
+					}
+					
+				}
+				else
+					JOptionPane.showMessageDialog(PathManagementJPanel.this, "Nie można usunąć pierwszego zlecenia...", "Błąd usuwania", 
+							JOptionPane.ERROR_MESSAGE);	
+				
+			}
+		});
+		btn_showTransporters.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno chcesz zapisać trasę i zakończyć edycje,\n"+
-																						    " oraz przejść do wyboru przewoźnika?", 
-																						    "Potwierdzenie zapisu", JOptionPane.YES_NO_OPTION);
+				int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno akceptujesz trasę\n"+
+																						    " i chcesz przejść do wyboru przewoźnika?", 
+																						    "Potwierdzenie edycji trasy", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					 presenter_route_planning.changeManufacurerVisualization_to_TransportVisualization();
+					 presenter_route_planning.changeManufacurerVisualization_to_transportVisualization();
 				} 
 			}
 		});

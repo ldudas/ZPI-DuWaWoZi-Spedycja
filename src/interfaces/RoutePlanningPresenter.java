@@ -13,6 +13,7 @@ import builders.OrderBuilder;
 import dataModels.City;
 import dataModels.Manufacturer;
 import dataModels.Order;
+import database.DatabaseConnector;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Path.VisualisationPathPresenter;
 import visualisations.Transporters.VisualisationTransportersPresenter;
@@ -36,6 +37,32 @@ public class RoutePlanningPresenter
 		trans_presenter = trans_p;
 	}
 	
+	public void changeMenu_to_registryNewUser()
+	{
+		route_planning_view.change_menu_to_registryUser();
+	}
+	
+	public void changeMenu_to_loginUser()
+	{
+		route_planning_view.change_menu_to_loginUser();
+	}
+	
+	public void changeMenu_to_startPlanning()
+	{
+		route_planning_view.change_menu_to_startPlanning();
+		route_planning_view.addAllCityToList();
+	}
+	
+	public void changeLoginUser_to_Menu()
+	{
+		route_planning_view.change_loginUser_to_menu();
+	}
+	
+	public void changeRegistryUser_to_Menu()
+	{
+		route_planning_view.change_registryUser_to_menu();
+	}
+	
 	
 	/**
 	 * Zmienia widok ze starowego okna na okno z wizualizacja producentow 
@@ -45,10 +72,10 @@ public class RoutePlanningPresenter
 	public void changeStart_to_manufacturerVisualization()
 	{
 		startManuVisualisation();
-		route_planning_view.change_start_to_manufacturerVisualization();
+		route_planning_view.change_startPlanning_to_manufacturerVisualization();
 	}
 	
-	public void changeManufacurerVisualization_to_TransportVisualization()
+	public void changeManufacurerVisualization_to_transportVisualization()
 	{
 		route_planning_view.closeMainFrame_ManufacturerVisualization();
 		trans_presenter.startTransportersVisualization_inNewFrame();
@@ -125,12 +152,21 @@ public class RoutePlanningPresenter
 	}
 	
 	/**
-	 * Zamyka okno informajci o producencie
+	 * Zamyka okno informacji o producencie
 	 * @author Kamil Zimny
 	 */
 	public void closeManufacturerInfo()
 	{
 		route_planning_view.closeManufacturerInfoFrame();
+	}
+	
+	/**
+	 * Zamyka okno informacji o programie
+	 * @author Kamil Zimny
+	 */
+	public void closeAbout()
+	{
+		route_planning_view.closeAboutFrame();
 	}
 	 
 	/**
@@ -436,6 +472,92 @@ public class RoutePlanningPresenter
 	public void filterManufacturersBetweenDate(int numberOfDaysAgo, int numberOfDayTolerance)
 	{
 		manu_presenter.filterManufacturersBetweenDate(numberOfDaysAgo, numberOfDayTolerance);
+	}
+	
+	public void setNewLoggedUser()
+	{
+		route_planning_view.setNewLoggedUser(route_planning_view.getLogin_Login());
+		route_planning_model.setCurrentUser(route_planning_view.getLogin_Login(),route_planning_view.getPassword_Login());
+	}
+	
+	public void setNotLoggedUser()
+	{
+		route_planning_view.setNotLoggedUser();
+	}
+	
+	public void saveNewAccountToLocalDatabase()
+	{
+		route_planning_model.saveNewAccout(route_planning_view.getLogin(),route_planning_view.getPasswords()[0],route_planning_view.getServerAddress(),
+				route_planning_view.getServerPort(),route_planning_view.getDatabaseName(),
+				route_planning_view.getDatabaseLogin(),route_planning_view.getDatabasePassword());
+	}
+	
+	public String validateRegistryData()
+	{
+		if( route_planning_view.getLogin().equals("") || route_planning_view.getPasswords()[0].equals("") || route_planning_view.getPasswords()[1].equals("") ||
+				route_planning_view.getDatabaseLogin().equals("") || route_planning_view.getDatabaseName().equals("") || route_planning_view.getDatabasePassword().equals("") ||
+				route_planning_view.getServerAddress().equals("") || route_planning_view.getServerPort().equals("") )
+			return "Nie wypełniono wszystkich pól.";
+		
+		if( route_planning_model.isThisLoginAlreadyInDatabase( route_planning_view.getLogin() ) )
+			return "Login jest już zajęty.";
+		
+		if( !route_planning_view.getPasswords()[0].equals(route_planning_view.getPasswords()[1]) )
+			return "Podane hasła są różne.";
+		
+		return null;
+	}
+	
+	public String validateServerData()
+	{
+		if( 	route_planning_view.getDatabaseLogin().equals("") || route_planning_view.getDatabaseName().equals("") || 
+				route_planning_view.getDatabasePassword().equals("") ||
+				route_planning_view.getServerAddress().equals("") || route_planning_view.getServerPort().equals("") )
+			return "Nie wypełniono wszystkich pól.";
+		return null;
+	}
+	
+	public boolean testConnectionToExternalDatabase()
+	{
+		DatabaseConnector testDatabaseConnector = new DatabaseConnector(
+				route_planning_view.getServerAddress(), route_planning_view.getServerPort(), route_planning_view.getDatabaseName(), 
+				route_planning_view.getDatabaseLogin(), route_planning_view.getDatabasePassword());
+		
+		return testDatabaseConnector.testConnectionToDatabase();
+	}
+	
+	public String validateLoginData()
+	{
+		if( route_planning_view.getLogin_Login().equals("") || route_planning_view.getPassword_Login().equals("") )
+			return "Nie wypełniono wszystkich pól.";
+		
+		if( !route_planning_model.isThisLoginAlreadyInDatabase( route_planning_view.getLogin_Login() ) )
+			return "Nie ma takiego konta";
+		
+		if( !route_planning_model.confirmLoginAndPassword(route_planning_view.getLogin_Login(), route_planning_view.getPassword_Login()))
+			return "Błędne hasło.";
+		
+		return null;
+	}
+	
+	public void setEnableButtonsToUserAction(boolean flag)
+	{
+		route_planning_view.setEnableButtonsToUserAction(flag);
+	}
+	
+	public void setExternalDatabaseConnectionProperty()
+	{
+		try 
+		{
+			route_planning_model.setExternalDatabaseConnectionProperty();
+			manu_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
+			path_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
+			trans_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 }

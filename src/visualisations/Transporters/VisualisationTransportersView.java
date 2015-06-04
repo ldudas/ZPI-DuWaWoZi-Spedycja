@@ -72,7 +72,7 @@ public class VisualisationTransportersView
 		city_from = "";
 		city_to = "";
 		sc = null;
-		initialize();
+		//initialize();
 		lastWindowPos = 50;
 	}
 	

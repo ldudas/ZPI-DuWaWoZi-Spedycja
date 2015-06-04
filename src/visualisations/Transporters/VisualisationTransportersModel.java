@@ -21,11 +21,10 @@ import com.esri.map.JMap;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
 
-import dataModels.City;
 import dataModels.SizeCategory;
 import dataModels.Transporter;
+import dataModels.User;
 import database.DataAccessObjectFactory;
-import database.DataAccessObjectPathVisualisation;
 import database.DataAccessObjectTransportersVisualisation;
 
 public class VisualisationTransportersModel 
@@ -61,20 +60,12 @@ public class VisualisationTransportersModel
 	 */
 	private SizeCategory size_category;
 	
-	/**
-	 * wybrany typ pojazdu do filtrowania
-	 */
-	private String type_of_vechicle;
+	
 	
 	/**
-	 * zapamietanie trasy wybranych przewoznikow
+	 * zapamietane mapy dla przewoznikow
 	 */
-	private HashMap<Integer, ArrayList<ArrayList<Object>>> routes_cache;
-	
-	/**
-	 * zapamietane maksymalne liczby zleceń dla przewoznikow
-	 */
-	private HashMap<Integer, Integer> max_numb_of_orders_cache;
+	private HashMap<Integer, JMap> maps_cache;
 	
 	/**
 	 * Kolekcja zawierajaca wspolrzedne wszystkich miast w bazie
@@ -91,9 +82,7 @@ public class VisualisationTransportersModel
 		DAO_TransVis = factory.getDataAccessObjectTransportersVisualisation();
 		transporters = new ArrayList<Transporter>();
 		transporters_filtered = new ArrayList<Transporter>();
-		routes_cache = new HashMap<>();
-		max_numb_of_orders_cache = new HashMap<>();
-		cities_coordinates = DAO_TransVis.getCitiesCoordinates();
+		maps_cache = new HashMap<>();
 		cityFrom="";
 		cityTo="";
 		size_category = null;
@@ -172,19 +161,13 @@ public class VisualisationTransportersModel
 	
 	public JMap getTransporterRoutesMap(int id_trans)
 	{
-		ArrayList<ArrayList<Object>> routes;
 		
-		if(routes_cache.containsKey(id_trans))
+		if(maps_cache.containsKey(id_trans))
 		{
-			//System.out.println("Znaleziono poprzednie trasy");
-			routes = routes_cache.get(id_trans);
+			return maps_cache.get(id_trans);
 		}
 		else
 		{
-			//System.out.println("Trzeba stworzyć nowe");
-			routes = DAO_TransVis.getTransporterRoutes(id_trans);
-			routes_cache.put(id_trans, routes);
-		}
 		
 		//stworz mape
 		final JMap map = new JMap();
@@ -198,6 +181,8 @@ public class VisualisationTransportersModel
 		graphicsLayer.setName("Routes graphics");
 		//dodaj warstwe graficzna do mapy
 		map.getLayers().add(graphicsLayer);
+		
+		ArrayList<ArrayList<Object>> routes = DAO_TransVis.getTransporterRoutes(id_trans);
 		
 		map.addMapEventListener(new MapEventListener() 
 		{
@@ -222,7 +207,9 @@ public class VisualisationTransportersModel
 		  public void mapExtentChanged(MapEvent arg0) {}
 		 });
 			
+		maps_cache.put(id_trans, map);
 		return map;
+		}
 	}
 	
 	
@@ -233,13 +220,17 @@ public class VisualisationTransportersModel
 	 */
 	private void addRoutesOnMap(JMap map,GraphicsLayer graphicsLayer,ArrayList<ArrayList<Object>> routes, int id_trans)
 	{
+		if(cities_coordinates==null)
+		{
+			cities_coordinates = DAO_TransVis.getCitiesCoordinates();
+		}
 		
 		Random r = new Random();
 		
 		SpatialReference mapSR = map.getSpatialReference();
 		
 		//pobierz maksymalna liczbe zlecen
-		double max_num_of_orders = getMaxNumberOfOrders(id_trans,routes);
+		double max_num_of_orders = getMaxNumberOfOrders(routes);
 		
 		
 		for(ArrayList<Object> row: routes)
@@ -253,7 +244,7 @@ public class VisualisationTransportersModel
 			int ind_1 = 0;
 			int ind_2 = 0;
 			
-			System.out.println(cityNameFrom+" "+cityNameTo+" "+number_of_orders+" ");
+			//System.out.println(cityNameFrom+" "+cityNameTo+" "+number_of_orders+" ");
 			
 			for(int i=0; i<cities_coordinates.size();i++)
 			{
@@ -316,14 +307,8 @@ public class VisualisationTransportersModel
 	}
 	
 	
-	private int getMaxNumberOfOrders(int id_trans, ArrayList<ArrayList<Object>>routes)
+	private int getMaxNumberOfOrders( ArrayList<ArrayList<Object>>routes)
 	{
-		if(max_numb_of_orders_cache.containsKey(id_trans))
-		{
-			return max_numb_of_orders_cache.get(id_trans);
-		}
-		else
-		{
 			long max = 0;
 			for(ArrayList<Object> o: routes)
 			{
@@ -333,9 +318,8 @@ public class VisualisationTransportersModel
 				}
 			}
 			
-			max_numb_of_orders_cache.put(id_trans,(int) max);
 			return (int)max;
-		}
+		
 	}
 	
 	/**
@@ -411,6 +395,18 @@ public class VisualisationTransportersModel
 	     
 	    return degrees;
 		
+	}
+	
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		if( currentLoggedUser != null )
+		{
+			DAO_TransVis.setExternalDatabaseConnectionProperty(currentLoggedUser.getServerAddress(), 
+				currentLoggedUser.getServerPort(),currentLoggedUser.getDatabaseName(), 
+				currentLoggedUser.getDatabaseLogin(), currentLoggedUser.getDatabasePassword());
+		}
+		else
+			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 
 

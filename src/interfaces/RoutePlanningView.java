@@ -1,7 +1,11 @@
 package interfaces;
 
 import java.awt.CardLayout;
+import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,29 +13,45 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-
 import dataModels.Manufacturer;
 import dataModels.Order;
 import jpanels.ManufacturerVisualization.ManufacturerVisuzalizationJPanel;
+import jpanels.ManufacturerVisualization.StartPlanningJPanel;
 import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
 import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerOrderDataJPanel;
-import jpanels.startWindow.StartJPanel;
-
+import jpanels.startWindow.AboutJPanel;
+import jpanels.startWindow.LogJPanel;
+import jpanels.startWindow.MenuJPanel;
+import jpanels.startWindow.RegistryJPanel;
+import jpanels.startWindow.StartApplicationJPanel;
+import jpanels.startWindow.WelcomeJPanel;
 
 public class RoutePlanningView 
 {
+	private final String APPLICATION_NAME = "Nazwa aplikacji...";
 	private RoutePlanningPresenter route_planning_presenter;
-	private JFrame mainFrame;
+
 	private ManufacturerVisuzalizationJPanel manufacturerVisualizationWithMapJPanel;
-	private StartJPanel startJPanel;
+	private StartPlanningJPanel startPlanningJPanel;
 	private ManufacturerOrderDataJPanel manufacturerOrderDataJPanel;
 	private ManufacturerDetailsJPanel manufacturerDetailsJPanel;
+	private MenuJPanel menuJPanel;
+	private LogJPanel logJPanel;
+	private RegistryJPanel registryJPanel;
+	private StartApplicationJPanel startApplicationJPanel;
+	private WelcomeJPanel welcomeJPanel;
+	private AboutJPanel aboutJPanel;
 	
+	private JFrame mainFrame;
 	private JFrame manufacturerFrame;
+	private JFrame aboutFream;
 	/**
 	 * Create the application.
 	 */
@@ -47,16 +67,172 @@ public class RoutePlanningView
 	{
 		mainFrame = new JFrame();
 		mainFrame.setResizable(false);
-		mainFrame.setBounds(300, 100, 630, 500);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		initializeFrameMenu();
+		
 		manufacturerVisualizationWithMapJPanel = new ManufacturerVisuzalizationJPanel();
-		startJPanel = new StartJPanel();
+		startPlanningJPanel = new StartPlanningJPanel();
 		manufacturerOrderDataJPanel = new ManufacturerOrderDataJPanel();
 		manufacturerDetailsJPanel = new ManufacturerDetailsJPanel();
-		mainFrame.setTitle("Dane zlecenia");
-		mainFrame.add(startJPanel);
+		menuJPanel = new MenuJPanel();
+		logJPanel = new LogJPanel();
+		registryJPanel = new RegistryJPanel();
+		startApplicationJPanel = new StartApplicationJPanel();
+		welcomeJPanel = new WelcomeJPanel();
+		aboutJPanel = new AboutJPanel();
+		
+		openWelcomeView();
 	}
 	 
+	private void initializeFrameMenu()
+	{
+		JMenuBar menuBar;
+		JMenu menu;
+		JMenuItem menuItem;
+
+		//Create the menu bar.
+		menuBar = new JMenuBar();
+
+		//Build the first menu.
+		menu = new JMenu("Menu");
+		menu.setMnemonic(KeyEvent.VK_A);
+		menuBar.add(menu);
+		menu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+
+		menuItem = new JMenuItem("Wyloguj",
+		                         KeyEvent.VK_T);
+		menuItem.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				if( menuJPanel.isUserLogged() )
+				{
+					int dialogResult = JOptionPane.showConfirmDialog(mainFrame, "Czy na pewno chcesz się wylogować?", 
+							"Wyloguj", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION) 
+					{
+						clearMainFrame();
+						menuJPanel.setNotLoggedUser();
+						menuJPanel.setEnableButtonsToUserAction(false);
+						menuJPanel.setEnableButtonsFirstAction(true);
+						startApplicationJPanel.removeLogicJPanel();
+						openWelcomeView();
+					}
+				}
+			};
+		});
+		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		menu.add(menuItem);
+		
+
+		menuItem = new JMenuItem("Okno powitania",
+		                         KeyEvent.VK_T);
+		menuItem.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				int dialogResult = JOptionPane.showConfirmDialog(mainFrame, "Czy na pewno chcesz przejść do okna powitania?", 
+						"Powitanie", JOptionPane.YES_NO_OPTION);
+				if(dialogResult == JOptionPane.YES_OPTION) 
+				{
+					clearMainFrame();
+					startApplicationJPanel.removeLogicJPanel();
+					openWelcomeView();
+					if( menuJPanel.isUserLogged() )
+						menuJPanel.setEnableAllButtons(true);
+					else
+					{
+						menuJPanel.setEnableButtonsToUserAction(false);
+						menuJPanel.setEnableButtonsFirstAction(true);
+					}
+					prepareFrameAfterChangeView(mainFrame);
+				}
+			};
+		});
+		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		menu.add(menuItem);
+		
+		menu.addSeparator();
+		
+		menuItem = new JMenuItem("Zakończ",
+                KeyEvent.VK_T);
+		menuItem.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+
+				int dialogResult = JOptionPane.showConfirmDialog(mainFrame, "Czy na pewno chcesz zakończyć działanie aplikacji?",
+						"Zakończ", JOptionPane.YES_NO_OPTION);
+				if(dialogResult == JOptionPane.YES_OPTION) 
+				{
+					mainFrame.dispose();			
+				}
+				
+			};
+		});
+		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		menu.add(menuItem);
+		
+		menu = new JMenu("Pomoc");
+		menu.setMnemonic(KeyEvent.VK_A);
+		menuBar.add(menu);
+			
+		menuItem = new JMenuItem("Instrukcja",
+                KeyEvent.VK_T);
+		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		menuItem.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.out.println("Instrukcja obslugi aplikacji");
+			};
+		});
+		menu.add(menuItem);
+		menu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		menu.addSeparator();
+		
+		menuItem = new JMenuItem("O programie",
+                KeyEvent.VK_T);
+		menuItem.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				if( aboutFream != null)
+					aboutFream.dispose();
+				
+				aboutFream = new JFrame();
+				aboutFream.setResizable(false);
+				aboutFream.setBounds(500, 200, 562, 440);
+				aboutFream.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				aboutFream.setTitle("O programie");
+				aboutFream.add(aboutJPanel);
+				aboutFream.setVisible(true);		
+			};
+		});
+		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		menu.add(menuItem);
+		
+		menu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+
+		mainFrame.setJMenuBar(menuBar);
+	}
+	
+	private void clearMainFrame()
+	{
+		mainFrame.remove(startApplicationJPanel);
+		mainFrame.remove(manufacturerVisualizationWithMapJPanel);
+	}
+	
+	private void openWelcomeView()
+	{
+		mainFrame.setBounds(250, 150, 891, 534);
+		mainFrame.setTitle(APPLICATION_NAME);
+		startApplicationJPanel.addControlJPanel(menuJPanel);
+		startApplicationJPanel.addLogicJPanel(welcomeJPanel);
+		mainFrame.add(startApplicationJPanel);
+		prepareFrameAfterChangeView(mainFrame);
+	}
+	
 	/**
 	 * Metoda ustawiajaca presentera podanego w parametrze.
 	 * @author Kamil Zimny
@@ -65,26 +241,69 @@ public class RoutePlanningView
 	{
 		route_planning_presenter = presenter;
 	}
+
+	
+	public void change_menu_to_startPlanning()
+	{
+		startApplicationJPanel.removeLogicJPanel();
+		mainFrame.setTitle("Dane zlecenia");
+		startApplicationJPanel.addLogicJPanel(startPlanningJPanel);
+		startPlanningJPanel.clearData();
+		prepareFrameAfterChangeView(mainFrame);
+	}
+	
+	public void change_menu_to_registryUser()
+	{
+		startApplicationJPanel.removeLogicJPanel();
+		mainFrame.setTitle("Rejestracja");
+		registryJPanel.clearText();
+		startApplicationJPanel.addLogicJPanel(registryJPanel,0);
+		prepareFrameAfterChangeView(mainFrame);
+	}
+	
+	public void change_registryUser_to_menu()
+	{
+		startApplicationJPanel.removeLogicJPanel();
+		mainFrame.setTitle(APPLICATION_NAME );
+		startApplicationJPanel.addLogicJPanel(welcomeJPanel);
+		prepareFrameAfterChangeView(mainFrame);
+	}
+	
+	public void change_menu_to_loginUser()
+	{
+		startApplicationJPanel.removeLogicJPanel();
+		mainFrame.setTitle("Logowanie");
+		logJPanel.clearTexts();
+		startApplicationJPanel.addLogicJPanel(logJPanel,0);
+		prepareFrameAfterChangeView(mainFrame);
+	}
+	
+	public void change_loginUser_to_menu()
+	{
+		startApplicationJPanel.removeLogicJPanel();
+		mainFrame.setTitle(APPLICATION_NAME);
+		startApplicationJPanel.addLogicJPanel(welcomeJPanel);
+		prepareFrameAfterChangeView(mainFrame);
+	}
 	
 	
 	/**
 	 * Zmienia widok ze startowego do widoku wizualizacji producentow na mapie
 	 */
-	public void change_start_to_manufacturerVisualization()
+	public void change_startPlanning_to_manufacturerVisualization()
 	{
-		mainFrame.remove(startJPanel);
-		mainFrame.setBounds(300, 100, 500, 300);
-		mainFrame.setTitle("Ładowanie");
-		ImageIcon loading = new ImageIcon("images/ajax-loader.gif");
-		
+		ImageIcon loading = new ImageIcon("images/loader.gif");
 		JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
 		JPanel background = new JPanel();
 		background.setLayout(new CardLayout(0, 0));
 		background.setBounds(0, 0, 500, 300);
 		background.setBackground(SystemColor.inactiveCaption);
 		background.add(loadingLabel);
-		mainFrame.add(background);
+		menuJPanel.setEnableAllButtons(false);
 		
+		startApplicationJPanel.removeLogicJPanel();
+		startApplicationJPanel.addLogicJPanel(background);
+		prepareFrameAfterChangeView(mainFrame);
 		
 		Timer timer = new Timer();
 		
@@ -93,12 +312,12 @@ public class RoutePlanningView
 			@Override
 			public void run() 
 			{
-				mainFrame.remove(background);
-				mainFrame.setBounds(50, 50, 1120, 600);
-				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
+				startApplicationJPanel.removeLogicJPanel();
+				mainFrame.remove(startApplicationJPanel);
+				mainFrame.setBounds(50, 50, 1130, 605);
 				mainFrame.setTitle("Producenci");
-				mainFrame.invalidate();
-				mainFrame.validate();
+				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
+				prepareFrameAfterChangeView(mainFrame);
 			}
 		}, 5000);
 		
@@ -115,8 +334,7 @@ public class RoutePlanningView
 		manufacturerFrame.setBounds(100, 100, 658, 475);
 		manufacturerFrame.add(manufacturerOrderDataJPanel);
 		manufacturerFrame.setTitle("Kolejna trasa");
-		manufacturerFrame.invalidate();
-		manufacturerFrame.validate();
+		prepareFrameAfterChangeView(manufacturerFrame);
 	}
 	
 	/**
@@ -130,8 +348,7 @@ public class RoutePlanningView
 		manufacturerFrame.setBounds(100, 100, 665, 452);
 		manufacturerFrame.add(manufacturerDetailsJPanel);
 		manufacturerFrame.setTitle("Dane producenta");
-		manufacturerFrame.invalidate();
-		manufacturerFrame.validate();
+		prepareFrameAfterChangeView(manufacturerFrame);
 	}
 	
 	/**
@@ -156,6 +373,13 @@ public class RoutePlanningView
 		manufacturerFrame.setVisible(true);		
 	}
 	
+	private void prepareFrameAfterChangeView(JFrame frame)
+	{
+		frame.invalidate();
+		frame.validate();
+		frame.repaint();
+	}
+	
 	/**
 	 * Gdy zaznaczymy wiecej niz jdenego producenta i zdecydujemy sie na wyswietlenie jego danych
 	 * wtedy wyskauje okno bledu informujace o zbyt duzej liczbie wybranych producentow
@@ -175,12 +399,21 @@ public class RoutePlanningView
 		manufacturerFrame.dispose();
 	}
 	
+	public void closeAboutFrame()
+	{
+		aboutFream.dispose();
+	}
+	
 	public void setPresenters()
 	{
-		startJPanel.setPresenter(route_planning_presenter);
+		menuJPanel.setPresenter(route_planning_presenter);
+		logJPanel.setPresenter(route_planning_presenter);
+		registryJPanel.setPresenter(route_planning_presenter);
+		startPlanningJPanel.setPresenter(route_planning_presenter);
 		manufacturerVisualizationWithMapJPanel.setPresenter(route_planning_presenter);
 		manufacturerOrderDataJPanel.setPresenter(route_planning_presenter);
 		manufacturerDetailsJPanel.setPresenter(route_planning_presenter);
+		aboutJPanel.setPresenter(route_planning_presenter);
 	}
 	
 	public String city_nextCityAfterComfirm()
@@ -190,22 +423,22 @@ public class RoutePlanningView
 	
 	public String city_to()
 	{
-		return startJPanel.get_city_to();
+		return startPlanningJPanel.get_city_to();
 	}
 	
 	public String city_from()
 	{
-		return startJPanel.get_city_from();
+		return startPlanningJPanel.get_city_from();
 	}
 	
 	public String getStartDate()
 	{
-		return startJPanel.getStartDate();
+		return startPlanningJPanel.getStartDate();
 	}
 	
 	public String getFinishDate()
 	{
-		return startJPanel.getFinishDate();
+		return startPlanningJPanel.getFinishDate();
 	}
 	
 	public String getNextStartDate()
@@ -262,4 +495,78 @@ public class RoutePlanningView
 	{
 		mainFrame.dispose();
 	}
+	
+	public void setNewLoggedUser(String login)
+	{
+		menuJPanel.setNewLoggedUser(login);
+	}
+	
+	public void setNotLoggedUser()
+	{
+		menuJPanel.setNotLoggedUser();
+	}
+	
+	public String getLogin()
+	{
+		return registryJPanel.getLogin();
+	}
+	
+	/**
+	 * Metoda zwracajaca podane przez u�ytkownika has�a.
+	 * @return [] String
+	 * <br> [0] -> password
+	 * <br> [1] -> repeat password
+	 * @author Kamil Zimny
+	 */
+	public String [] getPasswords()
+	{
+		return registryJPanel.getPasswords();
+	}
+	
+	public String getServerAddress()
+	{
+		return registryJPanel.getServerAddress();
+	}
+	
+	public String getServerPort()
+	{
+		return registryJPanel.getServerPort();
+	}
+	
+	public String getDatabaseName()
+	{
+		return registryJPanel.getDatabaseName();
+	}
+	
+	public String getDatabaseLogin()
+	{
+		return registryJPanel.getDatabaseLogin();
+	}
+	
+	public String getDatabasePassword()
+	{
+		return registryJPanel.getDatabasePassword();
+	}
+	
+	public String getLogin_Login()
+	{
+		return logJPanel.getLogin();
+	}
+	
+	public String getPassword_Login()
+	{
+		return logJPanel.getPassword();
+	}
+	
+	public void setEnableButtonsToUserAction(boolean flag)
+	{
+		menuJPanel.setEnableButtonsToUserAction(flag);
+	}
+	
+	public void addAllCityToList()
+	{
+		startPlanningJPanel.addAllCityToList();
+		manufacturerOrderDataJPanel.addAllCityToList();
+	}
+	
 }

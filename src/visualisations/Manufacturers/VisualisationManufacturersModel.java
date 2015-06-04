@@ -16,11 +16,13 @@ import com.esri.map.Layer;
 import com.esri.map.LayerList;
 
 
-import comparators.ComparatorManufactureActivite;
 
+
+import comparators.ComparatorManufactureActivite;
 import dataModels.City;
 import dataModels.EvaluatorOfManufacturers;
 import dataModels.Manufacturer;
+import dataModels.User;
 import database.DataAccessObjectManufacturersVisualisation;
 import decorators.VisualisationManufactureDecorator;
 
@@ -40,6 +42,18 @@ public class VisualisationManufacturersModel
 		manufacturersData = new ArrayList<Manufacturer>();
 		currentDisplayManufacturersData = new ArrayList<Manufacturer>();
 		path_cities = new ArrayList<City>();
+	}
+	
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		if( currentLoggedUser != null )
+		{
+			dao_manufacturersVis.setExternalDatabaseConnectionProperty(currentLoggedUser.getServerAddress(), 
+				currentLoggedUser.getServerPort(),currentLoggedUser.getDatabaseName(), 
+				currentLoggedUser.getDatabaseLogin(), currentLoggedUser.getDatabasePassword());
+		}
+		else
+			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
 		

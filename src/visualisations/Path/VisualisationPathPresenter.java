@@ -1,6 +1,7 @@
 package visualisations.Path;
 
 import dataModels.City;
+import dataModels.User;
 import interfaces.RoutePlanningPresenter;
 
 public class VisualisationPathPresenter {
@@ -70,6 +71,11 @@ public class VisualisationPathPresenter {
 	public void addCityToPath(City city)
 	{
 		model_PathVis.addCityToPath(city.getCityName());
+	}
+	
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		model_PathVis.setExternalDatabaseConnectionProperty(currentLoggedUser);
 	}
 	
 

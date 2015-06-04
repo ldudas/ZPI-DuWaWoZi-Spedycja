@@ -186,6 +186,11 @@ public class ManufacturerOrderDataJPanel extends JPanel
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_RoutePlanning = presenter;
+		
+	}
+	
+	public void addAllCityToList()
+	{
 		presenter_RoutePlanning.addAllCityToList(comboBox_nextCityName,null);
 	}
 	

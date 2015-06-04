@@ -1,4 +1,4 @@
-package jpanels.startWindow;
+package jpanels.ManufacturerVisualization;
 
 import interfaces.*;
 
@@ -23,7 +23,7 @@ import javax.swing.JComboBox;
 import jpanel.calendare.JCalendar;
 
 
-public class StartJPanel extends JPanel 
+public class StartPlanningJPanel extends JPanel 
 {
 	/**
 	 * 
@@ -43,14 +43,14 @@ public class StartJPanel extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public StartJPanel() 
+	public StartPlanningJPanel() 
 	{
-		setBackground(SystemColor.inactiveCaption);
+		setBackground(SystemColor.activeCaption);
 		setLayout(null);
 		dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		JPanel panel_from = new JPanel();	
 		panel_from.setBackground(SystemColor.inactiveCaptionText);
-		panel_from.setBounds(10, 11, 300, 353);
+		panel_from.setBounds(0, 0, 297, 361);
 		add(panel_from);
 		panel_from.setLayout(null);
 		
@@ -86,7 +86,7 @@ public class StartJPanel extends JPanel
 		
 		JPanel panel_to = new JPanel();
 		panel_to.setBackground(SystemColor.inactiveCaptionText);
-		panel_to.setBounds(312, 11, 300, 353);
+		panel_to.setBounds(306, 0, 304, 361);
 		add(panel_to);
 		panel_to.setLayout(null);
 		
@@ -124,12 +124,12 @@ public class StartJPanel extends JPanel
 		JPanel panel = new JPanel();
 		panel.setForeground(SystemColor.desktop);
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(10, 366, 602, 95);
+		panel.setBounds(0, 366, 610, 98);
 		add(panel);
 		panel.setLayout(null);
 		
 		JButton start_okButton = new JButton("OK");
-		start_okButton.setBounds(349, 16, 224, 68);
+		start_okButton.setBounds(349, 16, 224, 71);
 		panel.add(start_okButton);
 		start_okButton.setForeground(SystemColor.desktop);
 		start_okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
@@ -144,21 +144,18 @@ public class StartJPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				int dialogResult = JOptionPane.showConfirmDialog(StartJPanel.this, "Czy na pewno chcesz wyczyścić uzupełnione pola?", 
+				int dialogResult = JOptionPane.showConfirmDialog(StartPlanningJPanel.this, "Czy na pewno chcesz wyczyścić uzupełnione pola?", 
 																	"Czyszczenie", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					calendare_dateFrom.setDate(new Date());
-					calendare_dateTo.setDate(new Date(calendare_dateFrom.getDate().getTime() + (1000 * 60 * 60 * 24)) );
-					comboBox_cityFrom.setSelectedIndex(0);
-					comboBox_cityTo.setSelectedIndex(0);
+					clearData();
 				} 
 						
 			}
 		});
 		btn_Clear.setBackground(SystemColor.activeCaption);
 		btn_Clear.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
-		btn_Clear.setBounds(39, 16, 224, 68);
+		btn_Clear.setBounds(29, 16, 224, 71);
 		panel.add(btn_Clear);
 		start_okButton.addActionListener(new ActionListener() 
 		{
@@ -167,7 +164,7 @@ public class StartJPanel extends JPanel
 				String error = presenter_route_planning.checkCorrectnessOfData_firstOrder();
 				if( error == null )
 				{
-					int dialogResult = JOptionPane.showConfirmDialog(StartJPanel.this, "Czy podane dane się zgadzają:"
+					int dialogResult = JOptionPane.showConfirmDialog(StartPlanningJPanel.this, "Czy podane dane się zgadzają:"
 							+ "\n\nData wyjazdu: " + getStartDate() 
 							+ "\nMiasto wyjazdu: " + get_city_from()
 							+ "\nData przyjazdu: " + getFinishDate()
@@ -187,17 +184,30 @@ public class StartJPanel extends JPanel
 					} 
 				}
 				else
-					JOptionPane.showMessageDialog(StartJPanel.this, "Bład wprowadzanych danych:\n" + error, "Błąd danych", 
+					JOptionPane.showMessageDialog(StartPlanningJPanel.this, "Bład wprowadzanych danych:\n" + error, "Błąd danych", 
 													JOptionPane.ERROR_MESSAGE);		
 			}
 		});
 		
 	}
 	
+	public void clearData()
+	{
+		calendare_dateFrom.setDate(new Date());
+		calendare_dateTo.setDate(new Date(calendare_dateFrom.getDate().getTime() + (1000 * 60 * 60 * 24)) );
+		if( comboBox_cityFrom.getItemCount() > 0)
+			comboBox_cityFrom.setSelectedIndex(0);
+		if( comboBox_cityTo.getItemCount() > 0)
+			comboBox_cityTo.setSelectedIndex(0);
+	}
 	 
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_route_planning = presenter;
+	}
+	
+	public void addAllCityToList()
+	{
 		presenter_route_planning.addAllCityToList(comboBox_cityFrom,comboBox_cityTo);
 	}
 	

@@ -12,7 +12,10 @@ import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.map.GraphicsLayer;
 
 
+
+
 import dataModels.Manufacturer;
+import dataModels.User;
 import decorators.VisualisationManufactureDecorator;
 import interfaces.RoutePlanningPresenter;
 
@@ -164,6 +167,10 @@ public class VisualistaionManufacturersPresenter
 		
 	}
 	
+	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
+	{
+		model_ManufacturersVis.setExternalDatabaseConnectionProperty(currentLoggedUser);
+	}
 	
 
 	
