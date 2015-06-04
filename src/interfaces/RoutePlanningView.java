@@ -257,7 +257,7 @@ public class RoutePlanningView
 		startApplicationJPanel.removeLogicJPanel();
 		mainFrame.setTitle("Rejestracja");
 		registryJPanel.clearText();
-		startApplicationJPanel.addLogicJPanel(registryJPanel,0);
+		startApplicationJPanel.addLogicJPanel(registryJPanel);
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
@@ -274,7 +274,7 @@ public class RoutePlanningView
 		startApplicationJPanel.removeLogicJPanel();
 		mainFrame.setTitle("Logowanie");
 		logJPanel.clearTexts();
-		startApplicationJPanel.addLogicJPanel(logJPanel,0);
+		startApplicationJPanel.addLogicJPanel(logJPanel);
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	

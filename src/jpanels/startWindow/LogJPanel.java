@@ -33,19 +33,19 @@ public class LogJPanel extends JPanel
 	
 	public LogJPanel() 
 	{
-		setBackground(SystemColor.inactiveCaption);
+		setBackground(SystemColor.inactiveCaptionText);
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(10, 11, 249, 192);
+		panel.setBounds(138, 92, 335, 253);
 		add(panel);
 		panel.setLayout(null);
 		
 		textField_login = new JTextField();
 		textField_login.setBackground(SystemColor.activeCaption);
 		textField_login.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 13));
-		textField_login.setBounds(10, 34, 229, 23);
+		textField_login.setBounds(46, 62, 229, 23);
 		panel.add(textField_login);
 		textField_login.setColumns(10);
 		
@@ -70,25 +70,25 @@ public class LogJPanel extends JPanel
 		});
 		btn_LogIn.setBackground(SystemColor.activeCaption);
 		btn_LogIn.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_LogIn.setBounds(142, 141, 97, 39);
+		btn_LogIn.setBounds(207, 187, 118, 51);
 		panel.add(btn_LogIn);
 		
 		lblNewLabel = new JLabel("Login:");
 		lblNewLabel.setForeground(new Color(255, 204, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lblNewLabel.setBounds(10, 9, 46, 14);
+		lblNewLabel.setBounds(46, 37, 46, 14);
 		panel.add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Has\u0142o:");
 		lblNewLabel_1.setForeground(new Color(255, 204, 0));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		lblNewLabel_1.setBounds(10, 75, 46, 14);
+		lblNewLabel_1.setBounds(46, 96, 46, 14);
 		panel.add(lblNewLabel_1);
 		
 		passwordField_password = new JPasswordField();
 		passwordField_password.setBackground(SystemColor.activeCaption);
 		passwordField_password.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 11));
-		passwordField_password.setBounds(10, 101, 229, 23);
+		passwordField_password.setBounds(46, 121, 229, 23);
 		panel.add(passwordField_password);
 		
 		JButton btn_back = new JButton("Wróć");
@@ -103,7 +103,7 @@ public class LogJPanel extends JPanel
 		});
 		btn_back.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btn_back.setBackground(SystemColor.activeCaption);
-		btn_back.setBounds(10, 142, 97, 39);
+		btn_back.setBounds(10, 187, 118, 51);
 		panel.add(btn_back);
 	}
 

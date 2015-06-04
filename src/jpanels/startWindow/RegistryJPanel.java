@@ -52,12 +52,12 @@ public class RegistryJPanel extends JPanel
 	{
 		connectionSuccesedTested = false;
 		
-		setBackground(SystemColor.inactiveCaption);
+		setBackground(SystemColor.inactiveCaptionText);
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(10, 11, 390, 420);
+		panel.setBounds(59, 0, 451, 487);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -197,7 +197,7 @@ public class RegistryJPanel extends JPanel
 		});
 		btn_testConnection.setBackground(SystemColor.activeCaption);
 		btn_testConnection.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_testConnection.setBounds(123, 355, 138, 49);
+		btn_testConnection.setBounds(123, 371, 138, 49);
 		panel.add(btn_testConnection);
 		
 		btn_registry = new JButton("Zarejestruj");
@@ -231,7 +231,7 @@ public class RegistryJPanel extends JPanel
 		});
 		btn_registry.setBackground(SystemColor.activeCaption);
 		btn_registry.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_registry.setBounds(264, 355, 116, 49);
+		btn_registry.setBounds(266, 371, 116, 49);
 		panel.add(btn_registry);
 		
 		JButton btn_back = new JButton("Wróć");
@@ -243,7 +243,7 @@ public class RegistryJPanel extends JPanel
 		});
 		btn_back.setBackground(SystemColor.activeCaption);
 		btn_back.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btn_back.setBounds(10, 355, 110, 49);
+		btn_back.setBounds(10, 371, 110, 49);
 		panel.add(btn_back);
 	}
 	

@@ -17,13 +17,13 @@ public class WelcomeJPanel extends JPanel
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon("images/ImageToApplication.png"));
-		label.setBounds(10, 55, 511, 314);
+		label.setBounds(50, 55, 511, 314);
 		add(label);
 		
 		JLabel label_1 = new JLabel("Witaj w aplikacji");
 		label_1.setForeground(new Color(255, 204, 0));
 		label_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
-		label_1.setBounds(134, 11, 269, 33);
+		label_1.setBounds(177, 11, 269, 33);
 		add(label_1);
 		
 		JTextPane txtpnZarzdzajacuchemDostaw = new JTextPane();
@@ -32,7 +32,7 @@ public class WelcomeJPanel extends JPanel
 		txtpnZarzdzajacuchemDostaw.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
 		txtpnZarzdzajacuchemDostaw.setEditable(false);
 		txtpnZarzdzajacuchemDostaw.setBackground(SystemColor.inactiveCaptionText);
-		txtpnZarzdzajacuchemDostaw.setBounds(33, 380, 474, 74);
+		txtpnZarzdzajacuchemDostaw.setBounds(74, 380, 474, 74);
 		add(txtpnZarzdzajacuchemDostaw);
 	}
 

@@ -1,13 +1,9 @@
 package jpanels.startWindow;
 
-import javafx.geometry.Bounds;
-
 import javax.swing.JPanel;
-
 import java.awt.SystemColor;
 import java.awt.CardLayout;
 
-import javax.swing.BoxLayout;
 
 public class StartApplicationJPanel extends JPanel 
 {
@@ -44,17 +40,6 @@ public class StartApplicationJPanel extends JPanel
 	public void addLogicJPanel(JPanel logic)
 	{
 		panel_logic.add(logic);
-	}
-	
-	public void addLogicJPanel(JPanel logic, int i)
-	{
-
-		panel_logic.add(logic);
-		logic.setBounds(
-				panel_logic.getWidth()/2 - logic.getWidth()/2,
-				panel_logic.getHeight()/2 - logic.getHeight()/2, 
-				logic.getWidth(),logic.getHeight()
-			);
 	}
 	
 	public void removeLogicJPanel()
