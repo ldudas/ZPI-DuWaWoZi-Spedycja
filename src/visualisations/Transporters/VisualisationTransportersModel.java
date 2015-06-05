@@ -96,8 +96,6 @@ public class VisualisationTransportersModel
 			transporters_filtered.clear();
 		if( maps_cache != null)
 			maps_cache.clear();
-		if( cities_coordinates != null)
-			cities_coordinates.clear();
 		cityFrom="";
 		cityTo="";
 		size_category = null;

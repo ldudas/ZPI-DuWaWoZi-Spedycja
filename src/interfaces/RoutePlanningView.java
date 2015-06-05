@@ -35,7 +35,7 @@ import jpanels.startWindow.WelcomeJPanel;
 
 public class RoutePlanningView 
 {
-	private final String APPLICATION_NAME = "Nazwa aplikacji...";
+	private final String APPLICATION_NAME = "FORWARDer";
 	private RoutePlanningPresenter route_planning_presenter;
 
 	private ManufacturerVisuzalizationJPanel manufacturerVisualizationWithMapJPanel;
