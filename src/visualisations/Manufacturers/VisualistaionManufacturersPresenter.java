@@ -47,6 +47,10 @@ public class VisualistaionManufacturersPresenter
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
 	}
 	
+	public void clearDataInModel()
+	{
+		model_ManufacturersVis.clearData();
+	}
 	
 	/**
 	 * Metoda zwracajaca atrybuty charakteryzujace danego Producenta.

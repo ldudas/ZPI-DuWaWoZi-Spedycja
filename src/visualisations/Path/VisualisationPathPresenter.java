@@ -78,5 +78,10 @@ public class VisualisationPathPresenter {
 		model_PathVis.setExternalDatabaseConnectionProperty(currentLoggedUser);
 	}
 	
+	public void clearDataInModel()
+	{
+		model_PathVis.clearData();
+	}
+	
 
 }

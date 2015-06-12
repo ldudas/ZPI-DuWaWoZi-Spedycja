@@ -35,7 +35,7 @@ import jpanels.startWindow.WelcomeJPanel;
 
 public class RoutePlanningView 
 {
-	private final String APPLICATION_NAME = "Nazwa aplikacji...";
+	private final String APPLICATION_NAME = "FORWARDer";
 	private RoutePlanningPresenter route_planning_presenter;
 
 	private ManufacturerVisuzalizationJPanel manufacturerVisualizationWithMapJPanel;
@@ -111,7 +111,8 @@ public class RoutePlanningView
 							"Wyloguj", JOptionPane.YES_NO_OPTION);
 					if(dialogResult == JOptionPane.YES_OPTION) 
 					{
-						clearMainFrame();
+						route_planning_presenter.logOutUser();
+						
 						menuJPanel.setNotLoggedUser();
 						menuJPanel.setEnableButtonsToUserAction(false);
 						menuJPanel.setEnableButtonsFirstAction(true);
@@ -135,7 +136,8 @@ public class RoutePlanningView
 						"Powitanie", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					clearMainFrame();
+					route_planning_presenter.logOutUser();
+					
 					startApplicationJPanel.removeLogicJPanel();
 					openWelcomeView();
 					if( menuJPanel.isUserLogged() )
@@ -160,7 +162,6 @@ public class RoutePlanningView
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-
 				int dialogResult = JOptionPane.showConfirmDialog(mainFrame, "Czy na pewno chcesz zakończyć działanie aplikacji?",
 						"Zakończ", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
@@ -217,8 +218,9 @@ public class RoutePlanningView
 		mainFrame.setJMenuBar(menuBar);
 	}
 	
-	private void clearMainFrame()
+	public void clearMainFrame()
 	{
+		manufacturerVisualizationWithMapJPanel.clearTabbedWithMaps();
 		mainFrame.remove(startApplicationJPanel);
 		mainFrame.remove(manufacturerVisualizationWithMapJPanel);
 	}
@@ -314,7 +316,7 @@ public class RoutePlanningView
 			{
 				startApplicationJPanel.removeLogicJPanel();
 				mainFrame.remove(startApplicationJPanel);
-				mainFrame.setBounds(50, 50, 1130, 605);
+				mainFrame.setBounds(100, 100, 1130, 605);
 				mainFrame.setTitle("Producenci");
 				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
 				prepareFrameAfterChangeView(mainFrame);
@@ -491,6 +493,11 @@ public class RoutePlanningView
 		manufacturerVisualizationWithMapJPanel.removeLastOrderFromTab();
 	}
 	
+	public void clearOrderTab()
+	{
+		manufacturerVisualizationWithMapJPanel.clearOrderTab();
+	}
+	
 	public void closeMainFrame_ManufacturerVisualization()
 	{
 		mainFrame.dispose();
@@ -567,6 +574,12 @@ public class RoutePlanningView
 	{
 		startPlanningJPanel.addAllCityToList();
 		manufacturerOrderDataJPanel.addAllCityToList();
+	}
+	
+	public JFrame getMainFrame()
+	{
+		clearMainFrame();
+		return mainFrame;
 	}
 	
 }

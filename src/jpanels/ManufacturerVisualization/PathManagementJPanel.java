@@ -147,5 +147,12 @@ public class PathManagementJPanel extends JPanel
 		model.removeRow(model.getRowCount() - 1);
 	}
 	
+	public void clearOrderTab()
+	{
+		int numberOfElements = model.getRowCount();
+		for(int i=0; i < numberOfElements; i++)
+			model.removeRow(0);
+	}
+	
 
 }

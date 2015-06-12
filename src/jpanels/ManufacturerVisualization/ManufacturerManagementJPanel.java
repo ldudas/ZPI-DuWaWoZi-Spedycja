@@ -199,7 +199,7 @@ public class ManufacturerManagementJPanel extends JPanel
 			public void actionPerformed(ActionEvent e) 
 			{
 				comboBox_numberOfMostActive.setSelectedIndex(0);
-				comboBox_map_period.setSelectedIndex(0);
+				comboBox_map_period.setSelectedIndex(1);
 				comboBox_map_unit.setSelectedIndex(0);
 				comboBox_map_count.setSelectedIndex(0);
 				comboBox_tolerance_unit.setSelectedIndex(0);
@@ -230,7 +230,8 @@ public class ManufacturerManagementJPanel extends JPanel
 			}
 		});
 		
-		setVisibilityOfTolerance(false);
+		comboBox_map_period.setSelectedIndex(1);
+		setVisibilityOfTolerance(true);
 	}
 	
 	public void setPresenter(final RoutePlanningPresenter presenter)

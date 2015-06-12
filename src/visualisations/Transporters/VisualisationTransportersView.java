@@ -51,6 +51,7 @@ public class VisualisationTransportersView
 	
 	private JFrame carrierVisualization;
 	private JPanel visualization;
+	private JPanel control;
 	private boolean isVisualisationStarted;
 	private ArrayList<Transporter> transporters;
 	private ArrayList<Shape> drawnShapes;
@@ -63,7 +64,7 @@ public class VisualisationTransportersView
 	private double max_delay;
 	private double max_executed;
 
-
+	private JButton btn_confirmPath;
 
 	public VisualisationTransportersView() 
 	{
@@ -80,11 +81,28 @@ public class VisualisationTransportersView
 	{
 		trans_presenter = pres;
 	}
+	
+	public void clearCarrierVisualizationFrame()
+	{
+		if(control != null)
+			carrierVisualization.remove(control);
+		if(visualization != null)
+			carrierVisualization.remove(visualization);
+		if( drawnShapes != null)
+			drawnShapes.clear();
+		isVisualisationStarted = false;
+		city_from = "";
+		city_to = "";
+		sc = null;
+		//initialize();
+		lastWindowPos = 50;
+	}
 
 	
-	public void initialize() 
+	public void initialize( JFrame carrierV) 
 	{		
-		carrierVisualization = new JFrame();
+		//carrierVisualization = new JFrame();
+		this.carrierVisualization = carrierV;
 		//carrierVisualization.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/025581022.jpg")));
 		carrierVisualization.setResizable(false);
 		carrierVisualization.setTitle("Przewo\u017Anicy");
@@ -93,12 +111,12 @@ public class VisualisationTransportersView
 		carrierVisualization.getContentPane().setForeground(SystemColor.textHighlightText);
 		carrierVisualization.getContentPane().setLayout(null);
 		
-		JPanel control = new JPanel();
+	    control = new JPanel();
 		control.setBackground(SystemColor.activeCaption);
 		control.setBounds(10, 11, 797, 121);
 		carrierVisualization.getContentPane().add(control);
 		control.setLayout(null);
-		JButton btn_confirmPath = new JButton("Potwierd\u017A");
+		btn_confirmPath = new JButton("Potwierd\u017A");
 		
 		btn_confirmPath.setBackground(SystemColor.inactiveCaption);
 		btn_confirmPath.setForeground(new Color(0, 0, 0));
@@ -213,7 +231,7 @@ public class VisualisationTransportersView
 		control.add(label_backgraound);
 		//label_backgraound.setIcon(new ImageIcon(View.class.getResource("/images/gl-4.jpg")));
 		carrierVisualization.setForeground(SystemColor.menu);
-		carrierVisualization.setBounds(250, 30, 825, 700);
+		carrierVisualization.setBounds(250, 30, 825, 725);
 		carrierVisualization.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		carrierVisualization.setVisible(true);
 		carrierVisualization.invalidate();

@@ -79,6 +79,11 @@ public class ManufacturerVisuzalizationJPanel extends JComponent
 		return map_tabbedPane;
 	}
 	
+	public void clearTabbedWithMaps()
+	{
+		map_tabbedPane.removeAll();
+	}
+	
 	public void setManagementJPanelVisibility(boolean vis)
 	{
 		if(vis)
@@ -106,5 +111,10 @@ public class ManufacturerVisuzalizationJPanel extends JComponent
 	public void removeLastOrderFromTab()
 	{
 		path__managmentJPanel.removeLastOrderFromTab();
+	}
+	
+	public void clearOrderTab()
+	{
+		path__managmentJPanel.clearOrderTab();
 	}
 }
