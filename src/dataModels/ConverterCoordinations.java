@@ -15,6 +15,8 @@ public class ConverterCoordinations
 	 */
 	public double parseCoordinate(String coordinate)
 	{        
+		if(coordinate.isEmpty())
+			return -1;
 		int index1 = coordinate.indexOf("°");
 		int index2 = coordinate.indexOf("'");
 		String part1 = coordinate.substring(0,index1);
