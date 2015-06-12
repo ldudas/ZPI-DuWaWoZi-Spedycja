@@ -236,14 +236,31 @@ public class VisualisationTransportersView
 		 	}
 		 	
 	    	this.transporters = transporters;
-	    	max_num_of_orders = transporters.stream().max(Transporter::compareByNumbrOfOrders).get().getNumber_of_orders();
+	    	/*max_num_of_orders = transporters.stream().max(Transporter::compareByNumbrOfOrders).get().getNumber_of_orders();
 	    	min_num_of_orders = transporters.stream().min(Transporter::compareByNumbrOfOrders).get().getNumber_of_orders();
 	    	max_cost = transporters.stream().max(Transporter::compareByCost).get().getCost();
 	    	min_cost = transporters.stream().min(Transporter::compareByCost).get().getCost();
 	    	max_volume = transporters.stream().max(Transporter::compareByVolume).get().getVolume();
 	    	max_capacity = transporters.stream().max(Transporter::compareByCapacity).get().getCapacity();
-	    	max_delay = transporters.stream().max(Transporter::compareByDelay).get().getDelay();
-	    	max_executed = transporters.stream().max(Transporter::compareByExecuted).get().getExecuted();
+	    	System.out.println(transporters+"\n"+max_capacity);*/
+	    	//max_delay = transporters.stream().max(Transporter::compareByDelay).get().getDelay();
+	    	//max_executed = transporters.stream().max(Transporter::compareByExecuted).get().getExecuted();
+	    	
+	    	max_num_of_orders = Double.MIN_VALUE;
+	    	min_num_of_orders = Double.MAX_VALUE;
+	    	max_cost = Double.MIN_VALUE;
+	    	min_cost = Double.MAX_VALUE;
+	    	max_volume = Double.MIN_VALUE;
+	    	max_capacity = Double.MIN_VALUE;
+	    	
+	    	transporters.stream().forEach( (Transporter tr) -> {
+	    		if(tr.getNumber_of_orders()<min_num_of_orders) min_num_of_orders = tr.getNumber_of_orders();
+	    		if(tr.getNumber_of_orders()>max_num_of_orders) max_num_of_orders = tr.getNumber_of_orders();
+	    		if(tr.getCost()>max_cost) max_cost = tr.getCost();
+	    		if(tr.getCost()<min_cost) min_cost = tr.getCost();
+	    		if(tr.getVolume()>max_volume) max_volume = tr.getVolume();
+	    		if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
+	    	});
 	    	visualization.repaint();
 	    }
 	 
@@ -267,9 +284,40 @@ public class VisualisationTransportersView
 	 
 	 class TransVisJPanel extends JPanel  implements MouseListener, MouseMotionListener
 	    {  
-			 private final int x_gap = 20;
-		     private final int y_gap = 20;
-		     private final int line_thickness = 2;
+			 private final static int x_gap = 20;
+		     private final static int y_gap = 20;
+		     private final static int line_thickness = 2;
+		     
+		     private final static  String axis_font = "Gulim";
+		     private final static int axis_font_style = Font.ITALIC;
+		     private final static String rect_font = "Juice ITC";
+		     private final static int rect_font_style = Font.PLAIN;
+		     
+		     private final static int x_axis_max_font_size = 15;
+		     private final static int x_axis_min_font_size = 7;
+		     
+		     private final static int y_axis_max_font_size = 17;
+		     private final static int y_axis_min_font_size = 3;
+		     
+		     private final static int trans_max_font_size = 50;
+		     private final static int trans_min_font_size = 10;
+		     
+		     private final static int triangle_size = 4;
+		     private final static int number_of_desc = 10;
+
+		     private final static float max_alpha_minus = 0.9f;
+		     private final static float min_alpha_minus = 0.1f;
+		     
+		     private final static double max_exec = 0.05;
+		     
+		     
+		     
+		     
+		     private double max_obj_width;
+		     private double max_obj_height;
+		     
+		     private double min_obj_width;
+		     private double min_obj_height;
 		     
 		     private int panel_height;
 		     private int panel_width;
@@ -281,35 +329,7 @@ public class VisualisationTransportersView
 		     private int y_line_y_beg;
 		     private int y_line_x_end;
 		     private int y_line_y_end;
-		     
-		     private final String axis_font = "Gulim";
-		     private final int axis_font_style = Font.ITALIC;
-		     private final String rect_font = "Juice ITC";
-		     private final int rect_font_style = Font.PLAIN;
-		     
-		     private final int x_axis_max_font_size = 15;
-		     private final int x_axis_min_font_size = 7;
-		     
-		     private final int y_axis_max_font_size = 17;
-		     private final int y_axis_min_font_size = 3;
-		     
-		     private final int trans_max_font_size = 50;
-		     private final int trans_min_font_size = 10;
-		     
-		     private double max_obj_width;
-		     private double max_obj_height;
-		     
-		     private double min_obj_width;
-		     private double min_obj_height;
-		     
-		     private final int triangle_size = 4;
-		     private final int number_of_desc = 10;
-
-		     private final float max_alpha_minus = 0.9f;
-		     private final float min_alpha_minus = 0.1f;
-		     
-		     private final double max_exec = 0.05;
-		     
+		    
 
 		    public TransVisJPanel()
 		    {
@@ -482,39 +502,11 @@ public class VisualisationTransportersView
 		        double exec;
 		        AlphaComposite alcom;
 		       
-		        
-		        if (sc == SizeCategory.SMALL)
-		        {
-			        max_obj_height = panel_height/5.0;
-			        min_obj_height = panel_height/20.0;
-			        
-			        max_obj_width = panel_width/20.0;
-			        min_obj_width = panel_width/25.0;
-		        }
-		        else if (sc == SizeCategory.MEDIUM)
-		        {
-		        	   max_obj_height = panel_height/7.0;
-				        min_obj_height = panel_height/20.0;
-				        
-				        max_obj_width = panel_width/15.0;
-				        min_obj_width = panel_width/30.0;
-		        }
-		        else if (sc == SizeCategory.BIG)
-		        {
 		        	max_obj_height = panel_height/5.0;
 			        min_obj_height = panel_height/20.0;
 			        
 			        max_obj_width = panel_width/10.0;
-			        min_obj_width = panel_width/30.0;	
-		        }
-		        else
-		        {
-		        	max_obj_height = panel_height/5.0;
-			        min_obj_height = panel_height/20.0;
-			        
-			        max_obj_width = panel_width/25.0;
 			        min_obj_width = panel_width/30.0;
-		        }	
 		        
 		        //czyszczenie kolekcji narysowanych obiektów przewoznikow
 		        drawnShapes.clear();
