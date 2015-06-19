@@ -268,9 +268,7 @@ public class VisualisationTransportersView
 		carrierVisualization.validate();
 	}
 	
-	 /**
-	  * @wbp.parser.entryPoint
-	  */
+
 	 public void drawTransporters(ArrayList<Transporter> transporters)
 	    {
 		 	if(!isVisualisationStarted)
@@ -306,9 +304,7 @@ public class VisualisationTransportersView
 	    	visualization.repaint();
 	    }
 	 
-	 /**
-	  * @wbp.parser.entryPoint
-	  */
+
 	 public void showTransporterDetailsWindow(Transporter t,JMap routes)
 	 {
 				
@@ -327,16 +323,14 @@ public class VisualisationTransportersView
 				lastWindowPos += 25;
 	 }
 	 
-	 
-		/**
-		 * @wbp.parser.entryPoint
-		 */
+
 		private void addAllCityToComboBox(JComboBox<String> comboBox, ArrayList<String> listOfCityNames)
 		{
 			if(comboBox != null)
 			{	
 			
 				for ( String cityName : listOfCityNames )
+
 				{
 						comboBox.addItem(cityName);
 				}

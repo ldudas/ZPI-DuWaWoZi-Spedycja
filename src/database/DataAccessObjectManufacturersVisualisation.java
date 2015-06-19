@@ -62,11 +62,9 @@ public class DataAccessObjectManufacturersVisualisation
 				+ "GROUP BY P.id_prod;";
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
-		ArrayList<ArrayList<String>> resultInString = null;
 		try 
 		{
 			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query);
-			resultInString = new ArrayList<ArrayList<String>>();
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{
@@ -74,19 +72,7 @@ public class DataAccessObjectManufacturersVisualisation
 		}
 		finally
 		{
-			if( resultOfQuery != null && resultInString != null && resultOfQuery.size() > 0)
-			{
-				for(int i=0;i<resultOfQuery.size();i++)
-				{
-					resultInString.add(new ArrayList<String>());
-					for(int j=0;j<resultOfQuery.get(i).size();j++)
-					{
-						resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
-					}
-						
-				}
-			}
-			return resultInString;	
+			return convertResultToString(resultOfQuery);	
 		}
 	}
 	
@@ -124,11 +110,9 @@ public class DataAccessObjectManufacturersVisualisation
 									"GROUP BY Z.id_prod;";
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
-		ArrayList<ArrayList<String>> resultInString = null;
 		try 
 		{
 			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query);
-			resultInString = new ArrayList<ArrayList<String>>();
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{
@@ -136,20 +120,76 @@ public class DataAccessObjectManufacturersVisualisation
 		}
 		finally
 		{
-			if( resultOfQuery != null && resultInString != null && resultOfQuery.size() > 0)
-			{
-				for(int i=0;i<resultOfQuery.size();i++)
-				{
-					resultInString.add(new ArrayList<String>());
-					for(int j=0;j<resultOfQuery.get(i).size();j++)
-					{
-						resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
-					}
-						
-				}
-			}
-			return resultInString;	
+			return convertResultToString(resultOfQuery);	
 		}
+	}
+	
+	/***
+	 * Metoda zwracajaca aktywnosci producentów w każdym z miesiąców w danym mieście.
+	 * @param cityName
+	 * @return NULL OR ArrayList<ArrayList<String>> res : 
+	 *  <br>res.get(0) -> producent pierwszy 
+	 * 	<br>res.get(0).get(0) -> identyfikator producenta
+	 *  <br>res.get(0).get(1) -> dzienny zarobek w styczniu
+	 *  <br>res.get(0).get(2) -> dzienny zarobek  w lutym
+	 *  <br>[...]
+	 *  <br>res.get(0).get(12) -> dzienny zarobek w grudniu
+	 * @author Kamil Zimny
+	 */
+	@SuppressWarnings("finally")
+	public ArrayList<ArrayList<String>> getManufacturersCostInEachMonth(final String cityName)
+	{
+		final String query = "SELECT "+
+									  "Z.id_prod, " +
+									  "sum(if(month(Z.data_rozp_plan) = 1, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 2, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 3, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 4, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 5, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 6, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 7, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 8, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 9, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0))  ," +
+									  "sum(if(month(Z.data_rozp_plan) = 10, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 11, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) ," +
+									  "sum(if(month(Z.data_rozp_plan) = 12, Z.wartosc_zlec / DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan), 0)) " +
+									"FROM Zlecenia Z JOIN Miasta M ON Z.z_miasta = M.id_miasta " +
+									"WHERE M.nazwa_miasta = '"+ cityName +"' " +
+									"GROUP BY Z.id_prod;";
+		
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		try 
+		{
+			resultOfQuery =  databaseConnector.getResultOfMySqlQuery(query);
+			
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			return convertResultToString(resultOfQuery);	
+		}
+	}
+	
+	private ArrayList<ArrayList<String>> convertResultToString(ArrayList<ArrayList<Object>> resultOfQuery)
+	{		
+		ArrayList<ArrayList<String>> resultInString = new ArrayList<ArrayList<String>>();
+		
+		if( resultOfQuery != null && resultInString != null && resultOfQuery.size() > 0)
+		{
+			for(int i=0;i<resultOfQuery.size();i++)
+			{
+				resultInString.add(new ArrayList<String>());
+				for(int j=0;j<resultOfQuery.get(i).size();j++)
+				{
+					resultInString.get(i).add( resultOfQuery.get(i).get(j).toString()  );
+				}
+					
+			}
+		}
+		return resultInString;	
 	}
 	
 	/**

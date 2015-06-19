@@ -2,11 +2,12 @@ package interfaces;
 
 import java.util.ArrayList;
 
+import dataModels.Manufacturer;
 import dataModels.Order;
 import dataModels.User;
 import database.DataAccessObjectRoutePlanning;
 import database.DataAccessObjectUserAccount;
-import database.DatabaseConnector;
+
 
 
 public class RoutePlanningModel 
@@ -16,6 +17,7 @@ public class RoutePlanningModel
 	private DataAccessObjectUserAccount dao_userAccount;
 	
 	private User currentLoggedUser;
+	private Manufacturer currentManufacturer;
 	
 	public RoutePlanningModel()
 	{
@@ -65,6 +67,16 @@ public class RoutePlanningModel
 	{
 		ArrayList<String> userData = dao_userAccount.getLoggedUserData(login);
 		currentLoggedUser = new User(login, password, userData.get(0), userData.get(1), userData.get(2), userData.get(3), userData.get(4));
+	}
+	
+	public void setCurrentManufacturer(Manufacturer currentMan)
+	{
+		currentManufacturer = currentMan;
+	}
+	
+	public Manufacturer getCurrentManufacturer()
+	{
+		return currentManufacturer;
 	}
 	
 	public User getCurrentUser()

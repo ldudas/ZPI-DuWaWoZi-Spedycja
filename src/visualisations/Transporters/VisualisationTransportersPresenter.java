@@ -62,7 +62,7 @@ public class VisualisationTransportersPresenter
 	
 	public void set_route_presenter(RoutePlanningPresenter presenter)
 	{
-		
+		route_planning_presenter = presenter;
 	}
 
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception

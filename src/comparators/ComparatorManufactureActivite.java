@@ -16,7 +16,8 @@ public class ComparatorManufactureActivite implements Comparator<Manufacturer> ,
 	public int compare(Manufacturer man1, Manufacturer man2) 
 	{
 		// TODO Auto-generated method stub
-		return man1.getRankOfDailyProfit() != man2.getRankOfDailyProfit() ? man1.getRankOfDailyProfit() - man2.getRankOfDailyProfit() : 
+		return man1.getRankOfDailyProfit() != man2.getRankOfDailyProfit() ? (int)(man1.getSumOfOrdersValue()/man1.getSumOfDays()) 
+				- (int)(man2.getSumOfOrdersValue()/man2.getSumOfDays()) : 
 			   man1.getRankOfNumberOfOrders() - man2.getRankOfNumberOfOrders();
 	}
 }

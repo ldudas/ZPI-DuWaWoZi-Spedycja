@@ -31,6 +31,17 @@ public class Order
 		this.finishDate = finishDate;
 	}
 	
+	
+	public void setManufacturerId(String idMan)
+	{
+		idManufacturer = idMan;
+	}
+	
+	public void setTransporterID(String idTrans)
+	{
+		idTrasnporter = idTrans;
+	}
+	
 	public String getStartDate()
 	{
 		return startDate;

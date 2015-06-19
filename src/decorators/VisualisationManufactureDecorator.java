@@ -3,6 +3,7 @@ package decorators;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		pieChart = new PieChartJPanel();
 		pieChart.setVisible(false);
 		add(pieChart);
+		
 	}
 	
 	public VisualisationManufactureDecorator()
@@ -136,7 +138,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 				for (Feature manufacturer : hitFeatures) 
 		        {	  
 					graphicsLayer.select( (int)manufacturer.getId());
-					graphicsLayer.setSelectionColor(Color.BLUE);
+					graphicsLayer.setSelectionColor(new Color(255, 204, 0));
 			        str.append(index++ + ") ");
 			        // get the damaged place name value from the graphic
 			        str.append(manufacturer.getAttributeValue("Name"));
@@ -188,7 +190,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
             							}  							
             						}
             						
-            						pieChart.setColors(currentMan);
+            						pieChart.setManufacturerDataOnChart(currentMan);
             					}			
             					
             					pieChart.setVisible(true);
@@ -239,7 +241,7 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 			attributes.put("ID", manufacturers.get(i).getID());
 			
 			//Wartosc aktywnosci
-			Color activityColor = new Color(255,manufacturers.get(i).getRankOfDailyProfit(),manufacturers.get(i).getRankOfDailyProfit());		
+			Color activityColor = manufacturers.get(i).getRankOfDailyProfit();		
 			int sizeOfSymbol = manufacturers.get(i).getRankOfNumberOfOrders(); 
 			
 			symbol = new SimpleMarkerSymbol(activityColor, sizeOfSymbol,

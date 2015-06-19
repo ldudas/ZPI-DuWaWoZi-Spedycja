@@ -30,15 +30,10 @@ public class PieChartJPanel extends JPanel
   public PieChartJPanel() 
   {
 	    createQuartesName();
-        PieDataset dataset = createDataset();
-        createChart(dataset);
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(232, 162));
 	    setLocation(10, 10);
 	    setSize(232, 162);
 	    setBorder(new LineBorder(Color.BLACK, 5, false));
         setLayout(new CardLayout(0, 0));
-        add(chartPanel, "name_6269072302659");
    }
   
   
@@ -56,23 +51,37 @@ public class PieChartJPanel extends JPanel
      * Creates a sample dataset 
      */
 
-    private  PieDataset createDataset() 
+    private  PieDataset createDataset(final Manufacturer manfacturers) 
     {
         DefaultPieDataset monthChar = new DefaultPieDataset();
-        
+        int i=0;
         for( String q : quarters)
-        	monthChar.setValue(q, 30);  
+        {
+        	monthChar.setValue(q, manfacturers.getQuarterActivity(i));
+        	i++;
+        }
         
         return monthChar;       
     }
     
-    public void setColors(final Manufacturer manufacturer)
+    private void setColors(final Manufacturer manufacturer)
     {
     	PiePlot3D plot = (PiePlot3D) chart.getPlot();
   	  
   	  for(int i= 0 ; i<quarters.size() ;i++)
-  		  plot.setSectionPaint(quarters.get(i), manufacturer.getQuarterActivityColor(i));
+  		  plot.setSectionPaint(quarters.get(i), manufacturer.getQuarterCostColor(i));
 
+    }
+    
+    public void setManufacturerDataOnChart(final Manufacturer currentMan)
+    {
+    	removeAll();
+        PieDataset dataset = createDataset(currentMan);
+        createChart(dataset);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        setColors(currentMan);
+        chartPanel.setPreferredSize(new java.awt.Dimension(232, 162));
+        add(chartPanel, "name_6269072302659");
     }
     
 /**

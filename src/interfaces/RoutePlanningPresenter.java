@@ -121,6 +121,7 @@ public class RoutePlanningPresenter
 		if( manufacturer != null )
 		{
 			route_planning_view.show_manfacturerInfo(manufacturer);
+			route_planning_model.setCurrentManufacturer(manufacturer);
 		}
 		else
 			route_planning_view.show_ErrorMessage();			
@@ -274,7 +275,7 @@ public class RoutePlanningPresenter
 		City cityFrom = cityBuilder.buildCity(city_from, coordinations[0], coordinations[1]);
 		
 		OrderBuilder orderBuilder = new OrderBuilder();
-		route_planning_model.addNewOrder(orderBuilder.buildOrder(cityTo, cityFrom, startDate, finishDate));
+		route_planning_model.addNewOrder(orderBuilder.buildOrder(cityTo, cityFrom, startDate, finishDate,""));
 	}
 	
 	/**
@@ -296,7 +297,7 @@ public class RoutePlanningPresenter
 		
 		OrderBuilder orderBuilder = new OrderBuilder();
 		route_planning_model.addNewOrder(orderBuilder.buildOrder(cityTo, route_planning_model.getLastOrder().getCityTo()
-														, startDate, finishDate));
+														, startDate, finishDate, route_planning_model.getCurrentManufacturer().getID() ));
 	}
 	
 	/**

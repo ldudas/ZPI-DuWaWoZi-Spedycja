@@ -152,7 +152,7 @@ public class ManufacturerDetailsJPanel extends JPanel
 	 */
 	public void setChartActivityColor(final Manufacturer manufacturer )
 	{
-		chartJPanel.setColors(manufacturer);
+		chartJPanel.setManufacturerDataOnChart(manufacturer);
 	}
 	
 	/**
