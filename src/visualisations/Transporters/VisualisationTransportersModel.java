@@ -76,6 +76,14 @@ public class VisualisationTransportersModel
 	 */
 	private ArrayList<ArrayList<Object>> cities_coordinates;
 	
+	
+	private double max_num_of_orders;
+	private double min_num_of_orders;
+	private double max_cost;
+	private double min_cost;
+	private double max_volume;
+	private double max_capacity;
+	
 	public VisualisationTransportersModel()
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
@@ -154,6 +162,7 @@ public class VisualisationTransportersModel
 		
 		if(size_category!=sc)
 		{
+			size_category = sc;
 			filterTransporters(sc);
 		}
 		return transporters_filtered;
@@ -244,6 +253,8 @@ public class VisualisationTransportersModel
 		
 		//pobierz maksymalna liczbe zlecen
 		double max_num_of_orders = getMaxNumberOfOrders(routes);
+		//pobierz minimalna liczbe zlecen
+		double min_num_of_orders = getMinNumberOfOrders(routes);
 		
 		
 		for(ArrayList<Object> row: routes)
@@ -281,21 +292,38 @@ public class VisualisationTransportersModel
 			 polyline.startPath(firstCityLocation);
 			 polyline.lineTo(secondCityLocation);
 			 
-			 double orders_ratio =  number_of_orders/max_num_of_orders;
-
+			 double orders_ratio =  (number_of_orders-min_num_of_orders)/(max_num_of_orders-min_num_of_orders);
+			 System.out.println(orders_ratio);
 			
-			int red = orders_ratio<=0.25? 128 :
+		/*	int red = orders_ratio<=0.25? 128 :
 				 	  orders_ratio<=0.5?(int)(-512 * orders_ratio + 256):
 				 	  orders_ratio<=0.75?(int)(1020*orders_ratio - 510):
 				 	  orders_ratio<=1.0? 255: 0;
-			//int green = orders_ratio<=0.75? 255 :
-			//			orders_ratio<=1.0? (int)(-1020 * orders_ratio + 1020): 0;
-				 	  int green = (int)(-255*orders_ratio+255);
+			int green = (int)(-255*orders_ratio+255);
 			int blue = orders_ratio<=0.25? 255:
 					   orders_ratio<=0.5? (int)(-508 * orders_ratio + 382):
 					   orders_ratio<=0.75? 128 :
 					   orders_ratio<=1.0 ? (int) (-512 * orders_ratio + 512): 0 ;
+			 */
 			 
+			/*int red =
+				 	  orders_ratio<=0.5?255:
+				 	  orders_ratio<=1.0? (int) (-510*orders_ratio +510) :0;
+			int green = 0;
+			int blue = 
+					   orders_ratio<=0.5? (int)(510 * orders_ratio):
+					   orders_ratio<=1.0 ? 255:0 ;
+			*/
+			 
+			 int red = 
+			 	  orders_ratio<=0.5?0:
+			 	  orders_ratio<=0.75?(int)(508*orders_ratio - 126):
+			 	  orders_ratio<=1.0? 255: 0;
+		int green = (int)(-255*orders_ratio+255);
+		int blue = orders_ratio<=0.25? 255:
+				   orders_ratio<=0.5? (int)(-508 * orders_ratio + 382):
+				   orders_ratio<=0.75? 128 :
+				   orders_ratio<=1.0 ? (int) (-512 * orders_ratio + 512): 0 ;
 			 
 			 Color col =  new Color(red,green,blue);
 			 
@@ -322,14 +350,6 @@ public class VisualisationTransportersModel
 			graphicsLayer.addGraphic(new Graphic(secondCityLocation, triangle));
 		}
 		
-		
-		
-		/*//utworz i zapamietaj obiekty trasy w kolekcji miast na trasie path_cities
-		City city_from = new City(cityNameFrom, firstCityCoordinate1, firstCityCoordinate2);
-		City city_to = new City(cityNameTo, secondCityCoordinate1, secondCityCoordinate2);
-		path_cities.add(city_from);
-		path_cities.add(city_to);
-		*/
 	}
 	
 	
@@ -345,6 +365,21 @@ public class VisualisationTransportersModel
 			}
 			
 			return (int)max;
+		
+	}
+	
+	private int getMinNumberOfOrders( ArrayList<ArrayList<Object>>routes)
+	{
+			long min = 0;
+			for(ArrayList<Object> o: routes)
+			{
+				if(((long)o.get(2)) < min)
+				{
+					min = (long)o.get(2);
+				}
+			}
+			
+			return (int)min;
 		
 	}
 	
@@ -434,6 +469,60 @@ public class VisualisationTransportersModel
 		else
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
+	
+	
+	public void setMaxAndMinsOfTransportersProperties()
+	{
+		max_num_of_orders = Double.MIN_VALUE;
+		min_num_of_orders = Double.MAX_VALUE;
+		max_cost = Double.MIN_VALUE;
+		min_cost = Double.MAX_VALUE;
+		max_volume = Double.MIN_VALUE;
+		max_capacity = Double.MIN_VALUE;
+		
+		transporters_filtered.stream().forEach( (Transporter tr) -> {
+			if(tr.getNumber_of_orders()<min_num_of_orders) min_num_of_orders = tr.getNumber_of_orders();
+			if(tr.getNumber_of_orders()>max_num_of_orders) max_num_of_orders = tr.getNumber_of_orders();
+			if(tr.getCost()>max_cost) max_cost = tr.getCost();
+			if(tr.getCost()<min_cost) min_cost = tr.getCost();
+			if(tr.getVolume()>max_volume) max_volume = tr.getVolume();
+			if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
+		});
+	}
+
+	public double getMax_num_of_orders()
+	{
+		return max_num_of_orders;
+	}
+
+	public double getMin_num_of_orders()
+	{
+		return min_num_of_orders;
+	}
+
+	public double getMax_cost()
+	{
+		return max_cost;
+	}
+
+
+	public double getMin_cost()
+	{
+		return min_cost;
+	}
+
+
+	public double getMax_volume()
+	{
+		return max_volume;
+	}
+
+
+	public double getMax_capacity()
+	{
+		return max_capacity;
+	}
+
 
 
 }

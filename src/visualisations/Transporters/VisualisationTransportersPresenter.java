@@ -1,5 +1,7 @@
 package visualisations.Transporters;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 import com.esri.map.JMap;
@@ -30,7 +32,11 @@ public class VisualisationTransportersPresenter
 	
 	public void drawTransporters(String city_from, String city_to, SizeCategory sc)
 	{
-		view_transporters.drawTransporters(model_transporters.getFilteredTransporters(city_from,city_to,sc));
+		ArrayList<Transporter> transporters = model_transporters.getFilteredTransporters(city_from,city_to,sc);
+		
+		model_transporters.setMaxAndMinsOfTransportersProperties();
+		
+		view_transporters.drawTransporters(transporters);
 	}
 	
 	public void showTransporterDetails(int id_trans)
@@ -60,5 +66,40 @@ public class VisualisationTransportersPresenter
 	{
 		model_transporters.clearData();
 	}
+	
+	public double getMax_num_of_orders()
+	{
+		return model_transporters.getMax_num_of_orders();
+	}
+
+
+	public double getMin_num_of_orders()
+	{
+		return model_transporters.getMin_num_of_orders();
+	}
+
+
+	public double getMax_cost()
+	{
+		return model_transporters.getMax_cost();
+	}
+
+
+	public double getMin_cost()
+	{
+		return model_transporters.getMax_cost();
+	}
+
+
+	public double getMax_volume()
+	{
+		return model_transporters.getMax_volume();
+	}
+
+	public double getMax_capacity()
+	{
+		return model_transporters.getMax_capacity();
+	}
+
 
 }
