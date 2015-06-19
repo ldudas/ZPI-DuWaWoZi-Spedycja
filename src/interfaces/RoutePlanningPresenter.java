@@ -547,6 +547,11 @@ public class RoutePlanningPresenter
 		trans_presenter.clearTransportersFrame();
 	}
 	
+	public void saveOrdersToDatabase(String idTransporter)
+	{
+		route_planning_model.saveAllOrdersInDatabase(idTransporter);
+	}
+	
 	public void logOutUser()
 	{
 		trans_presenter.clearTransportersFrame();
