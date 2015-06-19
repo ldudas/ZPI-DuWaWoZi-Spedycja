@@ -28,18 +28,7 @@ public class RingChartJPanel extends JPanel
 
   public RingChartJPanel() 
   {
-	  	createMonthName();
-        // This will create the dataset 
-        PieDataset dataset = createDataset();
-        // based on the dataset we create the chart
-        createChart(dataset);
-        // we put the chart into a panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        // default size
-        chartPanel.setPreferredSize(new java.awt.Dimension(600, 370));       
-       // chartPanel.addChartMouseListener(listener);
-        // add it to our application
-        add(chartPanel);
+	  	createMonthName();     
 
    }
   
@@ -61,27 +50,41 @@ public class RingChartJPanel extends JPanel
       months.add("Gru");
   }
   
-  public void setColors(final Manufacturer manufacturer)
+  private void setColors(final Manufacturer manufacturer)
   {
 	  RingPlot plot = (RingPlot) chart.getPlot();
 	  
 	  for(int i= 0 ; i<months.size() ;i++)
-		  plot.setSectionPaint(months.get(i), manufacturer.getMonthActivityColor(i));
+		  plot.setSectionPaint(months.get(i), manufacturer.getMonthCostColor(i));
 
+  }
+  
+  public void setManufacturerDataOnChart(final Manufacturer currentMan)
+  {
+  	  removeAll();
+      PieDataset dataset = createDataset(currentMan);
+      createChart(dataset);
+      ChartPanel chartPanel = new ChartPanel(chart);
+      setColors(currentMan);
+      chartPanel.setPreferredSize(new java.awt.Dimension(232, 162));
+      add(chartPanel, "name_6269072302659");
   }
         
   	/**
      * Creates a sample dataset 
      */
 
-    private PieDataset createDataset() 
+    private PieDataset createDataset(final Manufacturer currentMan) 
     {
     	
         DefaultPieDataset monthChar = new DefaultPieDataset();
         
+        int i= 0;
         for( String m : months)
-        	monthChar.setValue(m, 30);  
-        
+        {
+        	monthChar.setValue(m, currentMan.getMonthActivity(i) );  
+        	i++;
+        }
         return monthChar;
         
     }

@@ -13,7 +13,8 @@ public class ManufacturersCollectionBuilder
 	public ArrayList<Manufacturer> buildManufacturersCollection
 						( 
 							final ArrayList<ArrayList<String>> manufacturerDetails,
-							final ArrayList<ArrayList<String>> manufacturerActivity
+							final ArrayList<ArrayList<String>> manufacturerActivityInEachMonth,
+							final ArrayList<ArrayList<String>> manufacturerCostInEachMonth
 						)
 	{
 		ArrayList<Manufacturer> manufacturers = new ArrayList<Manufacturer>();
@@ -27,10 +28,17 @@ public class ManufacturersCollectionBuilder
 						Integer.parseInt(manInfo.get(4)), Double.parseDouble(manInfo.get(5)), 
 						Integer.parseInt(manInfo.get(6)), manInfo.get(7), manInfo.get(8) ));
 				
-				for( ArrayList<String> manAct :  manufacturerActivity )
+				for( ArrayList<String> manAct :  manufacturerActivityInEachMonth )
 					if ( manInfo.get(8).equals(manAct.get(0)) )
 					{   
 						manufacturers.get(manufacturers.size() - 1).setMonthsActivity(manAct);
+						break;
+					}
+				
+				for( ArrayList<String> manCost :  manufacturerCostInEachMonth )
+					if ( manInfo.get(8).equals(manCost.get(0)) )
+					{   
+						manufacturers.get(manufacturers.size() - 1).setMonthsCost(manCost);
 						break;
 					}
 					

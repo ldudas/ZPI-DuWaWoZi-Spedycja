@@ -14,7 +14,7 @@ public class ManufacturersCollectionBuilderTest {
 	
 	@Test
 	public void testNullManufacturersCollection() {
-		assertNull(mcb.buildManufacturersCollection(null,null));
+		assertNull(mcb.buildManufacturersCollection(null,null,null));
 	}
 	
 	@Test
@@ -31,6 +31,6 @@ public class ManufacturersCollectionBuilderTest {
 		prod1.add("791621432");
 		prod1.add("1");
 		all.add(prod1);
-		assertEquals(1, mcb.buildManufacturersCollection(all,null).size());
+		assertEquals(1, mcb.buildManufacturersCollection(all,null,null).size());
 	}
 }

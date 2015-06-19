@@ -1,5 +1,7 @@
 package visualisations.Manufacturers;
 
+import java.awt.AWTEvent;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
+
+
 
 
 
@@ -80,7 +84,8 @@ public class VisualisationManufacturersModel
 		manufacturersData = manufacturersCollectionBuilder.buildManufacturersCollection
 							(
 									dao_manufacturersVis.getDataAboutManufacturerToVizualization(cityName,null,null,null,null), 
-									dao_manufacturersVis.getManufacturersActivityInEachMonth(cityName)
+									dao_manufacturersVis.getManufacturersActivityInEachMonth(cityName),
+									dao_manufacturersVis.getManufacturersCostInEachMonth(cityName)
 						    );
 		
 		manufacturersData.stream().forEach(currentDisplayManufacturersData::add);
@@ -96,6 +101,7 @@ public class VisualisationManufacturersModel
 		dec = new VisualisationManufactureDecorator(path_cities.get(path_cities.size() - 1), manufacturersData);
 
 		map =  dec;
+		
 		return map;
 	}
 		

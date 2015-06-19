@@ -574,7 +574,7 @@ public class VisualisationTransportersView
 		        	double delay_ratio = 4*t.getDelay()>=1.0?1:4*t.getDelay();
 		        	int green = delay_ratio>=0.5?(int)(-127.5*delay_ratio + 127.5):255;
 		        	int red = delay_ratio<=0.5?(int)(510*delay_ratio):255;
-		        	g2d.setColor(new Color(red,green,0));
+		        	g2d.setColor(new Color(red,0,green));
 		        	//rysowanie obiektu przewoznika
 		        	g2d.fill(rect);
 		        	
