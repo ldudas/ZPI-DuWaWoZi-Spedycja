@@ -3,6 +3,7 @@ package database;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import dataModels.Order;
 import exceptions.DatabaseConnectionExeption;
 
 public class DataAccessObjectRoutePlanning 
@@ -78,5 +79,14 @@ public class DataAccessObjectRoutePlanning
 		
 		return new ArrayList<String>();
 		
+	}
+	
+	public void saveOrdersToDatabase(ArrayList<Order> ordersData,String idTrans)
+	{
+		ordersData.stream().forEach( order -> 
+		{ 
+			order.setTransporterID(idTrans);
+			//databaseConnector
+		} );
 	}
 }

@@ -111,4 +111,15 @@ public class RoutePlanningModel
 		else
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
+	
+	public void saveAllOrdersInDatabase(String idTrans)
+	{
+		//tego nie bedzie robil
+		ordersData.stream().forEach( order -> 
+		{ 
+			order.setTransporterID(idTrans);
+			System.out.println(order);
+		} );
+		//dao_routePlanning.saveOrdersToDatabase(ordersData,idTrans);
+	}
 }
