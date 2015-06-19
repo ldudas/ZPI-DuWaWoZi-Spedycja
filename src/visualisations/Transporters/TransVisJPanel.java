@@ -400,8 +400,8 @@ private static final long serialVersionUID = 1L;
 			if(s.contains(e.getX(), e.getY()))
 			{
 				Transporter t = view.getTransporters().get(drawnShapes.indexOf(s));
-				//System.out.println("Wybrano: "+t.getName()+"\n"+t.getPhone_num());
 				view.showTransporterDetails(t.getId_trans());
+				view.setChosenTransporter(t.getId_trans());
 			}
 		}
 		

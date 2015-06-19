@@ -76,6 +76,7 @@ public class VisualisationTransportersModel
 	 */
 	private ArrayList<ArrayList<Object>> cities_coordinates;
 	
+	private int chosen_transporter; //id wybranego przewoznika
 	
 	private double max_num_of_orders;
 	private double min_num_of_orders;
@@ -107,6 +108,7 @@ public class VisualisationTransportersModel
 		cityFrom="";
 		cityTo="";
 		size_category = null;
+		chosen_transporter = -1;
 	}
 	
 	private void getTranspotersFormDatabase(String city_from, String city_to)
@@ -488,6 +490,16 @@ public class VisualisationTransportersModel
 			if(tr.getVolume()>max_volume) max_volume = tr.getVolume();
 			if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
 		});
+	}
+	
+	public void setChosenTransporter(int id)
+	{
+		chosen_transporter = id;
+	}
+	
+	public int getChosenTransporter()
+	{
+		return chosen_transporter;
 	}
 	
 	public ArrayList<String> getAllCityNames()

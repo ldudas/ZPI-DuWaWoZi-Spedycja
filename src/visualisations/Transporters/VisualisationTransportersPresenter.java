@@ -70,6 +70,16 @@ public class VisualisationTransportersPresenter
 		model_transporters.setExternalDatabaseConnectionProperty(currentLoggedUser);
 	}
 	
+	public void setChosenTransporter(int id)
+	{
+		model_transporters.setChosenTransporter(id);
+	}
+	
+	public int getChosenTransporter()
+	{
+		return model_transporters.getChosenTransporter();
+	}
+	
 	public void clearTransportersFrame()
 	{
 		view_transporters.clearCarrierVisualizationFrame();

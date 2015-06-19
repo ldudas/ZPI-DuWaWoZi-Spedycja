@@ -65,9 +65,7 @@ public class VisualisationTransportersView
 	private JButton btn_confirmPath;
 	private JButton btn_savePathToDatabase;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+
 	public VisualisationTransportersView() 
 	{
 		drawnShapes = new ArrayList<>();
@@ -79,9 +77,7 @@ public class VisualisationTransportersView
 		lastWindowPos = 50;
 	}
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+
 	public void setPresenter(VisualisationTransportersPresenter pres)
 	{
 		trans_presenter = pres;
@@ -104,9 +100,7 @@ public class VisualisationTransportersView
 	}
 
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+
 	public void initialize( JFrame carrierV) 
 	{		
 		//carrierVisualization = new JFrame();
@@ -336,6 +330,11 @@ public class VisualisationTransportersView
 				}
 			
 			}
+		}
+		
+		public void setChosenTransporter(int id)
+		{
+			trans_presenter.setChosenTransporter(id);
 		}
 	 
 	 public void showTransporterDetails(int id_trans)
