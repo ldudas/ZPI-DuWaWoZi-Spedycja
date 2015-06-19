@@ -95,6 +95,7 @@ public class VisualisationTransportersModel
 		cityFrom="";
 		cityTo="";
 		size_category = null;
+		chosen_transporter = -1;
 	}
 	
 	public void clearData()
