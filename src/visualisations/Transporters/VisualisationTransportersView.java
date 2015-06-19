@@ -63,7 +63,11 @@ public class VisualisationTransportersView
 	private double max_capacity;
 
 	private JButton btn_confirmPath;
+	private JButton btn_savePathToDatabase;
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public VisualisationTransportersView() 
 	{
 		drawnShapes = new ArrayList<>();
@@ -75,6 +79,9 @@ public class VisualisationTransportersView
 		lastWindowPos = 50;
 	}
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void setPresenter(VisualisationTransportersPresenter pres)
 	{
 		trans_presenter = pres;
@@ -97,6 +104,9 @@ public class VisualisationTransportersView
 	}
 
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void initialize( JFrame carrierV) 
 	{		
 		//carrierVisualization = new JFrame();
@@ -123,20 +133,34 @@ public class VisualisationTransportersView
 				
 		control.add(btn_confirmPath);
 		
+		
+		btn_savePathToDatabase = new JButton("Zapisz trasę");
+		btn_savePathToDatabase.setBackground(SystemColor.inactiveCaption);
+		btn_savePathToDatabase.setForeground(new Color(0, 0, 0));
+		btn_savePathToDatabase.setFont(btn_confirmPath.getFont().deriveFont(btn_confirmPath.getFont().getStyle() | Font.BOLD | Font.ITALIC, 13f));
+		btn_savePathToDatabase.setBounds(275, 63, 150, 42);
+		control.add(btn_savePathToDatabase);
+		
+		
 		JComboBox<String> comboBox_cityTo = new JComboBox<String>();
-		comboBox_cityTo.setModel(new DefaultComboBoxModel<String>(new String[] {"Warszawa"}));
+		//comboBox_cityTo.setModel(new DefaultComboBoxModel<String>(cities));
 		comboBox_cityTo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		comboBox_cityTo.setBackground(SystemColor.inactiveCaption);
 		comboBox_cityTo.setBounds(137, 33, 128, 31);
 		control.add(comboBox_cityTo);
-			
+		
 		
 		JComboBox<String> comboBox_CityFrom = new JComboBox<String>();
-		comboBox_CityFrom.setModel(new DefaultComboBoxModel<String>(new String[] {"Wrocław"}));
+		//comboBox_CityFrom.setModel(new DefaultComboBoxModel<String>(cities));
 		comboBox_CityFrom.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		comboBox_CityFrom.setBackground(SystemColor.inactiveCaption);
 		comboBox_CityFrom.setBounds(10, 33, 128, 31);
 		control.add(comboBox_CityFrom);
+		
+		ArrayList<String> listOfCityNames = trans_presenter.getAllCityNames();
+		
+		addAllCityToComboBox(comboBox_cityTo, listOfCityNames);
+		addAllCityToComboBox(comboBox_CityFrom, listOfCityNames);
 		
 		
 		JLabel lbl_cityFrom = new JLabel("   Z Miasta");
@@ -194,6 +218,14 @@ public class VisualisationTransportersView
 			}
 		});
 		
+		btn_savePathToDatabase.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+						
+			}
+		});
+		
 		
 		JLabel lbl_size = new JLabel("Rozmiar");
 		lbl_size.setForeground(new Color(255, 204, 0));
@@ -236,6 +268,9 @@ public class VisualisationTransportersView
 		carrierVisualization.validate();
 	}
 	
+	 /**
+	  * @wbp.parser.entryPoint
+	  */
 	 public void drawTransporters(ArrayList<Transporter> transporters)
 	    {
 		 	if(!isVisualisationStarted)
@@ -271,6 +306,9 @@ public class VisualisationTransportersView
 	    	visualization.repaint();
 	    }
 	 
+	 /**
+	  * @wbp.parser.entryPoint
+	  */
 	 public void showTransporterDetailsWindow(Transporter t,JMap routes)
 	 {
 				
@@ -288,6 +326,23 @@ public class VisualisationTransportersView
 				detailsWindow.setVisible(true);		
 				lastWindowPos += 25;
 	 }
+	 
+	 
+		/**
+		 * @wbp.parser.entryPoint
+		 */
+		private void addAllCityToComboBox(JComboBox<String> comboBox, ArrayList<String> listOfCityNames)
+		{
+			if(comboBox != null)
+			{	
+			
+				for ( String cityName : listOfCityNames )
+				{
+						comboBox.addItem(cityName);
+				}
+			
+			}
+		}
 	 
 	 public void showTransporterDetails(int id_trans)
 	 {

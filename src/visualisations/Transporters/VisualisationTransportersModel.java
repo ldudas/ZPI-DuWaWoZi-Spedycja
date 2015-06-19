@@ -489,6 +489,11 @@ public class VisualisationTransportersModel
 			if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
 		});
 	}
+	
+	public ArrayList<String> getAllCityNames()
+	{
+		return DAO_TransVis.getAllCityNames();
+	}
 
 	public double getMax_num_of_orders()
 	{

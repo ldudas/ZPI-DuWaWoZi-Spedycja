@@ -1,9 +1,12 @@
 package visualisations.Transporters;
 
+import interfaces.RoutePlanningPresenter;
+
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import com.esri.core.tasks.na.RouteParameters;
 import com.esri.map.JMap;
 
 import dataModels.SizeCategory;
@@ -22,6 +25,12 @@ public class VisualisationTransportersPresenter
 	 * widok wizualizacji przewoznikow
 	 */		
 	private VisualisationTransportersView view_transporters;
+	
+	
+	/**
+	 * prezenter nadrzędny
+	 */
+	private RoutePlanningPresenter route_planning_presenter;
 	
 	
 	public VisualisationTransportersPresenter(final VisualisationTransportersView view, final VisualisationTransportersModel model)
@@ -51,6 +60,10 @@ public class VisualisationTransportersPresenter
 		view_transporters.initialize(mainFrame);
 	}
 	
+	public void set_route_presenter(RoutePlanningPresenter presenter)
+	{
+		
+	}
 
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
@@ -65,6 +78,11 @@ public class VisualisationTransportersPresenter
 	public void clearDataInModel()
 	{
 		model_transporters.clearData();
+	}
+	
+	public ArrayList<String> getAllCityNames()
+	{
+		return model_transporters.getAllCityNames();
 	}
 	
 	public double getMax_num_of_orders()

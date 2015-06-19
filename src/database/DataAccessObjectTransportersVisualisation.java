@@ -1,6 +1,7 @@
 package database;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import dataModels.Transporter;
 import exceptions.DatabaseConnectionExeption;
@@ -68,5 +69,30 @@ public class DataAccessObjectTransportersVisualisation
 	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
 	{
 		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
+	}
+	
+	public ArrayList<String> getAllCityNames()
+	{
+		final String query = "SELECT nazwa_miasta FROM Miasta ORDER BY nazwa_miasta;";
+		
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		try 
+		{
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		
+		if( resultOfQuery != null && resultOfQuery.size() > 0)
+		{
+			return resultOfQuery.stream()
+					.map(c -> (String) c.get(0) )
+					.collect(Collectors.toCollection(ArrayList::new));
+		}
+		
+		return new ArrayList<String>();
+		
 	}
 }
