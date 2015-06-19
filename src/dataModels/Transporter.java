@@ -111,7 +111,7 @@ public class Transporter
 	}
 
 	public String toString(){
-		return id_trans+ " - " + cost;
+		return id_trans+ " - " + capacity;
 	}
 	
 	public static int compareByCapacity(Transporter t1, Transporter t2)

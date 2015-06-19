@@ -282,9 +282,22 @@ public class VisualisationTransportersModel
 			 polyline.lineTo(secondCityLocation);
 			 
 			 double orders_ratio =  number_of_orders/max_num_of_orders;
-			 int red = orders_ratio>=0.5?(int)(-127.5*orders_ratio + 127.5):255;
-			 int green  = orders_ratio<=0.5?(int)(510*orders_ratio):255;
-			 Color col =  new Color(red,green,0);
+
+			
+			int red = orders_ratio<=0.25? 128 :
+				 	  orders_ratio<=0.5?(int)(-512 * orders_ratio + 256):
+				 	  orders_ratio<=0.75?(int)(1020*orders_ratio - 510):
+				 	  orders_ratio<=1.0? 255: 0;
+			//int green = orders_ratio<=0.75? 255 :
+			//			orders_ratio<=1.0? (int)(-1020 * orders_ratio + 1020): 0;
+				 	  int green = (int)(-255*orders_ratio+255);
+			int blue = orders_ratio<=0.25? 255:
+					   orders_ratio<=0.5? (int)(-508 * orders_ratio + 382):
+					   orders_ratio<=0.75? 128 :
+					   orders_ratio<=1.0 ? (int) (-512 * orders_ratio + 512): 0 ;
+			 
+			 
+			 Color col =  new Color(red,green,blue);
 			 
 			 //ustaw styl linii
 			 SimpleLineSymbol polyLineStyle = new SimpleLineSymbol(col, 2);
