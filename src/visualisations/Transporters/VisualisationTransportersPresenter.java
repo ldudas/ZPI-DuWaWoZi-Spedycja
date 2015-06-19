@@ -90,6 +90,18 @@ public class VisualisationTransportersPresenter
 		model_transporters.clearData();
 	}
 	
+	
+	public void saveOrdersToDatabase()
+	{
+		int id_trans = model_transporters.getChosenTransporter();
+		
+		if(id_trans != -1)
+		{
+			route_planning_presenter.saveOrdersToDatabase(String.valueOf(id_trans));
+		}
+		
+	}
+	
 	public ArrayList<String> getAllCityNames()
 	{
 		return model_transporters.getAllCityNames();

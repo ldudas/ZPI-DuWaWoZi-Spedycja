@@ -216,7 +216,7 @@ public class VisualisationTransportersView
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-						
+				trans_presenter.saveOrdersToDatabase();
 			}
 		});
 		
