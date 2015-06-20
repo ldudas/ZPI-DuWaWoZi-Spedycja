@@ -121,7 +121,7 @@ public class MenuJPanel extends JPanel
 			public void actionPerformed(ActionEvent e) 
 			{
 				presenter_route_planning.setExternalDatabaseConnectionProperty();
-				presenter_route_planning.changeManufacurerVisualization_to_transportVisualization();
+				presenter_route_planning.changeManufacurerVisualization_to_transportVisualization(-1);
 			}
 		});
 		btn_showTransporters.setBackground(SystemColor.activeCaption);

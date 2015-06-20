@@ -125,7 +125,7 @@ public class PathManagementJPanel extends JPanel
 																						    "Potwierdzenie edycji trasy", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					 presenter_route_planning.changeManufacurerVisualization_to_transportVisualization();
+					 presenter_route_planning.changeManufacurerVisualization_to_transportVisualization(1);
 				} 
 			}
 		});

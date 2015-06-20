@@ -75,9 +75,10 @@ public class RoutePlanningPresenter
 		route_planning_view.change_startPlanning_to_manufacturerVisualization();
 	}
 	
-	public void changeManufacurerVisualization_to_transportVisualization()
+	public void changeManufacurerVisualization_to_transportVisualization(int flag)
 	{
 		route_planning_view.closeMainFrame_ManufacturerVisualization();
+		trans_presenter.setOpeningFlag(flag);
 		trans_presenter.startTransportersVisualization_inNewFrame(route_planning_view.getMainFrame());
 	}
 	

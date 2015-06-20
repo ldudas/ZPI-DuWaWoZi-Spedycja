@@ -111,7 +111,7 @@ public class Transporter
 	}
 
 	public String toString(){
-		return id_trans+ " - " + capacity;
+		return name+" :: koszt - "+cost+" :: l. zleceń - "+number_of_orders;
 	}
 	
 	public static int compareByCapacity(Transporter t1, Transporter t2)
