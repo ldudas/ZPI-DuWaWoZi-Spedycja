@@ -114,8 +114,6 @@ public class RoutePlanningModel
 	
 	public void saveAllOrdersInDatabase(String idTrans)
 	{
-		//tego nie bedzie robil
-		System.out.println(ordersData.size());
 		ordersData.stream().forEach( order -> 
 		{ 
 			order.setTransporterID(idTrans);

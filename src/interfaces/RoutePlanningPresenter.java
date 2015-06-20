@@ -77,7 +77,6 @@ public class RoutePlanningPresenter
 	
 	public void changeManufacurerVisualization_to_transportVisualization(int flag)
 	{
-		route_planning_view.closeMainFrame_ManufacturerVisualization();
 		trans_presenter.setOpeningFlag(flag);
 		trans_presenter.startTransportersVisualization_inNewFrame(route_planning_view.getMainFrame());
 	}

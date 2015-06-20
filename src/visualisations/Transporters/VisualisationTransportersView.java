@@ -62,24 +62,24 @@ public class VisualisationTransportersView
 
 	public void initialize( JFrame carrierV) 
 	{		
-		//carrierVisualization = new JFrame();
+	//	carrierVisualization = new JFrame();
 		this.carrierVisualizationFrame = carrierV;
-		//carrierVisualization.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/025581022.jpg")));
-		carrierVisualizationFrame.setResizable(false);
+	//	carrierVisualization.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/025581022.jpg")));
+	//	carrierVisualizationFrame.setResizable(false);
 		carrierVisualizationFrame.setTitle("Przewo\u017Anicy");
-		carrierVisualizationFrame.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		carrierVisualizationFrame.getContentPane().setBackground(SystemColor.inactiveCaption);
-		carrierVisualizationFrame.getContentPane().setForeground(SystemColor.textHighlightText);
-		carrierVisualizationFrame.getContentPane().setLayout(null);
+	//	carrierVisualizationFrame.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+	//	carrierVisualizationFrame.getContentPane().setBackground(SystemColor.inactiveCaption);
+	//	carrierVisualizationFrame.getContentPane().setForeground(SystemColor.textHighlightText);
+	//	carrierVisualizationFrame.getContentPane().setLayout(null);
 		
 	    transVisInterfaceJPanel = new TransVisInterfaceJPanel(this,trans_presenter.getOpeningFlag());
 	    carrierVisualizationFrame.add(transVisInterfaceJPanel);
 		
-		
-		carrierVisualizationFrame.setForeground(SystemColor.menu);
+	//	carrierVisualizationFrame.setForeground(SystemColor.menu);
+	//	carrierVisualizationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	carrierVisualizationFrame.setVisible(true);
+	    
 		carrierVisualizationFrame.setBounds(250, 30, 825, 725);
-		carrierVisualizationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		carrierVisualizationFrame.setVisible(true);
 		carrierVisualizationFrame.invalidate();
 		carrierVisualizationFrame.validate();
 	}

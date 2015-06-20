@@ -147,7 +147,7 @@ public class RoutePlanningView
 						menuJPanel.setEnableButtonsToUserAction(false);
 						menuJPanel.setEnableButtonsFirstAction(true);
 					}
-					prepareFrameAfterChangeView(mainFrame);
+					//prepareFrameAfterChangeView(mainFrame);
 				}
 			};
 		});
@@ -318,7 +318,7 @@ public class RoutePlanningView
 				mainFrame.remove(startApplicationJPanel);
 				mainFrame.setBounds(100, 100, 1130, 605);
 				mainFrame.setTitle("Producenci");
-				mainFrame.add(manufacturerVisualizationWithMapJPanel);	
+				mainFrame.add(manufacturerVisualizationWithMapJPanel);
 				prepareFrameAfterChangeView(mainFrame);
 			}
 		}, 5000);
