@@ -17,7 +17,11 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
 
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dataModels.Transporter;
@@ -394,17 +398,33 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		lastWindowPos = 50;
+		ArrayList<Transporter> clicked = new ArrayList<>();
+		
 		for(Shape s: drawnShapes)
 		{
 			if(s.contains(e.getX(), e.getY()))
 			{
-				Transporter t = view.getTransporters().get(drawnShapes.indexOf(s));
-				view.showTransporterDetails(t.getId_trans());
-				view.setChosenTransporter(t.getId_trans());
+				clicked.add(view.getTransporters().get(drawnShapes.indexOf(s)));
 			}
 		}
 		
+		if(clicked.size() ==1 )
+		{
+			Transporter t = clicked.get(0);
+			view.showTransporterDetails(t.getId_trans());
+			view.setChosenTransporter(t);
+		}
+		else if(clicked.size() > 1 )
+		{
+			Transporter t = (Transporter) JOptionPane.showInputDialog(this, "Wybrałeś więcej niż jedngo przewożnika.\nWybierz jednego z poniższych:", "Wybór przewoźnika", JOptionPane.PLAIN_MESSAGE,
+			        null, clicked.toArray(), "Titan");
+			
+			if (t!= null)
+			{
+				view.showTransporterDetails(t.getId_trans());
+				view.setChosenTransporter(t);
+			}
+		}
 	}
 
 	

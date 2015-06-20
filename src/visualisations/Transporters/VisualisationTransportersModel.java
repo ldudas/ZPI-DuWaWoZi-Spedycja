@@ -76,7 +76,17 @@ public class VisualisationTransportersModel
 	 */
 	private ArrayList<ArrayList<Object>> cities_coordinates;
 	
-	private int chosen_transporter; //id wybranego przewoznika
+	/**
+	 * id wybranego przewoznika
+	 */
+	private int chosen_transporter;
+	
+	/**
+	 * opcja kozystania z wizulaziacji
+	 * tylko przegladanie przewoznikow: 	-1
+	 * konczaca sie zapisem trasy do bazy: 	 1
+	 */
+	private int opening_flag;
 	
 	private double max_num_of_orders;
 	private double min_num_of_orders;
@@ -96,6 +106,7 @@ public class VisualisationTransportersModel
 		cityTo="";
 		size_category = null;
 		chosen_transporter = -1;
+		opening_flag = 0;
 	}
 	
 	public void clearData()
@@ -296,7 +307,6 @@ public class VisualisationTransportersModel
 			 polyline.lineTo(secondCityLocation);
 			 
 			 double orders_ratio =  (number_of_orders-min_num_of_orders)/(max_num_of_orders-min_num_of_orders);
-			 System.out.println(orders_ratio);
 			
 		/*	int red = orders_ratio<=0.25? 128 :
 				 	  orders_ratio<=0.5?(int)(-512 * orders_ratio + 256):
@@ -319,14 +329,15 @@ public class VisualisationTransportersModel
 			*/
 			 
 			 int red = 
-			 	  orders_ratio<=0.5?0:
-			 	  orders_ratio<=0.75?(int)(508*orders_ratio - 126):
-			 	  orders_ratio<=1.0? 255: 0;
-		int green = (int)(-255*orders_ratio+255);
-		int blue = orders_ratio<=0.25? 255:
-				   orders_ratio<=0.5? (int)(-508 * orders_ratio + 382):
-				   orders_ratio<=0.75? 128 :
-				   orders_ratio<=1.0 ? (int) (-512 * orders_ratio + 512): 0 ;
+				 	  orders_ratio<=0.25?0:
+				 		 orders_ratio<=0.25?128:
+				 	  orders_ratio<=0.75?(int)(508*orders_ratio - 126):
+				 	  orders_ratio<=1.0? 255: 0;
+			int green = (int)(-255*orders_ratio+255);
+			int blue = orders_ratio<=0.25? 255:
+					   orders_ratio<=0.5? (int)(-508 * orders_ratio + 382):
+					   orders_ratio<=0.75? 128 :
+					   orders_ratio<=1.0 ? (int) (-512 * orders_ratio + 512): 0 ;
 			 
 			 Color col =  new Color(red,green,blue);
 			 
@@ -539,6 +550,23 @@ public class VisualisationTransportersModel
 	public double getMax_capacity()
 	{
 		return max_capacity;
+	}
+	
+	public void setOpeningFlag(int flag)
+	{
+		if(flag == 1 || flag == -1)
+		{
+			opening_flag = flag;
+		}
+		else
+		{
+			opening_flag = 0;
+		}
+	}
+	
+	public int getOpeningFlag()
+	{
+		return opening_flag;
 	}
 
 

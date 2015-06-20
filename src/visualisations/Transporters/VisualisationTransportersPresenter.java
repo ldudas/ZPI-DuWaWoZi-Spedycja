@@ -102,6 +102,16 @@ public class VisualisationTransportersPresenter
 		
 	}
 	
+	public void setOpeningFlag(int flag)
+	{
+		model_transporters.setOpeningFlag(flag);
+	}
+	
+	public int getOpeningFlag()
+	{
+		return model_transporters.getOpeningFlag();
+	}
+	
 	public ArrayList<String> getAllCityNames()
 	{
 		return model_transporters.getAllCityNames();
