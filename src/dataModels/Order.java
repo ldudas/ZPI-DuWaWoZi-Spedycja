@@ -31,6 +31,11 @@ public class Order
 		this.finishDate = finishDate;
 	}
 	
+	public String toString()
+	{
+		return startDate + " " + cityFrom.getCityName() + " " + finishDate + " " + cityTo.getCityName() + " " + idManufacturer + " " + idTrasnporter;
+	}
+	
 	
 	public void setManufacturerId(String idMan)
 	{

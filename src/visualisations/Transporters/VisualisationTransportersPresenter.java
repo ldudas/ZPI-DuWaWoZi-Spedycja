@@ -94,7 +94,7 @@ public class VisualisationTransportersPresenter
 	public void saveOrdersToDatabase()
 	{
 		int id_trans = model_transporters.getChosenTransporter();
-		
+		System.out.println(" id " + id_trans);
 		if(id_trans != -1)
 		{
 			route_planning_presenter.saveOrdersToDatabase(String.valueOf(id_trans));

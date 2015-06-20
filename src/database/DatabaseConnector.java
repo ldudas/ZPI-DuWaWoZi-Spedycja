@@ -81,6 +81,16 @@ public class DatabaseConnector
 			return queryResult ;
 		}
 	}
+	
+	public void saveDataToDatabase(final String query) throws DatabaseConnectionExeption
+	{
+		if( !checkInternetConnection() )
+			throw new DatabaseConnectionExeption("Blad: Brak polaczenia z internetem.");
+		if( !connectToDatabase() )
+			throw new DatabaseConnectionExeption("Blad: Brak polaczenia z z baza danych.");
+		
+		
+	}
 			
 	/**
 	 * Sprawdza polaczenie z internetem
