@@ -268,7 +268,7 @@ public class RoutePlanningView
 	public void change_registryUser_to_menu()
 	{
 		startApplicationJPanel.removeLogicJPanel();
-		mainFrame.setTitle(APPLICATION_NAME );
+		mainFrame.setTitle( APPLICATION_NAME );
 		startApplicationJPanel.addLogicJPanel(welcomeJPanel);
 		prepareFrameAfterChangeView(mainFrame);
 	}
@@ -311,6 +311,7 @@ public class RoutePlanningView
 				startApplicationJPanel.addLogicJPanel(background);
 				prepareFrameAfterChangeView(mainFrame);
 				*/
+
 		
 		Timer timer = new Timer();
 		

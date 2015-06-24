@@ -54,7 +54,7 @@ public class DataAccessObjectManufacturersVisualisation
 										"AND Z.data_rozp_plan > date_sub( date_sub(sysdate(),INTERVAL " + intervalValue + " " + intervalType + ")"+
 										" , INTERVAL "+ intervalValue2 + " " + intervalType2 + ")";
 		
-		String query = "SELECT nazwa_prod, P.dlugosc, P.szerokosc, MAX(Z.data_rozp_plan), "
+		final String query = "SELECT nazwa_prod, P.dlugosc, P.szerokosc, MAX(Z.data_rozp_plan), "
 				+ "COUNT(*) , SUM(Z.wartosc_zlec) , SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), P.telefon, P.id_prod "
 				+ "FROM Zlecenia Z JOIN Producenci P ON Z.id_prod = P.id_prod "
 				+ "JOIN Miasta M ON Z.z_miasta = M.id_miasta "

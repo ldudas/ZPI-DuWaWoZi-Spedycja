@@ -22,7 +22,7 @@ public class WelcomeJPanel extends JPanel
 		setLayout(null);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("images/ImageToApplication.png"));
+		label.setIcon(new ImageIcon(getClass().getResource("/additions/ImageToApplication.png")));
 		label.setBounds(74, 55, 474, 314);
 		add(label);
 		
