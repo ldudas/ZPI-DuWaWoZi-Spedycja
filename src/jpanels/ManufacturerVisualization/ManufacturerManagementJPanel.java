@@ -110,7 +110,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		comboBox_map_unit.setBackground(SystemColor.activeCaption);
 		comboBox_map_unit.setForeground(new Color(0, 0, 0));
 		comboBox_map_unit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		addUnitToComboBox(comboBox_map_unit);
+		addUnitToComboBox(comboBox_map_unit,true);
 		
 		final JComboBox<Integer> comboBox_map_count = new JComboBox<Integer>();
 		comboBox_map_count.setBounds(165, 140, 153, 22);
@@ -241,13 +241,18 @@ public class ManufacturerManagementJPanel extends JPanel
 		presenter_route_planning = presenter;
 	}
 	
-	private void addUnitToComboBox(JComboBox<String> combo )
+	private void addUnitToComboBox(JComboBox<String> combo)
 	{
-		combo.addItem("");
 		combo.addItem("Dni");
 		combo.addItem("Tygodnie");
 		combo.addItem("Miesiące");
 		combo.addItem("Lata");
+	}
+	
+	private void addUnitToComboBox(JComboBox<String> combo, boolean flag)
+	{
+		combo.addItem("");
+		addUnitToComboBox(combo);	
 	}
 	
 	private int countDaysFromComboBoxs(JComboBox<String> unit,JComboBox<Integer> number )

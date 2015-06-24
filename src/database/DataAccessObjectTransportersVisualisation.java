@@ -27,14 +27,12 @@ public class DataAccessObjectTransportersVisualisation
 	 *  <br>res.get(0).get(2) -> liczba zlecen pomiedzy miastami
 	 * @author Łukasz Dudaszek
 	 */
-	@SuppressWarnings("finally")
 	public ArrayList<ArrayList<Object>> getTransporterRoutes(final int id_trans)
 	{
 		final String query = "SELECT m1.nazwa_miasta z_m, m2.nazwa_miasta do_m ,count(*) FROM Zlecenia z join Miasta m1 on z.z_miasta = m1.id_miasta join Miasta m2 on z.do_miasta = m2.id_miasta where id_przew="
 							+ id_trans + " group by z_m, do_m";
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
-		final int coutOfResultColumns = 3;
 		
 		try 
 		{

@@ -19,7 +19,6 @@ import dataModels.Transporter;
 
 import javax.swing.SwingConstants;
 
-import jpanels.ManufacturerVisualization.StartPlanningJPanel;
 
 public class TransVisInterfaceJPanel extends JPanel
 {
