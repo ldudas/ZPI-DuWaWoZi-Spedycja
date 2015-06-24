@@ -34,7 +34,7 @@ public class AboutJPanel extends JPanel
 		
 		JTextPane about = new JTextPane();
 		about.setEditable(false);
-		about.setText("Aplikacja ... powstała na rzecz realizacji kursu zespołowe przedsięwzięcie inżynierskie, organizowanego na Politechnice Wrocławskiej na wydziale Informatyki i Zarządzania, kierunku Informatyka w semestrze 2014/2015 Letnim. \r\n\r\nTytuł projektu: System informatyczny z interaktywnymi technikami wizualizacyjnymi, wspomagający decyzje operatora logistycznego będącego koordynatorem w łańcuchu dostaw. \r\n\r\nProwadzący zajęcia: Dr inż. Martin Tabakow.\r\n\r\nAutorzy projektu:\r\nDudaszek Łukasz\r\nWasielewski Tomasz\r\nWołoszyk Piotr\r\nZimny Kamil");
+		about.setText("Aplikacja FORWARDer powstała na rzecz realizacji kursu zespołowe przedsięwzięcie inżynierskie, organizowanego na Politechnice Wrocławskiej na wydziale Informatyki i Zarządzania, kierunku Informatyka w semestrze 2014/2015 Letnim. \r\n\r\nTytuł projektu: System informatyczny z interaktywnymi technikami wizualizacyjnymi, wspomagający decyzje operatora logistycznego będącego koordynatorem w łańcuchu dostaw. \r\n\r\nProwadzący zajęcia: Dr inż. Martin Tabakow.\r\n\r\nAutorzy projektu:\r\nDudaszek Łukasz\r\nWasielewski Tomasz\r\nWołoszyk Piotr\r\nZimny Kamil");
 		about.setForeground(new Color(255, 204, 0));
 		about.setBackground(SystemColor.inactiveCaptionText);
 		about.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));

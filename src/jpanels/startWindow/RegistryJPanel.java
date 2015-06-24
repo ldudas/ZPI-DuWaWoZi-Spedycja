@@ -168,7 +168,7 @@ public class RegistryJPanel extends JPanel
 		lblHasoBazy.setBounds(21, 320, 84, 14);
 		panel.add(lblHasoBazy);
 		
-		btn_testConnection = new JButton("Test po\u0142\u0105czenia");
+		btn_testConnection = new JButton("Test połączenia ");
 		btn_testConnection.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -200,7 +200,7 @@ public class RegistryJPanel extends JPanel
 		btn_testConnection.setBounds(123, 371, 138, 49);
 		panel.add(btn_testConnection);
 		
-		btn_registry = new JButton("Zarejestruj");
+		btn_registry = new JButton("Zarejestruj ");
 		btn_registry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -234,7 +234,7 @@ public class RegistryJPanel extends JPanel
 		btn_registry.setBounds(266, 371, 116, 49);
 		panel.add(btn_registry);
 		
-		JButton btn_back = new JButton("Wróć");
+		JButton btn_back = new JButton("Wróć ");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{

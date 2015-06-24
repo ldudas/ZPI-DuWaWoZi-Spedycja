@@ -5,6 +5,8 @@ import interfaces.RoutePlanningPresenter;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.esri.map.JMap;
 
 import dataModels.SizeCategory;
@@ -95,12 +97,22 @@ public class VisualisationTransportersPresenter
 		System.out.println(" id " + id_trans);
 		if(id_trans != -1)
 		{
-			try {
-				route_planning_presenter.saveOrdersToDatabase(String.valueOf(id_trans));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			try 
+			{
+				String route_name = view_transporters.showRouteNameDialog();
+				if(route_name!=null && !route_name.equals(""))
+				{
+				route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
+				view_transporters.showSaveSuccessDialog();
+				route_planning_presenter.change_to_startPanel();
+				}
+			} 
+			catch (Exception e) 
+			{
+				view_transporters.showDatabaseSaveError();
 			}
+			
+			
 		}
 		
 	}

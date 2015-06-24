@@ -50,7 +50,7 @@ public class MenuJPanel extends JPanel
 		lblMenu.setBounds(83, 44, 84, 51);
 		panel.add(lblMenu);
 		
-		btn_startPlanning = new JButton("Rozpocznij planowanie");
+		btn_startPlanning = new JButton("Rozpocznij planowanie ");
 		btn_startPlanning.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -64,7 +64,7 @@ public class MenuJPanel extends JPanel
 		btn_startPlanning.setBounds(10, 230, 224, 51);
 		panel.add(btn_startPlanning);
 		
-	    btn_registery = new JButton("Rejestracja");
+	    btn_registery = new JButton("Rejestracja ");
 		btn_registery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -76,14 +76,14 @@ public class MenuJPanel extends JPanel
 		btn_registery.setBounds(10, 168, 224, 51);
 		panel.add(btn_registery);
 		
-		btn_commisionEdit = new JButton("Edycja zlece\u0144");
+		btn_commisionEdit = new JButton("Edycja zleceń ");
 		btn_commisionEdit.setEnabled(false);
 		btn_commisionEdit.setBackground(SystemColor.activeCaption);
 		btn_commisionEdit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btn_commisionEdit.setBounds(10, 354, 224, 51);
 		panel.add(btn_commisionEdit);
 		
-		btn_logIn = new JButton("Logowanie");
+		btn_logIn = new JButton("Logowanie ");
 		btn_logIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -115,7 +115,7 @@ public class MenuJPanel extends JPanel
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
-		btn_showTransporters = new JButton("Pokaż przewoźników");
+		btn_showTransporters = new JButton("Pokaż przewoźników ");
 		btn_showTransporters.setEnabled(false);
 		btn_showTransporters.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 

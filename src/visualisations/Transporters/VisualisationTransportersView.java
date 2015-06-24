@@ -3,6 +3,7 @@ package visualisations.Transporters;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import dataModels.*;
 
@@ -195,6 +196,23 @@ public class VisualisationTransportersView
 	public ArrayList<Transporter> getTransporters()
 	{
 		return transporters;
+	}
+	
+	public void showDatabaseSaveError()
+	{
+		JOptionPane.showMessageDialog(null, "Nie można zapisać trasy do bazy danych", "Błąd zapisu", 
+				JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void showSaveSuccessDialog()
+	{
+		JOptionPane.showMessageDialog(null, "Pomyślnie zapisano trasę do bazy", "Zapisano", 
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public String showRouteNameDialog()
+	{
+		return JOptionPane.showInputDialog(null, "Podaj nazwę trasy: ","Nazwa trasy",JOptionPane.PLAIN_MESSAGE);
 	}
 	 
 	    
