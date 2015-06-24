@@ -52,7 +52,7 @@ public class ManufacturerDetailsJPanel extends JPanel
 		lblNewLabel.setBounds(10, 11, 129, 23);
 		panel_data.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Aktywność producenta w misiącach:\r\n");
+		JLabel lblNewLabel_1 = new JLabel("Aktywność producenta w miesiącach:\r\n");
 		lblNewLabel_1.setForeground(new Color(255, 204, 0));
 		lblNewLabel_1.setBackground(SystemColor.inactiveCaptionText);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
