@@ -14,6 +14,7 @@ import dataModels.City;
 import dataModels.Manufacturer;
 import dataModels.Order;
 import database.DatabaseConnector;
+import exceptions.DatabaseConnectionExeption;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Path.VisualisationPathPresenter;
 import visualisations.Transporters.VisualisationTransportersPresenter;
@@ -546,7 +547,7 @@ public class RoutePlanningPresenter
 		trans_presenter.clearTransportersFrame();
 	}
 	
-	public void saveOrdersToDatabase(String idTransporter)
+	public void saveOrdersToDatabase(String idTransporter) throws DatabaseConnectionExeption, RuntimeException, Exception
 	{
 		route_planning_model.saveAllOrdersInDatabase(idTransporter);
 	}

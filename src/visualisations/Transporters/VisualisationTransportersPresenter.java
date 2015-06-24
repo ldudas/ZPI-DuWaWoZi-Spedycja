@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import com.esri.core.tasks.na.RouteParameters;
 import com.esri.map.JMap;
 
 import dataModels.SizeCategory;
@@ -97,7 +96,12 @@ public class VisualisationTransportersPresenter
 		System.out.println(" id " + id_trans);
 		if(id_trans != -1)
 		{
-			route_planning_presenter.saveOrdersToDatabase(String.valueOf(id_trans));
+			try {
+				route_planning_presenter.saveOrdersToDatabase(String.valueOf(id_trans));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

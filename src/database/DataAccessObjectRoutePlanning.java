@@ -81,12 +81,52 @@ public class DataAccessObjectRoutePlanning
 		
 	}
 	
-	public void saveOrdersToDatabase(ArrayList<Order> ordersData,String idTrans)
+	public void saveOrdersToDatabase(ArrayList<Order> ordersData,String idTrans) throws DatabaseConnectionExeption,Exception,RuntimeException
 	{
 		ordersData.stream().forEach( order -> 
 		{ 
 			order.setTransporterID(idTrans);
-			//databaseConnector
+			
+			if( order.getIdManufacturer() != null && !order.getIdManufacturer().equals("") )
+			{
+				String queryCityId = "SELECT id_miasta FROM Miasta WHERE nazwa_miasta = '" + order.getCityFrom().getCityName() + "';";
+				
+				ArrayList<ArrayList<Object>> resultOfQuery = null;
+
+				try 
+				{
+					resultOfQuery = databaseConnector.getResultOfMySqlQuery(queryCityId);
+				} catch (Exception e1) 
+				{
+					throw new RuntimeException(e1);
+				}
+
+				
+				String cityFromID = resultOfQuery.get(0).get(0).toString();
+				
+				queryCityId = "SELECT id_miasta FROM Miasta WHERE nazwa_miasta = '" + order.getCityTo().getCityName() + "';";
+				
+				resultOfQuery = null;
+
+				try {
+					resultOfQuery = databaseConnector.getResultOfMySqlQuery(queryCityId);
+				} catch (Exception e1) {
+					throw new RuntimeException(e1);
+				}
+	
+				String cityToID = resultOfQuery.get(0).get(0).toString();
+								
+				String query = "INSERT INTO Zlecenia (data_rozp_plan, data_zak_plan, id_prod, z_miasta, do_miasta, id_przew) "
+						+ "VALUES('"+ order.getStartDate() +"','" +  order.getFinishDate() +"','" + order.getIdManufacturer() +"','"
+						+  cityFromID +"','"  + cityToID +"','"+ order.getIdTransporter() + "');";	
+
+				try 
+				{
+					databaseConnector.saveDataToDatabase(query);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
 		} );
 	}
 }

@@ -82,6 +82,12 @@ public class DatabaseConnector
 		}
 	}
 	
+	/**
+	 * Sprawdza poprawność polączenia a nastepnie wykonuje zapytanie zwiazane z zapisem danych
+	 * do bazy danych.
+	 * @param query
+	 * @throws DatabaseConnectionExeption
+	 */
 	public void saveDataToDatabase(final String query) throws DatabaseConnectionExeption
 	{
 		if( !checkInternetConnection() )
@@ -89,7 +95,27 @@ public class DatabaseConnector
 		if( !connectToDatabase() )
 			throw new DatabaseConnectionExeption("Blad: Brak polaczenia z z baza danych.");
 		
-		
+		Statement statment = null;
+		try 
+        {		
+            Class.forName("com.mysql.jdbc.Driver");
+            statment = database_Connector.createStatement();
+            statment.executeUpdate(query);
+            statment.close();
+		} 		
+		catch (SQLException e)
+		{
+			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new DatabaseConnectionExeption("Blad: "+e.getMessage());
+		}
+		finally
+		{			
+			if( !closeConnectToDatabase() )
+				throw new DatabaseConnectionExeption("Blad: Nie udalo sie zakonczyc polaczenia z baza danych.");
+		}
 	}
 			
 	/**

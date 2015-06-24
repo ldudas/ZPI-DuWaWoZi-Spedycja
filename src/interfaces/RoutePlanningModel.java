@@ -7,6 +7,7 @@ import dataModels.Order;
 import dataModels.User;
 import database.DataAccessObjectRoutePlanning;
 import database.DataAccessObjectUserAccount;
+import exceptions.DatabaseConnectionExeption;
 
 
 
@@ -112,13 +113,8 @@ public class RoutePlanningModel
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
-	public void saveAllOrdersInDatabase(String idTrans)
+	public void saveAllOrdersInDatabase(String idTrans) throws DatabaseConnectionExeption, RuntimeException, Exception
 	{
-		ordersData.stream().forEach( order -> 
-		{ 
-			order.setTransporterID(idTrans);
-			System.out.println(order);
-		} );
-		//dao_routePlanning.saveOrdersToDatabase(ordersData,idTrans);
+		dao_routePlanning.saveOrdersToDatabase(ordersData,idTrans);
 	}
 }
