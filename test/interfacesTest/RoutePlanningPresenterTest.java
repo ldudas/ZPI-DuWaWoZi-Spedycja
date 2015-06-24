@@ -29,14 +29,4 @@ public class RoutePlanningPresenterTest {
 		assertNull(rpp.return_view());
 	}
 	
-	/*@Test
-	public void testRemoveLastCity()
-	{
-		path_presenter.createInitialMap("Gdynia", "Warszawa");
-		path_presenter.addCityToPath(new City("Kielce", 2037, 5053));
-		int nbr = path_presenter.getNumberOfCities();
-		path_presenter.removeLastCity();
-		assertEquals(nbr-1, path_presenter.getNumberOfCities());
-	}
-	 */
 }
