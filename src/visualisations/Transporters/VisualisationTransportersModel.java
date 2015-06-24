@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import specification.TransporterSizeCategorySpecification;
+
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
@@ -61,7 +63,6 @@ public class VisualisationTransportersModel
 	private SizeCategory size_category;
 	
 	
-	
 	/**
 	 * zapamietane mapy dla przewoznikow
 	 */
@@ -79,7 +80,7 @@ public class VisualisationTransportersModel
 	/**
 	 * id wybranego przewoznika
 	 */
-	private int chosen_transporter;
+	private Transporter chosen_transporter;
 	
 	/**
 	 * opcja kozystania z wizulaziacji
@@ -87,6 +88,7 @@ public class VisualisationTransportersModel
 	 * konczaca sie zapisem trasy do bazy: 	 1
 	 */
 	private int opening_flag;
+
 	
 	private double max_num_of_orders;
 	private double min_num_of_orders;
@@ -105,7 +107,7 @@ public class VisualisationTransportersModel
 		cityFrom="";
 		cityTo="";
 		size_category = null;
-		chosen_transporter = -1;
+		chosen_transporter = null;
 		opening_flag = 0;
 	}
 	
@@ -120,7 +122,7 @@ public class VisualisationTransportersModel
 		cityFrom="";
 		cityTo="";
 		size_category = null;
-		chosen_transporter = -1;
+		chosen_transporter = null;
 	}
 	
 	private void getTranspotersFormDatabase(String city_from, String city_to)
@@ -156,12 +158,12 @@ public class VisualisationTransportersModel
 	private void sortTransporters()
 	{
 		transporters = transporters.stream().sorted(Transporter::compareByCapacity).collect(Collectors.toCollection(ArrayList::new));
-		//System.out.println("Po: "+transporters);
 	}
 	
 	private void filterTransporters(SizeCategory sc)
 	{
-		transporters_filtered = transporters.stream().filter( t -> (t.getSizeCategory() == sc || sc == SizeCategory.ALL)).collect(Collectors.toCollection(ArrayList::new));
+		final TransporterSizeCategorySpecification trans_spec = new TransporterSizeCategorySpecification(sc);
+		transporters_filtered = transporters.stream().filter( t -> trans_spec.isSatisfiedBy(t)).collect(Collectors.toCollection(ArrayList::new));
 	}
 	
 	public ArrayList<Transporter> getFilteredTransporters(String city_from, String city_to, SizeCategory sc)
@@ -504,12 +506,12 @@ public class VisualisationTransportersModel
 		});
 	}
 	
-	public void setChosenTransporter(int id)
+	public void setChosenTransporter(Transporter t)
 	{
-		chosen_transporter = id;
+		chosen_transporter = t;
 	}
 	
-	public int getChosenTransporter()
+	public Transporter getChosenTransporter()
 	{
 		return chosen_transporter;
 	}

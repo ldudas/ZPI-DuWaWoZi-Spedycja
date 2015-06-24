@@ -5,8 +5,6 @@ import interfaces.RoutePlanningPresenter;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-
-import com.esri.core.tasks.na.RouteParameters;
 import com.esri.map.JMap;
 
 import dataModels.SizeCategory;
@@ -70,12 +68,12 @@ public class VisualisationTransportersPresenter
 		model_transporters.setExternalDatabaseConnectionProperty(currentLoggedUser);
 	}
 	
-	public void setChosenTransporter(int id)
+	public void setChosenTransporter(Transporter t)
 	{
-		model_transporters.setChosenTransporter(id);
+		model_transporters.setChosenTransporter(t);
 	}
 	
-	public int getChosenTransporter()
+	public Transporter getChosenTransporter()
 	{
 		return model_transporters.getChosenTransporter();
 	}
@@ -93,7 +91,7 @@ public class VisualisationTransportersPresenter
 	
 	public void saveOrdersToDatabase()
 	{
-		int id_trans = model_transporters.getChosenTransporter();
+		int id_trans = model_transporters.getChosenTransporter().getId_trans();
 		System.out.println(" id " + id_trans);
 		if(id_trans != -1)
 		{

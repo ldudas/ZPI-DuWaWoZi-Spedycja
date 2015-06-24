@@ -144,7 +144,12 @@ public class VisualisationTransportersView
 		public void setChosenTransporter(Transporter t)
 		{
 			transVisInterfaceJPanel.setChosenTransporter(t);
-			trans_presenter.setChosenTransporter(t.getId_trans());
+			trans_presenter.setChosenTransporter(t);
+		}
+		
+		public Transporter getChosenTransporter()
+		{
+			return trans_presenter.getChosenTransporter();
 		}
 		
 		public ArrayList<String> getAllCityNames()

@@ -9,6 +9,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.SystemColor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -17,10 +18,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -57,7 +55,6 @@ private static final long serialVersionUID = 1L;
      
      private final static double max_exec = 0.05;
      
-     private static int lastWindowPos;
      
           
      private double max_obj_width;
@@ -103,11 +100,17 @@ private static final long serialVersionUID = 1L;
         //zapamiętanie oryginalengo przekształcenia i kompozycji
         AffineTransform atr = g2d.getTransform();
    
+        g2d.setColor(SystemColor.inactiveCaption);
+        
         //oś x
         drawXAxle(g2d);
+        
+        g2d.setColor(SystemColor.inactiveCaption);
 	        
         //oś y
 	    drawYAxle(g2d); 
+	    
+	    g2d.setColor(SystemColor.inactiveCaption);
 	    
 	    //przywracanie oryginalnych wspolrzednych
         g2d.setTransform(atr);
@@ -288,7 +291,11 @@ private static final long serialVersionUID = 1L;
 		        g2d.drawString(((int)(view.getMin_num_of_orders() + x_axis_num_gap * i))+"",  x_line_x_beg + x_desc_gap * i + panel_width/300, x_line_y_beg+panel_height/40);
 		        }
 		        
+		        
+		        
 		  //rysowanie opisu osi x
+		        g2d.setColor(Color.orange);
+		        
 		        //wyliczanie rozmiaru czcionki
 		        int x_axis_font_size = (int)((panel_height/1000.0)*(x_axis_max_font_size-x_axis_min_font_size)+x_axis_min_font_size);
 		        
@@ -331,6 +338,7 @@ private static final long serialVersionUID = 1L;
         		}
         		
         //rysowanie opisu osi y
+        		g2d.setColor(Color.orange);
 		        //wyliczanie rozmiaru czcionki
 		        int y_axis_font_size = (int)((panel_width/1000.0)*(y_axis_max_font_size-y_axis_min_font_size)+y_axis_min_font_size);
 		       
