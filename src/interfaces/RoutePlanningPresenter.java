@@ -72,6 +72,7 @@ public class RoutePlanningPresenter
 	 */
 	public void changeStart_to_manufacturerVisualization()
 	{
+		route_planning_view.change_startPlanning_to_Waiting();
 		startManuVisualisation();
 		route_planning_view.change_startPlanning_to_manufacturerVisualization();
 	}

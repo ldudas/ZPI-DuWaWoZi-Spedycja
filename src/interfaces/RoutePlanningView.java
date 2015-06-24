@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,7 @@ import dataModels.Manufacturer;
 import dataModels.Order;
 import jpanels.ManufacturerVisualization.ManufacturerVisuzalizationJPanel;
 import jpanels.ManufacturerVisualization.StartPlanningJPanel;
+import jpanels.ManufacturerVisualization.WaitingJPanel;
 import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerDetailsJPanel;
 import jpanels.ManufacturerVisualization.ManufactureInfo.ManufacturerOrderDataJPanel;
 import jpanels.startWindow.AboutJPanel;
@@ -294,18 +296,22 @@ public class RoutePlanningView
 	 */
 	public void change_startPlanning_to_manufacturerVisualization()
 	{
-		ImageIcon loading = new ImageIcon(getClass().getResource("/additions/loader.gif"));
-		JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
-		JPanel background = new JPanel();
-		background.setLayout(new CardLayout(0, 0));
-		background.setBounds(0, 0, 500, 300);
-		background.setBackground(SystemColor.inactiveCaption);
-		background.add(loadingLabel);
-		menuJPanel.setEnableAllButtons(false);
-		
-		startApplicationJPanel.removeLogicJPanel();
-		startApplicationJPanel.addLogicJPanel(background);
-		prepareFrameAfterChangeView(mainFrame);
+	
+/*		//ImageIcon loading = new ImageIcon("images/loader.gif");
+				//JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
+				//JPanel background = new JPanel();
+				JPanel background = new WaitingJPanel();
+				background.setLayout(new CardLayout(0, 0));
+				background.setBounds(0, 0, 500, 300);
+				background.setBackground(SystemColor.inactiveCaptionText);
+				//background.add(loadingLabel);
+				menuJPanel.setEnableAllButtons(false);
+				
+				startApplicationJPanel.removeLogicJPanel();
+				startApplicationJPanel.addLogicJPanel(background);
+				prepareFrameAfterChangeView(mainFrame);
+				*/
+
 		
 		Timer timer = new Timer();
 		
@@ -322,6 +328,21 @@ public class RoutePlanningView
 				prepareFrameAfterChangeView(mainFrame);
 			}
 		}, 5000);
+		
+	}
+	
+	public void change_startPlanning_to_Waiting()
+	{
+		    	JPanel background = new WaitingJPanel();
+				background.setLayout(new CardLayout(0, 0));
+				background.setBounds(0, 0, 500, 300);
+				background.setBackground(SystemColor.inactiveCaptionText);
+				menuJPanel.setEnableAllButtons(false);
+				
+				startApplicationJPanel.removeLogicJPanel();
+				startApplicationJPanel.addLogicJPanel(background);
+				prepareFrameAfterChangeView(mainFrame);
+	
 		
 	}
 	

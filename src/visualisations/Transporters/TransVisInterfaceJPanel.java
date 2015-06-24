@@ -3,7 +3,6 @@ package visualisations.Transporters;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
-import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,14 +10,16 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dataModels.SizeCategory;
 import dataModels.Transporter;
 
 import javax.swing.SwingConstants;
+
+import jpanels.ManufacturerVisualization.StartPlanningJPanel;
 
 public class TransVisInterfaceJPanel extends JPanel
 {
@@ -46,7 +47,7 @@ public class TransVisInterfaceJPanel extends JPanel
 		setBounds(0,0,824,674);
 				
 			    control = new JPanel();
-				control.setBackground(SystemColor.activeCaption);
+				control.setBackground(SystemColor.inactiveCaptionText);
 				control.setBounds(10, 11, 797, 121);
 				control.setLayout(null);
 				btn_confirmPath = new JButton("Potwierd\u017A");
@@ -72,7 +73,32 @@ public class TransVisInterfaceJPanel extends JPanel
 					{
 						public void actionPerformed(ActionEvent e) 
 						{
-							transporter_view.saveOrdersToDatabase();
+							
+							Transporter chosen_tr = transporter_view.getChosenTransporter();
+							if( chosen_tr!=null)
+							{
+								int dialogResult = JOptionPane.showConfirmDialog(null, "Czy chcesz zapisać trasę z przewoźnikiem:"
+										+ "\n\nNazwa: " + chosen_tr.getName() 
+										+ "\nKategoria rozmiaru: " +(chosen_tr.getSizeCategory() == SizeCategory.SMALL?"Małe":
+																	chosen_tr.getSizeCategory() == SizeCategory.MEDIUM?"Średnie":
+																	"Duże")
+										+ "\nŚredni koszt (w kat. rozm.): " + chosen_tr.getCost()
+										+ "\nLiczba zleceń: " + chosen_tr.getNumber_of_orders()
+										 +"\n\n", 
+										"Potwierdzenie", JOptionPane.YES_NO_OPTION);
+								if(dialogResult == JOptionPane.YES_OPTION) 
+								{
+									transporter_view.saveOrdersToDatabase();	
+								} 
+							}
+							else
+								JOptionPane.showMessageDialog(null, "Nie wybrano żadnego przewoźnika", "Błąd", 
+																JOptionPane.ERROR_MESSAGE);		
+							
+							
+							
+							
+							
 						}
 					});
 					control.add(btn_savePathToDatabase);
@@ -89,7 +115,7 @@ public class TransVisInterfaceJPanel extends JPanel
 					lblChosenTransporterDetails.setHorizontalAlignment(SwingConstants.RIGHT);
 					lblChosenTransporterDetails.setForeground(new Color(255, 204, 0));
 					lblChosenTransporterDetails.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-					lblChosenTransporterDetails.setBounds(325, 33, 450, 31);
+					lblChosenTransporterDetails.setBounds(325, 33, 480, 31);
 					control.add(lblChosenTransporterDetails);
 				}
 				
@@ -204,7 +230,7 @@ public class TransVisInterfaceJPanel extends JPanel
 				
 				visualization = new JPanel();
 				//visualization.addMouseListener(visualization);
-				visualization.setBackground(SystemColor.activeCaption);
+				visualization.setBackground(SystemColor.inactiveCaptionText);
 				visualization.setBounds(10, 138, 797, 523);
 				add(visualization);
 				visualization.setLayout(null);
@@ -241,7 +267,7 @@ public class TransVisInterfaceJPanel extends JPanel
 		visualization = new TransVisJPanel(transporter_view);
  		visualization.addMouseListener((TransVisJPanel)visualization);
  		visualization.addMouseMotionListener((TransVisJPanel)visualization);
-		visualization.setBackground(SystemColor.activeCaption);
+		visualization.setBackground(SystemColor.inactiveCaptionText);
 		visualization.setBounds(10, 138, 797, 523);
 		add(visualization);
 		visualization.setLayout(null);
