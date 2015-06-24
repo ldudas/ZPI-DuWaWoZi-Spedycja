@@ -266,7 +266,7 @@ public class RoutePlanningView
 	public void change_registryUser_to_menu()
 	{
 		startApplicationJPanel.removeLogicJPanel();
-		mainFrame.setTitle(APPLICATION_NAME );
+		mainFrame.setTitle( APPLICATION_NAME );
 		startApplicationJPanel.addLogicJPanel(welcomeJPanel);
 		prepareFrameAfterChangeView(mainFrame);
 	}
@@ -294,7 +294,7 @@ public class RoutePlanningView
 	 */
 	public void change_startPlanning_to_manufacturerVisualization()
 	{
-		ImageIcon loading = new ImageIcon("images/loader.gif");
+		ImageIcon loading = new ImageIcon(getClass().getResource("/additions/loader.gif"));
 		JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
 		JPanel background = new JPanel();
 		background.setLayout(new CardLayout(0, 0));

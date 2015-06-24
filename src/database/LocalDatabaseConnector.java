@@ -20,7 +20,7 @@ public class LocalDatabaseConnector
 	
 	public LocalDatabaseConnector() 
 	{	
-    	File file = new File( System.getProperty("user.dir") + "\\LocalDatabase\\AccountDatabase.accdb");
+    	File file = new File( System.getProperty("user.dir") + "\\AccountDatabase.accdb");
         props = new Properties();
     	props.setProperty("JackcessOpener","database.CryptCodecOpener");
     	props.setProperty("password", "DecisionSupport"); 

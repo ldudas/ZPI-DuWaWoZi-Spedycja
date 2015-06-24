@@ -95,8 +95,7 @@ public class RoutePlanningPresenter
 			route_planning_view.change_manufactruerDetails_to_manufacturerOrderData();
 		} 
 		catch (Exception e) 
-		{
-		}	
+		{}	
 	}
 	
 	/**
