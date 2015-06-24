@@ -64,6 +64,10 @@ public class RoutePlanningPresenter
 		route_planning_view.change_registryUser_to_menu();
 	}
 	
+	public void change_to_startPanel()
+	{
+		route_planning_view.change_to_startingPanel();
+	}
 	
 	/**
 	 * Zmienia widok ze starowego okna na okno z wizualizacja producentow 
@@ -548,9 +552,9 @@ public class RoutePlanningPresenter
 		trans_presenter.clearTransportersFrame();
 	}
 	
-	public void saveOrdersToDatabase(String idTransporter) throws DatabaseConnectionExeption, RuntimeException, Exception
+	public void saveOrdersToDatabase(String route_name, String idTransporter) throws DatabaseConnectionExeption, RuntimeException, Exception
 	{
-		route_planning_model.saveAllOrdersInDatabase(idTransporter);
+		route_planning_model.saveAllOrdersInDatabase(route_name, idTransporter);
 	}
 	
 	public void logOutUser()

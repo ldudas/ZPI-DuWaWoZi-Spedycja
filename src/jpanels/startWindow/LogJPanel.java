@@ -49,7 +49,7 @@ public class LogJPanel extends JPanel
 		panel.add(textField_login);
 		textField_login.setColumns(10);
 		
-		JButton btn_LogIn = new JButton("Zaloguj");
+		JButton btn_LogIn = new JButton("Zaloguj ");
 		btn_LogIn.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -91,7 +91,7 @@ public class LogJPanel extends JPanel
 		passwordField_password.setBounds(33, 121, 246, 29);
 		panel.add(passwordField_password);
 		
-		JButton btn_back = new JButton("Wróć");
+		JButton btn_back = new JButton("Wróć ");
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{

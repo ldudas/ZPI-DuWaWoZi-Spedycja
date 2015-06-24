@@ -90,7 +90,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		lblNewLabel_2.setForeground(new Color(255, 204, 0));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
-		JButton btn_chooseManufacturer = new JButton("Wybierz");
+		JButton btn_chooseManufacturer = new JButton("Wybierz ");
 		btn_chooseManufacturer.setBounds(165, 386, 179, 61);
 		panel.add(btn_chooseManufacturer);
 		btn_chooseManufacturer.setForeground(SystemColor.desktop);
@@ -151,7 +151,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		comboBox_numberOfMostActive.addItem("25");
 		comboBox_numberOfMostActive.addItem("30");
 		
-		JButton btnNewButton = new JButton("Filtruj");
+		JButton btnNewButton = new JButton("Filtruj ");
 		btnNewButton.setForeground(SystemColor.desktop);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -194,7 +194,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		btnNewButton.setBounds(165, 317, 179, 61);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Wyczyść");
+		JButton btnNewButton_1 = new JButton("Wyczyść ");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{

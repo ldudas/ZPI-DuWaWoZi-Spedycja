@@ -103,7 +103,7 @@ public class TransVisInterfaceJPanel extends JPanel
 					});
 					control.add(btn_savePathToDatabase);
 					
-					lblChosenTransporter = new JLabel("Brak wybranego przewoźnika");
+					lblChosenTransporter = new JLabel("Brak wybranego przewoźnika ");
 					lblChosenTransporter.setHorizontalAlignment(SwingConstants.RIGHT);
 					lblChosenTransporter.setForeground(new Color(255, 204, 0));
 					lblChosenTransporter.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
@@ -115,7 +115,7 @@ public class TransVisInterfaceJPanel extends JPanel
 					lblChosenTransporterDetails.setHorizontalAlignment(SwingConstants.RIGHT);
 					lblChosenTransporterDetails.setForeground(new Color(255, 204, 0));
 					lblChosenTransporterDetails.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-					lblChosenTransporterDetails.setBounds(325, 33, 480, 31);
+					lblChosenTransporterDetails.setBounds(300, 33, 475, 31);
 					control.add(lblChosenTransporterDetails);
 				}
 				
@@ -282,10 +282,10 @@ public class TransVisInterfaceJPanel extends JPanel
 	{
 		if(lblChosenTransporter!= null)
 		{
-			lblChosenTransporter.setText("Wybrany przewoźnik:");
+			lblChosenTransporter.setText("Wybrany przewoźnik: ");
 			lblChosenTransporterDetails.setText(t.getName()+", Kat. rozmiaru - "+(t.getSizeCategory() == SizeCategory.SMALL?"Małe":
 																								t.getSizeCategory() == SizeCategory.MEDIUM?"Średnie":
-																																			"Duże"));
+																																			"Duże")+" ");
 		}
 	}
 }

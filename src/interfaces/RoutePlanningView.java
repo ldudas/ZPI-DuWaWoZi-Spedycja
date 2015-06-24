@@ -138,17 +138,7 @@ public class RoutePlanningView
 						"Powitanie", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					route_planning_presenter.logOutUser();
-					
-					startApplicationJPanel.removeLogicJPanel();
-					openWelcomeView();
-					if( menuJPanel.isUserLogged() )
-						menuJPanel.setEnableAllButtons(true);
-					else
-					{
-						menuJPanel.setEnableButtonsToUserAction(false);
-						menuJPanel.setEnableButtonsFirstAction(true);
-					}
+					change_to_startingPanel();
 					//prepareFrameAfterChangeView(mainFrame);
 				}
 			};
@@ -288,6 +278,21 @@ public class RoutePlanningView
 		mainFrame.setTitle(APPLICATION_NAME);
 		startApplicationJPanel.addLogicJPanel(welcomeJPanel);
 		prepareFrameAfterChangeView(mainFrame);
+	}
+	
+	public void change_to_startingPanel()
+	{
+		route_planning_presenter.logOutUser();
+		
+		startApplicationJPanel.removeLogicJPanel();
+		openWelcomeView();
+		if( menuJPanel.isUserLogged() )
+			menuJPanel.setEnableAllButtons(true);
+		else
+		{
+			menuJPanel.setEnableButtonsToUserAction(false);
+			menuJPanel.setEnableButtonsFirstAction(true);
+		}
 	}
 	
 	
