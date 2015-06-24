@@ -6,10 +6,13 @@ import javax.swing.JPanel;
 
 import java.awt.SystemColor;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.KeyStroke;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -18,6 +21,7 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 
 public class LogJPanel extends JPanel 
 {
@@ -68,6 +72,7 @@ public class LogJPanel extends JPanel
 
 			}
 		});
+		
 		btn_LogIn.setBackground(SystemColor.activeCaption);
 		btn_LogIn.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btn_LogIn.setBounds(161, 187, 118, 51);
@@ -105,6 +110,32 @@ public class LogJPanel extends JPanel
 		btn_back.setBackground(SystemColor.activeCaption);
 		btn_back.setBounds(33, 187, 118, 51);
 		panel.add(btn_back);
+		
+		
+		Action clickEneter = new AbstractAction() 
+		{
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed(ActionEvent e) 
+			{
+				String error = presenter_route_planning.validateLoginData();
+				if( error == null )
+				{
+					presenter_route_planning.setNewLoggedUser();
+					clearTexts();
+					presenter_route_planning.setEnableButtonsToUserAction(true);
+					presenter_route_planning.changeLoginUser_to_Menu();
+				}
+				else
+					JOptionPane.showMessageDialog(LogJPanel.this, "Błąd: " + error,	
+							"Błąd wprowadzanych danych", JOptionPane.ERROR_MESSAGE);
+            }
+        };
+        
+        passwordField_password.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "ClickEnter");		
+        passwordField_password.getActionMap().put("ClickEnter", clickEneter);
+        
+        textField_login.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "ClickEnter");		
+        textField_login.getActionMap().put("ClickEnter", clickEneter);
 	}
 
 	public void setPresenter(final RoutePlanningPresenter presenter)
