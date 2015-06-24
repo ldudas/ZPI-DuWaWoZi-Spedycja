@@ -39,7 +39,7 @@ private static final long serialVersionUID = 1L;
      private final static int rect_font_style = Font.PLAIN;
      
      private final static int x_axis_max_font_size = 15;
-     private final static int x_axis_min_font_size = 7;
+     private final static int x_axis_min_font_size = 10;
      
      private final static int y_axis_max_font_size = 17;
      private final static int y_axis_min_font_size = 3;
@@ -245,9 +245,9 @@ private static final long serialVersionUID = 1L;
     private void setAxlesCoordinates()
     {
     	 //poczatek osi x - x
-        x_line_x_beg = panel_width / x_gap;
+        x_line_x_beg = (int)(panel_width * 1.5 / x_gap);
         //poczatek osi x - y
-        x_line_y_beg = panel_height - (panel_height / y_gap);
+        x_line_y_beg = panel_height - (int) (panel_height *1.5 / y_gap);
         //koniec osi x - x
         x_line_x_end = panel_width - (3*panel_width/(x_gap));
         //koniec osi x - y
@@ -272,24 +272,43 @@ private static final long serialVersionUID = 1L;
         BasicStroke bs1 = new BasicStroke(line_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
         g2d.setStroke(bs1);
         g2d.drawLine(x_line_x_beg, x_line_y_beg, x_line_x_end+panel_width/10, x_line_y_end);
+        
+        int x_line_x_desc_beg = x_line_x_beg;
+        double x_line_desc_unit = ((x_line_x_end - x_line_x_beg) / (view.getMax_num_of_orders() - view.getMin_num_of_orders()));
+        int begin_number = (int)(view.getMin_num_of_orders());
+        int x_axis_gap = (int) ((view.getMax_num_of_orders() - view.getMin_num_of_orders())/ number_of_desc);
+        int mod = x_axis_gap % 10;
+        x_axis_gap = x_axis_gap - mod;
+        
+        System.out.println(begin_number);
+        while(begin_number % 10 != 0)
+        {
+        	begin_number ++;
+        	 System.out.println(begin_number);
+        	x_line_x_desc_beg += x_line_desc_unit;
+        }
+        
         //watrtosci na osi x
-        	//linie
-	        int x_desc_gap = (x_line_x_end - x_line_x_beg) / number_of_desc;
-	        
-	        for(int i=1; i<=number_of_desc; i++)
-	        {
-	        	g2d.drawLine(x_line_x_beg + x_desc_gap * i, x_line_y_beg, x_line_x_beg + x_desc_gap * i, x_line_y_beg+panel_height/50);
-	        }
-	        //liczby
+        	//linie i liczby
 	        int x_axis_num_font_size = (int)(panel_height/40.0);
-	        int x_axis_num_gap = (int) ((view.getMax_num_of_orders() - view.getMin_num_of_orders())/ number_of_desc);
-	        
 	        g2d.setFont(new Font(axis_font, axis_font_style, x_axis_num_font_size));
-		        //rysowanie stringa
-		        for(int i=1; i<=number_of_desc; i++)
-		        {
-		        g2d.drawString(((int)(view.getMin_num_of_orders() + x_axis_num_gap * i))+"",  x_line_x_beg + x_desc_gap * i + panel_width/300, x_line_y_beg+panel_height/40);
-		        }
+	        
+	        int number = begin_number;
+	        int x = x_line_x_desc_beg;
+	        while(number<view.getMax_num_of_orders())
+	        {
+	        	
+	        	System.out.println(number+" "+x);
+	        	g2d.drawLine(x, x_line_y_beg, x, x_line_y_beg+panel_height/50);
+	        	g2d.drawString(number+"", x + panel_width/300, x_line_y_beg+panel_height/40);
+	        	
+	        	number += x_axis_gap;
+	        	x+= x_line_desc_unit * x_axis_gap;
+	        	
+	        }
+	        
+	        g2d.drawLine(x, x_line_y_beg, x, x_line_y_beg+panel_height/50);
+        	g2d.drawString(number+"", x + panel_width/300, x_line_y_beg+panel_height/40);
 		        
 		        
 		        
@@ -301,7 +320,7 @@ private static final long serialVersionUID = 1L;
 		        
 		        g2d.setFont(new Font(axis_font, axis_font_style, x_axis_font_size));
 		        //rysowanie stringa
-		        g2d.drawString("Liczba zleceń", x_line_x_end+panel_width/20, x_line_y_end + panel_height/30);
+		        g2d.drawString("Liczba zleceń", x_line_x_end+panel_width/25, x_line_y_end + panel_height/17);
     }
     
     
@@ -312,31 +331,58 @@ private static final long serialVersionUID = 1L;
         BasicStroke bs2 = new BasicStroke(line_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
         g2d.setStroke(bs2);
         g2d.drawLine(y_line_x_beg, y_line_y_beg-panel_height/10, y_line_x_end, y_line_y_end);
-        //watrtosci na osi y
-        int y_desc_gap = (y_line_y_end - y_line_y_beg) / number_of_desc;
         
-        for(int i=1; i<=number_of_desc; i++)
+        int y_line_y_desc_beg = y_line_y_end;
+        double y_line_desc_unit = ((y_line_y_end - y_line_y_beg) / (view.getMax_cost() - view.getMin_cost()));
+        int begin_number = (int)(view.getMin_cost());
+        int y_axis_num_gap = (int) ((view.getMax_cost() - view.getMin_cost())/ number_of_desc);
+        int mod = y_axis_num_gap % 10;
+        y_axis_num_gap = y_axis_num_gap - mod;
+        
+        while(begin_number % 10 != 0)
         {
-        	g2d.drawLine(y_line_x_end, y_line_y_end-y_desc_gap*i, y_line_x_end - panel_width/50, y_line_y_end-y_desc_gap*i);
+        	begin_number ++;
+        	y_line_y_desc_beg -= y_line_desc_unit;
         }
-        //liczby
-        	int y_axis_num_font_size = (int)(panel_width/60.0);
-        	int y_axis_num_gap = (int) ((view.getMax_cost() - view.getMin_cost())/ number_of_desc);
         
+        //watrtosci na osi y
+        	//linie i liczby
+	        int y_axis_num_font_size = (int)(panel_height/40.0);
+	        g2d.setFont(new Font(axis_font, axis_font_style, y_axis_num_font_size));
+	        
+	        int number = begin_number;
+	        int y = y_line_y_desc_beg;
+
         	g2d.setFont(new Font(axis_font, axis_font_style, y_axis_num_font_size));
         	String number_y;
         	FontMetrics metrics = g2d.getFontMetrics();
-        		//rysowanie stringa
-        		for(int i=1; i<=number_of_desc; i++)
-        		{
-        			//wartosc
-        			number_y = ((int)(view.getMin_cost() + y_axis_num_gap * i))+"";
-		        	 //pobieranie wymiarow na wizualizacji
-		        	 Rectangle2D rectan = metrics.getStringBounds(number_y, g2d);
-		        	 double font_width =   rectan.getWidth();
-		        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y_line_y_end-y_desc_gap*i - panel_height/100);
-        		}
-        		
+        	
+	        while(number<view.getMax_cost())
+	        {
+	        	
+	        	g2d.drawLine(y_line_x_end,y, y_line_x_end - panel_width/50, y);
+
+    			//wartosc
+    			number_y = ((int)number)+"";
+	        	 //pobieranie wymiarow na wizualizacji
+	        	 Rectangle2D rectan = metrics.getStringBounds(number_y, g2d);
+	        	 double font_width =   rectan.getWidth();
+	        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y - panel_height/100);
+	        	
+	        	 number += y_axis_num_gap;
+		         y-= y_line_desc_unit * y_axis_num_gap;
+	        }
+	        
+	        
+	        g2d.drawLine(y_line_x_end,y, y_line_x_end - panel_width/50, y);
+
+			//wartosc
+			number_y = ((int)number)+"";
+        	 //pobieranie wymiarow na wizualizacji
+        	 Rectangle2D rectan = metrics.getStringBounds(number_y, g2d);
+        	 double font_width =   rectan.getWidth();
+        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y - panel_height/100);
+	        
         //rysowanie opisu osi y
         		g2d.setColor(Color.orange);
 		        //wyliczanie rozmiaru czcionki
@@ -350,7 +396,7 @@ private static final long serialVersionUID = 1L;
 		        //obrot
 		        g2d.rotate(Math.toRadians(-90));
 		        //rysowanie stringa (wg przeksztalcen)
-		        g2d.drawString("Koszt", panel_height/30 , -panel_height/30);
+		        g2d.drawString("Koszt", panel_height/30 , -panel_height/13);
 		             
       
     }
