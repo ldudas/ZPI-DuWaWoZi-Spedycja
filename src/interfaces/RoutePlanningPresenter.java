@@ -469,6 +469,11 @@ public class RoutePlanningPresenter
 		manu_presenter.filterManfacturersBySinceDate(numberOfDays);
 	}
 	
+	public void filterManfacturersShowAll()
+	{
+		manu_presenter.filterManfacturersShowAll();
+	}
+	
 	/**
 	 * Metoda filtrujaca proucentow na mapie, ktorych ostatnia aktywnosc znajduje sie pomiedzy obliczonymi
 	 * datami na podstawie parametrow.

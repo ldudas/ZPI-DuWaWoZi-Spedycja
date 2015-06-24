@@ -126,6 +126,20 @@ public class VisualistaionManufacturersPresenter
 				model_ManufacturersVis.getNumberOfManufacturerFromBegin(numberOfMostActive));
 	}
 	
+	/**
+	 * Metoda zwracajaca poczatkowy stan producnetow na mapie.
+	 * Wszyscy producenci z danego miasta.
+	 * @author Kamil Zimny
+	 */
+	public void filterManfacturersShowAll()
+	{
+		VisualisationManufactureDecorator decorator = new VisualisationManufactureDecorator();
+		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
+		layer.removeAll();
+		
+		decorator.addManufacturerGraphicOnMap(model_ManufacturersVis.getMap().getSpatialReference(),  layer, 
+				model_ManufacturersVis.getAllManufacturerInCurrentCity());
+	}
 	
 	/**
 	 * Metoda filtrująca producentów pod względem aktywności po określonej dacie w parametrze.

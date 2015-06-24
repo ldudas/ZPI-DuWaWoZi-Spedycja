@@ -204,6 +204,8 @@ public class ManufacturerManagementJPanel extends JPanel
 				comboBox_map_count.setSelectedIndex(0);
 				comboBox_tolerance_unit.setSelectedIndex(0);
 				comboBox_tolerance_count.setSelectedIndex(0);
+				
+				presenter_route_planning.filterManfacturersShowAll();
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));

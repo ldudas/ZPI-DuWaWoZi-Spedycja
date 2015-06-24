@@ -1,7 +1,5 @@
 package visualisations.Manufacturers;
 
-import java.awt.AWTEvent;
-import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,10 +14,6 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
-
-
-
-
 
 
 import comparators.ComparatorManufactureActivite;
@@ -172,6 +166,11 @@ public class VisualisationManufacturersModel
 				.sorted(new ComparatorManufactureActivite() )
 				.limit(number)
 	            .collect(Collectors.toCollection(ArrayList::new));
+	}
+	
+	public ArrayList<Manufacturer> getAllManufacturerInCurrentCity()
+	{
+		return manufacturersData;
 	}
 	
 	/**
