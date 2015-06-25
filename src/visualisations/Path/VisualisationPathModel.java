@@ -21,10 +21,13 @@ import dataModels.User;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectPathVisualisation;
 
-
+/**
+ * Model wizualizacji trasy
+ * @author Łukasz
+ *
+ */
 public class VisualisationPathModel 
 {
-	
 	
 	/**
 	 * Data Access Object dla wizualizacji trasy
@@ -92,6 +95,9 @@ public class VisualisationPathModel
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
+	/**
+	 * Wyczyść dane w modelu
+	 */
 	public void clearData()
 	{
 		if( path_cities_vis_objects != null )
