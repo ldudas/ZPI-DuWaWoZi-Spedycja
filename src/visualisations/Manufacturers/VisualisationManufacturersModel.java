@@ -35,8 +35,20 @@ public class VisualisationManufacturersModel
 	 * Mapa na który
 	 */
 	private JMap map;
+	
+	/**
+	 * Kolekcja zawierająca wszystkich producentów znajdujących się w danym mieście
+	 */
 	private ArrayList<Manufacturer> manufacturersData;
+	
+	/**
+	 * Kolekcja producentów obecnie wyświetlanych ( np. po filtracji )
+	 */
 	private ArrayList<Manufacturer> currentDisplayManufacturersData;
+	
+	/**
+	 * Kolekcja kolejnych miast tworzących trasę
+	 */
 	private ArrayList<City> path_cities;
 	
 	private VisualisationManufactureDecorator dec;
@@ -65,6 +77,11 @@ public class VisualisationManufacturersModel
 			path_cities.clear();
 	}
 	
+	/**
+	 * Ustawienie danych do połączenia z zewnętrzną bazą danych aktualnego użytkownika.
+	 * @param currentLoggedUser aktualnie zalogowany użytkownik
+	 * @author Kamil Zimny
+	 */
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
 		if( currentLoggedUser != null )
@@ -79,9 +96,10 @@ public class VisualisationManufacturersModel
 	
 		
 	/**
-	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
-	 * Na mape nanoszone sa obiekty w ktorych zawarte sa dane o producentach
-	 * ich aktywnosci i przydatnosci wyboru.
+	 * Metoda tworząca mapę z przyblizeniem na określone miasto.
+	 * Na mapę nanoszone są obiekty w których zawarte są dane o producentach
+	 * ich aktywności i przydatności wyboru.
+	 * @param cityName - nazwa miasta
 	 * @return JMap
 	 * @author Kamil Zimny
 	 */
@@ -112,16 +130,20 @@ public class VisualisationManufacturersModel
 		return map;
 	}
 		
+	/**
+	 * Zwróć mapę 
+	 * @return map
+	 */
 	public JMap getMap()
 	{
 		return map;
 	}
 	
 	/**
-	 * Metoda zwracajaca producenta o okreslonym id z kolekcji wszystkich 
-	 * producentow w wybranym obszarze.
-	 * @param ID
-	 * @return Manufacturer jesli znalazl || null jestli nie znalazl
+	 * Metoda zwracająca producenta o określonym id z kolekcji wszystkich 
+	 * producentów w wybranym obszarze.
+	 * @param ID - identyfikator producenta
+	 * @return Manufacturer jeśli znalazł || null jesli nie znalazł
 	 * @author Kamil Zimny
 	 */
 	public Manufacturer getManufacturerByID(String ID)
@@ -136,7 +158,7 @@ public class VisualisationManufacturersModel
 	}
 	
 	/**
-	 * Metoda zwracajaca warstwe graficzna w której znajdują się grafiki porducentów.
+	 * Metoda zwracająca warstwę graficzna w której znajdują się grafiki porducentów.
 	 * @return GraphicsLayer z obiektami producentow || null jestli nie znajdzie warstwy
 	 * @author Kamil Zimny
 	 */
@@ -151,7 +173,8 @@ public class VisualisationManufacturersModel
 	}
 	
 	/**
-	 * Sortuje kolekcje producentow na podstawie komparatora.
+	 * Sortuje kolekcje producentów na podstawie komparatora.
+	 * @param manufactureComparator - komparator producentów
 	 * @author Kamil Zimny
 	 */
 	public void sortManufacturerCollection(Comparator<Manufacturer> manufactureComparator)
@@ -159,16 +182,10 @@ public class VisualisationManufacturersModel
 	   manufacturersData.sort( manufactureComparator);
 	}
 	
-	public void show()
-	{
-		for( Manufacturer man : manufacturersData )
-		{
-			System.out.println(man.getRankOfDailyProfit() +" "+ man.getRankOfNumberOfOrders()+ " " +man.getName());
-		}
-	}
 	
 	/**
-	 * Metda zwracajca kolekcje podana liczbe w parametrze porducentow z kolekcji producentow. 
+	 * Metda zwracająca kolekcję porducentów o liczbie określonej w parametrze, 
+	 * producenci pochcodzą z kolekcji producetów aktualnie wyświetlanych. 
 	 * @param number
 	 * @return ArrayList<Manufacturer> pierwszych producentow z kolekcji
 	 * @author Kamil Zimny
@@ -181,15 +198,20 @@ public class VisualisationManufacturersModel
 	            .collect(Collectors.toCollection(ArrayList::new));
 	}
 	
+	/**
+	 * Metoda zwracająca kolekcję wszystkich producentów dostępnych 
+	 * w danym mieście.
+	 * @return ArrayList<Manufacturer> kolekcja producentów
+	 */
 	public ArrayList<Manufacturer> getAllManufacturerInCurrentCity()
 	{
 		return manufacturersData;
 	}
 	
 	/**
-	 * Metoda zwracajaca kolekcje producentow ktorych ostatnia aktywnosc jest
-	 * wczesniejsza niz data podana w parametrze.
-	 * @param dateBefore
+	 * Metoda zwracajaca kolekcję producentow których ostatnia aktywnosc jest
+	 * wcześniejsza niż data podana w parametrze.
+	 * @param dateBefore 
 	 * @return ArrayList<Manufacturer>
 	 * @author Kamil Zimny
 	 */
@@ -208,7 +230,7 @@ public class VisualisationManufacturersModel
 	}
 	
 	/**
-	 * Metoda zwracajaca kolekcje poroducentow ktorych ostatnia aktywnosc
+	 * Metoda zwracająca kolekcję poroducentów których ostatnia aktywność
 	 * jest pomiedzy datami podanymi w parametrach.
 	 * @param dateFrom
 	 * @param dateTo
