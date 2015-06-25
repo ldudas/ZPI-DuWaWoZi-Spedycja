@@ -34,6 +34,12 @@ import dataModels.Manufacturer;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectManufacturersVisualisation;
 
+/**
+ * Dekorator Producenta, dodaje na mapie 
+ * obiekty producentów.
+ * @author Kamil
+ *
+ */
 public class VisualisationManufactureDecorator extends JMapDecorator
 {
 	/**
@@ -43,11 +49,20 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 
 	@SuppressWarnings("unused")
 	private DataAccessObjectManufacturersVisualisation DAO_ManufacturersVis;
+
+	/**
+	 * Poziom przybliżenia na mapie dla każdego miasta. 
+	 */
 	private final static int DISPLAY_AREA_OF_CITY_ON_MAP = 30000;
-	private SimpleMarkerSymbol symbol;
-	private DiscriptionOnMapJPanel discription;
 	
+	/**
+	 * Symbol który będzie reprezentował producenta na mapie
+	 */
+	private SimpleMarkerSymbol symbol;
+	
+	private DiscriptionOnMapJPanel discription;
 	private PieChartJPanel pieChart;
+	
 	
 	public VisualisationManufactureDecorator(final City city,final ArrayList<Manufacturer> manfacturers)
 	{
@@ -69,10 +84,11 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	
 	
 	/**
-	 * Metoda tworzaca mape z przyblizeniem na okreslone miasto.
-	 * Na mape nanoszone sa obiekty w ktorych zawarte sa dane o producentach
-	 * ich aktywnosci i przydatnosci wyboru.
-	 * @return JMap
+	 * Metoda tworząca mapę z przybliżeniem na określone miasto podane jako pierwszy parametr.
+	 * Na mape nanoszone są obiekty, w których zawarte są dane o producentach, obiekty
+	 * przedstawiają ich aktywność oraz wyliczony zarobek.
+	 * @param city - miasto/obszar miasta na którym są umieszczone obiekty producentów
+	 * @param manfacturers - kolekcja producentów którzy mają być umieszczeni na mapie
 	 * @author Kamil Zimny
 	 */
 	public void decorateMapWithVisualisationManufacturersInCity(final City city,final ArrayList<Manufacturer> manfacturers)
@@ -109,11 +125,14 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		 });
 	}
 	
+
 	/**
-	 * Metoda dodajaca listenery na kazdy obiekt umieszczony w podanej warstwie,
-	 * czyli wszystkie obiekty producentow.
-	 * @return HitTestOverlay
-	 * @author Kamil Zimny
+	 * Metoda dodająca listenery na każdy obiekt umieszczony w podanej warstwie,
+	 * czyli wszystkie obiekty producentów. Zwracana jest warstwa kolizji stworzona
+	 * na podstawie warstwy podanej.
+	 * @param graphicsLayer - warstwa mapy w której umieszone są obiekty producentów
+	 * @param manfacturers - kolekcja producentów
+	 * @return HitTestOverlay - warstwa odpowiedzialna za reakcje na przysiski myszy
 	 */
 	private HitTestOverlay addResponseToMouseClick(final GraphicsLayer graphicsLayer,final ArrayList<Manufacturer> manfacturers)
 	{
@@ -213,24 +232,16 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 		  return hitTestOverlay;
 	}
 	
-	
 	/**
-	 * Dodaje elementy wizualizacji dotyczace producentow, oraz dodaje wszystkie informacje 
-	 * o producencie do Mapy atrybutow danego elementu grafiki. Zawartosc danych producenta
-	 * opisana ponizej.
-	 * @attributes HashMap (String, String) attr:
-	 * <br>attr.get("Name") -> nazwa 
-	 * <br>attr.get("LastActivity") -> ostatnia aktywnosc
-	 * <br>attr.get("NumberOfOrders") -> liczba zlecen
-	 * <br>attr.get("SumOfOrders") -> suma wartosci zlecen
-	 * <br>attr.get("SumOfDays") -> suma dni wykonywanych zlecen
-	 * <br>attr.get("Phone") -> telefon
-	 * * <br>attr.get("ID") -> identyfikator 
+	 * Dodaje elementy wizualizacji dotyczące producentów oraz dodaje wszystkie informacje 
+	 * o producencie do Mapy atrybutów danego elementu grafiki.
+	 * @param mapSR
+	 * @param graphicsLayer
+	 * @param manufacturers
 	 * @author Kamil Zimny
 	 */
 	public void addManufacturerGraphicOnMap(final SpatialReference mapSR,final GraphicsLayer graphicsLayer, final ArrayList<Manufacturer> manufacturers)
 	{
-
 		 //dla kazdego producenta
 		for(int i=0 ; i<manufacturers.size() ; i++)
 		{
@@ -255,8 +266,8 @@ public class VisualisationManufactureDecorator extends JMapDecorator
 	}
 	
 	/**
-	 * Ustawia powiekszenie mapy na okreslony region o okreslonej
-	 * przez parametr DISPLAY_AREA_OF_CITY_ON_MAP skali przyblizenia.
+	 * Ustawia powiększenie mapy na określony region o określonej
+	 * przez parametr DISPLAY_AREA_OF_CITY_ON_MAP skali przybliżenia.
 	 * @return NULL OR Envelope 
 	 * @author Kamil Zimny 
 	 */

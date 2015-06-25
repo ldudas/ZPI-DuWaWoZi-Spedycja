@@ -1,22 +1,45 @@
 package dataModels;
 
+/**
+ * Klasa Zamówienia tworzonego 
+ * podczas działania aplikacji
+ * @author Kamil Zimny
+ *
+ */
 public class Order 
 {
-	
-//	private String cityNameFrom;
-//	private String cityNameTo;
+	/**
+	 * Data rozpoczęcia zamówienia/zlecenia
+	 */
 	private String startDate;
+	
+	/**
+	 * Data zakończenia zamówienia/zlecenia
+	 */
 	private String finishDate;
+	
+	/**
+	 * Identyfikator producenta
+	 */
 	private String idManufacturer;
+	
+	/**
+	 * Identyfikator przewoźnika
+	 */
 	private String idTrasnporter;
 	
+	/**
+	 * Miasto z którego zaczynamy zlecenie
+	 */
 	private City cityFrom;
+	
+	/**
+	 * Miasto w którym kończymy zlecenie
+	 */
 	private City cityTo;
 	
 	public Order(String cityNameFrom, String cityNameTo,String startDate, String finishDate,String idManufacturer,String idTrasnporter)
 	{
-	//	this.cityNameFrom = cityNameFrom;
-	//	this.cityNameTo = cityNameTo;
 		this.startDate = startDate;
 		this.finishDate = finishDate;
 		this.idManufacturer = idManufacturer;

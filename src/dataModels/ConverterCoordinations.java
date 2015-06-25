@@ -8,7 +8,7 @@ public class ConverterCoordinations
 	}
 	
 	/**
-	 * Zamiana wspolrzednej geograficznej na liczbe dziesietna 
+	 * Zamiana współrzednej geograficznej na liczbe dziesietna 
 	 * odpowiadajaca tej wspolrzednej (tylko stopnie i minuty).
 	 * @return double coordiante
 	 * @author Piotr Wołoszyk

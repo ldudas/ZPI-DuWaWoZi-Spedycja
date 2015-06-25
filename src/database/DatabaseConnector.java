@@ -16,8 +16,13 @@ import exceptions.DatabaseConnectionExeption;
  
 public class DatabaseConnector 
 {
-	
+	/**
+	 * Zawiera informacje do utworzenia połączenia z bazą.
+	 */
 	private String database_urlConnector;
+	/**
+	 * Połączenie z bazą danych.
+	 */
 	private Connection database_Connector;
 	
 	public DatabaseConnector(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
@@ -28,12 +33,13 @@ public class DatabaseConnector
 	}
 	
 	/**
-	 * Sprawdza poprawnosc polaczenia, w przypadku potwierdzenia
+	 * Sprawdza poprawność połączenia, w przypadku potwierdzenia
 	 * zwraca wyniki zapytania przekazanego w parametrze mysSqlQuery, czyli
 	 * arrayListe wierszy, arrayLista wierszy zawiera krotki wynikowe
+	 * @param mysSqlQuery zapytanie DQL w języku MySQL.
 	 * @return ArrayList<ArrayList<Object>> res : 
-	 *  <br>res.get(i) -> i-ty wiersz  
-	 *  <br>res.get(i).get(j) -> j-ta kolumna w i-tym wierszu 
+	 *  <br>res.get(i)  i-ty wiersz  
+	 *  <br>res.get(i).get(j) j-ta kolumna w i-tym wierszu 
 	 *  @author Kamil Zimny
 	 */
 	@SuppressWarnings("finally")
@@ -85,8 +91,9 @@ public class DatabaseConnector
 	/**
 	 * Sprawdza poprawność polączenia a nastepnie wykonuje zapytanie zwiazane z zapisem danych
 	 * do bazy danych.
-	 * @param query
+	 * @param query zapytanie DML w języku MySql.
 	 * @throws DatabaseConnectionExeption
+	 * @author Kamil Zimny
 	 */
 	public void saveDataToDatabase(final String query) throws DatabaseConnectionExeption
 	{
@@ -119,10 +126,10 @@ public class DatabaseConnector
 	}
 			
 	/**
-	 * Sprawdza polaczenie z internetem
-	 * @return boolean : 
-	 * <br>true -> udalo sie 
-	 * <br>false -> nie udalo sie
+	 * Sprawdza połączenie z internetem.
+	 * @return boolean  
+	 * <br>true - udalo sie 
+	 * <br>false - nie udalo sie
 	 * @author Kamil Zimny
 	 */
 	private boolean checkInternetConnection()
@@ -142,9 +149,10 @@ public class DatabaseConnector
 	}
 	
 	/**
-	 * Laczy sie z baza danych i zwraca wartosc logiczna potwierdzajaca
-	 * lub zaprzeczajaca polaczenie z baza danych na serwerze
-	 * @return boolean : 
+	 * Łączy się z bazą danych 
+	 * i zwraca wartość logiczną potwierdzającą
+	 * lub zaprzeczającą połączenie z bazą danych na serwerze.
+	 * @return boolean  
 	 * <br>true -> udalo sie 
 	 * <br>false -> nie udalo sie
 	 * @author Kamil Zimny
@@ -162,6 +170,15 @@ public class DatabaseConnector
 	     }
 	}
 	
+	/**
+	 * Testuje połączenie z bazą danych
+	 * i zwraca wartość logiczną potwierdzającą
+	 * lub zaprzeczającą połączenie z bazą danych na serwerze.
+	 * @return boolean  
+	 * <br>true -> udalo sie 
+	 * <br>false -> nie udalo sie
+	 * @author Kamil Zimny
+	 */
 	public boolean testConnectionToDatabase()
 	{
 		try 
@@ -176,12 +193,12 @@ public class DatabaseConnector
 	}
 	
 	/**
-	 * Zamyka polacznie z baza danych i zwraca wartos logiczna
-	 * czy udalo sie poprawnie zamknac polaczenie czy nie
-	 * Zamkniecie nie stworzonego polaczenia zwraca false.
-	 * @return boolean :
-	 * <br>true -> udalo sie 
-	 * <br>false -> nie udalo sie
+	 * Zamyka połącznie z bazą danych i zwraca wartość logiczną
+	 * czy udalo sie poprawnie zamknąć połączenie.
+	 * Zamknięcie nie stworzonego połączenia zwraca false.
+	 * @return boolean 
+	 * <br>true - udalo sie 
+	 * <br>false - nie udalo sie
 	 * @author Kamil Zimny
 	 */
 	private boolean closeConnectToDatabase()

@@ -19,6 +19,11 @@ import dataModels.User;
 import decorators.VisualisationManufactureDecorator;
 import interfaces.RoutePlanningPresenter;
 
+/**
+ * Presenter wizualizacji Producentów.
+ * @author Kamil Zimny
+ *
+ */
 public class VisualistaionManufacturersPresenter 
 {
 	
@@ -38,7 +43,8 @@ public class VisualistaionManufacturersPresenter
 	}
 	
 	/**
-	 * Metoda ustawiajaca widokowi mape pobrana z modelu.
+	 * Metoda ustawiajaca widokowi mapę pobraną z modelu.
+	 * @param cityName - nazwa miasta
 	 * @author Kamil Zimny
 	 */
 	public void startManufacturersVisualisation(final String cityName)
@@ -47,14 +53,18 @@ public class VisualistaionManufacturersPresenter
 		view_ManufacturersVis.add_map_to_tab(model_ManufacturersVis.getMapWithVisualisationManufacturersInCity(cityName),cityName);
 	}
 	
+	/**
+	 * Usuwa wszystkie dane zapisane w modelu.
+	 * @author Kamil Zimny
+	 */
 	public void clearDataInModel()
 	{
 		model_ManufacturersVis.clearData();
 	}
 	
 	/**
-	 * Metoda zwracajaca atrybuty charakteryzujace danego Producenta.
-	 * @return Map<String, Object> atrybutyZaznaczonegoObiektu
+	 * Metoda zwracająca obiekt Producenta zwierający atrybuty go charakteryzujące.
+	 * @return Manufacturer - obiekt producenta
 	 * @author Kamil Zimny
 	 */
 	public Manufacturer getAttributeOfSelectedManufacturers()
@@ -77,8 +87,8 @@ public class VisualistaionManufacturersPresenter
 	}
 	
 	/**
-	 * Metoda ustawiajaca symbol na mapie na czarny krzyz oznaczajacy ze dany producent nie odpowiada naszym 
-	 * wymagania spedytora.
+	 * Metoda zmieniająca symbol na mapie na czarny krzyż oznaczający, 
+	 * że dany producent nie odpowiada naszym wymagania.
 	 * @author Kamil Zimny
 	 */
 	public void markAsUnsuitable()
@@ -96,10 +106,10 @@ public class VisualistaionManufacturersPresenter
 	}
 	
 	/**
-	 * Metoda ustawiajaca wybranemu producentowi pole dodatkowe inforamcje na 
-	 * wartosc podana w parametrze info
-	 * @param manufacturer
-	 * @param info
+	 * Metoda ustawiająca wybranemu producentowi pole dodatkowe inforamcje na 
+	 * wartość podaną w parametrze info.
+	 * @param manufacturer - producent któremu dodajemy notatke
+	 * @param info - notatka dodawana do producenta
 	 * @author Kamil Zimny
 	 */
 	public void setManufacturerAttribut_additionInfo(Manufacturer manufacturer,String info)
@@ -109,15 +119,13 @@ public class VisualistaionManufacturersPresenter
 	
 	
 	/**
-	 * Metoda filtrująca producentow na mapie pod wzgledem ich aktywności
-	 * ilość producentów wyświetlanych będzie co najwyżej równa parametrowi int
-	 * @param numberOfMostActive - ilosc producentow do wyswietlenia
+	 * Metoda filtrująca producentów na mapie pod względem ich aktywności,
+	 * ilość producentów wyświetlanych będzie co najwyżej równa parametrowi int.
+	 * @param numberOfMostActive - ilość producentów do wyswietlenia
 	 * @author Kamil Zimny
 	 */
 	public void filterCountOfMostActiveManufacturers(int numberOfMostActive)
 	{
-	//	model_ManufacturersVis.sortManufacturerCollection(new ComparatorManufactureActivite());
-	
 		VisualisationManufactureDecorator decorator = new VisualisationManufactureDecorator();
 		GraphicsLayer layer = model_ManufacturersVis.getGraphicsLayerWithManufacturers();
 		layer.removeAll();
@@ -127,7 +135,7 @@ public class VisualistaionManufacturersPresenter
 	}
 	
 	/**
-	 * Metoda zwracajaca poczatkowy stan producnetow na mapie.
+	 * Metoda zwracająca początkowy stan producnetów na mapie.
 	 * Wszyscy producenci z danego miasta.
 	 * @author Kamil Zimny
 	 */
@@ -143,7 +151,7 @@ public class VisualistaionManufacturersPresenter
 	
 	/**
 	 * Metoda filtrująca producentów pod względem aktywności po określonej dacie w parametrze.
-	 * @param numberOfDays
+	 * @param numberOfDays - liczba dni od daty bierzącej
 	 * @author Kamil Zimny
 	 */
 	public void filterManfacturersBySinceDate(int numberOfDays)
@@ -162,10 +170,10 @@ public class VisualistaionManufacturersPresenter
 	}
 	
 	/**
-	 * Metoda filtrujaca proucentow na mapie, ktorych ostatnia aktywnosc znajduje sie pomiedzy obliczonymi
+	 * Metoda filtrujaca producentów na mapie, których ostatnia aktywnosc znajduje sie pomiedzy obliczonymi
 	 * datami na podstawie parametrow.
-	 * @param numberOfDaysAgo
-	 * @param numberOfDayTolerance
+	 * @param numberOfDaysAgo - liczba dni do cofnięcia od bierzącej daty
+	 * @param numberOfDayTolerance - liczba dni które stanowią przesunięcie daty w obie strony
 	 * @author Kamil Zimny
 	 */
 	public void filterManufacturersBetweenDate(int numberOfDaysAgo, int numberOfDayTolerance)
@@ -185,6 +193,12 @@ public class VisualistaionManufacturersPresenter
 		
 	}
 	
+	/**
+	 * W modelu wizualizacji producentów ustawienia połączenia 
+	 * do serwera na podstawie danych zalogowanego użytkownika 
+	 * @param currentLoggedUser - obecnie zalogowany uzytkownik
+	 * @throws Exception
+	 */
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
 		model_ManufacturersVis.setExternalDatabaseConnectionProperty(currentLoggedUser);

@@ -15,16 +15,26 @@ public class DataAccessObjectRoutePlanning
 	{
 	}
 	
+	/**
+	 * Ustawienie danych do połączenia z zewnętrzną bazą danych aktualnego użytkownika.
+	 * @param serverAddress adres serwera zewnętrzengo
+	 * @param serverPort port serwera zewnętrznego
+	 * @param databaseName nazwa bazy danych na serwerze
+	 * @param databaseLogin login do bazy danych na serwerze
+	 * @param databasePassword hasło do bazy danych na serwerze
+	 * @author Kamil Zimny
+	 */
 	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
 	{
 		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
+	
 	/**
-	 * Metoda zwracajaca tablice wspolrzednych geograficznych miasta o nazwie
+	 * Metoda zwracająca tablicę współrzędnych geograficznych miasta o nazwie
 	 * podanej w parametrze.
 	 * @return NULL OR String [] tab :
-	 * <br>tab[0] -> dlugosc geograficzna 
-	 * <br>tab[1] -> szerokosc geograficzna
+	 * <br>tab[0] - dlugosc geograficzna 
+	 * <br>tab[1] - szerokosc geograficzna
 	 * @author Kamil Zimny
 	 */
 	public String [] getCityCoordinates(final String cityName)
@@ -56,6 +66,11 @@ public class DataAccessObjectRoutePlanning
 		return coordinates;
 	}
 	
+	/**
+	 * Zwraca kolekcje wszystkich nazw miast z zewnętrznej bazy danych.
+	 * @return ArrayList<String>
+	 * @author Kamil Zimny
+	 */
 	public ArrayList<String> getAllCityNames()
 	{
 		final String query = "SELECT nazwa_miasta FROM Miasta ORDER BY nazwa_miasta;";
@@ -81,6 +96,16 @@ public class DataAccessObjectRoutePlanning
 		
 	}
 	
+	/**
+	 * Zapisywanie danych tworzonej trasy w czasie wykonywania programu.
+	 * @param route_name nazwa trasy podana przez użytkownika
+	 * @param ordersData dane dotyczące zlecenia
+	 * @param idTrans identyfikator przewoźnika
+	 * @throws DatabaseConnectionExeption 
+	 * @throws Exception 
+	 * @throws RuntimeException
+	 * @author Kamil Zimny
+	 */
 	public void saveOrdersToDatabase(String route_name, ArrayList<Order> ordersData,String idTrans) throws DatabaseConnectionExeption,Exception,RuntimeException
 	{
 		ordersData.stream().forEach( order -> 
@@ -147,6 +172,13 @@ public class DataAccessObjectRoutePlanning
 		} );
 	}
 	
+	/**
+	 * Zwraca liczbe wystąpień w bazie danych nazwy trasy podanej 
+	 * w parametrze metody.
+	 * @param route_name nazwa trasy.
+	 * @return int liczba tras o nazwie podanej w parametrze
+	 * @author Łukasz Dudaszek
+	 */
 	public int getNumberOfRoutesWithName(String route_name)
 	{
 		final String query = "SELECT count(id_trasy) FROM Trasy_przewoznikow WHERE nazwa_trasy= '"+route_name+"';";

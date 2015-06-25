@@ -2,10 +2,18 @@ package dataModels;
 
 public class City 
 {
-
+	/**
+	 * Nazwa miasta
+	 */
 	private String city_name;
-	double latitude;
-	double longtitude;
+	/**
+	 * Szerokość geograficzna miasta
+	 */
+	private double latitude;
+	/**
+	 * Długość geograficzna miasta
+	 */
+	private double longtitude;
 	
 	public City(String city_name, double latitude, double longtitude)
 	{
@@ -27,11 +35,6 @@ public class City
 	public double getLongtitude()
 	{
 		return longtitude;
-	}
-	
-	public void test()
-	{
-		
 	}
 	
 	public boolean isEquals(City city)

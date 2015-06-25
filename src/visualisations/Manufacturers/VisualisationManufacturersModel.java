@@ -24,8 +24,16 @@ import dataModels.User;
 import database.DataAccessObjectManufacturersVisualisation;
 import decorators.VisualisationManufactureDecorator;
 
+/**
+ * Model wizualizacji producentów.
+ * @author Kamil Zimny
+ *
+ */
 public class VisualisationManufacturersModel 
 {	
+	/**
+	 * Mapa na który
+	 */
 	private JMap map;
 	private ArrayList<Manufacturer> manufacturersData;
 	private ArrayList<Manufacturer> currentDisplayManufacturersData;
@@ -42,6 +50,11 @@ public class VisualisationManufacturersModel
 		path_cities = new ArrayList<City>();
 	}
 	
+	/**
+	 * Metoda usuwająca wszystkie zapisane dane
+	 * w modelu.
+	 * @author Kamil Zimny
+	 */
 	public void clearData()
 	{
 		if( manufacturersData != null )

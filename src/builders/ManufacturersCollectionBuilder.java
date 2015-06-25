@@ -10,6 +10,15 @@ public class ManufacturersCollectionBuilder
 	public ManufacturersCollectionBuilder()
 	{}
 	
+	/**
+	 * Tworzenie kolekcji obiektów Manufacturer producentów,
+	 * ma podstawie dannych z bazy.
+	 * @param manufacturerDetails - dane dotyczące producentów
+	 * @param manufacturerActivityInEachMonth - aktywności producentów w każdym miesiącu
+	 * @param manufacturerCostInEachMonth - zarobek na producencie w każdym miesiącu
+	 * @return ArrayList<Manufacturer> kolekcja producentow
+	 * @author Kamil Zimny
+	 */
 	public ArrayList<Manufacturer> buildManufacturersCollection
 						( 
 							final ArrayList<ArrayList<String>> manufacturerDetails,
