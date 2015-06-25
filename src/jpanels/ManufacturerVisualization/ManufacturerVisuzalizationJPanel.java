@@ -33,8 +33,6 @@ public class ManufacturerVisuzalizationJPanel extends JComponent
 		setForeground(SystemColor.inactiveCaption);
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
-		
-		man_managmentJPanel = new ManufacturerManagementJPanel();
 		path__managmentJPanel = new PathManagementJPanel();
 		
 		panel_background = new JPanel();
@@ -47,17 +45,19 @@ public class ManufacturerVisuzalizationJPanel extends JComponent
 		map_tabbedPane.setForeground(SystemColor.desktop);
 		map_tabbedPane.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
 		map_tabbedPane.setBackground(SystemColor.inactiveCaption);
-		map_tabbedPane.setBounds(397, 36, 709, 500);
+		map_tabbedPane.setBounds(395, 11, 709, 500);
 		panel_background.add(map_tabbedPane);
 		
-		panel_menagment = new JPanel();
-		panel_menagment.setBackground(SystemColor.inactiveCaptionText);
-		panel_menagment.setBounds(10, 36, 375, 500);
-		panel_background.add(panel_menagment);
-		panel_menagment.setLayout(new CardLayout(0, 0));
+		man_managmentJPanel = new ManufacturerManagementJPanel();
+		panel_background.add(man_managmentJPanel);
 		
-		man_managmentJPanel.setBounds(27, 36, 365, 500);
-		panel_menagment.add(man_managmentJPanel);
+		man_managmentJPanel.setBounds(10, 11, 375, 500);
+		
+		panel_menagment = new JPanel();
+		panel_menagment.setBounds(12, 11, 375, 500);
+		panel_background.add(panel_menagment);
+		panel_menagment.setBackground(SystemColor.inactiveCaptionText);
+		panel_menagment.setLayout(new CardLayout(0, 0));
 		
 		map_tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) 

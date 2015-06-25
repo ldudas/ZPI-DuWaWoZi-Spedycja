@@ -357,13 +357,13 @@ public class RoutePlanningPresenter
 	public String checkCorrectnessOfData_nextOrders()
 	{
 		if( route_planning_view.getNextCityTo() == null || route_planning_view.getNextCityTo().equals("") )
-			return "Nie wybrano miasta docelowego...";
+			return "Nie wybrano miasta docelowego.";
 		if( route_planning_view.getNextCityTo().equals(route_planning_model.getLastOrder().getCityTo().getCityName()) )
-			return "Miasto docelowe jest miastem w którym się obecnie znajdujemy...";
+			return "Miasto docelowe jest miastem w którym się obecnie znajdujemy.";
 		if( route_planning_view.getNextStartDate() == null || route_planning_view.getNextStartDate().equals("") ) 
-			return "Nie wybrano daty wyjazdu...";
+			return "Nie wybrano daty wyjazdu.";
 		if( route_planning_view.getNextFinishDate() == null || route_planning_view.getNextFinishDate().equals("") ) 
-			return "Nie wybrano daty przyjazdu...";
+			return "Nie wybrano daty przyjazdu.";
 		
 		SimpleDateFormat sDateFormat; 
 		try 
@@ -372,14 +372,14 @@ public class RoutePlanningPresenter
 			
 			if( sDateFormat.parse(route_planning_view.getNextStartDate()).after
 				(sDateFormat.parse(route_planning_view.getNextFinishDate())) ) 
-				return "Data przyjazdu jest wcześniejsza niż data wyjazdu...";
+				return "Data przyjazdu jest wcześniejsza niż data wyjazdu.";
 			if( sDateFormat.parse(route_planning_view.getNextStartDate()).before( 
 					sDateFormat.parse( route_planning_model.getLastOrder().getFinishDate())) )
-				return "Data wyjazdu jest wcześniejsza niż przewidywana data dotarcia...";		
+				return "Data wyjazdu jest wcześniejsza niż przewidywana data dotarcia.";		
 		} 
 		catch (ParseException e) 
 		{
-			return "Problem z datami...";
+			return "Problem z datami.";
 		}
 		
 		return null;
@@ -403,15 +403,15 @@ public class RoutePlanningPresenter
 	public String checkCorrectnessOfData_firstOrder()
 	{
 		if( route_planning_view.city_from() == null || route_planning_view.city_from().equals("") ) 
-			return "Nie wybrano miasta startowego...";
+			return "Nie wybrano miasta startowego.";
 		if( route_planning_view.city_to() == null || route_planning_view.city_to().equals("") ) 
-			return "Nie wybrano miasta docelowego...";
+			return "Nie wybrano miasta docelowego.";
 		if( route_planning_view.city_from().equals(route_planning_view.city_to()) )
-			return "Miasto startowe jest takie samo jak miasto docelowe...";
+			return "Miasto startowe jest takie samo jak miasto docelowe.";
 		if( route_planning_view.getStartDate() == null || route_planning_view.getStartDate().equals("") ) 
-			return "Nie wybrano daty wyjazdu...";
+			return "Nie wybrano daty wyjazdu.";
 		if( route_planning_view.getFinishDate() == null || route_planning_view.getFinishDate().equals("") ) 
-			return "Nie wybrano daty przyjazdu...";
+			return "Nie wybrano daty przyjazdu.";
 		SimpleDateFormat sDateFormat; 
 		try 
 		{
@@ -419,15 +419,15 @@ public class RoutePlanningPresenter
 			
 			if( sDateFormat.parse(route_planning_view.getStartDate()).after
 				(sDateFormat.parse(route_planning_view.getFinishDate()))  ) 
-				return "Data przyjazdu jest wcześniejsza niż data wyjazdu...";
+				return "Data przyjazdu jest wcześniejsza niż data wyjazdu.";
 			if( sDateFormat.parse(route_planning_view.getStartDate()).before
 					( sDateFormat.parse(sDateFormat.format(new Date())) )  )
-				return "Data wyjazdu jest wcześniejsza niż obecna data...";
+				return "Data wyjazdu jest wcześniejsza niż obecna data.";
 			
 		} 
 		catch (ParseException e) 
 		{
-			return "Problem z datami...";
+			return "Problem z datami.";
 		}
 		
 		return null;
