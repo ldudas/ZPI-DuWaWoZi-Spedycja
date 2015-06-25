@@ -24,57 +24,184 @@ import javax.swing.JPanel;
 
 import dataModels.Transporter;
 
+/**
+ * Wizualizacja przewoźników
+ * @author Łukasz
+ *
+ */
 public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotionListener
 {  
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
+	 /**
+	  * lewy margines osi x
+	  */
 	 private final static int x_gap = 20;
+	 
+	 /**
+	  * dolny margines osi y
+	  */
      private final static int y_gap = 20;
+     
+     /**
+      * grubość osi
+      */
      private final static int line_thickness = 2;
      
+     /**
+      * Czcionka opisów osi
+      */
      private final static  String axis_font = "Gulim";
+     
+     /**
+      * Styl czcionki opsiów osi
+      */
      private final static int axis_font_style = Font.ITALIC;
+     
+     /**
+      * Czcionka opisu obiektów na wizualziacji
+      */
      private final static String rect_font = "Juice ITC";
+     
+     /**
+      * Styl czcionki opisu obiektów na wizualziacji
+      */
      private final static int rect_font_style = Font.PLAIN;
      
+     /**
+      * maksymalny rozmiar czcionki opisu osi x
+      */
      private final static int x_axis_max_font_size = 15;
+     
+     /**
+      * minimalny rozmiar czcionki opisu osi x
+      */
      private final static int x_axis_min_font_size = 10;
      
+     /**
+      * maksymalny rozmiar czcionki opisu osi y
+      */
      private final static int y_axis_max_font_size = 17;
+     
+     /**
+      * minimalny rozmiar czcionki opisu osi y
+      */
      private final static int y_axis_min_font_size = 3;
      
+     /**
+      * maksymalny rozmiar czcionki opsiu obiektu przewoźnika
+      */
      private final static int trans_max_font_size = 50;
+     /**
+      * minimalny rozmiar czcionki opsiu obiektu przewoźnika
+      */
      private final static int trans_min_font_size = 10;
      
+     /**
+      * rozmiar grotu osi
+      */
      private final static int triangle_size = 4;
+     
+     /**
+      * liczba "podziałek" na osiach
+      */
      private final static int number_of_desc = 10;
 
+     /**
+      * maksymalna wartość kanału alpha obiektów przewoźników
+      */
      private final static float max_alpha_minus = 0.9f;
+     
+     /**
+      * minimalna wartość kanału alpha obiektów przewoźników
+      */
      private final static float min_alpha_minus = 0.1f;
      
+     /**
+      * maksymalna (prog od ktorego jest najgorsza) wartość stosunku nzreal od zreal
+      */
      private final static double max_exec = 0.05;
      
      
-          
+     /////////////////////////////////////////////////////////////////////////////////////////    
+     /**
+      * maksymalna szerokość obiektu przewoźnika
+      */
      private double max_obj_width;
+     /**
+      * maksymalna wysokość obiektu przewoźnika
+      */
      private double max_obj_height;
      
+     /**
+      * minimalna szerokość obiektu przewoźnika
+      */
      private double min_obj_width;
+     
+     /**
+      * minimalna wysokość obiektu przewoźnika
+      */
      private double min_obj_height;
      
+     /**
+      * wysokość panelu wizualizacji
+      */
      private int panel_height;
+     
+     /**
+      * szerokość panelu wizualizacji
+      */
      private int panel_width;
+     
+     /**
+      * początek x osi X
+      */
      private int x_line_x_beg;
+     
+     /**
+      * początek y osi X
+      */
      private int x_line_y_beg;
+     
+     /**
+      * koniec x osi X
+      */
      private int x_line_x_end;
+     
+     /**
+      * koniec y osi X
+      */
      private int x_line_y_end;
+     
+     /**
+      * początek x osi Y
+      */
      private int y_line_x_beg;
+     
+     /**
+      * początek y osi Y
+      */
      private int y_line_y_beg;
+     
+     /**
+      * koniec x osi Y
+      */
      private int y_line_x_end;
+     
+     /**
+      * koniec y osi Y
+      */
      private int y_line_y_end;
      
+     /**
+      * widok
+      */
      private VisualisationTransportersView view;
+     
+     /**
+      * kolekcja narysowanych na mapie obiektów przewoźników
+      */
      private ArrayList<Shape> drawnShapes;
     
     
@@ -92,6 +219,10 @@ private static final long serialVersionUID = 1L;
         return new Dimension(700,500);
     }
     
+    /**
+     * Narysuj osie
+     * @param g2d Graphics2D do rysowania
+     */
     private void drawAxles(Graphics2D g2d)
     {
     	
@@ -136,7 +267,10 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Narysuj obiekty przewoźników
+     * @param g2d Graphics2D do rysowania
+     */
     void drawTransportersObjects(Graphics2D g2d)
     {
 	    	setTransporterObjectsSizeBounds();    
@@ -153,7 +287,9 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Ustaw max/min wymiary obiektów przewoźników wg wymiarów panelu
+     */
     private void setTransporterObjectsSizeBounds()
     {
     	max_obj_height = panel_height/5.0;
@@ -164,7 +300,11 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Narysuj obiekt przewoźnika
+     * @param g2d Graphics2D do rysowania
+     * @param t Przewoźnik do narysowania
+     */
     private void drawTransporterObject(Graphics2D g2d, Transporter t)
     {
     	double x_obj;
@@ -241,7 +381,9 @@ private static final long serialVersionUID = 1L;
     }
     	    
     
-    
+    /**
+     * Ustawianie współrzędnych osi wg rozmiarów panelu do rysowania
+     */
     private void setAxlesCoordinates()
     {
     	 //poczatek osi x - x
@@ -265,7 +407,10 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Rysuje oś X
+     * @param g2d Graphics2D do rysowania
+     */
     private void drawXAxle(Graphics2D g2d)
     {
     	//grubość, zakończenie, łączenia
@@ -321,7 +466,10 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Rysuje oś Y
+     * @param g2d Graphics2D do rysowania
+     */
     private void drawYAxle(Graphics2D g2d)
     {
     	//grubość, zakończenie, łączenia
@@ -399,7 +547,11 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Rysowanie gortu osi X
+     * @param g2d Graphics2D do rysowania
+     * @param p0 obiekt graficzny grotu
+     */
     private void drawXArrowHead(Graphics2D g2d, GeneralPath p0)
     {  
         //ustawienie poczatku ukladu wspolrzednych
@@ -412,7 +564,11 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Rysowanie grotu osi Y
+     * @param g2d Graphics2D do rysowania
+     * @param p0 obiekt graficzny grotu
+     */
     private void drawYArrowHead(Graphics2D g2d, GeneralPath p0)
     {
         //ustawienie poczatku ukladu wspolrzednych
@@ -421,6 +577,9 @@ private static final long serialVersionUID = 1L;
         g2d.fill(p0);
     }
     
+    /**
+     * zczytanie i ustawienie wymiarów panelu rysowania
+     */
     private void setPanelBounds()
     {
     	//wymiary płótna
@@ -445,6 +604,7 @@ private static final long serialVersionUID = 1L;
         
     }
 
+    ///////////////////listenery//////////////////////////////////////////////////////////////////////
     
 	@Override
 	public void mouseClicked(MouseEvent e) 
@@ -480,16 +640,7 @@ private static final long serialVersionUID = 1L;
 
 	
 	@Override
-	public void mouseMoved(MouseEvent e) 
-	{
-		/*for(Shape s: drawnShapes)
-		{
-			if(s.contains(e.getX(), e.getY()))
-			{
-				Transporter t = transporters.get(drawnShapes.indexOf(s));
-				System.out.println("Jestem nad: "+t.getName()+"\n"+t.getPhone_num());
-			}
-		}*/
+	public void mouseMoved(MouseEvent e) {
 	} 
 	
 	@Override

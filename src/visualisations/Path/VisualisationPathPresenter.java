@@ -4,7 +4,13 @@ import dataModels.City;
 import dataModels.User;
 import interfaces.RoutePlanningPresenter;
 
+/**
+ * Prezenter wizualizacji trasy
+ * @author Łukasz
+ *
+ */
 public class VisualisationPathPresenter {
+	
 	/**
 	 * model wizualizacji trasy
 	 */
@@ -63,11 +69,18 @@ public class VisualisationPathPresenter {
 		view_PathVis.add_map_to_tab(model_PathVis.getPathMap());
 	}
 	
+	/**
+	 * Usuń ostatnie miasto z trasy
+	 */
 	public void removeLastCity()
 	{
 		model_PathVis.removeLastCityFormPath();
 	}
 	
+	/**
+	 * Dodaj miasto na koniec trasy
+	 * @param city miasto do dodania
+	 */
 	public void addCityToPath(City city)
 	{
 		model_PathVis.addCityToPath(city.getCityName());
@@ -78,6 +91,9 @@ public class VisualisationPathPresenter {
 		model_PathVis.setExternalDatabaseConnectionProperty(currentLoggedUser);
 	}
 	
+	/**
+	 * Wyczyść dane w modelu
+	 */
 	public void clearDataInModel()
 	{
 		model_PathVis.clearData();

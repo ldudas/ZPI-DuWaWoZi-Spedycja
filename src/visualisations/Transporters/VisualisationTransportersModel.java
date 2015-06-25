@@ -29,6 +29,11 @@ import dataModels.User;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectTransportersVisualisation;
 
+/**
+ * Model wizualizacji przewoźników
+ * @author Łukasz Dudaszek
+ *
+ */
 public class VisualisationTransportersModel 
 {
 	
@@ -64,7 +69,7 @@ public class VisualisationTransportersModel
 	
 	
 	/**
-	 * zapamietane mapy dla przewoznikow
+	 * zapamiętane mapy dla przewoznikow
 	 */
 	private HashMap<Integer, JMap> maps_cache;
 	
@@ -90,13 +95,6 @@ public class VisualisationTransportersModel
 	private int opening_flag;
 
 	
-	private double max_num_of_orders;
-	private double min_num_of_orders;
-	private double max_cost;
-	private double min_cost;
-	private double max_volume;
-	private double max_capacity;
-	
 	public VisualisationTransportersModel()
 	{
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
@@ -111,6 +109,9 @@ public class VisualisationTransportersModel
 		opening_flag = 0;
 	}
 	
+	/**
+	 * Czyszczenie danych modelu
+	 */
 	public void clearData()
 	{
 		if( transporters != null)
@@ -125,6 +126,12 @@ public class VisualisationTransportersModel
 		chosen_transporter = null;
 	}
 	
+	
+	/**
+	 * Pobranie przewoźników z bazy danych na trasie
+	 * @param city_from Miasto początkowe
+	 * @param city_to Miasto docelowe
+	 */
 	private void getTranspotersFormDatabase(String city_from, String city_to)
 	{
 		//pobieranie listy przewoźnikow z bazy 
@@ -155,17 +162,31 @@ public class VisualisationTransportersModel
 		///
 	}
 	
+	/**
+	 * sortowanie pobranych przewoźników ze względu na objętość
+	 */
 	private void sortTransporters()
 	{
 		transporters = transporters.stream().sorted(Transporter::compareByCapacity).collect(Collectors.toCollection(ArrayList::new));
 	}
 	
+	/**
+	 * Filtrowanie przewożników z danej kategorii rozmiaru i zapis do transporters_filtered
+	 * @param sc Kategoria rozmiaru
+	 */
 	private void filterTransporters(SizeCategory sc)
 	{
 		final TransporterSizeCategorySpecification trans_spec = new TransporterSizeCategorySpecification(sc);
 		transporters_filtered = transporters.stream().filter( t -> trans_spec.isSatisfiedBy(t)).collect(Collectors.toCollection(ArrayList::new));
 	}
 	
+	/**
+	 * Pobranie przefiltrowanych przewoźników obsługujących trasę
+	 * @param city_from Miasto początkowe
+	 * @param city_to Miasto docelowe
+	 * @param sc Kategoria rozmiaru
+	 * @return
+	 */
 	public ArrayList<Transporter> getFilteredTransporters(String city_from, String city_to, SizeCategory sc)
 	{
 		if(!city_from.equals(cityFrom) || !city_to.equals(cityTo))
@@ -196,7 +217,11 @@ public class VisualisationTransportersModel
 		return null;
 	}
 	
-	
+	/**
+	 * Pobranie mapy z naniesionym łańcychem dostaw
+	 * @param id_trans
+	 * @return
+	 */
 	public JMap getTransporterRoutesMap(int id_trans)
 	{
 		
@@ -284,7 +309,6 @@ public class VisualisationTransportersModel
 			int ind_1 = 0;
 			int ind_2 = 0;
 			
-			//System.out.println(cityNameFrom+" "+cityNameTo+" "+number_of_orders+" ");
 			
 			for(int i=0; i<cities_coordinates.size();i++)
 			{
@@ -309,26 +333,7 @@ public class VisualisationTransportersModel
 			 polyline.lineTo(secondCityLocation);
 			 
 			 double orders_ratio =  (number_of_orders-min_num_of_orders)/(max_num_of_orders-min_num_of_orders);
-			
-		/*	int red = orders_ratio<=0.25? 128 :
-				 	  orders_ratio<=0.5?(int)(-512 * orders_ratio + 256):
-				 	  orders_ratio<=0.75?(int)(1020*orders_ratio - 510):
-				 	  orders_ratio<=1.0? 255: 0;
-			int green = (int)(-255*orders_ratio+255);
-			int blue = orders_ratio<=0.25? 255:
-					   orders_ratio<=0.5? (int)(-508 * orders_ratio + 382):
-					   orders_ratio<=0.75? 128 :
-					   orders_ratio<=1.0 ? (int) (-512 * orders_ratio + 512): 0 ;
-			 */
-			 
-			/*int red =
-				 	  orders_ratio<=0.5?255:
-				 	  orders_ratio<=1.0? (int) (-510*orders_ratio +510) :0;
-			int green = 0;
-			int blue = 
-					   orders_ratio<=0.5? (int)(510 * orders_ratio):
-					   orders_ratio<=1.0 ? 255:0 ;
-			*/
+		
 			 
 			 int red = 
 				 	  orders_ratio<=0.25?0:
@@ -360,15 +365,17 @@ public class VisualisationTransportersModel
 			 //SimpleMarkerSymbol circle = new SimpleMarkerSymbol(Color.black, 2, SimpleMarkerSymbol.Style.CIRCLE);
 			 
 			//dodaj dwa punkty jako kola, linie oraz grot jako trojkat do warsty graficznej	
-		//	graphicsLayer.addGraphic(new Graphic(firstCityLocation, circle));	
-		//	graphicsLayer.addGraphic(new Graphic(secondCityLocation, circle));
 			graphicsLayer.addGraphic(new Graphic(polyline, polyLineStyle));
 			graphicsLayer.addGraphic(new Graphic(secondCityLocation, triangle));
 		}
 		
 	}
 	
-	
+	/**
+	 * Wyszukanie największej liczby zleceń
+	 * @param routes kolekcja danych tras pobranych z bazy danych
+	 * @return maksymalna liczba zleceń na trasie
+	 */
 	private int getMaxNumberOfOrders( ArrayList<ArrayList<Object>>routes)
 	{
 			long max = 0;
@@ -384,6 +391,12 @@ public class VisualisationTransportersModel
 		
 	}
 	
+	
+	/**
+	 * Wyszukanie najmniejszej liczby zleceń
+	 * @param routes kolekcja danych tras pobranych z bazy danych
+	 * @return minimalna liczba zleceń na trasie
+	 */
 	private int getMinNumberOfOrders( ArrayList<ArrayList<Object>>routes)
 	{
 			long min = 0;
@@ -474,6 +487,11 @@ public class VisualisationTransportersModel
 		
 	}
 	
+	/**
+	 * Ustawianie danych użytkownika z bazy loklanej
+	 * @param currentLoggedUser zalogowany użytkownik
+	 * @throws Exception
+	 */
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
 		if( currentLoggedUser != null )
@@ -487,73 +505,36 @@ public class VisualisationTransportersModel
 	}
 	
 	
-	public void setMaxAndMinsOfTransportersProperties()
-	{
-		max_num_of_orders = Double.MIN_VALUE;
-		min_num_of_orders = Double.MAX_VALUE;
-		max_cost = Double.MIN_VALUE;
-		min_cost = Double.MAX_VALUE;
-		max_volume = Double.MIN_VALUE;
-		max_capacity = Double.MIN_VALUE;
-		
-		transporters_filtered.stream().forEach( (Transporter tr) -> {
-			if(tr.getNumber_of_orders()<min_num_of_orders) min_num_of_orders = tr.getNumber_of_orders();
-			if(tr.getNumber_of_orders()>max_num_of_orders) max_num_of_orders = tr.getNumber_of_orders();
-			if(tr.getCost()>max_cost) max_cost = tr.getCost();
-			if(tr.getCost()<min_cost) min_cost = tr.getCost();
-			if(tr.getVolume()>max_volume) max_volume = tr.getVolume();
-			if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
-		});
-	}
-	
+	/**
+	 * Ustaw wybranego przewoźnika z wizualizacji
+	 * @param t wybrany przewoźnik
+	 */
 	public void setChosenTransporter(Transporter t)
 	{
 		chosen_transporter = t;
 	}
 	
+	/**
+	 * Pobierz wybranego przewoźnika
+	 * @return wybrany przewoźnik
+	 */
 	public Transporter getChosenTransporter()
 	{
 		return chosen_transporter;
 	}
 	
+	/**
+	 * @return Kolekcja nazw miast z bazy danych
+	 */
 	public ArrayList<String> getAllCityNames()
 	{
 		return DAO_TransVis.getAllCityNames();
 	}
 
-	public double getMax_num_of_orders()
-	{
-		return max_num_of_orders;
-	}
-
-	public double getMin_num_of_orders()
-	{
-		return min_num_of_orders;
-	}
-
-	public double getMax_cost()
-	{
-		return max_cost;
-	}
-
-
-	public double getMin_cost()
-	{
-		return min_cost;
-	}
-
-
-	public double getMax_volume()
-	{
-		return max_volume;
-	}
-
-
-	public double getMax_capacity()
-	{
-		return max_capacity;
-	}
-	
+	/**
+	 * Ustaw tryb otwarcia wizualiazcji przewoźników
+	 * @param flag flaga otwarcia: -1 - tylko przegladanie przewoznikow, 1 -konczaca sie zapisem trasy do bazy
+	 */
 	public void setOpeningFlag(int flag)
 	{
 		if(flag == 1 || flag == -1)
@@ -566,6 +547,9 @@ public class VisualisationTransportersModel
 		}
 	}
 	
+	/**
+	 * @return flaga otwarcia wizualizacji
+	 */
 	public int getOpeningFlag()
 	{
 		return opening_flag;

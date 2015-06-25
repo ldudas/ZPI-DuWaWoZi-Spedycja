@@ -17,6 +17,13 @@ public class DataAccessObjectPathVisualisation
 		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
 	
+	/**
+	 * @return kolekcja danych dotyczących położenia geograficznego miast
+	 *  <br>res.get(0) -> miasto pierwsze
+	 * 	<br>res.get(0).get(0) -> nazwa
+	 *  <br>res.get(0).get(1) -> dlugosc geograficzna
+	 *  <br>res.get(0).get(2) -> szerokosc geograficzna
+	 */
 	public ArrayList<ArrayList<Object>> getCitiesCoordinates()
 	{
 		String query = "SELECT nazwa_miasta,dlugosc,szerokosc FROM Miasta";

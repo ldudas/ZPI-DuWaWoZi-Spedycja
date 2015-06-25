@@ -4,6 +4,11 @@ import javax.swing.JTabbedPane;
 
 import com.esri.map.JMap;
 
+/**
+ * Widok wizualizacji trasy
+ * @author Łukasz
+ *
+ */
 public class VisualisationPathView 
 {
 	

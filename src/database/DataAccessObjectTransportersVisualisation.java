@@ -8,14 +8,9 @@ import exceptions.DatabaseConnectionExeption;
 
 public class DataAccessObjectTransportersVisualisation 
 {
-	
+
 	private DatabaseConnector databaseConnector;
 	
-	
-	public ArrayList<Transporter> getTranspoters(String city_from, String city_to)
-	{
-		return null;
-	}
 	
 	/***
 	 * Metoda zwracajaca liczbę przejazdów między miastami przewoznika o podanym id
@@ -46,7 +41,13 @@ public class DataAccessObjectTransportersVisualisation
 		return resultOfQuery;
 	}
 	
-	
+	/**
+	 * @return kolekcja danych dotyczących położenia geograficznego miast
+	 *  <br>res.get(0) -> miasto pierwsze
+	 * 	<br>res.get(0).get(0) -> nazwa
+	 *  <br>res.get(0).get(1) -> dlugosc geograficzna
+	 *  <br>res.get(0).get(2) -> szerokosc geograficzna
+	 */
 	public ArrayList<ArrayList<Object>> getCitiesCoordinates()
 	{
 		String query = "SELECT nazwa_miasta,dlugosc,szerokosc FROM Miasta";
@@ -69,6 +70,9 @@ public class DataAccessObjectTransportersVisualisation
 		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
 	
+	/**
+	 * @return kolekcja wszystkich nazw miast w bazie danych
+	 */
 	public ArrayList<String> getAllCityNames()
 	{
 		final String query = "SELECT nazwa_miasta FROM Miasta ORDER BY nazwa_miasta;";

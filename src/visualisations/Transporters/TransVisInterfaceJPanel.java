@@ -19,23 +19,64 @@ import dataModels.Transporter;
 
 import javax.swing.SwingConstants;
 
-
+/**
+ * Panel z interfejsem i wizualizacją przewoźników
+ * @author Łukasz Dudaszek
+ *
+ */
 public class TransVisInterfaceJPanel extends JPanel
 {
 	
 	private static final long serialVersionUID = 1L;
-	private JPanel visualization;
-	private JPanel control;
-	private JButton btn_confirmPath;
-	private JButton btn_savePathToDatabase;
-	private JLabel lblChosenTransporter;
-	private JLabel lblChosenTransporterDetails;
-	VisualisationTransportersView transporter_view;
 	
+	/**
+	 * panel z wizualizacją przewoźników
+	 */
+	private JPanel visualization;
+	
+	/**
+	 * panel z kontrolkami
+	 */
+	private JPanel control;
+	
+	/**
+	 * przycisk zatwierdzania opcji wizualizacji
+	 */
+	private JButton btn_confirmPath;
+	
+	/**
+	 * przycisk zapisu trasy do bazy danych
+	 */
+	private JButton btn_savePathToDatabase;
+	
+	private JLabel lblChosenTransporter;
+	
+	/**
+	 * Labael wybranego przewoźnika
+	 */
+	private JLabel lblChosenTransporterDetails;
+	
+	/**
+	 * widok
+	 */
+	private VisualisationTransportersView transporter_view;
+	
+	/**
+	 * wprowadzona nazwa Miasta początkowego
+	 */
 	private String city_from;
+	
+	/**
+	 * wprowadzona nazwa Miasta końcowego
+	 */
 	private String city_to;
+	
+	/**
+	 * wprowadzona kategoria rozmiaru
+	 */
 	private SizeCategory sc;
 
+	
 	public TransVisInterfaceJPanel(VisualisationTransportersView view, int opening_flag) 
 	{
 		transporter_view = view;
@@ -170,13 +211,6 @@ public class TransVisInterfaceJPanel extends JPanel
 				label_backgraound.setBounds(0, -6, 797, 127);
 				control.add(label_backgraound);
 				
-				/*JComboBox<String> comboBox_specialType = new JComboBox<String>();
-				comboBox_specialType.setModel(new DefaultComboBoxModel(new String[] {"Wszytkie", "Chłodnia", "Cysterna"}));
-				comboBox_specialType.setBackground(SystemColor.inactiveCaption);
-				comboBox_specialType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-				comboBox_specialType.setBounds(552, 33, 96, 31);
-				control.add(comboBox_specialType);
-				*/
 				
 				btn_confirmPath.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -220,15 +254,8 @@ public class TransVisInterfaceJPanel extends JPanel
 				lbl_size.setBounds(339, 7, 96, 31);
 				control.add(lbl_size);
 				
-				/*JLabel lbl_specjalType = new JLabel("Typ Specjalny");
-				lbl_specjalType.setForeground(new Color(255, 204, 0));
-				lbl_specjalType.setLabelFor(comboBox_specialType);
-				lbl_specjalType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-				lbl_specjalType.setBounds(674, 33, 96, 31);
-				control.add(lbl_specjalType);*/
 				
 				visualization = new JPanel();
-				//visualization.addMouseListener(visualization);
 				visualization.setBackground(SystemColor.inactiveCaptionText);
 				visualization.setBounds(10, 138, 797, 523);
 				add(visualization);
@@ -242,6 +269,11 @@ public class TransVisInterfaceJPanel extends JPanel
 		
 	}
 	
+	/**
+	 * Dodaje do podanego ComboBox nazwy miast z kolekcji
+	 * @param comboBox ComboBox do wpisania wartości
+	 * @param listOfCityNames kolekcja nazw miast
+	 */
 	private void addAllCityToComboBox(JComboBox<String> comboBox, ArrayList<String> listOfCityNames)
 	{
 		if(comboBox != null)
@@ -256,11 +288,17 @@ public class TransVisInterfaceJPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * Usuwanie wizualizacji z panelu
+	 */
 	public void removeStartVisualisationPanel()
 	{
 		remove(visualization);
 	}
 	
+	/**
+	 * Dodaj wizualizację do panelu
+	 */
 	public void addVisualisation()
 	{
 		visualization = new TransVisJPanel(transporter_view);
@@ -272,11 +310,18 @@ public class TransVisInterfaceJPanel extends JPanel
 		visualization.setLayout(null);
 	}
 	
+	/**
+	 * Odśwież wizualizację
+	 */
 	public void repaintVisualisation()
 	{
 		visualization.repaint();
 	}
 	
+	/**
+	 * Ustaw wybranego przewoźnika
+	 * @param t przewoźnik
+	 */
 	public void setChosenTransporter(Transporter t)
 	{
 		if(lblChosenTransporter!= null)
