@@ -12,6 +12,12 @@ import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 
 import visualisations.Transporters.VisualisationTransportersPresenter;
 
+/**
+ * Klasa testująca poprawność zwracania widoku planowania trasy
+ * metoda return_view klasy RoutePlanningPresenter
+ * @author Tomasz
+ *
+ */
 public class RoutePlanningPresenterTest {
 
 	private RoutePlanningView route_planning_view = new RoutePlanningView();
@@ -22,8 +28,11 @@ public class RoutePlanningPresenterTest {
 	private VisualisationTransportersPresenter trans_presenter = null;
 	
 	RoutePlanningPresenter rpp = new RoutePlanningPresenter(route_planning_view, route_planning_model, 
-			manu_presenter, path_presenter,trans_presenter,null);
+			manu_presenter, path_presenter,trans_presenter);
 	
+	/**
+	 * Test metody return_view
+	 */
 	@Test
 	public void testNullPlanningView() {
 		assertNull(rpp.return_view());
