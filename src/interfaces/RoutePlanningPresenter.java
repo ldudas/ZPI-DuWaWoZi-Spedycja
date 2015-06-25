@@ -576,12 +576,14 @@ public class RoutePlanningPresenter
 	public void logOutUser()
 	{
 		trans_presenter.clearTransportersFrame();
+		comm_presenter.clearUnfinishedCommissionsFrame();
 		route_planning_model.clearData();
 		route_planning_view.clearOrderTab();
 	    route_planning_view.clearMainFrame();
 	    path_presenter.clearDataInModel();
 	    manu_presenter.clearDataInModel();
 	    trans_presenter.clearDataInModel();
+	    comm_presenter.clearDataInModel();
 	}
 	
 	public void setEnableButtonsToUserAction(boolean flag)

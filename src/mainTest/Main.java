@@ -53,7 +53,7 @@ public class Main
 				manu_presenter.set_route_presenter(presenter_route);
 				path_presenter.set_route_presenter(presenter_route);
 				trans_presenter.set_route_presenter(presenter_route);
-				comm_presenter.set_route_presenter(presenter_route);
+				//comm_presenter.set_route_presenter(presenter_route);
 				view_route.setPresenter(presenter_route);
 				trans_view.setPresenter(trans_presenter);
 				view_route.setPresenters();

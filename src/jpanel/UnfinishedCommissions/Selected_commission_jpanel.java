@@ -265,7 +265,7 @@ public class Selected_commission_jpanel extends JPanel {
 			}
 		});
 		btnZapisz.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		btnZapisz.setBounds(410, 439, 150, 23);
+		btnZapisz.setBounds(389, 406, 171, 56);
 		add(btnZapisz);
 		
 		cost_textField = new JTextField();
