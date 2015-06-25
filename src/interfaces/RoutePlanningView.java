@@ -323,7 +323,7 @@ public class RoutePlanningView
 			{
 				startApplicationJPanel.removeLogicJPanel();
 				mainFrame.remove(startApplicationJPanel);
-				mainFrame.setBounds(100, 100, 1130, 605);
+				mainFrame.setBounds(100, 100, 1123, 580);
 				mainFrame.setTitle("Producenci");
 				mainFrame.add(manufacturerVisualizationWithMapJPanel);
 				prepareFrameAfterChangeView(mainFrame);
