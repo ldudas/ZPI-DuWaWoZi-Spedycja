@@ -280,11 +280,9 @@ private static final long serialVersionUID = 1L;
         int mod = x_axis_gap % 10;
         x_axis_gap = x_axis_gap - mod;
         
-        System.out.println(begin_number);
         while(begin_number % 10 != 0)
         {
         	begin_number ++;
-        	 System.out.println(begin_number);
         	x_line_x_desc_beg += x_line_desc_unit;
         }
         
@@ -298,7 +296,6 @@ private static final long serialVersionUID = 1L;
 	        while(number<view.getMax_num_of_orders())
 	        {
 	        	
-	        	System.out.println(number+" "+x);
 	        	g2d.drawLine(x, x_line_y_beg, x, x_line_y_beg+panel_height/50);
 	        	g2d.drawString(number+"", x + panel_width/300, x_line_y_beg+panel_height/40);
 	        	

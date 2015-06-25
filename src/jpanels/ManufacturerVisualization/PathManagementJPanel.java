@@ -35,12 +35,12 @@ public class PathManagementJPanel extends JPanel
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(0, -1, 388, 565);
+		panel.setBounds(0, -1, 372, 502);
 		add(panel);
 		panel.setLayout(null);
 		
 		JButton btn_showTransporters = new JButton("Pokaż przewoźników");
-		btn_showTransporters.setBounds(169, 399, 198, 62);
+		btn_showTransporters.setBounds(162, 435, 200, 45);
 		panel.add(btn_showTransporters);
 		btn_showTransporters.setBackground(SystemColor.activeCaption);
 		btn_showTransporters.setForeground(SystemColor.desktop);
@@ -84,7 +84,7 @@ public class PathManagementJPanel extends JPanel
 		panel.add(scroll);
 		
 		JButton btn_removeLast = new JButton("Usu\u0144 ostatnie");
-		btn_removeLast.setBounds(169, 319, 198, 62);
+		btn_removeLast.setBounds(162, 379, 200, 45);
 		panel.add(btn_removeLast);
 		btn_removeLast.setBackground(SystemColor.activeCaption);
 		btn_removeLast.setForeground(SystemColor.desktop);

@@ -129,7 +129,7 @@ public class StartPlanningJPanel extends JPanel
 		panel.setLayout(null);
 		
 		JButton start_okButton = new JButton("OK");
-		start_okButton.setBounds(349, 16, 224, 71);
+		start_okButton.setBounds(347, 26, 224, 50);
 		panel.add(start_okButton);
 		start_okButton.setForeground(SystemColor.desktop);
 		start_okButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
@@ -155,7 +155,7 @@ public class StartPlanningJPanel extends JPanel
 		});
 		btn_Clear.setBackground(SystemColor.activeCaption);
 		btn_Clear.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
-		btn_Clear.setBounds(29, 16, 224, 71);
+		btn_Clear.setBounds(34, 26, 224, 50);
 		panel.add(btn_Clear);
 		start_okButton.addActionListener(new ActionListener() 
 		{

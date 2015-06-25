@@ -99,12 +99,30 @@ public class VisualisationTransportersPresenter
 		{
 			try 
 			{
-				String route_name = view_transporters.showRouteNameDialog();
-				if(route_name!=null && !route_name.equals(""))
+				boolean repeat_insertion = true;
+				
+				while(repeat_insertion)
 				{
-				route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
-				view_transporters.showSaveSuccessDialog();
-				route_planning_presenter.change_to_startPanel();
+					String route_name = view_transporters.showRouteNameDialog();
+					
+					if(route_name!=null && !route_name.equals(""))
+					{
+						if(route_planning_presenter.isRouteNameUnique(route_name))
+						{
+						//route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
+						view_transporters.showSaveSuccessDialog();
+						route_planning_presenter.change_to_startPanel();
+						repeat_insertion = false;
+						}
+						else
+						{
+							view_transporters.showNonUniqueRouteNameDialog();
+						}
+					}
+					else
+					{
+						repeat_insertion =  view_transporters.showRepeatInsertionDialog();
+					}
 				}
 			} 
 			catch (Exception e) 

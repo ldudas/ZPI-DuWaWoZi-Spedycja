@@ -162,6 +162,12 @@ public class VisualisationTransportersView
 	 {
 		 trans_presenter.showTransporterDetails(id_trans);
 	 }
+	 
+	 public boolean showRepeatInsertionDialog()
+	 {
+		 return (JOptionPane.showConfirmDialog (null, "Nie wprowadzono nazwy trasy.\nCzy chcesz ponowić wprowadzenie?","Brak nazwy trasy",JOptionPane.YES_NO_OPTION)) == JOptionPane.YES_OPTION
+				 ? true : false;
+	 }
 
 	public double getMax_num_of_orders()
 	{
@@ -213,6 +219,12 @@ public class VisualisationTransportersView
 	public String showRouteNameDialog()
 	{
 		return JOptionPane.showInputDialog(null, "Podaj nazwę trasy: ","Nazwa trasy",JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void showNonUniqueRouteNameDialog()
+	{
+		JOptionPane.showMessageDialog(null, "Istnieje już w systemie trasa o podanej nazwie\nProszę wprowadzić inną.", "Nieunikalna nazwa trasy", 
+				JOptionPane.ERROR_MESSAGE);
 	}
 	 
 	    

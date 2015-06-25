@@ -117,4 +117,9 @@ public class RoutePlanningModel
 	{
 		dao_routePlanning.saveOrdersToDatabase(route_name,ordersData,idTrans);
 	}
+	
+	public boolean isRouteNameUnique(String route_name)
+	{
+		return dao_routePlanning.getNumberOfRoutesWithName(route_name) == 0?true:false;
+	}
 }

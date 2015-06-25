@@ -593,4 +593,9 @@ public class RoutePlanningPresenter
 		}
 	}
 	
+	public boolean isRouteNameUnique(String route_name)
+	{
+		return route_planning_model.isRouteNameUnique(route_name);
+	}
+	
 }

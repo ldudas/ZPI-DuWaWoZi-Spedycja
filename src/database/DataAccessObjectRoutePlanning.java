@@ -129,4 +129,26 @@ public class DataAccessObjectRoutePlanning
 			}
 		} );
 	}
+	
+	public int getNumberOfRoutesWithName(String route_name)
+	{
+		final String query = "SELECT count(id_trasy) FROM Trasy_przewoznikow WHERE nazwa_trasy= '"+route_name+"';";
+		
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		try 
+		{
+			resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		
+		if( resultOfQuery != null)
+		{
+			return (int)((long)resultOfQuery.get(0).get(0));
+		}
+		
+		return 1;
+	}
 }

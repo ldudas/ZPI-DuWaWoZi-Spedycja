@@ -91,7 +91,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
 		JButton btn_chooseManufacturer = new JButton("Wybierz ");
-		btn_chooseManufacturer.setBounds(165, 386, 179, 61);
+		btn_chooseManufacturer.setBounds(182, 417, 150, 50);
 		panel.add(btn_chooseManufacturer);
 		btn_chooseManufacturer.setForeground(SystemColor.desktop);
 		btn_chooseManufacturer.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
@@ -191,7 +191,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		});
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btnNewButton.setBounds(165, 317, 179, 61);
+		btnNewButton.setBounds(182, 317, 150, 50);
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Wyczyść ");
@@ -211,7 +211,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btnNewButton_1.setForeground(SystemColor.desktop);
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		btnNewButton_1.setBounds(10, 317, 141, 61);
+		btnNewButton_1.setBounds(17, 317, 150, 50);
 		panel.add(btnNewButton_1);
 		
 		comboBox_map_period.addItem("Okres wstecz");
