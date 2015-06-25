@@ -113,8 +113,13 @@ public class RoutePlanningModel
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
-	public void saveAllOrdersInDatabase(String idTrans) throws DatabaseConnectionExeption, RuntimeException, Exception
+	public void saveAllOrdersInDatabase(String route_name, String idTrans) throws DatabaseConnectionExeption, RuntimeException, Exception
 	{
-		dao_routePlanning.saveOrdersToDatabase(ordersData,idTrans);
+		dao_routePlanning.saveOrdersToDatabase(route_name,ordersData,idTrans);
+	}
+	
+	public boolean isRouteNameUnique(String route_name)
+	{
+		return dao_routePlanning.getNumberOfRoutesWithName(route_name) == 0?true:false;
 	}
 }

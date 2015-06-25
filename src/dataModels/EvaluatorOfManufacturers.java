@@ -10,6 +10,10 @@ public class EvaluatorOfManufacturers
 	{		
 	}
 	
+	/**
+	 * Wywołuje metody wykonujące obliczenia na kolekcji producentów. 
+	 * @param manufacturers
+	 */
 	public void evaluateManfacturersCollection(ArrayList<Manufacturer> manufacturers)
 	{
 		evaluateActivityOfManufacturers(manufacturers);
@@ -19,8 +23,8 @@ public class EvaluatorOfManufacturers
 	}
 	
 	/**
-	 * Metoda obliczajaca aktywnosc kazdego producenta na podstawie danych pobranych z bazy.
-	 * Oplacalnosc danego producenta.
+	 * Metoda obliczająca aktywność każdego producenta na podstawie danych pobranych z bazy.
+	 * Opłacalność danego producenta.
 	 * @return ArrayList<Double> 
 	 * <br> Tablica wartosci obliczonych dla kazdego producenta.
 	 * @author Kamil Zimny
@@ -77,7 +81,7 @@ public class EvaluatorOfManufacturers
 	
 	
 	/**
-	 * Metoda obliczajaca wielkosc kazdego producenta na podstawie danych pobranych z bazy.
+	 * Metoda obliczająca wielkośc kazdego producenta na podstawie danych pobranych z bazy.
 	 * Wielkość jest liczbą zleceń.
 	 * @return ArrayList<Double> 
 	 * <br> Tablica wartosci obliczonych dla kazdego producenta.
@@ -117,8 +121,8 @@ public class EvaluatorOfManufacturers
 	}
 	
 	/***
-	 * Metoda obliczajaca i ustawiajaca kolory odpowiadajace yarobkowi producentow 
-	 * kazdego miesiaca roku
+	 * Metoda obliczająca i ustawiająca kolory odpowiadające zarobkowi producentów 
+	 * każdego miesiąca w roku
 	 * @param manufacturers
 	 * @author Kamil Zimny
 	 */
@@ -175,8 +179,8 @@ public class EvaluatorOfManufacturers
 	}
 	
 	/***
-	 * Metoda obliczajaca i ustawiajaca kolory odpowiadajace aktywnosci producentow 
-	 * w kazdym kwartale 
+	 * Metoda obliczająca i ustawiająca kolory odpowiadające aktywności producentów 
+	 * w każdym kwartale w roku
 	 * @param manufacturers
 	 * @author Kamil Zimny
 	 */

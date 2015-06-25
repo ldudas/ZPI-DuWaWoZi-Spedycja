@@ -1,18 +1,61 @@
 package dataModels;
 
+/**
+ * Reprezetuje przewoźnika i przechowuje dane dotyczące jego przeszłe transakcje
+ * @author Łukasz Dudaszek
+ *
+ */
 public class Transporter 
 {
-	
+	/**
+	 * id przewoźnika
+	 */
 	private int id_trans;
-	private SizeCategory sizeCategory; //kategoria rozmiaru
-	private int number_of_orders; //liczba zamowien
-	private double cost; //koszt
-	private int capacity; //ładowność
-	private int volume;//pojemość
-	private double delay; //stosuenk dni_opoznienia/dni_przewozów
-	private double executed; //stosunek niezreal/zreal
-	private String name; // nazwa przewoznika
-	private int phone_num; //numer przewoznika
+	
+	/**
+	 * kategoria rozmiaru
+	 */
+	private SizeCategory sizeCategory; 
+	
+	/**
+	 * liczba zamowien
+	 */
+	private int number_of_orders; 
+	
+	/**
+	 * koszt
+	 */
+	private double cost; 
+	
+	/**
+	 * ładowność
+	 */
+	private int capacity; 
+	
+	/**
+	 * pojemość
+	 */
+	private int volume;
+	
+	/**
+	 * stosuenk dni_opoznienia/dni_przewozów
+	 */
+	private double delay;
+	
+	/**
+	 * stosunek niezreal/zreal
+	 */
+	private double executed;
+	
+	/**
+	 * nazwa przewoznika
+	 */
+	private String name;
+	
+	/**
+	 * numer przewoznika
+	 */
+	private int phone_num;
 	
 	
 	public Transporter(int id_trans,SizeCategory sizeCategory, int number_of_orders, double cost, int capacity, int volume, double delay, double executed, String name, int phone_num)
@@ -110,35 +153,74 @@ public class Transporter
 		this.phone_num = phone_num;
 	}
 
-	public String toString(){
+	@Override
+	public String toString()
+	{
 		return name+" :: koszt - "+cost+" :: l. zleceń - "+number_of_orders;
 	}
 	
+	/**
+	 * Porównianie ze względu na ładowność
+	 * @param t1 pierwszy przewoźnik do porównania
+	 * @param t2 drugi przewoźnik do porównania
+	 * @return 0 jeśli t1.capacity == t2.capcity; wartość mniejszą od 0 jeśli t1.capacity < t2.capacity; and wartość większą 0 jeśli t1.capacity > t2.capacity
+	 */
 	public static int compareByCapacity(Transporter t1, Transporter t2)
 	{
 		return Integer.compare(t2.getCapacity(), t1.getCapacity());
 	}
 	
+	/**
+	 * Porównianie ze względu na liczbę zleceń
+	 * @param t1 pierwszy przewoźnik do porównania
+	 * @param t2 drugi przewoźnik do porównania
+	 * @return 0 jeśli t1.number_of_orders == t2.number_of_orders; wartość mniejszą od 0 jeśli t1.number_of_orders < t2.number_of_orders; and wartość większą 0 jeśli t1.number_of_orders > t2.number_of_orders
+	 */
 	public static int compareByNumbrOfOrders(Transporter t1, Transporter t2)
 	{
 		return Integer.compare(t1.getNumber_of_orders(), t2.getNumber_of_orders());
 	}
 	
+	/**
+	 * Porównianie ze względu na koszt
+	 * @param t1 pierwszy przewoźnik do porównania
+	 * @param t2 drugi przewoźnik do porównania
+	 * @return 0 jeśli t1.cost == t2.cost; wartość mniejszą od 0 jeśli t1.cost < t2.cost; and wartość większą 0 jeśli t1.cost > t2.cost
+	 */
 	public static int compareByCost(Transporter t1, Transporter t2)
 	{
 		return Double.compare(t1.getCost(), t2.getCost());
 	}
 	
+	
+	/**
+	 * Porównianie ze względu na objętość
+	 * @param t1 pierwszy przewoźnik do porównania
+	 * @param t2 drugi przewoźnik do porównania
+	 * @return 0 jeśli t1.volume == t2.volume; wartość mniejszą od 0 jeśli t1.volume < t2.volume; and wartość większą 0 jeśli t1.volume > t2.volume
+	 */
 	public static int compareByVolume(Transporter t1, Transporter t2)
 	{
 		return Integer.compare(t1.getVolume(), t2.getVolume());
 	}
 	
+	/**
+	 * Porównianie ze względu na opóźnienie
+	 * @param t1 pierwszy przewoźnik do porównania
+	 * @param t2 drugi przewoźnik do porównania
+	 * @return 0 jeśli t1.delay == t2.delay; wartość mniejszą od 0 jeśli t1.delay < t2.delay; and wartość większą 0 jeśli t1.delay > t2.delay
+	 */
 	public static int compareByDelay(Transporter t1, Transporter t2)
 	{
 		return Double.compare(t1.getDelay(), t2.getDelay());
 	}
 	
+	/**
+	 * Porównianie ze względu na stosunek niezreal/zreal
+	 * @param t1 pierwszy przewoźnik do porównania
+	 * @param t2 drugi przewoźnik do porównania
+	 * @return 0 jeśli t1.executed == t2.executed; wartość mniejszą od 0 jeśli t1.executed < t2.executed; and wartość większą 0 jeśli t1.executed > t2.executed
+	 */
 	public static int compareByExecuted(Transporter t1, Transporter t2)
 	{
 		return Double.compare(t1.getExecuted(), t2.getExecuted());

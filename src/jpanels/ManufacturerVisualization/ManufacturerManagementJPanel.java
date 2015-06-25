@@ -90,8 +90,8 @@ public class ManufacturerManagementJPanel extends JPanel
 		lblNewLabel_2.setForeground(new Color(255, 204, 0));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
-		JButton btn_chooseManufacturer = new JButton("Wybierz");
-		btn_chooseManufacturer.setBounds(165, 386, 179, 61);
+		JButton btn_chooseManufacturer = new JButton("Wybierz ");
+		btn_chooseManufacturer.setBounds(182, 417, 150, 50);
 		panel.add(btn_chooseManufacturer);
 		btn_chooseManufacturer.setForeground(SystemColor.desktop);
 		btn_chooseManufacturer.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
@@ -110,7 +110,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		comboBox_map_unit.setBackground(SystemColor.activeCaption);
 		comboBox_map_unit.setForeground(new Color(0, 0, 0));
 		comboBox_map_unit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		addUnitToComboBox(comboBox_map_unit);
+		addUnitToComboBox(comboBox_map_unit,true);
 		
 		final JComboBox<Integer> comboBox_map_count = new JComboBox<Integer>();
 		comboBox_map_count.setBounds(165, 140, 153, 22);
@@ -151,7 +151,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		comboBox_numberOfMostActive.addItem("25");
 		comboBox_numberOfMostActive.addItem("30");
 		
-		JButton btnNewButton = new JButton("Filtruj");
+		JButton btnNewButton = new JButton("Filtruj ");
 		btnNewButton.setForeground(SystemColor.desktop);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
@@ -191,10 +191,10 @@ public class ManufacturerManagementJPanel extends JPanel
 		});
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		btnNewButton.setBounds(165, 317, 179, 61);
+		btnNewButton.setBounds(182, 317, 150, 50);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Wyczyść");
+		JButton btnNewButton_1 = new JButton("Wyczyść ");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -211,7 +211,7 @@ public class ManufacturerManagementJPanel extends JPanel
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btnNewButton_1.setForeground(SystemColor.desktop);
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		btnNewButton_1.setBounds(10, 317, 141, 61);
+		btnNewButton_1.setBounds(17, 317, 150, 50);
 		panel.add(btnNewButton_1);
 		
 		comboBox_map_period.addItem("Okres wstecz");
@@ -241,13 +241,18 @@ public class ManufacturerManagementJPanel extends JPanel
 		presenter_route_planning = presenter;
 	}
 	
-	private void addUnitToComboBox(JComboBox<String> combo )
+	private void addUnitToComboBox(JComboBox<String> combo)
 	{
-		combo.addItem("");
 		combo.addItem("Dni");
 		combo.addItem("Tygodnie");
 		combo.addItem("Miesiące");
 		combo.addItem("Lata");
+	}
+	
+	private void addUnitToComboBox(JComboBox<String> combo, boolean flag)
+	{
+		combo.addItem("");
+		addUnitToComboBox(combo);	
 	}
 	
 	private int countDaysFromComboBoxs(JComboBox<String> unit,JComboBox<Integer> number )

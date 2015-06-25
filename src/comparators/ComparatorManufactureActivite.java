@@ -12,6 +12,10 @@ public class ComparatorManufactureActivite implements Comparator<Manufacturer> ,
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Komparator porównujący dwóch producnetów, najpierw po zarobku dziennym na 
+	 * producencie, w przypadku równości po ilości wykonanych zamówień.
+	 */
 	@Override
 	public int compare(Manufacturer man1, Manufacturer man2) 
 	{

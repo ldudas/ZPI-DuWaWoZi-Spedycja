@@ -1,5 +1,8 @@
 package interfaces;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,6 +70,10 @@ public class RoutePlanningPresenter
 		route_planning_view.change_registryUser_to_menu();
 	}
 	
+	public void change_to_startPanel()
+	{
+		route_planning_view.change_to_startingPanel();
+	}
 	
 	/**
 	 * Zmienia widok ze starowego okna na okno z wizualizacja producentow 
@@ -358,13 +365,13 @@ public class RoutePlanningPresenter
 	public String checkCorrectnessOfData_nextOrders()
 	{
 		if( route_planning_view.getNextCityTo() == null || route_planning_view.getNextCityTo().equals("") )
-			return "Nie wybrano miasta docelowego...";
+			return "Nie wybrano miasta docelowego.";
 		if( route_planning_view.getNextCityTo().equals(route_planning_model.getLastOrder().getCityTo().getCityName()) )
-			return "Miasto docelowe jest miastem w którym się obecnie znajdujemy...";
+			return "Miasto docelowe jest miastem w którym się obecnie znajdujemy.";
 		if( route_planning_view.getNextStartDate() == null || route_planning_view.getNextStartDate().equals("") ) 
-			return "Nie wybrano daty wyjazdu...";
+			return "Nie wybrano daty wyjazdu.";
 		if( route_planning_view.getNextFinishDate() == null || route_planning_view.getNextFinishDate().equals("") ) 
-			return "Nie wybrano daty przyjazdu...";
+			return "Nie wybrano daty przyjazdu.";
 		
 		SimpleDateFormat sDateFormat; 
 		try 
@@ -373,14 +380,14 @@ public class RoutePlanningPresenter
 			
 			if( sDateFormat.parse(route_planning_view.getNextStartDate()).after
 				(sDateFormat.parse(route_planning_view.getNextFinishDate())) ) 
-				return "Data przyjazdu jest wcześniejsza niż data wyjazdu...";
+				return "Data przyjazdu jest wcześniejsza niż data wyjazdu.";
 			if( sDateFormat.parse(route_planning_view.getNextStartDate()).before( 
 					sDateFormat.parse( route_planning_model.getLastOrder().getFinishDate())) )
-				return "Data wyjazdu jest wcześniejsza niż przewidywana data dotarcia...";		
+				return "Data wyjazdu jest wcześniejsza niż przewidywana data dotarcia.";		
 		} 
 		catch (ParseException e) 
 		{
-			return "Problem z datami...";
+			return "Problem z datami.";
 		}
 		
 		return null;
@@ -404,15 +411,15 @@ public class RoutePlanningPresenter
 	public String checkCorrectnessOfData_firstOrder()
 	{
 		if( route_planning_view.city_from() == null || route_planning_view.city_from().equals("") ) 
-			return "Nie wybrano miasta startowego...";
+			return "Nie wybrano miasta startowego.";
 		if( route_planning_view.city_to() == null || route_planning_view.city_to().equals("") ) 
-			return "Nie wybrano miasta docelowego...";
+			return "Nie wybrano miasta docelowego.";
 		if( route_planning_view.city_from().equals(route_planning_view.city_to()) )
-			return "Miasto startowe jest takie samo jak miasto docelowe...";
+			return "Miasto startowe jest takie samo jak miasto docelowe.";
 		if( route_planning_view.getStartDate() == null || route_planning_view.getStartDate().equals("") ) 
-			return "Nie wybrano daty wyjazdu...";
+			return "Nie wybrano daty wyjazdu.";
 		if( route_planning_view.getFinishDate() == null || route_planning_view.getFinishDate().equals("") ) 
-			return "Nie wybrano daty przyjazdu...";
+			return "Nie wybrano daty przyjazdu.";
 		SimpleDateFormat sDateFormat; 
 		try 
 		{
@@ -420,15 +427,15 @@ public class RoutePlanningPresenter
 			
 			if( sDateFormat.parse(route_planning_view.getStartDate()).after
 				(sDateFormat.parse(route_planning_view.getFinishDate()))  ) 
-				return "Data przyjazdu jest wcześniejsza niż data wyjazdu...";
+				return "Data przyjazdu jest wcześniejsza niż data wyjazdu.";
 			if( sDateFormat.parse(route_planning_view.getStartDate()).before
 					( sDateFormat.parse(sDateFormat.format(new Date())) )  )
-				return "Data wyjazdu jest wcześniejsza niż obecna data...";
+				return "Data wyjazdu jest wcześniejsza niż obecna data.";
 			
 		} 
 		catch (ParseException e) 
 		{
-			return "Problem z datami...";
+			return "Problem z datami.";
 		}
 		
 		return null;
@@ -561,9 +568,9 @@ public class RoutePlanningPresenter
 		trans_presenter.clearTransportersFrame();
 	}
 	
-	public void saveOrdersToDatabase(String idTransporter) throws DatabaseConnectionExeption, RuntimeException, Exception
+	public void saveOrdersToDatabase(String route_name, String idTransporter) throws DatabaseConnectionExeption, RuntimeException, Exception
 	{
-		route_planning_model.saveAllOrdersInDatabase(idTransporter);
+		route_planning_model.saveAllOrdersInDatabase(route_name, idTransporter);
 	}
 	
 	public void logOutUser()
@@ -593,6 +600,25 @@ public class RoutePlanningPresenter
 			comm_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
 			
 		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+
+	public boolean isRouteNameUnique(String route_name)
+	{
+		return route_planning_model.isRouteNameUnique(route_name);
+	}
+
+	
+	public void openInstructionToApplication()
+	{
+		File htmlFile = new File(System.getProperty("user.dir") + "\\user-guide.html");
+		try 
+		{
+			Desktop.getDesktop().browse(htmlFile.toURI());
+		} catch (IOException e) 
 		{
 			e.printStackTrace();
 		}

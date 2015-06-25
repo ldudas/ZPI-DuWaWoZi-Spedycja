@@ -15,24 +15,34 @@ public class DataAccessObjectManufacturersVisualisation
 	{
 	}
 	
+	
+	/**
+	 * Ustawienie danych do połączenia z zewnętrzną bazą danych aktualnego użytkownika.
+	 * @param serverAddress adres serwera zewnętrzengo
+	 * @param serverPort port serwera zewnętrznego
+	 * @param databaseName nazwa bazy danych na serwerze
+	 * @param databaseLogin login do bazy danych na serwerze
+	 * @param databasePassword hasło do bazy danych na serwerze
+	 * @author Kamil Zimny
+	 */
 	public void setExternalDatabaseConnectionProperty(String serverAddress,String serverPort,String databaseName,String databaseLogin,String databasePassword)
 	{
 		databaseConnector = new DatabaseConnector(serverAddress, serverPort, databaseName, databaseLogin, databasePassword);
 	}
 
 	/**
-	 * Metoda pobierajaca dane o producencie z bazy danych.
+	 * Metoda pobierająca dane o producencie z bazy danych.
 	 * @return NULL OR ArrayList<ArrayList<String>> res : 
 	 *  <br>res.get(0) -> producent pierwszy 
-	 * 	<br>res.get(0).get(0) -> nazwa
-	 *  <br>res.get(0).get(1) -> dlugosc geograficzna
-	 *  <br>res.get(0).get(2) -> szerokosc geograficzna
-	 *  <br>res.get(0).get(3) -> ostatnia aktywnosc  
-	 *  <br>res.get(0).get(4) -> liczba zlecen
-	 *  <br>res.get(0).get(5) -> suma wartosci zlecen
-	 *  <br>res.get(0).get(6) -> suma dni wykonanych zlecen
-	 *  <br>res.get(0).get(7) -> telefon
-	 *  <br>res.get(0).get(8) -> identyfikator producenta
+	 * 	<br>res.get(0).get(0) - nazwa
+	 *  <br>res.get(0).get(1) - dlugosc geograficzna
+	 *  <br>res.get(0).get(2) - szerokosc geograficzna
+	 *  <br>res.get(0).get(3) - ostatnia aktywnosc  
+	 *  <br>res.get(0).get(4) - liczba zlecen
+	 *  <br>res.get(0).get(5) - suma wartosci zlecen
+	 *  <br>res.get(0).get(6) - suma dni wykonanych zlecen
+	 *  <br>res.get(0).get(7) - telefon
+	 *  <br>res.get(0).get(8) - identyfikator producenta
 	 * @author Kamil Zimny
 	 */
 	@SuppressWarnings("finally")
@@ -76,8 +86,8 @@ public class DataAccessObjectManufacturersVisualisation
 		}
 	}
 	
-	/***
-	 * Metoda zwracajaca aktywnosci producentów w każdym z miesiąców w danym mieście.
+	/**
+	 * Metoda zwracająca aktywności producentów w każdym z miesiąców w danym mieście.
 	 * @param cityName
 	 * @return NULL OR ArrayList<ArrayList<String>> res : 
 	 *  <br>res.get(0) -> producent pierwszy 
@@ -173,6 +183,13 @@ public class DataAccessObjectManufacturersVisualisation
 		}
 	}
 	
+	/**
+	 * Metoda konwertująca otrzymaną w parametrze kolekcje ArrayList<ArrayList<Object>> 
+	 * na kolekcję ArrayList<ArrayList<String>>
+	 * @param resultOfQuery 
+	 * @return ArrayList<ArrayList<String>>
+	 * @author Kamil Zimny
+	 */
 	private ArrayList<ArrayList<String>> convertResultToString(ArrayList<ArrayList<Object>> resultOfQuery)
 	{		
 		ArrayList<ArrayList<String>> resultInString = new ArrayList<ArrayList<String>>();
@@ -193,7 +210,7 @@ public class DataAccessObjectManufacturersVisualisation
 	}
 	
 	/**
-	 * Metoda zwracajaca tablice wspolrzednych geograficznych miasta o nazwie
+	 * Metoda zwracająca tablicę współrzędnych geograficznych miasta o nazwie
 	 * podanej w parametrze.
 	 * @return NULL OR String [] tab :
 	 * <br>tab[0] -> dlugosc geograficzna 

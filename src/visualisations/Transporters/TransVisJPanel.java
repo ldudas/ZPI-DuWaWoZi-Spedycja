@@ -24,57 +24,184 @@ import javax.swing.JPanel;
 
 import dataModels.Transporter;
 
+/**
+ * Wizualizacja przewoźników
+ * @author Łukasz
+ *
+ */
 public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotionListener
 {  
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
+	 /**
+	  * lewy margines osi x
+	  */
 	 private final static int x_gap = 20;
+	 
+	 /**
+	  * dolny margines osi y
+	  */
      private final static int y_gap = 20;
+     
+     /**
+      * grubość osi
+      */
      private final static int line_thickness = 2;
      
+     /**
+      * Czcionka opisów osi
+      */
      private final static  String axis_font = "Gulim";
+     
+     /**
+      * Styl czcionki opsiów osi
+      */
      private final static int axis_font_style = Font.ITALIC;
+     
+     /**
+      * Czcionka opisu obiektów na wizualziacji
+      */
      private final static String rect_font = "Juice ITC";
+     
+     /**
+      * Styl czcionki opisu obiektów na wizualziacji
+      */
      private final static int rect_font_style = Font.PLAIN;
      
+     /**
+      * maksymalny rozmiar czcionki opisu osi x
+      */
      private final static int x_axis_max_font_size = 15;
-     private final static int x_axis_min_font_size = 7;
      
+     /**
+      * minimalny rozmiar czcionki opisu osi x
+      */
+     private final static int x_axis_min_font_size = 10;
+     
+     /**
+      * maksymalny rozmiar czcionki opisu osi y
+      */
      private final static int y_axis_max_font_size = 17;
+     
+     /**
+      * minimalny rozmiar czcionki opisu osi y
+      */
      private final static int y_axis_min_font_size = 3;
      
+     /**
+      * maksymalny rozmiar czcionki opsiu obiektu przewoźnika
+      */
      private final static int trans_max_font_size = 50;
+     /**
+      * minimalny rozmiar czcionki opsiu obiektu przewoźnika
+      */
      private final static int trans_min_font_size = 10;
      
+     /**
+      * rozmiar grotu osi
+      */
      private final static int triangle_size = 4;
+     
+     /**
+      * liczba "podziałek" na osiach
+      */
      private final static int number_of_desc = 10;
 
+     /**
+      * maksymalna wartość kanału alpha obiektów przewoźników
+      */
      private final static float max_alpha_minus = 0.9f;
+     
+     /**
+      * minimalna wartość kanału alpha obiektów przewoźników
+      */
      private final static float min_alpha_minus = 0.1f;
      
+     /**
+      * maksymalna (prog od ktorego jest najgorsza) wartość stosunku nzreal od zreal
+      */
      private final static double max_exec = 0.05;
      
      
-          
+     /////////////////////////////////////////////////////////////////////////////////////////    
+     /**
+      * maksymalna szerokość obiektu przewoźnika
+      */
      private double max_obj_width;
+     /**
+      * maksymalna wysokość obiektu przewoźnika
+      */
      private double max_obj_height;
      
+     /**
+      * minimalna szerokość obiektu przewoźnika
+      */
      private double min_obj_width;
+     
+     /**
+      * minimalna wysokość obiektu przewoźnika
+      */
      private double min_obj_height;
      
+     /**
+      * wysokość panelu wizualizacji
+      */
      private int panel_height;
+     
+     /**
+      * szerokość panelu wizualizacji
+      */
      private int panel_width;
+     
+     /**
+      * początek x osi X
+      */
      private int x_line_x_beg;
+     
+     /**
+      * początek y osi X
+      */
      private int x_line_y_beg;
+     
+     /**
+      * koniec x osi X
+      */
      private int x_line_x_end;
+     
+     /**
+      * koniec y osi X
+      */
      private int x_line_y_end;
+     
+     /**
+      * początek x osi Y
+      */
      private int y_line_x_beg;
+     
+     /**
+      * początek y osi Y
+      */
      private int y_line_y_beg;
+     
+     /**
+      * koniec x osi Y
+      */
      private int y_line_x_end;
+     
+     /**
+      * koniec y osi Y
+      */
      private int y_line_y_end;
      
+     /**
+      * widok
+      */
      private VisualisationTransportersView view;
+     
+     /**
+      * kolekcja narysowanych na mapie obiektów przewoźników
+      */
      private ArrayList<Shape> drawnShapes;
     
     
@@ -92,6 +219,10 @@ private static final long serialVersionUID = 1L;
         return new Dimension(700,500);
     }
     
+    /**
+     * Narysuj osie
+     * @param g2d Graphics2D do rysowania
+     */
     private void drawAxles(Graphics2D g2d)
     {
     	
@@ -136,7 +267,10 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Narysuj obiekty przewoźników
+     * @param g2d Graphics2D do rysowania
+     */
     void drawTransportersObjects(Graphics2D g2d)
     {
 	    	setTransporterObjectsSizeBounds();    
@@ -153,7 +287,9 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Ustaw max/min wymiary obiektów przewoźników wg wymiarów panelu
+     */
     private void setTransporterObjectsSizeBounds()
     {
     	max_obj_height = panel_height/5.0;
@@ -164,7 +300,11 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Narysuj obiekt przewoźnika
+     * @param g2d Graphics2D do rysowania
+     * @param t Przewoźnik do narysowania
+     */
     private void drawTransporterObject(Graphics2D g2d, Transporter t)
     {
     	double x_obj;
@@ -241,13 +381,15 @@ private static final long serialVersionUID = 1L;
     }
     	    
     
-    
+    /**
+     * Ustawianie współrzędnych osi wg rozmiarów panelu do rysowania
+     */
     private void setAxlesCoordinates()
     {
     	 //poczatek osi x - x
-        x_line_x_beg = panel_width / x_gap;
+        x_line_x_beg = (int)(panel_width * 1.5 / x_gap);
         //poczatek osi x - y
-        x_line_y_beg = panel_height - (panel_height / y_gap);
+        x_line_y_beg = panel_height - (int) (panel_height *1.5 / y_gap);
         //koniec osi x - x
         x_line_x_end = panel_width - (3*panel_width/(x_gap));
         //koniec osi x - y
@@ -265,31 +407,50 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Rysuje oś X
+     * @param g2d Graphics2D do rysowania
+     */
     private void drawXAxle(Graphics2D g2d)
     {
     	//grubość, zakończenie, łączenia
         BasicStroke bs1 = new BasicStroke(line_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
         g2d.setStroke(bs1);
         g2d.drawLine(x_line_x_beg, x_line_y_beg, x_line_x_end+panel_width/10, x_line_y_end);
+        
+        int x_line_x_desc_beg = x_line_x_beg;
+        double x_line_desc_unit = ((x_line_x_end - x_line_x_beg) / (view.getMax_num_of_orders() - view.getMin_num_of_orders()));
+        int begin_number = (int)(view.getMin_num_of_orders());
+        int x_axis_gap = (int) ((view.getMax_num_of_orders() - view.getMin_num_of_orders())/ number_of_desc);
+        int mod = x_axis_gap % 10;
+        x_axis_gap = x_axis_gap - mod;
+        
+        while(begin_number % 10 != 0)
+        {
+        	begin_number ++;
+        	x_line_x_desc_beg += x_line_desc_unit;
+        }
+        
         //watrtosci na osi x
-        	//linie
-	        int x_desc_gap = (x_line_x_end - x_line_x_beg) / number_of_desc;
-	        
-	        for(int i=1; i<=number_of_desc; i++)
-	        {
-	        	g2d.drawLine(x_line_x_beg + x_desc_gap * i, x_line_y_beg, x_line_x_beg + x_desc_gap * i, x_line_y_beg+panel_height/50);
-	        }
-	        //liczby
+        	//linie i liczby
 	        int x_axis_num_font_size = (int)(panel_height/40.0);
-	        int x_axis_num_gap = (int) ((view.getMax_num_of_orders() - view.getMin_num_of_orders())/ number_of_desc);
-	        
 	        g2d.setFont(new Font(axis_font, axis_font_style, x_axis_num_font_size));
-		        //rysowanie stringa
-		        for(int i=1; i<=number_of_desc; i++)
-		        {
-		        g2d.drawString(((int)(view.getMin_num_of_orders() + x_axis_num_gap * i))+"",  x_line_x_beg + x_desc_gap * i + panel_width/300, x_line_y_beg+panel_height/40);
-		        }
+	        
+	        int number = begin_number;
+	        int x = x_line_x_desc_beg;
+	        while(number<view.getMax_num_of_orders())
+	        {
+	        	
+	        	g2d.drawLine(x, x_line_y_beg, x, x_line_y_beg+panel_height/50);
+	        	g2d.drawString(number+"", x + panel_width/300, x_line_y_beg+panel_height/40);
+	        	
+	        	number += x_axis_gap;
+	        	x+= x_line_desc_unit * x_axis_gap;
+	        	
+	        }
+	        
+	        g2d.drawLine(x, x_line_y_beg, x, x_line_y_beg+panel_height/50);
+        	g2d.drawString(number+"", x + panel_width/300, x_line_y_beg+panel_height/40);
 		        
 		        
 		        
@@ -301,42 +462,72 @@ private static final long serialVersionUID = 1L;
 		        
 		        g2d.setFont(new Font(axis_font, axis_font_style, x_axis_font_size));
 		        //rysowanie stringa
-		        g2d.drawString("Liczba zleceń", x_line_x_end+panel_width/20, x_line_y_end + panel_height/30);
+		        g2d.drawString("Liczba zleceń", x_line_x_end+panel_width/25, x_line_y_end + panel_height/17);
     }
     
     
-    
+    /**
+     * Rysuje oś Y
+     * @param g2d Graphics2D do rysowania
+     */
     private void drawYAxle(Graphics2D g2d)
     {
     	//grubość, zakończenie, łączenia
         BasicStroke bs2 = new BasicStroke(line_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
         g2d.setStroke(bs2);
         g2d.drawLine(y_line_x_beg, y_line_y_beg-panel_height/10, y_line_x_end, y_line_y_end);
-        //watrtosci na osi y
-        int y_desc_gap = (y_line_y_end - y_line_y_beg) / number_of_desc;
         
-        for(int i=1; i<=number_of_desc; i++)
+        int y_line_y_desc_beg = y_line_y_end;
+        double y_line_desc_unit = ((y_line_y_end - y_line_y_beg) / (view.getMax_cost() - view.getMin_cost()));
+        int begin_number = (int)(view.getMin_cost());
+        int y_axis_num_gap = (int) ((view.getMax_cost() - view.getMin_cost())/ number_of_desc);
+        int mod = y_axis_num_gap % 10;
+        y_axis_num_gap = y_axis_num_gap - mod;
+        
+        while(begin_number % 10 != 0)
         {
-        	g2d.drawLine(y_line_x_end, y_line_y_end-y_desc_gap*i, y_line_x_end - panel_width/50, y_line_y_end-y_desc_gap*i);
+        	begin_number ++;
+        	y_line_y_desc_beg -= y_line_desc_unit;
         }
-        //liczby
-        	int y_axis_num_font_size = (int)(panel_width/60.0);
-        	int y_axis_num_gap = (int) ((view.getMax_cost() - view.getMin_cost())/ number_of_desc);
         
+        //watrtosci na osi y
+        	//linie i liczby
+	        int y_axis_num_font_size = (int)(panel_height/40.0);
+	        g2d.setFont(new Font(axis_font, axis_font_style, y_axis_num_font_size));
+	        
+	        int number = begin_number;
+	        int y = y_line_y_desc_beg;
+
         	g2d.setFont(new Font(axis_font, axis_font_style, y_axis_num_font_size));
         	String number_y;
         	FontMetrics metrics = g2d.getFontMetrics();
-        		//rysowanie stringa
-        		for(int i=1; i<=number_of_desc; i++)
-        		{
-        			//wartosc
-        			number_y = ((int)(view.getMin_cost() + y_axis_num_gap * i))+"";
-		        	 //pobieranie wymiarow na wizualizacji
-		        	 Rectangle2D rectan = metrics.getStringBounds(number_y, g2d);
-		        	 double font_width =   rectan.getWidth();
-		        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y_line_y_end-y_desc_gap*i - panel_height/100);
-        		}
-        		
+        	
+	        while(number<view.getMax_cost())
+	        {
+	        	
+	        	g2d.drawLine(y_line_x_end,y, y_line_x_end - panel_width/50, y);
+
+    			//wartosc
+    			number_y = ((int)number)+"";
+	        	 //pobieranie wymiarow na wizualizacji
+	        	 Rectangle2D rectan = metrics.getStringBounds(number_y, g2d);
+	        	 double font_width =   rectan.getWidth();
+	        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y - panel_height/100);
+	        	
+	        	 number += y_axis_num_gap;
+		         y-= y_line_desc_unit * y_axis_num_gap;
+	        }
+	        
+	        
+	        g2d.drawLine(y_line_x_end,y, y_line_x_end - panel_width/50, y);
+
+			//wartosc
+			number_y = ((int)number)+"";
+        	 //pobieranie wymiarow na wizualizacji
+        	 Rectangle2D rectan = metrics.getStringBounds(number_y, g2d);
+        	 double font_width =   rectan.getWidth();
+        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y - panel_height/100);
+	        
         //rysowanie opisu osi y
         		g2d.setColor(Color.orange);
 		        //wyliczanie rozmiaru czcionki
@@ -350,13 +541,17 @@ private static final long serialVersionUID = 1L;
 		        //obrot
 		        g2d.rotate(Math.toRadians(-90));
 		        //rysowanie stringa (wg przeksztalcen)
-		        g2d.drawString("Koszt", panel_height/30 , -panel_height/30);
+		        g2d.drawString("Koszt", panel_height/30 , -panel_height/13);
 		             
       
     }
     
     
-    
+    /**
+     * Rysowanie gortu osi X
+     * @param g2d Graphics2D do rysowania
+     * @param p0 obiekt graficzny grotu
+     */
     private void drawXArrowHead(Graphics2D g2d, GeneralPath p0)
     {  
         //ustawienie poczatku ukladu wspolrzednych
@@ -369,7 +564,11 @@ private static final long serialVersionUID = 1L;
     }
     
     
-    
+    /**
+     * Rysowanie grotu osi Y
+     * @param g2d Graphics2D do rysowania
+     * @param p0 obiekt graficzny grotu
+     */
     private void drawYArrowHead(Graphics2D g2d, GeneralPath p0)
     {
         //ustawienie poczatku ukladu wspolrzednych
@@ -378,6 +577,9 @@ private static final long serialVersionUID = 1L;
         g2d.fill(p0);
     }
     
+    /**
+     * zczytanie i ustawienie wymiarów panelu rysowania
+     */
     private void setPanelBounds()
     {
     	//wymiary płótna
@@ -402,6 +604,7 @@ private static final long serialVersionUID = 1L;
         
     }
 
+    ///////////////////listenery//////////////////////////////////////////////////////////////////////
     
 	@Override
 	public void mouseClicked(MouseEvent e) 
@@ -437,16 +640,7 @@ private static final long serialVersionUID = 1L;
 
 	
 	@Override
-	public void mouseMoved(MouseEvent e) 
-	{
-		/*for(Shape s: drawnShapes)
-		{
-			if(s.contains(e.getX(), e.getY()))
-			{
-				Transporter t = transporters.get(drawnShapes.indexOf(s));
-				System.out.println("Jestem nad: "+t.getName()+"\n"+t.getPhone_num());
-			}
-		}*/
+	public void mouseMoved(MouseEvent e) {
 	} 
 	
 	@Override

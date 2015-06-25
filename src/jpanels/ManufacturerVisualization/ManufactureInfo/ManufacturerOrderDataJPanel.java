@@ -109,14 +109,14 @@ public class ManufacturerOrderDataJPanel extends JPanel
 		add(panel_buttons);
 		panel_buttons.setLayout(null);
 		
-		JButton man_cancelButton = new JButton("Anuluj");
+		JButton man_cancelButton = new JButton("Anuluj ");
 		man_cancelButton.setBounds(23, 11, 135, 62);
 		panel_buttons.add(man_cancelButton);
 		man_cancelButton.setBackground(SystemColor.activeCaption);
 		man_cancelButton.setForeground(SystemColor.desktop);
 		man_cancelButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		
-		JButton man_back = new JButton("Wróć");
+		JButton man_back = new JButton("Wróć ");
 		man_back.setBounds(168, 11, 135, 62);
 		panel_buttons.add(man_back);
 		man_back.setBackground(SystemColor.activeCaption);

@@ -1,7 +1,6 @@
 package interfaces;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -11,9 +10,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -139,17 +136,7 @@ public class RoutePlanningView
 						"Powitanie", JOptionPane.YES_NO_OPTION);
 				if(dialogResult == JOptionPane.YES_OPTION) 
 				{
-					route_planning_presenter.logOutUser();
-					
-					startApplicationJPanel.removeLogicJPanel();
-					openWelcomeView();
-					if( menuJPanel.isUserLogged() )
-						menuJPanel.setEnableAllButtons(true);
-					else
-					{
-						menuJPanel.setEnableButtonsToUserAction(false);
-						menuJPanel.setEnableButtonsFirstAction(true);
-					}
+					change_to_startingPanel();
 					//prepareFrameAfterChangeView(mainFrame);
 				}
 			};
@@ -181,14 +168,13 @@ public class RoutePlanningView
 		menu.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(menu);
 			
-		menuItem = new JMenuItem("Instrukcja",
-                KeyEvent.VK_T);
+		menuItem = new JMenuItem("Instrukcja", KeyEvent.VK_T);
 		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		menuItem.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("Instrukcja obslugi aplikacji");
+				route_planning_presenter.openInstructionToApplication();
 			};
 		});
 		menu.add(menuItem);
@@ -291,6 +277,21 @@ public class RoutePlanningView
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
+	public void change_to_startingPanel()
+	{
+		route_planning_presenter.logOutUser();
+		
+		startApplicationJPanel.removeLogicJPanel();
+		openWelcomeView();
+		if( menuJPanel.isUserLogged() )
+			menuJPanel.setEnableAllButtons(true);
+		else
+		{
+			menuJPanel.setEnableButtonsToUserAction(false);
+			menuJPanel.setEnableButtonsFirstAction(true);
+		}
+	}
+	
 	
 	/**
 	 * Zmienia widok ze startowego do widoku wizualizacji producentow na mapie
@@ -323,7 +324,7 @@ public class RoutePlanningView
 			{
 				startApplicationJPanel.removeLogicJPanel();
 				mainFrame.remove(startApplicationJPanel);
-				mainFrame.setBounds(100, 100, 1130, 605);
+				mainFrame.setBounds(100, 100, 1123, 580);
 				mainFrame.setTitle("Producenci");
 				mainFrame.add(manufacturerVisualizationWithMapJPanel);
 				prepareFrameAfterChangeView(mainFrame);

@@ -3,22 +3,73 @@ package dataModels;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * Klasa Producenta przechowująca wszystkie
+ * dane o producencie zarówno z bazy danych
+ * jak i wyliczone podczas działania aplikacji
+ * @author Kamil Zimny
+ *
+ */
 public class Manufacturer 
 {
-	
+	/**
+	 * Identyfikator producenta z bazy danych
+	 */
 	private String ID;
+	
+	/**
+	 * Nazwa producenta
+	 */
 	private String name;
+	
+	/**
+	 * Numer telefonu do producenta
+	 */
 	private String phone;
+	
+	/**
+	 * Ostatnia aktywność producenta
+	 */
 	private String lastActivity;
+	
+	/**
+	 * Szerokość geograficzna położenia siedziby producenta
+	 */
 	private double latitude;
+	
+	/**
+	 * Długość geograficzna położenia siedziby producenta 
+	 */
 	private double longitude;
+	
+	/**
+	 * Suma zarobków na zamówień jak były wykonywane na rzecz producenta
+	 */
 	private double sumOfOrdersValue;
+	
+	/**
+	 * Suma dni przez które były wykonywane zlecenia
+	 */
 	private int sumOfDays;
+	
+	/**
+	 * Liczba wszystkich zamówień danego producenta
+	 */
 	private int numberOfOrders;
 	
+	/**
+	 * Wielkość obiektu umieszczanego na mapie - ilość zamówień
+	 */
 	private int rankOfNumberOfOrders;
+	
+	/**
+	 * Intensywność koloru obiektu umieszczanego na mapie - dzienny zarobek 
+	 */
 	private Color rankOfDailyProfit;
 	
+	/**
+	 * Dodatkowe informacje ustawiane podczas skreślania producenta z mapy
+	 */
 	private String additionInfo;
 	
 	private ArrayList<Integer> monthActivity;
@@ -162,10 +213,10 @@ public class Manufacturer
 	}
 	
 	/***
-	 * int quarter = 0 -> Wiosna
-	 * int quarter = 1 -> Lato
-	 * int quarter = 2 -> Jesien
-	 * int quarter = 3 -> Zima
+	 * int quarter = 0 - Wiosna
+	 * int quarter = 1 - Lato
+	 * int quarter = 2 - Jesien
+	 * int quarter = 3 - Zima
 	 * @return Color of activity in quarter
 	 * @author Kamil Zimny
 	 */
@@ -174,11 +225,11 @@ public class Manufacturer
 		return (quarter > -1 && quarter < 4) ? quarterActivityColors.get(quarter) : new Color(0,0,0);
 	}
 	
-	/***
-	 * int quarter = 0 -> Wiosna
-	 * int quarter = 1 -> Lato
-	 * int quarter = 2 -> Jesien
-	 * int quarter = 3 -> Zima
+	/**
+	 * int quarter = 0 - Wiosna
+	 * int quarter = 1 - Lato
+	 * int quarter = 2 - Jesien
+	 * int quarter = 3 - Zima
 	 * @return int  activity in quarter
 	 * @author Kamil Zimny
 	 */
@@ -234,10 +285,10 @@ public class Manufacturer
 	}
 	
 	/***
-	 * int quarter = 0 -> Wiosna
-	 * int quarter = 1 -> Lato
-	 * int quarter = 2 -> Jesien
-	 * int quarter = 3 -> Zima
+	 * int quarter = 0 - Wiosna
+	 * int quarter = 1 - Lato
+	 * int quarter = 2 - Jesień
+	 * int quarter = 3 - Zima
 	 * @return Color of activity in quarter
 	 * @author Kamil Zimny
 	 */
@@ -248,11 +299,11 @@ public class Manufacturer
 	
 	
 	/***
-	 * int quarter = 0 -> Wiosna
-	 * int quarter = 1 -> Lato
-	 * int quarter = 2 -> Jesien
-	 * int quarter = 3 -> Zima
-	 * @return int  activity in quarter
+	 * int quarter = 0 - Wiosna
+	 * int quarter = 1 - Lato
+	 * int quarter = 2 - Jesień
+	 * int quarter = 3 - Zima
+	 * @return int activity in quarter
 	 * @author Kamil Zimny
 	 */
 	public double getQuarterCost(int quarter)
