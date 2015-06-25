@@ -13,16 +13,16 @@ public class Unfinished_commissions_presenter {
 	
 	private Unfinished_commissions_model model;
 	private Unfinished_commissions_view view;
-	private RoutePlanningPresenter route;
+	//private RoutePlanningPresenter route;
 	
 	public Unfinished_commissions_presenter(final Unfinished_commissions_model model,Unfinished_commissions_view view){
 		this.model = model;
 		this.view = view;
 	}
 	
-	public void set_route_presenter(final RoutePlanningPresenter r){
-		this.route = r;
-	}
+	//public void set_route_presenter(final RoutePlanningPresenter r){
+//		this.route = r;
+//	}
 	
 	public void startCommissionsEdition(JFrame mainFrame)
 	{
@@ -45,5 +45,15 @@ public class Unfinished_commissions_presenter {
 	
 	public void save_to_dataBase(int selected){
 		model.save_to_dataBase(selected);
+	}
+	
+	public void clearDataInModel()
+	{
+		model.clearData();
+	}
+	
+	public void clearUnfinishedCommissionsFrame()
+	{
+		view.clearUnfinishedCommissionsFrame();
 	}
 }

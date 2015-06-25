@@ -16,7 +16,8 @@ public class Unfinished_commissions_view {
 	private Unfinished_commissions_jpanel unfinished_commissionsJPanel;
 	private Selected_commission_jpanel selected_commission_JPanel;
 	
-	public Unfinished_commissions_view(){
+	public Unfinished_commissions_view()
+	{
 	}
 	
 	public void initialize(JFrame mainFrame, ArrayList<Commission> res)
@@ -26,7 +27,7 @@ public class Unfinished_commissions_view {
 		unfinished_commissionsJPanel = new Unfinished_commissions_jpanel(res,this);
 		frame.add(unfinished_commissionsJPanel);
 		
-		frame.setBounds(1, 1, 1350, 450);
+		frame.setBounds(1, 150, 1350, 450);
 		frame.invalidate();
 		frame.validate();
 	}
@@ -58,6 +59,14 @@ public class Unfinished_commissions_view {
 	
 	public JFrame getFrame(){
 		return frame;
+	}
+	
+	public void clearUnfinishedCommissionsFrame()
+	{
+		if(unfinished_commissionsJPanel != null)
+			frame.remove(unfinished_commissionsJPanel);
+		if(selected_commission_JPanel != null )
+			frame.remove(selected_commission_JPanel);
 	}
 	
 	

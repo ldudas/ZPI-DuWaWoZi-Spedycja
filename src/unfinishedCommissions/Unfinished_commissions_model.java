@@ -48,6 +48,12 @@ public class Unfinished_commissions_model {
 			throw new Exception("Użytkownik nie został zalogowany."); //nie powinno się zdarzyć.
 	}
 	
+	public void clearData()
+	{
+		if (result != null)
+			result.clear();
+	}
+	
 	public void save_to_dataBase(int selected){
 		dao.saveCommission(result.get(selected));
 	}

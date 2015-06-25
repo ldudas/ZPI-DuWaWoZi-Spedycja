@@ -44,7 +44,7 @@ public class Unfinished_commissions_jpanel extends JPanel {
 		setLayout(null);
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);
-		panel.setBounds(1, 1, 1350, 400);
+		panel.setBounds(1, 20, 1350, 400);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -120,6 +120,8 @@ public class Unfinished_commissions_jpanel extends JPanel {
 		
 		
 		JButton btnWybierz = new JButton("Wybierz");
+		btnWybierz.setBackground(SystemColor.activeCaption);
+		btnWybierz.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnWybierz.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -137,7 +139,7 @@ public class Unfinished_commissions_jpanel extends JPanel {
 				}
 			}
 		});
-		btnWybierz.setBounds(1224, 337, 89, 23);
+		btnWybierz.setBounds(1136, 326, 191, 43);
 		panel.add(btnWybierz);
 		
 	}
