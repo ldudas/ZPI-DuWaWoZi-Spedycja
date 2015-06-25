@@ -25,7 +25,6 @@ public class PathManagementJPanel extends JPanel
 	private static final long serialVersionUID = 1L;
 	private RoutePlanningPresenter presenter_route_planning;
 	private JTable table_routeDiscription;
-	
 	private DefaultTableModel model;
 	
 	public PathManagementJPanel() 
@@ -70,6 +69,7 @@ public class PathManagementJPanel extends JPanel
 				return columnEditables[column];
 			}
 		});
+		
 		table_routeDiscription.getTableHeader().setBackground(SystemColor.inactiveCaptionText);
 		table_routeDiscription.getTableHeader().setForeground(new Color(255, 204, 0));
 		

@@ -22,7 +22,7 @@ public class RoutePlanningPresenterTest {
 	private VisualisationTransportersPresenter trans_presenter = null;
 	
 	RoutePlanningPresenter rpp = new RoutePlanningPresenter(route_planning_view, route_planning_model, 
-			manu_presenter, path_presenter,trans_presenter);
+			manu_presenter, path_presenter,trans_presenter,null);
 	
 	@Test
 	public void testNullPlanningView() {

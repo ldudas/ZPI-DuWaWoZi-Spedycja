@@ -77,6 +77,13 @@ public class MenuJPanel extends JPanel
 		panel.add(btn_registery);
 		
 		btn_commisionEdit = new JButton("Edycja zlece\u0144");
+		btn_commisionEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				presenter_route_planning.setExternalDatabaseConnectionProperty();
+				presenter_route_planning.changeMenu_to_UnfinishedCommissions();
+			}
+		});
 		btn_commisionEdit.setEnabled(false);
 		btn_commisionEdit.setBackground(SystemColor.activeCaption);
 		btn_commisionEdit.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));

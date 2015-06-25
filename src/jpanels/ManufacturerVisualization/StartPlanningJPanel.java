@@ -48,6 +48,7 @@ public class StartPlanningJPanel extends JPanel
 		setBackground(SystemColor.activeCaption);
 		setLayout(null);
 		dateFormat = new SimpleDateFormat(DATE_FORMAT);
+		
 		JPanel panel_from = new JPanel();	
 		panel_from.setBackground(SystemColor.inactiveCaptionText);
 		panel_from.setBounds(0, 0, 297, 361);
