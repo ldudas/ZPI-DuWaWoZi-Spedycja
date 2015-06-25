@@ -167,14 +167,13 @@ public class RoutePlanningView
 		menu.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(menu);
 			
-		menuItem = new JMenuItem("Instrukcja",
-                KeyEvent.VK_T);
+		menuItem = new JMenuItem("Instrukcja", KeyEvent.VK_T);
 		menuItem.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		menuItem.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("Instrukcja obslugi aplikacji");
+				route_planning_presenter.openInstructionToApplication();
 			};
 		});
 		menu.add(menuItem);

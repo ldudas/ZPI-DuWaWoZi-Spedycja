@@ -89,12 +89,10 @@ public class DataAccessObjectRoutePlanning
 			
 			if( order.getIdManufacturer() != null && !order.getIdManufacturer().equals("") )
 			{
-				String queryCityId = "SELECT id_miasta FROM Miasta WHERE nazwa_miasta = '" + order.getCityFrom().getCityName() + "';";
-				
+				String queryCityId = "SELECT id_miasta FROM Miasta WHERE nazwa_miasta = '" + order.getCityFrom().getCityName() + "';";				
 				ArrayList<ArrayList<Object>> resultOfQuery = null;
 
-				try 
-				{
+				try {
 					resultOfQuery = databaseConnector.getResultOfMySqlQuery(queryCityId);
 				} catch (Exception e1) 
 				{
@@ -104,8 +102,7 @@ public class DataAccessObjectRoutePlanning
 				
 				String cityFromID = resultOfQuery.get(0).get(0).toString();
 				
-				queryCityId = "SELECT id_miasta FROM Miasta WHERE nazwa_miasta = '" + order.getCityTo().getCityName() + "';";
-				
+				queryCityId = "SELECT id_miasta FROM Miasta WHERE nazwa_miasta = '" + order.getCityTo().getCityName() + "';";			
 				resultOfQuery = null;
 
 				try {
@@ -115,10 +112,30 @@ public class DataAccessObjectRoutePlanning
 				}
 	
 				String cityToID = resultOfQuery.get(0).get(0).toString();
-								
-				String query = "INSERT INTO Zlecenia (data_rozp_plan, data_zak_plan, id_prod, z_miasta, do_miasta, id_przew) "
+				
+				String insertRoute_name = "INSERT INTO Trasy_przewozinikow (nazwa_trasy) VALUES('" + route_name + "');";
+				
+				try 
+				{
+					databaseConnector.saveDataToDatabase(insertRoute_name);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				
+				String getRoute_id = "SELECT id_trasy FROM Trasy_przewozinikow WHERE nazwa_trasy='" + route_name + "';";
+				resultOfQuery = null;
+
+				try {
+					resultOfQuery = databaseConnector.getResultOfMySqlQuery(getRoute_id) ;
+				} catch (Exception e1) {
+					throw new RuntimeException(e1);
+				}
+				
+				String routeID = resultOfQuery.get(0).get(0).toString();
+				
+				String query = "INSERT INTO Zlecenia (data_rozp_plan, data_zak_plan, id_prod, z_miasta, do_miasta, id_przew, id_trasy) "
 						+ "VALUES('"+ order.getStartDate() +"','" +  order.getFinishDate() +"','" + order.getIdManufacturer() +"','"
-						+  cityFromID +"','"  + cityToID +"','"+ order.getIdTransporter() + "');";	
+						+  cityFromID +"','"  + cityToID +"','"+ order.getIdTransporter() + "','"+ routeID +"');";	
 
 				try 
 				{

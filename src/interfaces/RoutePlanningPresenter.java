@@ -1,5 +1,8 @@
 package interfaces;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -593,9 +596,23 @@ public class RoutePlanningPresenter
 		}
 	}
 	
+
 	public boolean isRouteNameUnique(String route_name)
 	{
 		return route_planning_model.isRouteNameUnique(route_name);
+	}
+
+	
+	public void openInstructionToApplication()
+	{
+		File htmlFile = new File(System.getProperty("user.dir") + "\\user-guide.html");
+		try 
+		{
+			Desktop.getDesktop().browse(htmlFile.toURI());
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 }
