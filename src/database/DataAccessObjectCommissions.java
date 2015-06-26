@@ -1,7 +1,6 @@
 package database;
 
 import java.util.ArrayList;
-
 import dataModels.Commission;
 import exceptions.DatabaseConnectionExeption;
 
@@ -42,15 +41,26 @@ public class DataAccessObjectCommissions {
 		return resultOfQuery;
 	}
 	
-	public void saveCommission(Commission item)
+	public void saveCommission(Commission item, boolean if_end)
 	{
 		
 		
-		String query = "UPDATE Zlecenia SET data_rozp_rzecz = '" + item.getStartDateReal() + "', data_zak_rzecz = '" + item.getFinishDateReal() + "', koszt_przew = '" + item.getTransporterCost() + "', wartosc_zlec = '" + item.getCommissionValue() + "', pojemnosc_poj = '" + item.getVehicleCapacity() +  "', ladownosc_poj = '" + item.getVehcicleCapacity2() +"' WHERE id_zlecenia = '" + item.getId() + "';";                                                                                                                            ;	
-		
+		String query = "UPDATE Zlecenia SET data_rozp_rzecz = '" + item.getStartDateReal() + "', data_zak_rzecz = '" + item.getFinishDateReal() + "', koszt_przew = '" + 
+						item.getTransporterCost() + "', wartosc_zlec = '" + item.getCommissionValue() + "', pojemnosc_poj = '" + item.getVehicleCapacity() +  "', ladownosc_poj = '" + 
+						item.getVehcicleCapacity2() +"' WHERE id_zlecenia = '" + item.getId() + "';";   
+	
+		String query2 = "UPDATE Zlecenia SET data_rozp_rzecz = '" + item.getStartDateReal() + "', data_zak_rzecz = '" + item.getFinishDateReal() + "', koszt_przew = '" + 
+						item.getTransporterCost() + "', wartosc_zlec = '" + item.getCommissionValue() + "', pojemnosc_poj = '" + item.getVehicleCapacity() +  "', ladownosc_poj = '" + 
+						item.getVehcicleCapacity2() +"', czy_zrealizowano = '" + 1 + "' WHERE id_zlecenia = '" + item.getId() + "';"; 
 		try 
 		{
-			databaseConnector.saveDataToDatabase(query);
+			if(if_end){
+				databaseConnector.saveDataToDatabase(query2);
+			}
+			else{
+				databaseConnector.saveDataToDatabase(query);
+			}
+			
 		} 
 		catch (DatabaseConnectionExeption e) 
 		{
@@ -60,6 +70,4 @@ public class DataAccessObjectCommissions {
 		
 	}
 
-	
-	
 }

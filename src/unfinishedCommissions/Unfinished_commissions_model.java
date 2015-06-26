@@ -11,30 +11,33 @@ public class Unfinished_commissions_model {
 	
 	private ArrayList<Commission> result;
 	private DataAccessObjectCommissions dao;
+	SimpleDateFormat sdfr;
+	boolean flag=false;
 	
 	public Unfinished_commissions_model(){
 		result = new ArrayList<Commission>();
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		dao = factory.getDataAccessObjectCommissions();
+		sdfr = new SimpleDateFormat("yyyy-MM-dd");
 	}
 	
 	public ArrayList<Commission> getResult(){
-		SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+		if(flag){
+			result.clear();
+		}
 		ArrayList<ArrayList<Object>> result = dao.getUnfinishedCommissions();
 		for(ArrayList<Object> row: result){
-			
 			this.result.add(new Commission((int)row.get(0),sdfr.format(row.get(1)),sdfr.format(row.get(2)),sdfr.format(row.get(3)),
 					sdfr.format(row.get(4)),(double)row.get(5),(double)row.get(6),(int)row.get(7),(int)row.get(8),(String)row.get(9),
 					(String)row.get(10),(String)row.get(11),(String)row.get(12),(String)row.get(13)));
 			}	
+		flag=true;
 		return this.result;
 		}
 	
 	public ArrayList<Commission> returnResult(){
 		return result;
 	}
-	
-	
 	
 	public void setExternalDatabaseConnectionProperty(User currentLoggedUser) throws Exception
 	{
@@ -54,8 +57,8 @@ public class Unfinished_commissions_model {
 			result.clear();
 	}
 	
-	public void save_to_dataBase(int selected){
-		dao.saveCommission(result.get(selected));
+	public void save_to_dataBase(int selected, boolean if_end){
+		dao.saveCommission(result.get(selected),if_end);
 	}
 	
 }

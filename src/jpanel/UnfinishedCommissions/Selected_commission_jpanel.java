@@ -1,29 +1,28 @@
 package jpanel.UnfinishedCommissions;
 
 import javax.swing.JPanel;
-
 import java.awt.SystemColor;
-
 import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import unfinishedCommissions.Unfinished_commissions_view;
 import jpanel.calendare.JCalendar;
 import dataModels.*;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 
 public class Selected_commission_jpanel extends JPanel {
@@ -45,8 +44,11 @@ public class Selected_commission_jpanel extends JPanel {
 	private JTextArea cityB_textArea;
 	private JTextArea transporter_textArea;
 	private JTextArea name_textArea;
+	private JCheckBox if_end_checkBox;
 	private Unfinished_commissions_view view;
+	SimpleDateFormat formatter;
 	private int selected;
+	private String example_date = "1900-01-01";
 
 	/**
 	 * Create the panel.
@@ -55,12 +57,13 @@ public class Selected_commission_jpanel extends JPanel {
 	public Selected_commission_jpanel(int choosen, ArrayList<Commission> result,Unfinished_commissions_view view) throws ParseException {
 		
 		this.view = view;
-		view.getFrame().setBounds(1, 1, 970, 550);
+		view.getFrame().setBounds(198, 150, 970, 550);
 		selected = choosen;
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
 		setBackground(SystemColor.inactiveCaptionText);
 		setLayout(null);
 		setBounds(0,0,970,550);
-		
 		
 		JPanel panel_startDate = new JPanel();	
 		panel_startDate.setBackground(SystemColor.inactiveCaptionText);
@@ -100,7 +103,6 @@ public class Selected_commission_jpanel extends JPanel {
 		startDatePlan_textField.setColumns(10);
 		
 		
-		
 		JPanel panel_endDate = new JPanel();	
 		panel_endDate.setBackground(SystemColor.inactiveCaptionText);
 		panel_endDate.setBounds(657, 10, 297, 361);
@@ -138,15 +140,12 @@ public class Selected_commission_jpanel extends JPanel {
 		panel_endDate.add(endDatePlan_textField);
 		endDatePlan_textField.setColumns(10);
 		
-		
-		
 		JLabel lblIdZlecenia_1 = new JLabel("ID zlecenia: ");
 		lblIdZlecenia_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lblIdZlecenia_1.setBackground(new Color(255, 204, 0));
 		lblIdZlecenia_1.setForeground(new Color(255, 204, 0));
 		lblIdZlecenia_1.setBounds(20, 10, 79, 14);
 		add(lblIdZlecenia_1);
-		
 		
 		this.commissionID_textArea = new JTextArea();
 		commissionID_textArea.setBackground(SystemColor.inactiveCaptionText);
@@ -251,21 +250,39 @@ public class Selected_commission_jpanel extends JPanel {
 		add(name_textArea);
 		
 		JButton btnZapisz = new JButton("Zapisz");
-		btnZapisz.setBackground(SystemColor.activeCaption);
-		btnZapisz.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if(endDate.getDate().compareTo(startDate.getDate()) <= 0){
-					JOptionPane.showMessageDialog(panel_endDate,"Data zakończnie musi być późniejsza niż rozpoczęcia");
-				}
-				else{
-					view.save_change();
-					view.save_to_dataBase(selected);
-				}
+		btnZapisz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(endDate.getDate().compareTo(startDate.getDate()) < 0){
+					JOptionPane.showMessageDialog(panel_endDate,"Data zakończenia musi być późniejsza niż data rozpoczęcia","Powiadomienie",1);
+				} else
+					try {
+						if( endDate.getDate().compareTo(formatter.parse(result.get(choosen).getFinishDatePlan())) < 0 ){
+							JOptionPane.showMessageDialog(panel_endDate," Rzeczywista data zakończenia musi być późniejsza niż planowana data zakończenia","Powiadomienie",1);
+						}
+						else if( startDate.getDate().compareTo(formatter.parse(result.get(choosen).getStartDatePlan())) < 0 ){
+							JOptionPane.showMessageDialog(panel_endDate," Rzeczywista data rozpoczęcia musi być późniejsza niż planowana data rozpoczęcia","Powiadomienie",1);
+						}
+						else{
+							view.save_change();
+							view.save_to_dataBase(selected,if_end_checkBox.isSelected());
+							JOptionPane.showMessageDialog(panel_endDate,"Zmiany zapisane pomyślnie","Powiadomienie",1);
+							view.change_one_commission_to_many();
+							view.getFrame().setBounds(1, 150, 1350, 450);
+							view.update(if_end_checkBox.isSelected());
+							change_flag();
+						}
+					} catch (HeadlessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
 		});
+		btnZapisz.setBackground(SystemColor.activeCaption);
 		btnZapisz.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		btnZapisz.setBounds(389, 406, 171, 56);
+		btnZapisz.setBounds(783, 415, 171, 56);
 		add(btnZapisz);
 		
 		cost_textField = new JTextField();
@@ -304,12 +321,25 @@ public class Selected_commission_jpanel extends JPanel {
 		
 		startDatePlan_textField.setText(result.get(choosen).getStartDatePlan());
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		startDate.setDate( formatter.parse(result.get(choosen).getStartDateReal()) );
+		if(result.get(choosen).getStartDateReal().compareTo(example_date)==0){
+			startDate.setDate( formatter.parse(result.get(choosen).getStartDatePlan()) );
+		}
+		else{
+			startDate.setDate( formatter.parse(result.get(choosen).getStartDateReal()) );
+		}
+		
 		
 		endDatePlan_textField.setText(result.get(choosen).getFinishDatePlan());
+
+		Calendar c = new GregorianCalendar();
 		
-		endDate.setDate( formatter.parse(result.get(choosen).getFinishDateReal()) );
+		if(result.get(choosen).getFinishDateReal().compareTo(example_date) == 0){
+			endDate.setDate( c.getTime() );
+		}
+		else{
+			endDate.setDate( formatter.parse(result.get(choosen).getFinishDateReal()) );
+		}
+		
 		
 		cost_textField.setText(Double.toString(result.get(choosen).getTransporterCost()));
 		
@@ -329,6 +359,25 @@ public class Selected_commission_jpanel extends JPanel {
 		
 		name_textArea.setText(result.get(choosen).getRouteName());
 		
+		JButton back_btn = new JButton("Powrót");
+		back_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.change_one_commission_to_many();
+				view.getFrame().setBounds(1, 150, 1350, 450);
+			}
+		});
+		back_btn.setBackground(SystemColor.activeCaption);
+		back_btn.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		back_btn.setBounds(578, 415, 171, 56);
+		add(back_btn);
+		
+		if_end_checkBox = new JCheckBox("Zrealizowane");
+		if_end_checkBox.setHorizontalAlignment(SwingConstants.CENTER);
+		if_end_checkBox.setBackground(SystemColor.activeCaption);
+		if_end_checkBox.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		if_end_checkBox.setBounds(373, 415, 171, 56);
+		add(if_end_checkBox);
+		
 	}
 	
 	public void save_change(ArrayList<Commission> res){
@@ -342,5 +391,9 @@ public class Selected_commission_jpanel extends JPanel {
 		res.get(selected).setStartDateReal(formatter.format(startDate.getDate()));
 		res.get(selected).setFinishDateReal(formatter.format(endDate.getDate()));
 		
+	}
+	
+	public void change_flag(){
+		view.change_flag();
 	}
 }
