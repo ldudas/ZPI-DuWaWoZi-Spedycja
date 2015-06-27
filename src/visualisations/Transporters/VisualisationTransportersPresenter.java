@@ -154,10 +154,10 @@ public class VisualisationTransportersPresenter
 					{
 						if(route_planning_presenter.isRouteNameUnique(route_name))
 						{
-						route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
-						view_transporters.showSaveSuccessDialog();
-						route_planning_presenter.change_to_startPanel();
-						repeat_insertion = false;
+							route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
+							view_transporters.showSaveSuccessDialog();
+							route_planning_presenter.change_to_startPanel();
+							repeat_insertion = false;
 						}
 						else
 						{
@@ -173,6 +173,7 @@ public class VisualisationTransportersPresenter
 			catch (Exception e) 
 			{
 				view_transporters.showDatabaseSaveError();
+				System.out.println(e.getMessage());
 			}
 			
 			
