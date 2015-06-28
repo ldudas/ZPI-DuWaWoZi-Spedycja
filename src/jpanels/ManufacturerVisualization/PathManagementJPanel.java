@@ -38,7 +38,7 @@ public class PathManagementJPanel extends JPanel
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton btn_showTransporters = new JButton("Pokaż przewoźników");
+		JButton btn_showTransporters = new JButton("Wybierz przewoźnika");
 		btn_showTransporters.setBounds(162, 435, 200, 45);
 		panel.add(btn_showTransporters);
 		btn_showTransporters.setBackground(SystemColor.activeCaption);
@@ -83,8 +83,8 @@ public class PathManagementJPanel extends JPanel
 		scroll.setBounds(10, 25, 357, 253);
 		panel.add(scroll);
 		
-		JButton btn_removeLast = new JButton("Usu\u0144 ostatnie");
-		btn_removeLast.setBounds(162, 379, 200, 45);
+		JButton btn_removeLast = new JButton("Usuń ostatnie miasto");
+		btn_removeLast.setBounds(162, 289, 200, 31);
 		panel.add(btn_removeLast);
 		btn_removeLast.setBackground(SystemColor.activeCaption);
 		btn_removeLast.setForeground(SystemColor.desktop);
@@ -120,13 +120,23 @@ public class PathManagementJPanel extends JPanel
 		btn_showTransporters.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno akceptujesz trasę\n"+
-																						    " i chcesz przejść do wyboru przewoźnika?", 
-																						    "Potwierdzenie edycji trasy", JOptionPane.YES_NO_OPTION);
-				if(dialogResult == JOptionPane.YES_OPTION) 
+				int num_of_cities = presenter_route_planning.getNumberOfCitiesInPathVis();
+				
+				if(num_of_cities>2)
 				{
-					 presenter_route_planning.changeManufacurerVisualization_to_transportVisualization(1);
-				} 
+					int dialogResult = JOptionPane.showConfirmDialog(PathManagementJPanel.this, "Czy na pewno akceptujesz trasę\n"+
+																							    " i chcesz przejść do wyboru przewoźnika?", 
+																							    "Potwierdzenie edycji trasy", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION) 
+					{
+						 presenter_route_planning.changeManufacurerVisualization_to_transportVisualization(1);
+					} 
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Nie można przejść dalej tylko z początkową trasą", "Błąd", 
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 

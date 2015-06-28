@@ -176,8 +176,9 @@ public class VisualisationTransportersView
 	  * Otworzenie okna ze szczegółami przewoźnika
 	  * @param t przewoźnik do wyświetlenia
 	  * @param routes mapa z łańcuchem dostaw przewoźnika
+	  * @return okno ze szczegółowymi danymi przewoźnika
 	  */
-	 public void showTransporterDetailsWindow(Transporter t,JMap routes)
+	 public JFrame showTransporterDetailsWindow(Transporter t,JMap routes)
 	 {
 				
 				JFrame detailsWindow = new JFrame(t.getName() + " - " + (t.getSizeCategory() == SizeCategory.SMALL?"Małe":
@@ -191,7 +192,8 @@ public class VisualisationTransportersView
 				transDetailsPanel.setInfoAboutTransporterInToList(t);
 				transDetailsPanel.setRoutesMap(routes);
 				detailsWindow.getContentPane().add(transDetailsPanel);
-				detailsWindow.setVisible(true);		
+				detailsWindow.setVisible(true);
+				return detailsWindow;
 	 }
 	 
 
@@ -233,10 +235,11 @@ public class VisualisationTransportersView
 		/**
 		 * Pokazanie okna szczegółowych danych przewożnika
 		 * @param id_trans
+		 * @ okno ze szczegółowymi danymi przewoźnika
 		 */
-	 public void showTransporterDetails(int id_trans)
+	 public JFrame showTransporterDetails(int id_trans)
 	 {
-		 trans_presenter.showTransporterDetails(id_trans);
+		 return trans_presenter.showTransporterDetails(id_trans);
 	 }
 	 
 	 /**

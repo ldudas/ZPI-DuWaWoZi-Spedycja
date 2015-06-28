@@ -405,7 +405,7 @@ public class VisualisationTransportersModel
 	 */
 	private int getMaxNumberOfOrders( ArrayList<ArrayList<Object>>routes)
 	{
-			long max = 0;
+			long max = Long.MIN_VALUE;
 			for(ArrayList<Object> o: routes)
 			{
 				if(((long)o.get(2)) > max)
@@ -426,7 +426,7 @@ public class VisualisationTransportersModel
 	 */
 	private int getMinNumberOfOrders( ArrayList<ArrayList<Object>>routes)
 	{
-			long min = 0;
+			long min = Long.MAX_VALUE;
 			for(ArrayList<Object> o: routes)
 			{
 				if(((long)o.get(2)) < min)

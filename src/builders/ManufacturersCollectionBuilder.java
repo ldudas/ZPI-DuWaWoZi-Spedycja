@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import dataModels.ConverterCoordinations;
 import dataModels.Manufacturer;
 
+/**
+ * Budowniczy dla kolekcji producentów
+ * @author Kamil Zimny
+ *
+ */
 public class ManufacturersCollectionBuilder 
 {
 	

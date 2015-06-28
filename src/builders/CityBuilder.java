@@ -3,6 +3,11 @@ package builders;
 import dataModels.City;
 import dataModels.ConverterCoordinations;
 
+/**
+ * Budowniczy dla klasy City
+ * @author Kamil Zimny
+ *
+ */
 public class CityBuilder 
 {
 	

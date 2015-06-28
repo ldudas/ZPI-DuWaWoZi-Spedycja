@@ -1,8 +1,10 @@
-/**
- * @author[Kamil Zimny]
- */
 package database;
 
+/**
+ * Fabryka obkietów Data Access Object
+ * @author Kamil Zimny
+ *
+ */
 public class DataAccessObjectFactory 
 {
 	/**

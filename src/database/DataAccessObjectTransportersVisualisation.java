@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 import dataModels.SizeCategory;
 import exceptions.DatabaseConnectionExeption;
 
+/**
+ * Data Access Object dla wizualizacji przewoźników
+ * @author Łukasz Dudaszek
+ *
+ */
 public class DataAccessObjectTransportersVisualisation 
 {
 

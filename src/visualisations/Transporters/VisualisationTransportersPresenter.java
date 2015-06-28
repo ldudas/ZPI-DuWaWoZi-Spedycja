@@ -57,12 +57,13 @@ public class VisualisationTransportersPresenter
 	/**
 	 * Pokaż okno ze szczegółowymi danycmi przewoźnika
 	 * @param id_trans id przewoźnika
+	 * @return okno ze szeczółowymi danymi przewoźnika
 	 */
-	public void showTransporterDetails(int id_trans)
+	public JFrame showTransporterDetails(int id_trans)
 	{
 		Transporter t = model_transporters.getTransporter(id_trans);
 		JMap routes_of_transporter = model_transporters.getTransporterRoutesMap(id_trans) ;
-		view_transporters.showTransporterDetailsWindow(t,routes_of_transporter);
+		return view_transporters.showTransporterDetailsWindow(t,routes_of_transporter);
 	}
 	
 	/**
@@ -149,10 +150,10 @@ public class VisualisationTransportersPresenter
 					{
 						if(route_planning_presenter.isRouteNameUnique(route_name))
 						{
-						route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
-						view_transporters.showSaveSuccessDialog();
-						route_planning_presenter.change_to_startPanel();
-						repeat_insertion = false;
+							route_planning_presenter.saveOrdersToDatabase(route_name, String.valueOf(id_trans));
+							view_transporters.showSaveSuccessDialog();
+							route_planning_presenter.change_to_startPanel();
+							repeat_insertion = false;
 						}
 						else
 						{
@@ -168,6 +169,7 @@ public class VisualisationTransportersPresenter
 			catch (Exception e) 
 			{
 				view_transporters.showDatabaseSaveError();
+				System.out.println(e.getMessage());
 			}
 			
 			
