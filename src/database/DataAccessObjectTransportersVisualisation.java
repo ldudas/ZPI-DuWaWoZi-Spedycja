@@ -2,10 +2,13 @@ package database;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import dataModels.Transporter;
 import exceptions.DatabaseConnectionExeption;
 
+/**
+ * Data Access Object dla wizualizacji przewoźników
+ * @author Łukasz Dudaszek
+ *
+ */
 public class DataAccessObjectTransportersVisualisation 
 {
 

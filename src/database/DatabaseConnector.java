@@ -14,6 +14,11 @@ import java.util.ArrayList;
 
 import exceptions.DatabaseConnectionExeption;
  
+/**
+ * Zapewnia połączenie z bazą oraz wykonywanie kwerend
+ * @author Kamil Zimny
+ *
+ */
 public class DatabaseConnector 
 {
 	/**

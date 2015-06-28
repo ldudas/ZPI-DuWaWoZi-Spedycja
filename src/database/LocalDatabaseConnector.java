@@ -11,7 +11,11 @@ import java.util.Properties;
 
 import exceptions.DatabaseConnectionExeption;
 
-
+/**
+ * Zapewnia połączenie z lokalną bazą danych
+ * @author Kamil Zimny
+ *
+ */
 public class LocalDatabaseConnector 
 {
 	private String database_urlConnector;

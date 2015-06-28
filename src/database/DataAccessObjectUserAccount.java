@@ -5,6 +5,11 @@ import java.util.stream.Collectors;
 
 import exceptions.DatabaseConnectionExeption;
 
+/**
+ * Data Access Object dla kont użytkowników
+ * @author Kamil Zimny
+ *
+ */
 public class DataAccessObjectUserAccount 
 {
 	private LocalDatabaseConnector localDatabaseConnector;

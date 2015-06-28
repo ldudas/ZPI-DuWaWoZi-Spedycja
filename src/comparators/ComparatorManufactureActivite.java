@@ -5,6 +5,11 @@ import java.util.Comparator;
 
 import dataModels.Manufacturer;
 
+/**
+ * Komparator ze względu na aktywność producenta
+ * @author Kamil Zimny
+ *
+ */
 public class ComparatorManufactureActivite implements Comparator<Manufacturer> , Serializable
 {
 	/**

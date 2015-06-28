@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 import dataModels.Order;
 import exceptions.DatabaseConnectionExeption;
 
+/**
+ * Data Access Object dla planowania trasy
+ * @author Kamil Zimny
+ *
+ */
 public class DataAccessObjectRoutePlanning 
 {
 

@@ -3,7 +3,11 @@ import java.util.ArrayList;
 
 import exceptions.DatabaseConnectionExeption;
 
-
+/**
+ * Data Access Object dla wizualizacji trasy
+ * @author Kamil Zimny
+ *
+ */
 public class DataAccessObjectPathVisualisation
 {
 	

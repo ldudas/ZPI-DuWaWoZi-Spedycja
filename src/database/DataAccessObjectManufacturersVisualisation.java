@@ -1,10 +1,13 @@
-/**
- * @author[Kamil Zimny]
- */
+
 package database;
 
 import java.util.ArrayList;
 
+/**
+ * Data Access Object dal wizualizacji producentów
+ * @author Kamil Zimny
+ *
+ */
 import exceptions.DatabaseConnectionExeption;
 
 public class DataAccessObjectManufacturersVisualisation 

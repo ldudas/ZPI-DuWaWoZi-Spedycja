@@ -3,6 +3,11 @@ package builders;
 import dataModels.City;
 import dataModels.Order;
 
+/**
+ * Budowniczy dla klasy Order
+ * @author Kamil Zimny
+ *
+ */
 public class OrderBuilder 
 {
 	public OrderBuilder() 
