@@ -626,4 +626,12 @@ public class RoutePlanningPresenter
 		}
 	}
 	
+	/**
+	 * @return Liczba miast wchodząca w skład wizualizacji trasy
+	 */
+	public int getNumberOfCitiesInPathVis()
+	{
+		return path_presenter.getNumberOfCities();
+	}
+	
 }

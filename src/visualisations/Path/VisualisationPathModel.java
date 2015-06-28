@@ -435,5 +435,10 @@ public class VisualisationPathModel
 	    return degrees;
 		
 	}
+	
+	public int getNumberOfCities()
+	{
+		return number_of_cities;
+	}
 
 }

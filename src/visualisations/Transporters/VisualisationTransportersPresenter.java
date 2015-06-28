@@ -62,12 +62,13 @@ public class VisualisationTransportersPresenter
 	/**
 	 * Pokaż okno ze szczegółowymi danycmi przewoźnika
 	 * @param id_trans id przewoźnika
+	 * @return okno ze szeczółowymi danymi przewoźnika
 	 */
-	public void showTransporterDetails(int id_trans)
+	public JFrame showTransporterDetails(int id_trans)
 	{
 		Transporter t = model_transporters.getTransporter(id_trans);
 		JMap routes_of_transporter = model_transporters.getTransporterRoutesMap(id_trans) ;
-		view_transporters.showTransporterDetailsWindow(t,routes_of_transporter);
+		return view_transporters.showTransporterDetailsWindow(t,routes_of_transporter);
 	}
 	
 	/**

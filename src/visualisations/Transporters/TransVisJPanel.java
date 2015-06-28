@@ -13,12 +13,17 @@ import java.awt.SystemColor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -203,6 +208,11 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
       * kolekcja narysowanych na mapie obiektów przewoźników
       */
      private ArrayList<Shape> drawnShapes;
+     
+     /**
+      * kolekcja otwartych aktualnie okien ze szczegółami przewoźników
+      */
+     private HashMap<Integer, JFrame> openTransportersJFrames;
     
     
 
@@ -210,6 +220,7 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
     {
         this.view = view;
         drawnShapes = new ArrayList<>();
+        openTransportersJFrames = new HashMap<>();
     	setOpaque(true);
         setBackground(Color.WHITE);
     }
@@ -619,20 +630,61 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
 			}
 		}
 		
+		Transporter t = null;
+		
+		
 		if(clicked.size() ==1 )
 		{
-			Transporter t = clicked.get(0);
-			view.showTransporterDetails(t.getId_trans());
-			view.setChosenTransporter(t);
+			t = clicked.get(0);
+			
 		}
 		else if(clicked.size() > 1 )
 		{
-			Transporter t = (Transporter) JOptionPane.showInputDialog(this, "Wybrałeś więcej niż jedngo przewożnika.\nWybierz jednego z poniższych:", "Wybór przewoźnika", JOptionPane.PLAIN_MESSAGE,
-			        null, clicked.toArray(), "Titan");
+			t = (Transporter) JOptionPane.showInputDialog(this, "Wybrałeś więcej niż jedngo przewożnika.\nWybierz jednego z poniższych:", "Wybór przewoźnika", JOptionPane.PLAIN_MESSAGE,
+			        null, clicked.toArray(),clicked.get(0));
 			
-			if (t!= null)
+		}
+		
+		if(t!=null)
+		{
+			final Transporter tr = t;
+			
+			if(openTransportersJFrames.containsKey(t.getId_trans()))
 			{
-				view.showTransporterDetails(t.getId_trans());
+				JFrame trans_details_jframe = openTransportersJFrames.get(t.getId_trans());
+				java.awt.EventQueue.invokeLater(new Runnable() 
+				{
+				    @Override
+				    public void run() 
+				    {
+				    	trans_details_jframe.toFront();
+				    	trans_details_jframe.repaint();
+				    }
+				});
+			}
+			else
+			{
+				JFrame trans_details_jframe = view.showTransporterDetails(t.getId_trans());
+				
+				trans_details_jframe.addWindowListener(new WindowListener() {
+		            public void windowClosed(WindowEvent arg0) {
+		            	openTransportersJFrames.remove(tr.getId_trans(),trans_details_jframe);
+		            }
+		            public void windowActivated(WindowEvent arg0) {
+		            }
+		            public void windowClosing(WindowEvent arg0) {
+		            }
+		            public void windowDeactivated(WindowEvent arg0) {
+		            }
+		            public void windowDeiconified(WindowEvent arg0) {
+		            }
+		            public void windowIconified(WindowEvent arg0) {
+		            }
+		            public void windowOpened(WindowEvent arg0) {
+		            }
+		        });
+				
+				openTransportersJFrames.put(t.getId_trans(), trans_details_jframe);
 				view.setChosenTransporter(t);
 			}
 		}

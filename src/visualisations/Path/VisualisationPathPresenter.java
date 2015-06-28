@@ -99,5 +99,13 @@ public class VisualisationPathPresenter {
 		model_PathVis.clearData();
 	}
 	
+	/**
+	 * @return Liczba miast wchodząca w skład wizualizacji trasy
+	 */
+	public int getNumberOfCities()
+	{
+		return model_PathVis.getNumberOfCities();
+	}
+	
 
 }
