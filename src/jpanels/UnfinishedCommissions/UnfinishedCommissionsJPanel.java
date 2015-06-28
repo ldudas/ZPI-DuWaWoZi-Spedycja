@@ -1,4 +1,4 @@
-package jpanel.UnfinishedCommissions;
+package jpanels.UnfinishedCommissions;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,7 +17,7 @@ import dataModels.Commission;
 
 import javax.swing.JButton;
 
-import unfinishedCommissions.Unfinished_commissions_view;
+import unfinishedCommissions.UnfinishedCommissionsView;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
-public class Unfinished_commissions_jpanel extends JPanel {
+public class UnfinishedCommissionsJPanel extends JPanel {
 
 	/**
 	 * 
@@ -36,17 +36,20 @@ public class Unfinished_commissions_jpanel extends JPanel {
 	 */
 	
 	private JTable table_routeDiscription;
-	private Unfinished_commissions_view view;
-	private JComboBox route_name_filtr_combo;
+	@SuppressWarnings("unused")
+	private UnfinishedCommissionsView view;
+	private JComboBox<Object> route_name_filtr_combo;
 	private boolean if_filtr = false;
 	private ArrayList<Commission> temp;
 	
-	public Unfinished_commissions_jpanel(ArrayList<Commission> result, Unfinished_commissions_view view) {
+	public UnfinishedCommissionsJPanel(ArrayList<Commission> result, UnfinishedCommissionsView view) {
 		
 		this.view = view;
 		setBounds(1,1,1350,400);
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
+		
+
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionText);

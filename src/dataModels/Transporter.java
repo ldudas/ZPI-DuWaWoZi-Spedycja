@@ -23,7 +23,7 @@ public class Transporter
 	private int number_of_orders; 
 	
 	/**
-	 * koszt
+	 * koszt 5 + / 4
 	 */
 	private double cost; 
 	

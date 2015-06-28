@@ -1,11 +1,10 @@
-package jpanel.UnfinishedCommissions;
+package jpanels.UnfinishedCommissions;
 
 import javax.swing.JPanel;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import unfinishedCommissions.Unfinished_commissions_view;
+import unfinishedCommissions.UnfinishedCommissionsView;
 import jpanel.calendare.JCalendar;
 import dataModels.*;
 import java.awt.event.ActionListener;
@@ -25,7 +24,7 @@ import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
 
-public class Selected_commission_jpanel extends JPanel {
+public class SelectedCommissionJPanel extends JPanel {
 	/**
 	 * 
 	 */
@@ -45,7 +44,7 @@ public class Selected_commission_jpanel extends JPanel {
 	private JTextArea transporter_textArea;
 	private JTextArea name_textArea;
 	private JCheckBox if_end_checkBox;
-	private Unfinished_commissions_view view;
+	private UnfinishedCommissionsView view;
 	SimpleDateFormat formatter;
 	private int selected;
 	private String example_date = "1900-01-01";
@@ -54,7 +53,7 @@ public class Selected_commission_jpanel extends JPanel {
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
-	public Selected_commission_jpanel(int choosen, ArrayList<Commission> result,Unfinished_commissions_view view) throws ParseException {
+	public SelectedCommissionJPanel(int choosen, ArrayList<Commission> result,UnfinishedCommissionsView view) throws ParseException {
 		
 		this.view = view;
 		view.getFrame().setBounds(198, 150, 970, 550);
@@ -253,31 +252,29 @@ public class Selected_commission_jpanel extends JPanel {
 		btnZapisz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(endDate.getDate().compareTo(startDate.getDate()) < 0){
-					JOptionPane.showMessageDialog(panel_endDate,"Data zakończenia musi być późniejsza niż data rozpoczęcia","Powiadomienie",1);
-				} else
-					try {
-						if( endDate.getDate().compareTo(formatter.parse(result.get(choosen).getFinishDatePlan())) < 0 ){
-							JOptionPane.showMessageDialog(panel_endDate," Rzeczywista data zakończenia musi być późniejsza niż planowana data zakończenia","Powiadomienie",1);
-						}
-						else if( startDate.getDate().compareTo(formatter.parse(result.get(choosen).getStartDatePlan())) < 0 ){
-							JOptionPane.showMessageDialog(panel_endDate," Rzeczywista data rozpoczęcia musi być późniejsza niż planowana data rozpoczęcia","Powiadomienie",1);
-						}
-						else{
-							view.save_change();
-							view.save_to_dataBase(selected,if_end_checkBox.isSelected());
-							JOptionPane.showMessageDialog(panel_endDate,"Zmiany zapisane pomyślnie","Powiadomienie",1);
-							view.change_one_commission_to_many();
-							view.getFrame().setBounds(1, 150, 1350, 450);
-							view.update(if_end_checkBox.isSelected());
-							change_flag();
-						}
-					} catch (HeadlessException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					JOptionPane.showMessageDialog(panel_endDate,"Rzeczywista data zakończenia musi być późniejsza niż rzeczywsta data rozpoczęcia","Powiadomienie",1);
+				}
+				else if(if_end_checkBox.isSelected() && (cost_textField.getText().compareTo("0") ==0 || cost_textField.getText().compareTo("") == 0  )){
+					JOptionPane.showMessageDialog(panel_endDate,"Podaj koszt przewozu.","Powiadomienie",1);
+				}
+				else if(if_end_checkBox.isSelected() && (value_textField.getText().compareTo("0") ==0 || value_textField.getText().compareTo("") == 0  )){
+					JOptionPane.showMessageDialog(panel_endDate,"Podaj wartość zlecenia.","Powiadomienie",1);
+				}
+				else if(if_end_checkBox.isSelected() && (capacity_textField.getText().compareTo("0") ==0 || capacity_textField.getText().compareTo("") == 0  )){
+					JOptionPane.showMessageDialog(panel_endDate,"Podaj pojemność pojazdu.","Powiadomienie",1);
+				}
+				else if(if_end_checkBox.isSelected() && (capacity2_textField.getText().compareTo("0") ==0 || capacity2_textField.getText().compareTo("") == 0  )){
+					JOptionPane.showMessageDialog(panel_endDate,"Podaj ładowność pojazdu.","Powiadomienie",1);
+				}
+				else{
+					view.save_change();
+					view.save_to_dataBase(selected,if_end_checkBox.isSelected());
+					JOptionPane.showMessageDialog(panel_endDate,"Zmiany zapisane pomyślnie","Powiadomienie",1);
+					view.change_one_commission_to_many();
+					view.getFrame().setBounds(1, 150, 1350, 450);
+					view.update(if_end_checkBox.isSelected());
+					change_flag();
+				}
 			}
 		});
 		btnZapisz.setBackground(SystemColor.activeCaption);

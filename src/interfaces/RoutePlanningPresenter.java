@@ -18,7 +18,7 @@ import dataModels.Manufacturer;
 import dataModels.Order;
 import database.DatabaseConnector;
 import exceptions.DatabaseConnectionExeption;
-import unfinishedCommissions.Unfinished_commissions_presenter;
+import unfinishedCommissions.UnfinishedCommissionsPresenter;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Path.VisualisationPathPresenter;
 import visualisations.Transporters.VisualisationTransportersPresenter;
@@ -31,10 +31,10 @@ public class RoutePlanningPresenter
 	private VisualistaionManufacturersPresenter manu_presenter;
 	private VisualisationPathPresenter path_presenter;
 	private VisualisationTransportersPresenter trans_presenter;
-	private Unfinished_commissions_presenter comm_presenter;
+	private UnfinishedCommissionsPresenter comm_presenter;
 	
 	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map, 
-								  final VisualisationPathPresenter path_p, VisualisationTransportersPresenter trans_p, Unfinished_commissions_presenter comm_p)
+								  final VisualisationPathPresenter path_p, VisualisationTransportersPresenter trans_p, UnfinishedCommissionsPresenter comm_p)
 	{
 		route_planning_model = model;
 		route_planning_view = view;

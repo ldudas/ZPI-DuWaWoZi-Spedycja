@@ -26,7 +26,7 @@ public class DataAccessObjectCommissions {
 						+ "Miasta M1 ON Z.do_miasta = M1.id_miasta "
 						+ "LEFT JOIN Przewoznicy PRZ ON Z.id_przew = PRZ.id_przew "
 						+ "LEFT JOIN Trasy_przewoznikow T ON Z.id_trasy = T.id_trasy "
-						+ "WHERE Z.czy_zrealizowano = 0 ORDER BY Z.id_zlecenia;";		
+						+ "WHERE Z.czy_zrealizowano = 0 ORDER BY T.nazwa_trasy;";		
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
 		try 

@@ -53,7 +53,7 @@ public class VisualisationTransportersModel
 	private String cityTo;
 	
 	/**
-	 * Wszyscy przeoźnicy z miasta city_form do city_to
+	 * Wszyscy przewoźnicy z miasta city_form do city_to
 	 */
 	private ArrayList<Transporter> transporters;
 	
@@ -134,8 +134,33 @@ public class VisualisationTransportersModel
 	 */
 	private void getTranspotersFormDatabase(String city_from, String city_to)
 	{
-		//pobieranie listy przewoźnikow z bazy 
-		//transporters = DAO_TransVis.getTranspoters(String city_from, String city_to);
+		
+		
+		//pobieranie listy przewoźnikow z bazy
+		SizeCategory a = SizeCategory.SMALL;
+		SizeCategory b = SizeCategory.MEDIUM;
+		SizeCategory c = SizeCategory.BIG;
+		ArrayList<ArrayList<Object>> result_small = DAO_TransVis.getTranspoters(city_from, city_to, a);
+		ArrayList<ArrayList<Object>> result_medium = DAO_TransVis.getTranspoters(city_from, city_to, b);
+		ArrayList<ArrayList<Object>> result_big = DAO_TransVis.getTranspoters(city_from, city_to, c);
+
+		
+		for(ArrayList<Object> row : result_small){
+			transporters.add(new Transporter((int)row.get(0), a, (int)row.get(1), (double)row.get(2), (int)row.get(3), (int)row.get(4), (double)row.get(8), (double)row.get(7), (String)row.get(5), (int)row.get(6)));
+		}
+		
+		for(ArrayList<Object> row : result_medium){
+			transporters.add(new Transporter((int)row.get(0), b, (int)row.get(1), (double)row.get(2), (int)row.get(3), (int)row.get(4), (double)row.get(8), (double)row.get(7), (String)row.get(5), (int)row.get(6)));
+		}
+		
+		for(ArrayList<Object> row : result_big){
+			transporters.add(new Transporter((int)row.get(0), c, (int)row.get(1), (double)row.get(2), (int)row.get(3), (int)row.get(4), (double)row.get(8), (double)row.get(7), (String)row.get(5), (int)row.get(6)));
+		}
+		
+		
+		
+		/*
+		transporters = DAO_TransVis.getTranspoters(city_from,city_to);
 		//na razie tworzę sam
 		///
 				transporters.clear();
@@ -160,6 +185,8 @@ public class VisualisationTransportersModel
 				transporters.add(new Transporter(3,SizeCategory.BIG,1400,1300,1200,4000,0.07,0.6,"Quality Logistics",123456789));
 				//System.out.println("Przed: "+transporters);
 		///
+		 */ 
+		 
 	}
 	
 	/**

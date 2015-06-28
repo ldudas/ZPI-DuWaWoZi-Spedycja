@@ -3,7 +3,7 @@ package database;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import dataModels.Transporter;
+import dataModels.SizeCategory;
 import exceptions.DatabaseConnectionExeption;
 
 public class DataAccessObjectTransportersVisualisation 
@@ -96,5 +96,66 @@ public class DataAccessObjectTransportersVisualisation
 		
 		return new ArrayList<String>();
 		
+	}
+	
+	
+	public ArrayList<ArrayList<Object>> getTranspoters(String city_from, String city_to, SizeCategory size)
+	{
+		String query = "SELECT Z.id_przew, COUNT(Z.id_przew), AVG(Z.koszt_przew), AVG(Z.ladownosc_poj), AVG(Z.pojemnosc_poj), MAX(P.nazwa_przew), MAX(P.telefon), "
+					+ "IFNULL(COUNT(CASE WHEN czy_zrealizowano = 0 THEN 1 ELSE NULL END)/COUNT(CASE WHEN czy_zrealizowano = 1 THEN 1 ELSE NULL END),0),"
+					+ "(IFNULL(SUM(CASE WHEN Z.data_rozp_rzecz > Z.data_rozp_plan THEN DATEDIFF(Z.data_rozp_rzecz,Z.data_rozp_plan) ELSE NULL END),0) +"
+					+ "IFNULL(SUM(CASE WHEN Z.data_zak_rzecz > Z.data_zak_plan THEN DATEDIFF(Z.data_zak_rzecz,Z.data_zak_plan) ELSE NULL END),0)) /"
+					+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta"
+					+ "FROM Zlecenia Z JOIN Przewoznicy P ON Z.id_przew = P.id_przew JOIN Miasta M ON Z.z_miasta = M.id_miasta JOIN Miasta N ON Z.do_miasta = N.id_miasta "
+					+ "WHERE M.nazwa_miasta = '"+city_from+"' AND N.nazwa_miasta = '"+city_to+"' AND Z.ladownosc_poj <= 3.5 AND Z.pojemnosc_poj <= 10 GROUP BY Z.id_przew;";
+					
+		
+		String query1 = "SELECT Z.id_przew, COUNT(Z.id_przew), AVG(Z.koszt_przew), AVG(Z.ladownosc_poj), AVG(Z.pojemnosc_poj), MAX(P.nazwa_przew), MAX(P.telefon), "
+				+ "IFNULL(COUNT(CASE WHEN czy_zrealizowano = 0 THEN 1 ELSE NULL END)/COUNT(CASE WHEN czy_zrealizowano = 1 THEN 1 ELSE NULL END),0),"
+				+ "(IFNULL(SUM(CASE WHEN Z.data_rozp_rzecz > Z.data_rozp_plan THEN DATEDIFF(Z.data_rozp_rzecz,Z.data_rozp_plan) ELSE NULL END),0) +"
+				+ "IFNULL(SUM(CASE WHEN Z.data_zak_rzecz > Z.data_zak_plan THEN DATEDIFF(Z.data_zak_rzecz,Z.data_zak_plan) ELSE NULL END),0)) /"
+				+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta"
+				+ "FROM Zlecenia Z JOIN Przewoznicy P ON Z.id_przew = P.id_przew JOIN Miasta M ON Z.z_miasta = M.id_miasta JOIN Miasta N ON Z.do_miasta = N.id_miasta "
+				+ "WHERE M.nazwa_miasta = '"+city_from+"' AND N.nazwa_miasta = '"+city_to+"' AND Z.ladownosc_poj > 3.5 AND Z.ladownosc_poj <=10  AND Z.pojemnosc_poj >10 AND Z.pojemnosc_poj <= 100 GROUP BY Z.id_przew;";
+				
+		
+		String query2 = "SELECT Z.id_przew, COUNT(Z.id_przew), AVG(Z.koszt_przew), AVG(Z.ladownosc_poj), AVG(Z.pojemnosc_poj), MAX(P.nazwa_przew), MAX(P.telefon), "
+				+ "IFNULL(COUNT(CASE WHEN czy_zrealizowano = 0 THEN 1 ELSE NULL END)/COUNT(CASE WHEN czy_zrealizowano = 1 THEN 1 ELSE NULL END),0),"
+				+ "(IFNULL(SUM(CASE WHEN Z.data_rozp_rzecz > Z.data_rozp_plan THEN DATEDIFF(Z.data_rozp_rzecz,Z.data_rozp_plan) ELSE NULL END),0) +"
+				+ "IFNULL(SUM(CASE WHEN Z.data_zak_rzecz > Z.data_zak_plan THEN DATEDIFF(Z.data_zak_rzecz,Z.data_zak_plan) ELSE NULL END),0)) /"
+				+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta"
+				+ "FROM Zlecenia Z JOIN Przewoznicy P ON Z.id_przew = P.id_przew JOIN Miasta M ON Z.z_miasta = M.id_miasta JOIN Miasta N ON Z.do_miasta = N.id_miasta "
+				+ "WHERE M.nazwa_miasta = '"+city_from+"' AND N.nazwa_miasta = '"+city_to+"' AND Z.ladownosc_poj > 10 AND Z.pojemnosc_poj >100 GROUP BY Z.id_przew;";
+				
+		
+		ArrayList<ArrayList<Object>> resultOfQuery = null;
+		
+		SizeCategory a = SizeCategory.SMALL;
+		SizeCategory b = SizeCategory.MEDIUM;
+		SizeCategory c = SizeCategory.BIG;
+		
+		try 
+		{
+			if(size == a){
+				resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
+				System.out.println(resultOfQuery.size());
+			}
+			else if (size == b){
+				resultOfQuery = databaseConnector.getResultOfMySqlQuery(query1);
+				System.out.println(resultOfQuery.size());
+			}
+			else if (size == c){
+				resultOfQuery = databaseConnector.getResultOfMySqlQuery(query2);
+				System.out.println(resultOfQuery.size());
+			}
+			
+		} 
+		catch (DatabaseConnectionExeption e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		return resultOfQuery;
 	}
 }

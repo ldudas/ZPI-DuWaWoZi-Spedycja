@@ -6,12 +6,12 @@ import dataModels.User;
 import dataModels.Commission;
 
 
-public class Unfinished_commissions_presenter {
+public class UnfinishedCommissionsPresenter {
 	
-	private Unfinished_commissions_model model;
-	private Unfinished_commissions_view view;
+	private UnfinishedCommissionsModel model;
+	private UnfinishedCommissionsView view;
 	
-	public Unfinished_commissions_presenter(final Unfinished_commissions_model model,Unfinished_commissions_view view){
+	public UnfinishedCommissionsPresenter(final UnfinishedCommissionsModel model,UnfinishedCommissionsView view){
 		this.model = model;
 		this.view = view;
 	}

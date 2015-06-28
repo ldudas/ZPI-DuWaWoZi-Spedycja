@@ -7,14 +7,14 @@ import database.DataAccessObjectFactory;
 import dataModels.Commission;
 import dataModels.User;
 
-public class Unfinished_commissions_model {
+public class UnfinishedCommissionsModel {
 	
 	private ArrayList<Commission> result;
 	private DataAccessObjectCommissions dao;
 	SimpleDateFormat sdfr;
 	boolean flag=false;
 	
-	public Unfinished_commissions_model(){
+	public UnfinishedCommissionsModel(){
 		result = new ArrayList<Commission>();
 		DataAccessObjectFactory factory = new DataAccessObjectFactory();
 		dao = factory.getDataAccessObjectCommissions();

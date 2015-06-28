@@ -5,9 +5,9 @@ import interfaces.RoutePlanningModel;
 import interfaces.RoutePlanningPresenter;
 import interfaces.RoutePlanningView;
 import javax.swing.SwingUtilities;
-import unfinishedCommissions.Unfinished_commissions_model;
-import unfinishedCommissions.Unfinished_commissions_presenter;
-import unfinishedCommissions.Unfinished_commissions_view;
+import unfinishedCommissions.UnfinishedCommissionsModel;
+import unfinishedCommissions.UnfinishedCommissionsPresenter;
+import unfinishedCommissions.UnfinishedCommissionsView;
 import visualisations.Manufacturers.VisualisationManufacturersModel;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Manufacturers.VisualistaionManufacturersView;
@@ -40,9 +40,9 @@ public class Main
             	VisualisationTransportersView trans_view = new VisualisationTransportersView();
             	VisualisationTransportersPresenter trans_presenter = new VisualisationTransportersPresenter(trans_view, trasn_model);
 				
-            	Unfinished_commissions_model comm_model = new Unfinished_commissions_model();
-            	Unfinished_commissions_view comm_view = new Unfinished_commissions_view();
-            	Unfinished_commissions_presenter comm_presenter = new Unfinished_commissions_presenter(comm_model,comm_view);
+            	UnfinishedCommissionsModel comm_model = new UnfinishedCommissionsModel();
+            	UnfinishedCommissionsView comm_view = new UnfinishedCommissionsView();
+            	UnfinishedCommissionsPresenter comm_presenter = new UnfinishedCommissionsPresenter(comm_model,comm_view);
             	comm_view.setPresenter(comm_presenter);
             	
             	RoutePlanningModel route_model =  new RoutePlanningModel();

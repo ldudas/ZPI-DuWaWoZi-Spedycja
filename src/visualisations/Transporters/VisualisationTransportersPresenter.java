@@ -1,14 +1,9 @@
 package visualisations.Transporters;
 
 import interfaces.RoutePlanningPresenter;
-
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import com.esri.map.JMap;
-
 import dataModels.SizeCategory;
 import dataModels.Transporter;
 import dataModels.User;
