@@ -69,9 +69,13 @@ public class DatabaseConnector
 			int numberOfResultColumns = resultOfQuery.getMetaData().getColumnCount();
 			while (resultOfQuery.next()) 
 			{
+				
 			   queryResult.add(new ArrayList<Object>());
 			   for(int i=1; i<=numberOfResultColumns; i++)
+			   {
 				   queryResult.get(indexOfnextArray).add(resultOfQuery.getObject(i));
+				   
+			   }
 			   indexOfnextArray++;	   
 			}
 			statment.close();

@@ -8,15 +8,27 @@ import org.junit.Test;
 
 import builders.ManufacturersCollectionBuilder;
 
+/**
+ * Klasa testująca poprawność budowania kolekcji producentów
+ * metoda buildManufacturersCollection klasy ManufacturersCollectionBuilder
+ * @author Tomasz
+ *
+ */
 public class ManufacturersCollectionBuilderTest {
 
 	ManufacturersCollectionBuilder mcb = new ManufacturersCollectionBuilder();
 	
+	/**
+	 * Test metody buildManufacturersCollection z pustymi wartościami argumentów
+	 */
 	@Test
 	public void testNullManufacturersCollection() {
 		assertNull(mcb.buildManufacturersCollection(null,null,null));
 	}
 	
+	/**
+	 * Test metody buildManufacturersCollection z poprawnymi wartościami argumentów
+	 */
 	@Test
 	public void testBuildProperManufacturersCollection() {
 		ArrayList<ArrayList<String>> all = new ArrayList<ArrayList<String>>();

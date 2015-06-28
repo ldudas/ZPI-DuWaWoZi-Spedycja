@@ -22,6 +22,10 @@ public class LocalDatabaseConnector
 	private Connection database_Connector;
 	private Properties props;
 	
+	/**
+	 * Konstruktor klasy LocalDatabaseConnector
+	 * ustawia właściwości połączenia z lokalną bazą danych
+	 */
 	public LocalDatabaseConnector() 
 	{	
     	File file = new File( System.getProperty("user.dir") + "\\AccountDatabase.accdb");
@@ -36,7 +40,7 @@ public class LocalDatabaseConnector
 	}
 
 	/** 
-	 * Sprawdza poprawnosc polaczenia, w przypadku potwierdzenia
+	 * Sprawdza poprawność połączenia, w przypadku potwierdzenia
 	 * wykonuje podane zapytanie, ( UPDATE, INSERT ,DELETE) 
 	 *  @author Kamil Zimny
 	 * @throws DatabaseConnectionExeption 
@@ -71,7 +75,7 @@ public class LocalDatabaseConnector
 	}
 	
 	/** 
-	 * Sprawdza poprawnosc polaczenia, w przypadku potwierdzenia
+	 * Sprawdza poprawność połączenia, w przypadku potwierdzenia
 	 * zwraca wyniki zapytania przekazanego w parametrze mysSqlQuery, czyli
 	 * arrayListe wierszy, arrayLista wierszy zawiera krotki wynikowe
 	 * @return ArrayList<ArrayList<Object>> res : 
@@ -126,11 +130,11 @@ public class LocalDatabaseConnector
 	}
 	
 	/**
-	 * Laczy sie z baza danych i zwraca wartosc logiczna potwierdzajaca
-	 * lub zaprzeczajaca polaczenie z baza danych na serwerze
+	 * Łączy się z bazą danych i zwraca wartość logiczną potwierdzajacą
+	 * lub zaprzeczajacą połączenie z bazą danych na serwerze
 	 * @return boolean : 
-	 * <br>true -> udalo sie 
-	 * <br>false -> nie udalo sie
+	 * <br>true -> udało się 
+	 * <br>false -> nie udało się
 	 * @author Kamil Zimny
 	 */
 	private boolean connectToDatabase()
@@ -147,12 +151,12 @@ public class LocalDatabaseConnector
 	}
 	
 	/**
-	 * Zamyka polacznie z baza danych i zwraca wartos logiczna
-	 * czy udalo sie poprawnie zamknac polaczenie czy nie
-	 * Zamkniecie nie stworzonego polaczenia zwraca false.
+	 * Zamyka połączenie z bazą danych i zwraca wartość logiczną
+	 * czy udało się poprawnie zamknąć połączenie czy nie
+	 * Zamknięcie nie stworzonego połączenia zwraca false.
 	 * @return boolean :
-	 * <br>true -> udalo sie 
-	 * <br>false -> nie udalo sie
+	 * <br>true -> udało się 
+	 * <br>false -> nie udało się
 	 * @author Kamil Zimny
 	 */
 	private boolean closeConnectToDatabase()

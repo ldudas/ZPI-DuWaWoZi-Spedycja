@@ -9,10 +9,19 @@ import org.junit.Test;
 
 import dataModels.Manufacturer;
 
+/**
+ * Klasa testująca poprawność wyliczania miesięcznych i kwartalnych aktywności producentów
+ * metody getMonthActivity, getMonthActivityColor, getQUarterActivity, getQuarterActivityColor klasy Manufacturer
+ * @author Tomasz
+ *
+ */
 public class ManufacturerTest {
 
 	Manufacturer m1 = new Manufacturer("Nestle", 2037, 5053, " ", 4, 2000, 6, "791621432", "1");
 	
+	/**
+	 * Test metody getMonthActivity z poprawnymi danymi
+	 */
 	@Test
 	public void testGetMonthActivity() {
 		ArrayList<String> monthActivity = new ArrayList<String>();
@@ -23,11 +32,17 @@ public class ManufacturerTest {
 		assertEquals(7, m1.getMonthActivity(1));
 	}
 	
+	/**
+	 * Test metody getMonthActivity z niepoprawnym argumentem reprezentującym miesiąc
+	 */
 	@Test
 	public void testGetMonthActivityWrongMonth() {
 		assertEquals(-1, m1.getMonthActivity(16));
 	}
 	
+	/**
+	 * Test metody getMonthActivityColor z poprawnymi danymi
+	 */
 	@Test
 	public void testGetMonthActivityColor() {
 		ArrayList<Color> monthActivityColors = new ArrayList<Color>();
@@ -38,11 +53,17 @@ public class ManufacturerTest {
 		assertEquals(new Color(255,255,255), m1.getMonthActivityColor(1));
 	}
 	
+	/**
+	 * Test metody getMonthActivityColor z niepoprawnym argumentem reprezentującym miesiąc
+	 */
 	@Test
 	public void testGetMonthActivityColorWrongMonth() {
 		assertEquals(new Color(0,0,0), m1.getMonthActivityColor(16));
 	}
 	
+	/**
+	 * Test metody getQuarterActivity z poprawnymi danymi
+	 */
 	@Test
 	public void testGetQuarterActivitySpring() {
 		ArrayList<String> monthActivity = new ArrayList<String>(12);
@@ -56,11 +77,17 @@ public class ManufacturerTest {
 		assertEquals(15, m1.getQuarterActivity(0));
 	}
 	
+	/**
+	 * Test metody getQuarterActivity z niepoprawnym argumentem reprezentującym kwartał
+	 */
 	@Test
 	public void testGetQuarterActivityWrongQuarter() {
 		assertEquals(0, m1.getQuarterActivity(5));
 	}
 
+	/**
+	 * Test metody getQuarterActivityColor z poprawnymi danymi
+	 */
 	@Test
 	public void testGetQuarterActivityColor() {
 		ArrayList<Color> monthActivityColors = new ArrayList<Color>();
@@ -71,6 +98,9 @@ public class ManufacturerTest {
 		assertEquals(new Color(255,255,255), m1.getQuarterActivityColor(1));
 	}
 	
+	/**
+	 * Test metody getQuarterActivityColor z niepoprawnym argumentem reprezentującym kwartał
+	 */
 	@Test
 	public void testGetQuarterActivityColorWrongQuarter() {
 		assertEquals(new Color(0,0,0), m1.getQuarterActivityColor(5));

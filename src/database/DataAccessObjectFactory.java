@@ -36,4 +36,9 @@ public class DataAccessObjectFactory
 	{
 		return new DataAccessObjectTransportersVisualisation();
 	}
+	
+	public DataAccessObjectCommissions getDataAccessObjectCommissions()
+	{
+		return new DataAccessObjectCommissions();
+	}
 }

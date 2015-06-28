@@ -18,6 +18,7 @@ import dataModels.Manufacturer;
 import dataModels.Order;
 import database.DatabaseConnector;
 import exceptions.DatabaseConnectionExeption;
+import unfinishedCommissions.Unfinished_commissions_presenter;
 import visualisations.Manufacturers.VisualistaionManufacturersPresenter;
 import visualisations.Path.VisualisationPathPresenter;
 import visualisations.Transporters.VisualisationTransportersPresenter;
@@ -30,15 +31,17 @@ public class RoutePlanningPresenter
 	private VisualistaionManufacturersPresenter manu_presenter;
 	private VisualisationPathPresenter path_presenter;
 	private VisualisationTransportersPresenter trans_presenter;
+	private Unfinished_commissions_presenter comm_presenter;
 	
 	public RoutePlanningPresenter(final RoutePlanningView view,final RoutePlanningModel model,final VisualistaionManufacturersPresenter map, 
-								  final VisualisationPathPresenter path_p, VisualisationTransportersPresenter trans_p)
+								  final VisualisationPathPresenter path_p, VisualisationTransportersPresenter trans_p, Unfinished_commissions_presenter comm_p)
 	{
 		route_planning_model = model;
 		route_planning_view = view;
 		manu_presenter = map;
 		path_presenter = path_p;
 		trans_presenter = trans_p;
+		comm_presenter = comm_p;
 	}
 	
 	public void changeMenu_to_registryNewUser()
@@ -88,6 +91,11 @@ public class RoutePlanningPresenter
 	{
 		trans_presenter.setOpeningFlag(flag);
 		trans_presenter.startTransportersVisualization_inNewFrame(route_planning_view.getMainFrame());
+	}
+	
+	public void changeMenu_to_UnfinishedCommissions()
+	{
+		comm_presenter.startCommissionsEdition(route_planning_view.getMainFrame());
 	}
 	
 	/**
@@ -568,12 +576,14 @@ public class RoutePlanningPresenter
 	public void logOutUser()
 	{
 		trans_presenter.clearTransportersFrame();
+		comm_presenter.clearUnfinishedCommissionsFrame();
 		route_planning_model.clearData();
 		route_planning_view.clearOrderTab();
 	    route_planning_view.clearMainFrame();
 	    path_presenter.clearDataInModel();
 	    manu_presenter.clearDataInModel();
 	    trans_presenter.clearDataInModel();
+	    comm_presenter.clearDataInModel();
 	}
 	
 	public void setEnableButtonsToUserAction(boolean flag)
@@ -589,6 +599,7 @@ public class RoutePlanningPresenter
 			manu_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
 			path_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
 			trans_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
+			comm_presenter.setExternalDatabaseConnectionProperty(route_planning_model.getCurrentUser());
 			
 		} catch (Exception e) 
 		{

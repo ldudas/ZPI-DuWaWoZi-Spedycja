@@ -143,7 +143,7 @@ public class DataAccessObjectRoutePlanning
 	
 				String cityToID = resultOfQuery.get(0).get(0).toString();
 				
-				String insertRoute_name = "INSERT INTO Trasy_przewozinikow (nazwa_trasy) VALUES('" + route_name + "');";
+				String insertRoute_name = "INSERT INTO Trasy_przewoznikow (nazwa_trasy) VALUES('" + route_name + "');";
 				
 				try 
 				{
@@ -152,7 +152,7 @@ public class DataAccessObjectRoutePlanning
 					throw new RuntimeException(e);
 				}
 				
-				String getRoute_id = "SELECT id_trasy FROM Trasy_przewozinikow WHERE nazwa_trasy='" + route_name + "';";
+				String getRoute_id = "SELECT id_trasy FROM Trasy_przewoznikow WHERE nazwa_trasy='" + route_name + "';";
 				resultOfQuery = null;
 
 				try {
