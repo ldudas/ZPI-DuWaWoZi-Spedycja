@@ -110,7 +110,7 @@ public class DataAccessObjectTransportersVisualisation
 					+ "IFNULL(COUNT(CASE WHEN czy_zrealizowano = 0 THEN 1 ELSE NULL END)/COUNT(CASE WHEN czy_zrealizowano = 1 THEN 1 ELSE NULL END),0),"
 					+ "(IFNULL(SUM(CASE WHEN Z.data_rozp_rzecz > Z.data_rozp_plan THEN DATEDIFF(Z.data_rozp_rzecz,Z.data_rozp_plan) ELSE NULL END),0) +"
 					+ "IFNULL(SUM(CASE WHEN Z.data_zak_rzecz > Z.data_zak_plan THEN DATEDIFF(Z.data_zak_rzecz,Z.data_zak_plan) ELSE NULL END),0)) /"
-					+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta"
+					+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta "
 					+ "FROM Zlecenia Z JOIN Przewoznicy P ON Z.id_przew = P.id_przew JOIN Miasta M ON Z.z_miasta = M.id_miasta JOIN Miasta N ON Z.do_miasta = N.id_miasta "
 					+ "WHERE M.nazwa_miasta = '"+city_from+"' AND N.nazwa_miasta = '"+city_to+"' AND Z.ladownosc_poj <= 3.5 AND Z.pojemnosc_poj <= 10 GROUP BY Z.id_przew;";
 					
@@ -119,7 +119,7 @@ public class DataAccessObjectTransportersVisualisation
 				+ "IFNULL(COUNT(CASE WHEN czy_zrealizowano = 0 THEN 1 ELSE NULL END)/COUNT(CASE WHEN czy_zrealizowano = 1 THEN 1 ELSE NULL END),0),"
 				+ "(IFNULL(SUM(CASE WHEN Z.data_rozp_rzecz > Z.data_rozp_plan THEN DATEDIFF(Z.data_rozp_rzecz,Z.data_rozp_plan) ELSE NULL END),0) +"
 				+ "IFNULL(SUM(CASE WHEN Z.data_zak_rzecz > Z.data_zak_plan THEN DATEDIFF(Z.data_zak_rzecz,Z.data_zak_plan) ELSE NULL END),0)) /"
-				+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta"
+				+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta "
 				+ "FROM Zlecenia Z JOIN Przewoznicy P ON Z.id_przew = P.id_przew JOIN Miasta M ON Z.z_miasta = M.id_miasta JOIN Miasta N ON Z.do_miasta = N.id_miasta "
 				+ "WHERE M.nazwa_miasta = '"+city_from+"' AND N.nazwa_miasta = '"+city_to+"' AND Z.ladownosc_poj > 3.5 AND Z.ladownosc_poj <=10  AND Z.pojemnosc_poj >10 AND Z.pojemnosc_poj <= 100 GROUP BY Z.id_przew;";
 				
@@ -128,9 +128,11 @@ public class DataAccessObjectTransportersVisualisation
 				+ "IFNULL(COUNT(CASE WHEN czy_zrealizowano = 0 THEN 1 ELSE NULL END)/COUNT(CASE WHEN czy_zrealizowano = 1 THEN 1 ELSE NULL END),0),"
 				+ "(IFNULL(SUM(CASE WHEN Z.data_rozp_rzecz > Z.data_rozp_plan THEN DATEDIFF(Z.data_rozp_rzecz,Z.data_rozp_plan) ELSE NULL END),0) +"
 				+ "IFNULL(SUM(CASE WHEN Z.data_zak_rzecz > Z.data_zak_plan THEN DATEDIFF(Z.data_zak_rzecz,Z.data_zak_plan) ELSE NULL END),0)) /"
-				+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta"
+				+ "SUM(DATEDIFF(Z.data_zak_plan,Z.data_rozp_plan)), M.nazwa_miasta, N.nazwa_miasta "
 				+ "FROM Zlecenia Z JOIN Przewoznicy P ON Z.id_przew = P.id_przew JOIN Miasta M ON Z.z_miasta = M.id_miasta JOIN Miasta N ON Z.do_miasta = N.id_miasta "
 				+ "WHERE M.nazwa_miasta = '"+city_from+"' AND N.nazwa_miasta = '"+city_to+"' AND Z.ladownosc_poj > 10 AND Z.pojemnosc_poj >100 GROUP BY Z.id_przew;";
+		
+		System.out.println(query);
 				
 		
 		ArrayList<ArrayList<Object>> resultOfQuery = null;
