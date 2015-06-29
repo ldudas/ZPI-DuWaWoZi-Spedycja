@@ -1,6 +1,7 @@
 package visualisations.Transporters;
 
 import java.awt.Color;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -28,6 +29,8 @@ import dataModels.Transporter;
 import dataModels.User;
 import database.DataAccessObjectFactory;
 import database.DataAccessObjectTransportersVisualisation;
+
+
 
 /**
  * Model wizualizacji przewoźników
@@ -145,18 +148,21 @@ public class VisualisationTransportersModel
 		ArrayList<ArrayList<Object>> result_big = DAO_TransVis.getTranspoters(city_from, city_to, c);
 
 		
+		//	public Transporter(int id_trans,SizeCategory sizeCategory, int number_of_orders, double cost, int capacity, int volume, double delay, double executed, String name, int phone_num)
+
+		
 		for(ArrayList<Object> row : result_small){
-			transporters.add(new Transporter((int)row.get(0), a, (int)row.get(1), (double)row.get(2), (int)row.get(3), (int)row.get(4), (double)row.get(8), (double)row.get(7), (String)row.get(5), (int)row.get(6)));
+			transporters.add(new Transporter((int)row.get(0), a, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
 		}
+			
 		
 		for(ArrayList<Object> row : result_medium){
-			transporters.add(new Transporter((int)row.get(0), b, (int)row.get(1), (double)row.get(2), (int)row.get(3), (int)row.get(4), (double)row.get(8), (double)row.get(7), (String)row.get(5), (int)row.get(6)));
-		}
+			transporters.add(new Transporter((int)row.get(0), b, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
+			}
 		
 		for(ArrayList<Object> row : result_big){
-			transporters.add(new Transporter((int)row.get(0), c, (int)row.get(1), (double)row.get(2), (int)row.get(3), (int)row.get(4), (double)row.get(8), (double)row.get(7), (String)row.get(5), (int)row.get(6)));
-		}
-		
+			transporters.add(new Transporter((int)row.get(0), c, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
+			}
 		
 		
 		/*

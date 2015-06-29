@@ -143,15 +143,13 @@ public class DataAccessObjectTransportersVisualisation
 		{
 			if(size == a){
 				resultOfQuery = databaseConnector.getResultOfMySqlQuery(query);
-				System.out.println(resultOfQuery.size());
+				
 			}
 			else if (size == b){
 				resultOfQuery = databaseConnector.getResultOfMySqlQuery(query1);
-				System.out.println(resultOfQuery.size());
 			}
 			else if (size == c){
 				resultOfQuery = databaseConnector.getResultOfMySqlQuery(query2);
-				System.out.println(resultOfQuery.size());
 			}
 			
 		} 
