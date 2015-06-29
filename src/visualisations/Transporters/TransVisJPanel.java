@@ -220,7 +220,7 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
      /**
       * kolekcja otwartych aktualnie okien ze szczegółami przewoźników
       */
-     private HashMap<Integer, JFrame> openTransportersJFrames;
+     private HashMap<String, JFrame> openTransportersJFrames;
     
     
 
@@ -733,9 +733,9 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
 		{
 			final Transporter tr = t;
 			
-			if(openTransportersJFrames.containsKey(t.getId_trans()))
+			if(openTransportersJFrames.containsKey(t.getId_trans()+""+t.getSizeCategory()))
 			{
-				JFrame trans_details_jframe = openTransportersJFrames.get(t.getId_trans());
+				JFrame trans_details_jframe = openTransportersJFrames.get(t.getId_trans()+""+t.getSizeCategory());
 				java.awt.EventQueue.invokeLater(new Runnable() 
 				{
 				    @Override
@@ -748,11 +748,11 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
 			}
 			else
 			{
-				JFrame trans_details_jframe = view.showTransporterDetails(t.getId_trans());
+				JFrame trans_details_jframe = view.showTransporterDetails(t.getId_trans(),t.getSizeCategory());
 				
 				trans_details_jframe.addWindowListener(new WindowListener() {
 		            public void windowClosed(WindowEvent arg0) {
-		            	openTransportersJFrames.remove(tr.getId_trans(),trans_details_jframe);
+		            	openTransportersJFrames.remove(tr.getId_trans()+""+tr.getSizeCategory(),trans_details_jframe);
 		            }
 		            public void windowActivated(WindowEvent arg0) {
 		            }
@@ -768,7 +768,7 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
 		            }
 		        });
 				
-				openTransportersJFrames.put(t.getId_trans(), trans_details_jframe);
+				openTransportersJFrames.put(t.getId_trans()+""+t.getSizeCategory(), trans_details_jframe);
 				view.setChosenTransporter(t);
 			}
 		}

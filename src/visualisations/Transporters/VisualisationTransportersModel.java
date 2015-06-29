@@ -289,11 +289,11 @@ public class VisualisationTransportersModel
 		return transporters_filtered;
 	}
 	
-	public Transporter getTransporter(int id_trans)
+	public Transporter getTransporter(int id_trans,SizeCategory sc)
 	{
 		for(Transporter t: transporters_filtered)
 		{
-			if(t.getId_trans() == id_trans)
+			if(t.getId_trans() == id_trans && t.getSizeCategory() == sc)
 			{
 				return t;
 			}

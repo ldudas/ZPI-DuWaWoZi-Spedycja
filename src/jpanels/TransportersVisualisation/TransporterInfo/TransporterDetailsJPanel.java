@@ -98,7 +98,7 @@ public class TransporterDetailsJPanel extends JPanel
 		lblStosunekDniOpnienia.setBounds(20, 240, 329, 14);
 		panel_data.add(lblStosunekDniOpnienia);
 		
-		JLabel lblStosunekZleceZrealizowanych = new JLabel("Stosunek zleceń zrealizowanych do łącznej liczby zleceń:");
+		JLabel lblStosunekZleceZrealizowanych = new JLabel("Stosunek zleceń niezrealizowanych do łącznej liczby zleceń:");
 		lblStosunekZleceZrealizowanych.setForeground(Color.YELLOW);
 		lblStosunekZleceZrealizowanych.setBounds(20, 260, 329, 14);
 		panel_data.add(lblStosunekZleceZrealizowanych);

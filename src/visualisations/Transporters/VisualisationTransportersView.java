@@ -167,9 +167,9 @@ public class VisualisationTransportersView
 		 * @param id_trans
 		 * @ okno ze szczegółowymi danymi przewoźnika
 		 */
-	 public JFrame showTransporterDetails(int id_trans)
+	 public JFrame showTransporterDetails(int id_trans, SizeCategory sc)
 	 {
-		 return trans_presenter.showTransporterDetails(id_trans);
+		 return trans_presenter.showTransporterDetails(id_trans, sc);
 	 }
 	 
 	 /**
