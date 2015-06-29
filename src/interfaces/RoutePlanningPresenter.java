@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingWorker;
 
 import builders.CityBuilder;
 import builders.OrderBuilder;
@@ -82,9 +83,7 @@ public class RoutePlanningPresenter
 	 */
 	public void changeStart_to_manufacturerVisualization()
 	{
-		route_planning_view.change_startPlanning_to_Waiting();
 		startManuVisualisation();
-		route_planning_view.change_startPlanning_to_manufacturerVisualization();
 	}
 	
 	public void changeManufacurerVisualization_to_transportVisualization(int flag)
@@ -632,6 +631,43 @@ public class RoutePlanningPresenter
 	public int getNumberOfCitiesInPathVis()
 	{
 		return path_presenter.getNumberOfCities();
+	}
+	
+	public void startManufacturersVisualisation()
+	{
+		
+		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() 
+				{
+				 
+			        @Override
+			        protected Void doInBackground() throws InterruptedException
+			        {
+			        	changeStart_to_manufacturerVisualization(); //tak
+			    		
+			    		//utworz wizualizacje w dwoma poczatkowymi miastami
+			    		createInitialPathMap(); //tak
+			        	return null;
+			        }
+			        
+			        @Override
+			        protected void done() 
+			        {
+			        	//pokaz wizualizaje trasy
+			    		showPathMap();
+			    		
+			    		addFirstOrder();
+			    		addOrderToTab();
+			    		route_planning_view.change_startPlanning_to_manufacturerVisualization();
+			        }
+			        
+			    };
+			    worker.execute();
+		
+			    route_planning_view.change_startPlanning_to_Waiting();
+		
+		
+	
+	
 	}
 	
 }

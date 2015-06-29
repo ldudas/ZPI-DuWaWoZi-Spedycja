@@ -189,7 +189,7 @@ public class VisualisationTransportersModel
 			transporters.add(new Transporter((int)row.get(0), SizeCategory.BIG, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
 			}
 		
-		System.out.println(result_small.size()+" "+ result_medium.size()+" "+result_big.size());
+		//System.out.println(result_small.size()+" "+ result_medium.size()+" "+result_big.size());
 		
 		/*//na razie tworzę sam
 		///
@@ -262,7 +262,7 @@ public class VisualisationTransportersModel
 			filterTransporters(sc);
 		}
 	
-		System.out.println(transporters_filtered.size());
+		//System.out.println(transporters_filtered.size());
 	}
 	
 	public void setMinMaxFilteredTransportersProperties()
@@ -530,7 +530,7 @@ public class VisualisationTransportersModel
 	 * @param  secondCityCoordinate1 dlugosc geograficzna konca linii 
 	 * @param  secondCityCoordinate2 szerokosc geograficzna konca linii
 	 * @return Kat obrotu grota     
-	 * @author Lukasz Dudaszek
+	 * @author Łukasz Dudaszek
 	 */
 	private double get_arrow_rotation_degrees(double firstCityCoordinate1, double firstCityCoordinate2, double secondCityCoordinate1, double secondCityCoordinate2)
 	{

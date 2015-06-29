@@ -297,38 +297,13 @@ public class RoutePlanningView
 	 */
 	public void change_startPlanning_to_manufacturerVisualization()
 	{
-	
-/*		//ImageIcon loading = new ImageIcon("images/loader.gif");
-				//JLabel loadingLabel = new JLabel("", loading, JLabel.CENTER);
-				//JPanel background = new JPanel();
-				JPanel background = new WaitingJPanel();
-				background.setLayout(new CardLayout(0, 0));
-				background.setBounds(0, 0, 500, 300);
-				background.setBackground(SystemColor.inactiveCaptionText);
-				//background.add(loadingLabel);
-				menuJPanel.setEnableAllButtons(false);
-				
-				startApplicationJPanel.removeLogicJPanel();
-				startApplicationJPanel.addLogicJPanel(background);
-				prepareFrameAfterChangeView(mainFrame);
-				*/
-
 		
-		Timer timer = new Timer();
-		
-		timer.schedule(new TimerTask() 
-		{	
-			@Override
-			public void run() 
-			{
 				startApplicationJPanel.removeLogicJPanel();
 				mainFrame.remove(startApplicationJPanel);
 				mainFrame.setBounds(100, 100, 1123, 580);
 				mainFrame.setTitle("Producenci");
 				mainFrame.add(manufacturerVisualizationWithMapJPanel);
 				prepareFrameAfterChangeView(mainFrame);
-			}
-		}, 5000);
 		
 	}
 	
@@ -343,7 +318,6 @@ public class RoutePlanningView
 				startApplicationJPanel.removeLogicJPanel();
 				startApplicationJPanel.addLogicJPanel(background);
 				prepareFrameAfterChangeView(mainFrame);
-	
 		
 	}
 	

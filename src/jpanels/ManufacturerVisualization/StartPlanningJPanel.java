@@ -173,15 +173,7 @@ public class StartPlanningJPanel extends JPanel
 							"Potwierdzenie", JOptionPane.YES_NO_OPTION);
 					if(dialogResult == JOptionPane.YES_OPTION) 
 					{
-						presenter_route_planning.changeStart_to_manufacturerVisualization();
-						
-						//utworz wizualizacje w dwoma poczatkowymi miastami
-						presenter_route_planning.createInitialPathMap();
-						//pokaz wizualizaje trasy
-						presenter_route_planning.showPathMap();
-						
-						presenter_route_planning.addFirstOrder();
-						presenter_route_planning.addOrderToTab();	
+						presenter_route_planning.startManufacturersVisualisation();	
 					} 
 				}
 				else
