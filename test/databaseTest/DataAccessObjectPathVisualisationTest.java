@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import shared.database.DataAccessObjectPathVisualisation;
+import database.DataAccessObjectPathVisualisation;
 
 /**
  * Klasa testująca poprawność pobierania liczby miast dostępnych w bazie

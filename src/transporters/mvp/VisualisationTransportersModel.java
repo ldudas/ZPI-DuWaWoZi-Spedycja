@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import shared.dataModels.SizeCategory;
 import shared.dataModels.Transporter;
 import shared.dataModels.User;
-import shared.database.DataAccessObjectFactory;
-import shared.database.DataAccessObjectTransportersVisualisation;
 import transporters.specification.TransporterSizeCategorySpecification;
 
 import com.esri.core.geometry.Envelope;
@@ -28,6 +26,9 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
+
+import database.DataAccessObjectFactory;
+import database.DataAccessObjectTransportersVisualisation;
 
 
 

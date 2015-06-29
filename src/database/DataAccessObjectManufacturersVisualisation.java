@@ -1,5 +1,5 @@
 
-package shared.database;
+package database;
 
 import java.util.ArrayList;
 

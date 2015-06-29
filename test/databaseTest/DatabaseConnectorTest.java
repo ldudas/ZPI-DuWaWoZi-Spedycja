@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import shared.database.DatabaseConnector;
+import database.DatabaseConnector;
 import shared.exceptions.DatabaseConnectionExeption;
 
 /**

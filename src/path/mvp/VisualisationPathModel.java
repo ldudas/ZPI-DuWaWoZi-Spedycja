@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import shared.dataModels.City;
 import shared.dataModels.User;
-import shared.database.DataAccessObjectFactory;
-import shared.database.DataAccessObjectPathVisualisation;
 
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.GeometryEngine;
@@ -20,6 +18,9 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
+
+import database.DataAccessObjectFactory;
+import database.DataAccessObjectPathVisualisation;
 
 /**
  * Model wizualizacji trasy

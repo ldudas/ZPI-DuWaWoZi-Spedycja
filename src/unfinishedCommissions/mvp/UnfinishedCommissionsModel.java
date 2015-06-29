@@ -3,10 +3,10 @@ package unfinishedCommissions.mvp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import database.DataAccessObjectCommissions;
+import database.DataAccessObjectFactory;
 import shared.dataModels.Commission;
 import shared.dataModels.User;
-import shared.database.DataAccessObjectCommissions;
-import shared.database.DataAccessObjectFactory;
 
 public class UnfinishedCommissionsModel {
 	

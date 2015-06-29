@@ -1,4 +1,4 @@
-package shared.database;
+package database;
 
 /**
  * Fabryka obkietów Data Access Object

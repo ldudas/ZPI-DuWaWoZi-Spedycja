@@ -1,7 +1,7 @@
 /**
  * @author[Kamil Zimny]
  */
-package shared.database;
+package database;
 
 import java.net.HttpURLConnection;
 import java.net.URL;

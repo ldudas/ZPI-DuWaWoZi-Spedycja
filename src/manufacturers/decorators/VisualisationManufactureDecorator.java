@@ -12,8 +12,6 @@ import java.util.TimerTask;
 
 import shared.dataModels.City;
 import shared.dataModels.Manufacturer;
-import shared.database.DataAccessObjectFactory;
-import shared.database.DataAccessObjectManufacturersVisualisation;
 import manufacturers.jPanels.info.DiscriptionOnMapJPanel;
 import manufacturers.jPanels.info.PieChartJPanel;
 
@@ -32,6 +30,9 @@ import com.esri.map.MapEventListener;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
+
+import database.DataAccessObjectFactory;
+import database.DataAccessObjectManufacturersVisualisation;
 
 /**
  * Dekorator Producenta, dodaje na mapie 

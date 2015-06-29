@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingWorker;
 
+import database.DatabaseConnector;
 import path.mvp.VisualisationPathPresenter;
 import manufacturers.mvp.VisualistaionManufacturersPresenter;
 import shared.builders.CityBuilder;
@@ -19,7 +20,6 @@ import shared.builders.OrderBuilder;
 import shared.dataModels.City;
 import shared.dataModels.Manufacturer;
 import shared.dataModels.Order;
-import shared.database.DatabaseConnector;
 import shared.exceptions.DatabaseConnectionExeption;
 import transporters.mvp.VisualisationTransportersPresenter;
 import unfinishedCommissions.mvp.UnfinishedCommissionsPresenter;

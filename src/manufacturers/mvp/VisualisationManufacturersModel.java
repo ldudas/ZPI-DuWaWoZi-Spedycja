@@ -13,7 +13,6 @@ import shared.dataModels.City;
 import shared.dataModels.EvaluatorOfManufacturers;
 import shared.dataModels.Manufacturer;
 import shared.dataModels.User;
-import shared.database.DataAccessObjectManufacturersVisualisation;
 import manufacturers.comparators.ComparatorManufactureActivite;
 import manufacturers.decorators.VisualisationManufactureDecorator;
 
@@ -21,6 +20,8 @@ import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.LayerList;
+
+import database.DataAccessObjectManufacturersVisualisation;
 
 /**
  * Model wizualizacji producentów.
