@@ -13,11 +13,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 import dataModels.SizeCategory;
 import dataModels.Transporter;
 
 import javax.swing.SwingConstants;
+
+import jpanels.ManufacturerVisualization.WaitingJPanel;
 
 /**
  * Panel z interfejsem i wizualizacją przewoźników
@@ -75,6 +78,7 @@ public class TransVisInterfaceJPanel extends JPanel
 	 * wprowadzona kategoria rozmiaru
 	 */
 	private SizeCategory sc;
+	
 
 	
 	public TransVisInterfaceJPanel(VisualisationTransportersView view, int opening_flag) 
@@ -172,7 +176,6 @@ public class TransVisInterfaceJPanel extends JPanel
 				
 				
 				JComboBox<String> comboBox_CityFrom = new JComboBox<String>();
-				//comboBox_CityFrom.setModel(new DefaultComboBoxModel<String>(cities));
 				comboBox_CityFrom.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 				comboBox_CityFrom.setBackground(SystemColor.inactiveCaption);
 				comboBox_CityFrom.setBounds(10, 33, 128, 31);
@@ -220,24 +223,29 @@ public class TransVisInterfaceJPanel extends JPanel
 							String curr_city_from = (String) comboBox_CityFrom.getSelectedItem();
 							String curr_city_to = (String) comboBox_cityTo.getSelectedItem();
 							
-							int size_ind = comboBox_size.getSelectedIndex();
-							SizeCategory curr_sc = size_ind == 0 ? SizeCategory.ALL : 
-												size_ind == 1 ? SizeCategory.SMALL :
-												size_ind == 2 ?	SizeCategory.MEDIUM :
-																SizeCategory.BIG;
-							
-							if(!curr_city_from.equals(city_from) || !curr_city_to.equals(city_to) || curr_sc!=sc)
+							if(curr_city_from.equals(curr_city_to))
 							{
-								city_from = curr_city_from;
-								city_to = curr_city_to;
-								sc = curr_sc;
-								transporter_view.drawTransporters(city_from, city_to,sc);
+								transporter_view.showBeginEndCitiesEqualInfo();
+							}
+							else
+							{
+								int size_ind = comboBox_size.getSelectedIndex();
+								SizeCategory curr_sc = size_ind == 0 ? SizeCategory.ALL : 
+													size_ind == 1 ? SizeCategory.SMALL :
+													size_ind == 2 ?	SizeCategory.MEDIUM :
+																	SizeCategory.BIG;
+							
+								if(!curr_city_from.equals(city_from) || !curr_city_to.equals(city_to) || curr_sc!=sc)
+								{
+									city_from = curr_city_from;
+									city_to = curr_city_to;
+									sc = curr_sc;
+									
+									transporter_view.drawTransporters(city_from, city_to,sc);
+								
+								}
 							}
 							
-						}
-						else
-						{
-							System.out.println("Proszę wybrać miasta");
 						}
 						
 						
@@ -304,6 +312,18 @@ public class TransVisInterfaceJPanel extends JPanel
 		visualization = new TransVisJPanel(transporter_view);
  		visualization.addMouseListener((TransVisJPanel)visualization);
  		visualization.addMouseMotionListener((TransVisJPanel)visualization);
+		visualization.setBackground(SystemColor.inactiveCaptionText);
+		visualization.setBounds(10, 138, 797, 523);
+		add(visualization);
+		visualization.setLayout(null);
+	}
+	
+	/**
+	 * Dodaj panel oczekiwania
+	 */
+	public void addWaitingPanel()
+	{
+		visualization = new WaitingJPanel();
 		visualization.setBackground(SystemColor.inactiveCaptionText);
 		visualization.setBounds(10, 138, 797, 523);
 		add(visualization);

@@ -96,6 +96,36 @@ public class VisualisationTransportersModel
 	 * konczaca sie zapisem trasy do bazy: 	 1
 	 */
 	private int opening_flag;
+	
+	/**
+	 *  zapamiętana maksymalna liczba zleceń (wśród wyświetlanych przewoźników)
+	 */
+	private double max_num_of_orders;
+	
+	/**
+	 *  zapamiętana minimalna liczba zleceń (wśród wyświetlanych przewoźników)
+	 */
+	private double min_num_of_orders;
+	
+	/**
+	 *  zapamiętany maksymalny koszt (wśród wyświetlanych przewoźników)
+	 */
+	private double max_cost;
+	
+	/**
+	 *  zapamiętany minimalny koszt (wśród wyświetlanych przewoźników)
+	 */
+	private double min_cost;
+	
+	/**
+	 *  zapamiętany maksymalna objętość (wśród wyświetlanych przewoźników)
+	 */
+	private double max_volume;
+	
+	/**
+	 *  zapamiętana maksymalna ładowność (wśród wyświetlanych przewoźników)
+	 */
+	private double max_capacity;
 
 	
 	public VisualisationTransportersModel()
@@ -137,37 +167,31 @@ public class VisualisationTransportersModel
 	 */
 	private void getTranspotersFormDatabase(String city_from, String city_to)
 	{
-		
+		transporters.clear();
 		
 		//pobieranie listy przewoźnikow z bazy
-		SizeCategory a = SizeCategory.SMALL;
-		SizeCategory b = SizeCategory.MEDIUM;
-		SizeCategory c = SizeCategory.BIG;
-		ArrayList<ArrayList<Object>> result_small = DAO_TransVis.getTranspoters(city_from, city_to, a);
-		ArrayList<ArrayList<Object>> result_medium = DAO_TransVis.getTranspoters(city_from, city_to, b);
-		ArrayList<ArrayList<Object>> result_big = DAO_TransVis.getTranspoters(city_from, city_to, c);
+		ArrayList<ArrayList<Object>> result_small = DAO_TransVis.getTranspoters(city_from, city_to, SizeCategory.SMALL);
+		ArrayList<ArrayList<Object>> result_medium = DAO_TransVis.getTranspoters(city_from, city_to,  SizeCategory.MEDIUM);
+		ArrayList<ArrayList<Object>> result_big = DAO_TransVis.getTranspoters(city_from, city_to, SizeCategory.BIG);
 
-		
-		//	public Transporter(int id_trans,SizeCategory sizeCategory, int number_of_orders, double cost, int capacity, int volume, double delay, double executed, String name, int phone_num)
 
 		
 		for(ArrayList<Object> row : result_small){
-			transporters.add(new Transporter((int)row.get(0), a, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
+			transporters.add(new Transporter((int)row.get(0), SizeCategory.SMALL, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
 		}
 			
 		
 		for(ArrayList<Object> row : result_medium){
-			transporters.add(new Transporter((int)row.get(0), b, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
+			transporters.add(new Transporter((int)row.get(0), SizeCategory.MEDIUM, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
 			}
 		
 		for(ArrayList<Object> row : result_big){
-			transporters.add(new Transporter((int)row.get(0), c, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
+			transporters.add(new Transporter((int)row.get(0), SizeCategory.BIG, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
 			}
 		
+		System.out.println(result_small.size()+" "+ result_medium.size()+" "+result_big.size());
 		
-		/*
-		transporters = DAO_TransVis.getTranspoters(city_from,city_to);
-		//na razie tworzę sam
+		/*//na razie tworzę sam
 		///
 				transporters.clear();
 				transporters.add(new Transporter(1,SizeCategory.SMALL,430,560,200,300,0.0,0,"Mark-Trans Marek Kaw",123456789));
@@ -191,7 +215,7 @@ public class VisualisationTransportersModel
 				transporters.add(new Transporter(3,SizeCategory.BIG,1400,1300,1200,4000,0.07,0.6,"Quality Logistics",123456789));
 				//System.out.println("Przed: "+transporters);
 		///
-		 */ 
+*/		 
 		 
 	}
 	
@@ -214,27 +238,54 @@ public class VisualisationTransportersModel
 	}
 	
 	/**
-	 * Pobranie przefiltrowanych przewoźników obsługujących trasę
+	 * Ustawienie przefiltrowanych przewoźników obsługujących trasę
 	 * @param city_from Miasto początkowe
 	 * @param city_to Miasto docelowe
 	 * @param sc Kategoria rozmiaru
-	 * @return
 	 */
-	public ArrayList<Transporter> getFilteredTransporters(String city_from, String city_to, SizeCategory sc)
+	public void setFilteredTransporters(String city_from, String city_to, SizeCategory sc)
 	{
+		boolean filtered = false;
 		if(!city_from.equals(cityFrom) || !city_to.equals(cityTo))
 		{
 			cityFrom = city_from;
 			cityTo = city_to;
 			getTranspotersFormDatabase(cityFrom, cityTo);
 			sortTransporters();
+			filterTransporters(sc);
+			filtered = true;
 		}
 		
-		if(size_category!=sc)
+		if(size_category!=sc && !filtered)
 		{
 			size_category = sc;
 			filterTransporters(sc);
 		}
+	
+		System.out.println(transporters_filtered.size());
+	}
+	
+	public void setMinMaxFilteredTransportersProperties()
+	{
+		max_num_of_orders = Double.MIN_VALUE;
+    	min_num_of_orders = Double.MAX_VALUE;
+    	max_cost = Double.MIN_VALUE;
+    	min_cost = Double.MAX_VALUE;
+    	max_volume = Double.MIN_VALUE;
+    	max_capacity = Double.MIN_VALUE;
+    	
+    	transporters_filtered.stream().forEach( (Transporter tr) -> {
+    		if(tr.getNumber_of_orders()<min_num_of_orders) min_num_of_orders = tr.getNumber_of_orders();
+    		if(tr.getNumber_of_orders()>max_num_of_orders) max_num_of_orders = tr.getNumber_of_orders();
+    		if(tr.getCost()>max_cost) max_cost = tr.getCost();
+    		if(tr.getCost()<min_cost) min_cost = tr.getCost();
+    		if(tr.getVolume()>max_volume) max_volume = tr.getVolume();
+    		if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
+    	});
+	}
+	
+	public ArrayList<Transporter> getFilteredTransporters()
+	{
 		return transporters_filtered;
 	}
 	
@@ -251,7 +302,7 @@ public class VisualisationTransportersModel
 	}
 	
 	/**
-	 * Pobranie mapy z naniesionym łańcychem dostaw
+	 * Pobranie mapy z naniesionym łańcuchem dostaw
 	 * @param id_trans
 	 * @return
 	 */
@@ -586,6 +637,36 @@ public class VisualisationTransportersModel
 	public int getOpeningFlag()
 	{
 		return opening_flag;
+	}
+	
+	public double getMax_num_of_orders()
+	{
+		return max_num_of_orders;
+	}
+
+	public double getMin_num_of_orders()
+	{
+		return min_num_of_orders;
+	}
+
+	public double getMax_cost()
+	{
+		return max_cost;
+	}
+
+	public double getMin_cost()
+	{
+		return min_cost;
+	}
+
+	public double getMax_volume()
+	{
+		return max_volume;
+	}
+
+	public double getMax_capacity()
+	{
+		return max_capacity;
 	}
 
 

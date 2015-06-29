@@ -69,7 +69,7 @@ public class WaitingJPanel extends JPanel
        	 FontMetrics metrics_2 = g2d.getFontMetrics();
        	 
        	 //pobieranie wymiarow
-       	 String load_string = "Ładowanie";
+       	 String load_string = "Wczytywanie";
        	 Rectangle2D rectan = metrics_2.getStringBounds(load_string, g2d);
        	 double font_width =   rectan.getWidth();
        	 //double font_height =  rectan.getHeight();

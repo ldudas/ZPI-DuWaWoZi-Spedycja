@@ -1,5 +1,7 @@
 package visualisations.Transporters;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -24,11 +26,6 @@ public class VisualisationTransportersView
 	private VisualisationTransportersPresenter trans_presenter;
 	
 	/**
-	 * Pozycja (x i y) okna szczegółów przewoźnika
-	 */
-	private int windowPos;
-	
-	/**
 	 * Okno główne
 	 */
 	private JFrame carrierVisualizationFrame;
@@ -37,54 +34,6 @@ public class VisualisationTransportersView
 	 * główny JPanel umieszczany w oknie głównym
 	 */
 	private TransVisInterfaceJPanel transVisInterfaceJPanel;
-	
-	/**
-	 * flaga czy wizualizacja rozpoczęta
-	 */
-	private boolean isVisualisationStarted;
-	
-	/**
-	 * kolekcja wyświetlalych przewoźników
-	 */
-	private ArrayList<Transporter> transporters;
-	
-	/**
-	 *  zapamiętana maksymalna liczba zleceń (wśród wyświetlanych przewoźników)
-	 */
-	private double max_num_of_orders;
-	
-	/**
-	 *  zapamiętana minimalna liczba zleceń (wśród wyświetlanych przewoźników)
-	 */
-	private double min_num_of_orders;
-	
-	/**
-	 *  zapamiętany maksymalny koszt (wśród wyświetlanych przewoźników)
-	 */
-	private double max_cost;
-	
-	/**
-	 *  zapamiętany minimalny koszt (wśród wyświetlanych przewoźników)
-	 */
-	private double min_cost;
-	
-	/**
-	 *  zapamiętany maksymalna objętość (wśród wyświetlanych przewoźników)
-	 */
-	private double max_volume;
-	
-	/**
-	 *  zapamiętana maksymalna ładowność (wśród wyświetlanych przewoźników)
-	 */
-	private double max_capacity;
-
-
-
-	public VisualisationTransportersView() 
-	{
-		isVisualisationStarted = false;
-		windowPos = 50;
-	}
 	
 	/**
 	 * Ustawianie prezentera
@@ -104,7 +53,6 @@ public class VisualisationTransportersView
 	{
 		if(transVisInterfaceJPanel != null)
 			carrierVisualizationFrame.remove(transVisInterfaceJPanel);
-		isVisualisationStarted = false;
 	}
 
 	
@@ -128,43 +76,19 @@ public class VisualisationTransportersView
 	
 	/**
 	 * Rysowanie wizualizacji przewoźników
-	 * @param transporters kolekcja przewoźników do naniesienia na wizualizację
 	 */
-	 public void drawTransporters(ArrayList<Transporter> transporters)
+	 public void drawTransporters()
 	    {
-		 	if(!isVisualisationStarted)
-		 	{
 		 		transVisInterfaceJPanel.removeStartVisualisationPanel();
 		 		transVisInterfaceJPanel.addVisualisation();
-				isVisualisationStarted = true;
-		 	}
-		 	
-	    	this.transporters = transporters;
-	    	
-	    	max_num_of_orders = Double.MIN_VALUE;
-	    	min_num_of_orders = Double.MAX_VALUE;
-	    	max_cost = Double.MIN_VALUE;
-	    	min_cost = Double.MAX_VALUE;
-	    	max_volume = Double.MIN_VALUE;
-	    	max_capacity = Double.MIN_VALUE;
-	    	
-	    	transporters.stream().forEach( (Transporter tr) -> {
-	    		if(tr.getNumber_of_orders()<min_num_of_orders) min_num_of_orders = tr.getNumber_of_orders();
-	    		if(tr.getNumber_of_orders()>max_num_of_orders) max_num_of_orders = tr.getNumber_of_orders();
-	    		if(tr.getCost()>max_cost) max_cost = tr.getCost();
-	    		if(tr.getCost()<min_cost) min_cost = tr.getCost();
-	    		if(tr.getVolume()>max_volume) max_volume = tr.getVolume();
-	    		if(tr.getCapacity()>max_capacity) max_capacity = tr.getCapacity();	
-	    	});
-	    	
-	    	transVisInterfaceJPanel.repaintVisualisation();
+		 		transVisInterfaceJPanel.repaintVisualisation();
 	    }
 	 
 	 /**
 	  * Rysowanie wizualizacji przewoźników dla podanych parametrów
 	  * @param city_from Miasto początkowe
 	  * @param city_to Miasto docelowe
-	  * @param sc Keteoria rozmiaru pojazdu
+	  * @param sc Ketegoria rozmiaru pojazdu
 	  * @author Łukasz Dudaszek
 	  */
 	 public void drawTransporters(String city_from, String city_to, SizeCategory sc)
@@ -185,7 +109,13 @@ public class VisualisationTransportersView
 																t.getSizeCategory() == SizeCategory.MEDIUM?"Średnie":
 																											"Duże"));
 				detailsWindow.setResizable(false);
-				detailsWindow.setBounds(windowPos, windowPos, 910, 350);
+				
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				double width = screenSize.getWidth();
+				double height = screenSize.getHeight();
+				
+				
+				detailsWindow.setBounds((int)(width/2 - 455), (int)(height/2 - 175), 910, 350);
 				detailsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
 				TransporterDetailsJPanel transDetailsPanel = new TransporterDetailsJPanel();
@@ -253,39 +183,11 @@ public class VisualisationTransportersView
 	 }
 
 	 
-	public double getMax_num_of_orders()
-	{
-		return max_num_of_orders;
-	}
-
-	public double getMin_num_of_orders()
-	{
-		return min_num_of_orders;
-	}
-
-	public double getMax_cost()
-	{
-		return max_cost;
-	}
-
-	public double getMin_cost()
-	{
-		return min_cost;
-	}
-
-	public double getMax_volume()
-	{
-		return max_volume;
-	}
-
-	public double getMax_capacity()
-	{
-		return max_capacity;
-	}
+	
 
 	public ArrayList<Transporter> getTransporters()
 	{
-		return transporters;
+		return trans_presenter.getFilteredTransporters();
 	}
 	
 	/**
@@ -323,6 +225,57 @@ public class VisualisationTransportersView
 		JOptionPane.showMessageDialog(null, "Istnieje już w systemie trasa o podanej nazwie\nProszę wprowadzić inną.", "Nieunikalna nazwa trasy", 
 				JOptionPane.ERROR_MESSAGE);
 	}
+	
+	/**
+	 * Pokaż okno z informacją o takich samych miastach - początkowym i docelowym.
+	 */
+	public void showBeginEndCitiesEqualInfo()
+	{
+		JOptionPane.showMessageDialog(null, "Miasta początkowe oraz docelowe powinny być różne", "Błędne dane", 
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void addWaitingPanel()
+	{
+		transVisInterfaceJPanel.addWaitingPanel();
+	}
+	
+	public void removeStartPanel()
+	{
+		transVisInterfaceJPanel.removeStartVisualisationPanel();
+	}
+	
+	public double getMax_num_of_orders()
+	{
+		return trans_presenter.getMax_num_of_orders();
+	}
+
+	public double getMin_num_of_orders()
+	{
+		return trans_presenter.getMin_num_of_orders();
+	}
+
+	public double getMax_cost()
+	{
+		return trans_presenter.getMax_cost();
+	}
+
+	public double getMin_cost()
+	{
+		return trans_presenter.getMin_cost();
+	}
+
+	public double getMax_volume()
+	{
+		return trans_presenter.getMax_volume();
+	}
+
+	public double getMax_capacity()
+	{
+		return trans_presenter.getMax_capacity();
+	}
+	
+	
 	 
 	    
 }

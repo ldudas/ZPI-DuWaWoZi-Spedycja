@@ -1,9 +1,14 @@
 package visualisations.Transporters;
 
 import interfaces.RoutePlanningPresenter;
+
 import java.util.ArrayList;
+
 import javax.swing.JFrame;
+import javax.swing.SwingWorker;
+
 import com.esri.map.JMap;
+
 import dataModels.SizeCategory;
 import dataModels.Transporter;
 import dataModels.User;
@@ -47,11 +52,31 @@ public class VisualisationTransportersPresenter
 	  * @author Łukasz Dudaszek
 	  */
 	public void drawTransporters(String city_from, String city_to, SizeCategory sc)
-	{
-		ArrayList<Transporter> transporters = model_transporters.getFilteredTransporters(city_from,city_to,sc);
+	{ 
 		
+		 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() 
+			{
+			 
+		        @Override
+		        protected Void doInBackground() throws InterruptedException
+		        {
+		        	model_transporters.setFilteredTransporters(city_from,city_to,sc);
+		        	model_transporters.setMinMaxFilteredTransportersProperties();
+		        	return null;
+		        }
+		        
+		        @Override
+		        protected void done() 
+		        {
+		        	view_transporters.drawTransporters();
+		        }
+		        
+		    };
+		    worker.execute();
+			
+		    view_transporters.removeStartPanel();
+		    view_transporters.addWaitingPanel();
 		
-		view_transporters.drawTransporters(transporters);
 	}
 	
 	/**
@@ -177,6 +202,11 @@ public class VisualisationTransportersPresenter
 		
 	}
 	
+	public ArrayList<Transporter> getFilteredTransporters()
+	{
+		return model_transporters.getFilteredTransporters();
+	}
+	
 	/**
 	 * Ustaw tryb otwarcia wizualiazcji przewoźników
 	 * @param flag flaga otwarcia: -1 - tylko przegladanie przewoznikow, 1 -konczaca sie zapisem trasy do bazy
@@ -200,6 +230,36 @@ public class VisualisationTransportersPresenter
 	public ArrayList<String> getAllCityNames()
 	{
 		return model_transporters.getAllCityNames();
+	}
+	
+	public double getMax_num_of_orders()
+	{
+		return model_transporters.getMax_num_of_orders();
+	}
+
+	public double getMin_num_of_orders()
+	{
+		return model_transporters.getMin_num_of_orders();
+	}
+
+	public double getMax_cost()
+	{
+		return model_transporters.getMax_cost();
+	}
+
+	public double getMin_cost()
+	{
+		return model_transporters.getMin_cost();
+	}
+
+	public double getMax_volume()
+	{
+		return model_transporters.getMax_volume();
+	}
+
+	public double getMax_capacity()
+	{
+		return model_transporters.getMax_capacity();
 	}
 
 

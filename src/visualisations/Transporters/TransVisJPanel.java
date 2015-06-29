@@ -596,8 +596,24 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
         panel_width = this.getWidth();
     }
     
-
+    private void drawNoTransportersInfo(Graphics2D g2d)
+    {
+    	g2d.setFont(new Font("Gulim", Font.PLAIN, (int)(panel_height/10.0)));
+    	g2d.setColor(Color.orange);
+   	 
+   	 //badanie rozmiaru prostokata jaki zajmuje napis
+       	 FontMetrics metrics = g2d.getFontMetrics();
+       	 
+       	 //pobieranie wymiarow
+       	 String str = "Brak przewoźników";
+       	 Rectangle2D rectan = metrics.getStringBounds(str, g2d);
+       	 double font_width =   rectan.getWidth();
+       	 double font_height =  rectan.getHeight();
+       	 
+       	 g2d.drawString(str, (int)(panel_width/2.0 - font_width/2.0), (int)(panel_height/2.0 - font_height/2.0));
+    }
     
+
     
     public void paintComponent(Graphics g) 
     {
@@ -607,9 +623,16 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
         
         Graphics2D g2d = (Graphics2D) g;
         
-        drawAxles(g2d); //rysowanie osi
+        if(view.getTransporters().size()>0)
+        {
+        	drawAxles(g2d); //rysowanie osi
         
-        drawTransportersObjects(g2d); //rysowanie obiektow przewoznikow              
+        	drawTransportersObjects(g2d); //rysowanie obiektow przewoznikow    
+        }
+        else
+        {
+        	drawNoTransportersInfo(g2d);
+        }
         
     }
 
