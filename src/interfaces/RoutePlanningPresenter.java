@@ -642,21 +642,20 @@ public class RoutePlanningPresenter
 			        @Override
 			        protected Void doInBackground() throws InterruptedException
 			        {
-			        	changeStart_to_manufacturerVisualization(); //tak
+			        	changeStart_to_manufacturerVisualization();
 			    		
-			    		//utworz wizualizacje w dwoma poczatkowymi miastami
-			    		createInitialPathMap(); //tak
+			    		createInitialPathMap();
+			    	
+			    		showPathMap();
+			    		
+			    		addFirstOrder();
+			    		addOrderToTab();
 			        	return null;
 			        }
 			        
 			        @Override
 			        protected void done() 
 			        {
-			        	//pokaz wizualizaje trasy
-			    		showPathMap();
-			    		
-			    		addFirstOrder();
-			    		addOrderToTab();
 			    		route_planning_view.change_startPlanning_to_manufacturerVisualization();
 			        }
 			        
