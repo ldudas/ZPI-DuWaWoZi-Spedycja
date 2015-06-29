@@ -198,6 +198,16 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
      private int y_line_y_end;
      
      /**
+      * wspolrzedna y rozpoczecia rysowania obiektow przew
+      */
+     private int x_draw_beg;
+     
+     /**
+      * wspolrzedna y rozpoczecia rysowania obiektow przew
+      */
+     private int y_draw_beg;
+     
+     /**
       * widok
       */
      private VisualisationTransportersView view;
@@ -329,9 +339,9 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
     	//wyliczanie szerokosci prostokata (ladownosc)
     	cap = (t.getCapacity()/view.getMax_capacity()) * (max_obj_width-min_obj_width) + min_obj_width;
     	//wyliczanie pozycji x obiektu (liczba zlecen)
-    	x_obj = x_line_x_beg + ((t.getNumber_of_orders()-view.getMin_num_of_orders())/(view.getMax_num_of_orders()-view.getMin_num_of_orders())) * (x_line_x_end - x_line_x_beg) - cap/2.0;
+    	x_obj = x_draw_beg + ((t.getNumber_of_orders()-view.getMin_num_of_orders())/(view.getMax_num_of_orders()-view.getMin_num_of_orders())) * (x_line_x_end - x_draw_beg) - cap/2.0;
     	//wyliczanie pozycji y obiektu (koszt)
-    	y_obj = x_line_y_beg - ((t.getCost()-view.getMin_cost())/(view.getMax_cost()-view.getMin_cost())) * (y_line_y_end - y_line_y_beg) - vol/2.0;
+    	y_obj = y_draw_beg - ((t.getCost()-view.getMin_cost())/(view.getMax_cost()-view.getMin_cost())) * (y_draw_beg - y_line_y_beg) - vol/2.0;
     	//wyliczanie przezroczystosci (wiarygodnosc - stosunek nzreal/zreal)
     	exec = t.getExecuted()>max_exec?max_exec:
     									t.getExecuted();
@@ -413,6 +423,10 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
         y_line_x_end = x_line_x_beg;
         //koniec osi y - y
         y_line_y_end = x_line_y_beg;
+        
+        x_draw_beg = x_line_x_beg + panel_width/20;
+        y_draw_beg = y_line_y_end - panel_height/20;
+        
     }
     
     
@@ -427,17 +441,43 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
         g2d.setStroke(bs1);
         g2d.drawLine(x_line_x_beg, x_line_y_beg, x_line_x_end+panel_width/10, x_line_y_end);
         
-        int x_line_x_desc_beg = x_line_x_beg;
-        double x_line_desc_unit = ((x_line_x_end - x_line_x_beg) / (view.getMax_num_of_orders() - view.getMin_num_of_orders()));
+        int x_line_x_desc_beg = x_draw_beg;
+        double x_line_desc_unit = ((x_line_x_end - x_line_x_desc_beg) / (view.getMax_num_of_orders() - view.getMin_num_of_orders()));
         int begin_number = (int)(view.getMin_num_of_orders());
-        int x_axis_gap = (int) ((view.getMax_num_of_orders() - view.getMin_num_of_orders())/ number_of_desc);
-        int mod = x_axis_gap % 10;
-        x_axis_gap = x_axis_gap - mod;
         
-        while(begin_number % 10 != 0)
+        double nbr_of_dsc = view.getMax_num_of_orders() - view.getMin_num_of_orders()>number_of_desc ? number_of_desc : (view.getMax_num_of_orders() - view.getMin_num_of_orders());
+        
+        
+        int x_axis_gap = (int) ((view.getMax_num_of_orders() - view.getMin_num_of_orders())/ nbr_of_dsc);
+        
+        int mod_val = 1;
+        
+        double range = view.getMax_num_of_orders() - view.getMin_num_of_orders();
+        if(range>10)
         {
-        	begin_number ++;
-        	x_line_x_desc_beg += x_line_desc_unit;
+	        if(range<100 && range>10)
+	        {
+	        	mod_val = 5;
+	        }
+	        else if(range>=100 && range<1000)
+	        {
+	        	mod_val = 10;
+	        }
+	        else if (range>=1000)
+	        {
+	        	mod_val = 100;
+	        }
+	        
+	        int mod = x_axis_gap % mod_val;
+	        x_axis_gap = x_axis_gap - mod;
+	        
+	        
+	        while(begin_number % mod_val != 0)
+	        {
+	        	begin_number ++;
+	        	x_line_x_desc_beg += x_line_desc_unit;
+	        }
+        
         }
         
         //watrtosci na osi x
@@ -486,17 +526,40 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
         g2d.setStroke(bs2);
         g2d.drawLine(y_line_x_beg, y_line_y_beg-panel_height/10, y_line_x_end, y_line_y_end);
         
-        int y_line_y_desc_beg = y_line_y_end;
-        double y_line_desc_unit = ((y_line_y_end - y_line_y_beg) / (view.getMax_cost() - view.getMin_cost()));
+        int y_line_y_desc_beg = y_draw_beg;
+        double y_line_desc_unit = (( y_line_y_desc_beg - y_line_y_beg) / (view.getMax_cost() - view.getMin_cost()));
         int begin_number = (int)(view.getMin_cost());
-        int y_axis_num_gap = (int) ((view.getMax_cost() - view.getMin_cost())/ number_of_desc);
-        int mod = y_axis_num_gap % 10;
-        y_axis_num_gap = y_axis_num_gap - mod;
+        int y_axis_gap = (int) ((view.getMax_cost() - view.getMin_cost())/ number_of_desc);
         
-        while(begin_number % 10 != 0)
+        
+        int mod_val = 1;
+        
+        double range = view.getMax_cost() - view.getMin_cost();
+        if(range>10)
         {
-        	begin_number ++;
-        	y_line_y_desc_beg -= y_line_desc_unit;
+	        if(range<100 && range>10)
+	        {
+	        	mod_val = 5;
+	        }
+	        else if(range>=100 && range<1000)
+	        {
+	        	mod_val = 10;
+	        }
+	        else if (range>=1000)
+	        {
+	        	mod_val = 100;
+	        }
+	        
+	        int mod = y_axis_gap % mod_val;
+	        y_axis_gap = y_axis_gap - mod;
+	        
+	        
+	        while(begin_number % mod_val != 0)
+	        {
+	        	begin_number ++;
+	        	y_line_y_desc_beg += y_line_desc_unit;
+	        }
+        
         }
         
         //watrtosci na osi y
@@ -523,8 +586,8 @@ public class TransVisJPanel extends JPanel  implements MouseListener, MouseMotio
 	        	 double font_width =   rectan.getWidth();
 	        	 g2d.drawString(number_y,  y_line_x_end - (int)font_width - panel_width/100, y - panel_height/100);
 	        	
-	        	 number += y_axis_num_gap;
-		         y-= y_line_desc_unit * y_axis_num_gap;
+	        	 number += y_axis_gap;
+		         y-= y_line_desc_unit * y_axis_gap;
 	        }
 	        
 	        

@@ -167,7 +167,7 @@ public class VisualisationTransportersModel
 	 */
 	private void getTranspotersFormDatabase(String city_from, String city_to)
 	{
-		transporters.clear();
+		/*transporters.clear();
 		
 		//pobieranie listy przewoźnikow z bazy
 		ArrayList<ArrayList<Object>> result_small = DAO_TransVis.getTranspoters(city_from, city_to, SizeCategory.SMALL);
@@ -187,35 +187,35 @@ public class VisualisationTransportersModel
 		
 		for(ArrayList<Object> row : result_big){
 			transporters.add(new Transporter((int)row.get(0), SizeCategory.BIG, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
-			}
+			}*/
 		
 		//System.out.println(result_small.size()+" "+ result_medium.size()+" "+result_big.size());
 		
-		/*//na razie tworzę sam
+		//na razie tworzę sam
 		///
 				transporters.clear();
-				transporters.add(new Transporter(1,SizeCategory.SMALL,430,560,200,300,0.0,0,"Mark-Trans Marek Kaw",123456789));
+				transporters.add(new Transporter(1,SizeCategory.SMALL,43,560,200,300,0.0,0,"Mark-Trans Marek Kaw",123456789));
 				transporters.add(new Transporter(2,SizeCategory.MEDIUM,30,800,400,600,0.1,0.1,"Max-Przeprowadzki",123456789));
-				transporters.add(new Transporter(3,SizeCategory.MEDIUM,100,670,330,900,0.3,0.01,"Quality Logistics",123456789));
-				transporters.add(new Transporter(4,SizeCategory.BIG,1000,1000,1000,2000,0.01,0.03,"Magnatt Transport Dr",123456789));
-				transporters.add(new Transporter(5,SizeCategory.BIG,213,344,808,3000,0.12,0.022,"Dariusz Kowal Firma",123456789));
+				transporters.add(new Transporter(3,SizeCategory.MEDIUM,10,670,330,900,0.3,0.01,"Quality Logistics",123456789));
+				transporters.add(new Transporter(4,SizeCategory.BIG,10,1000,1000,2000,0.01,0.03,"Magnatt Transport Dr",123456789));
+				transporters.add(new Transporter(5,SizeCategory.BIG,23,344,808,3000,0.12,0.022,"Dariusz Kowal Firma",123456789));
 				transporters.add(new Transporter(6,SizeCategory.BIG,20,607,700,200,0.3,0.001,"RJ-TRANS Usługi Tran",123456789));
-				transporters.add(new Transporter(7,SizeCategory.SMALL,200,450,180,200,0.02,0.008,"Auto Mag Usługi Tran",123456789));
+				transporters.add(new Transporter(7,SizeCategory.SMALL,20,450,180,200,0.02,0.008,"Auto Mag Usługi Tran",123456789));
 				transporters.add(new Transporter(8,SizeCategory.SMALL,100,300,100,200,0.0,0.01,"Admira Michał Dziadc",123456789));
 				transporters.add(new Transporter(9,SizeCategory.SMALL,80,600,280,380,0.1,0,"Margo-Express Malgor",123456789));
-				transporters.add(new Transporter(10,SizeCategory.SMALL,830,570,500,500,0.05,0.04,"Bortrans Gabriela Bo",123456789));
-				transporters.add(new Transporter(11,SizeCategory.MEDIUM,200,900,400,700,0,0,"A. Jezierski Sp. z o",123456789));
-				transporters.add(new Transporter(12,SizeCategory.MEDIUM,300,770,470,900,0.2,0.0,"A. Jadanowski Autoan",123456789));
-				transporters.add(new Transporter(13,SizeCategory.MEDIUM,400,700,500,720,0.1,0,"Net Transport i Sped",123456789));
-				transporters.add(new Transporter(14,SizeCategory.MEDIUM,500,740,630,770,0.07,0.015,"Putek Zdzisław Przed",123456789));
-				transporters.add(new Transporter(15,SizeCategory.MEDIUM,670,780,700,840,0.06,0,"Reno-Trans Sp. z o.o",123456789));
-				transporters.add(new Transporter(16,SizeCategory.MEDIUM,800,880,680,940,0.02,0,"Bracia Tyszka",123456789));
-				transporters.add(new Transporter(1,SizeCategory.BIG,1200,1100,1100,2000,0.01,0.0004,"Mark-Trans Marek Kaw",123456789));
-				transporters.add(new Transporter(2,SizeCategory.BIG,2013,1700,1500,3000,0.12,0.09,"Max-Przeprowadzki",123456789));
-				transporters.add(new Transporter(3,SizeCategory.BIG,1400,1300,1200,4000,0.07,0.6,"Quality Logistics",123456789));
+				transporters.add(new Transporter(10,SizeCategory.SMALL,80,570,500,500,0.05,0.04,"Bortrans Gabriela Bo",123456789));
+				transporters.add(new Transporter(11,SizeCategory.MEDIUM,20,900,400,700,0,0,"A. Jezierski Sp. z o",123456789));
+				transporters.add(new Transporter(12,SizeCategory.MEDIUM,30,770,470,900,0.2,0.0,"A. Jadanowski Autoan",123456789));
+				transporters.add(new Transporter(13,SizeCategory.MEDIUM,40,700,500,720,0.1,0,"Net Transport i Sped",123456789));
+				transporters.add(new Transporter(14,SizeCategory.MEDIUM,50,740,630,770,0.07,0.015,"Putek Zdzisław Przed",123456789));
+				transporters.add(new Transporter(15,SizeCategory.MEDIUM,67,780,700,840,0.06,0,"Reno-Trans Sp. z o.o",123456789));
+				transporters.add(new Transporter(16,SizeCategory.MEDIUM,80,880,680,940,0.02,0,"Bracia Tyszka",123456789));
+				transporters.add(new Transporter(1,SizeCategory.BIG,102,1100,1100,2000,0.01,0.0004,"Mark-Trans Marek Kaw",123456789));
+				transporters.add(new Transporter(2,SizeCategory.BIG,20,1700,1500,3000,0.12,0.09,"Max-Przeprowadzki",123456789));
+				transporters.add(new Transporter(3,SizeCategory.BIG,14,1300,1200,4000,0.07,0.6,"Quality Logistics",123456789));
 				//System.out.println("Przed: "+transporters);
-		///
-*/		 
+	///
+	 
 		 
 	}
 	
