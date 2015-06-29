@@ -1,8 +1,10 @@
 package buildersTest;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
-import builders.CityBuilder;
+
+import shared.builders.CityBuilder;
 
 /**
  * Klasa testująca poprawność budowania miast w programie

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dataModels.ConverterCoordinations;
+import shared.dataModels.ConverterCoordinations;
 
 /**
  * Klasa testująca poprawność parsowania współrzędnych

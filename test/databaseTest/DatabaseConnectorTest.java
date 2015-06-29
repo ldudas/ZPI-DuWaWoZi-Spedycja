@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import database.DatabaseConnector;
-import exceptions.DatabaseConnectionExeption;
+import shared.database.DatabaseConnector;
+import shared.exceptions.DatabaseConnectionExeption;
 
 /**
  * Klasa testująca poprawność zwracanych wyników zapytań SQL

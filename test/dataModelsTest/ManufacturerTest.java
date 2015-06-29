@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import dataModels.Manufacturer;
+import shared.dataModels.Manufacturer;
 
 /**
  * Klasa testująca poprawność wyliczania miesięcznych i kwartalnych aktywności producentów

@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dataModels.City;
-import builders.OrderBuilder;
+import shared.builders.OrderBuilder;
+import shared.dataModels.City;
 
 /**
  * Klasa testująca poprawność budowania zleceń w programie

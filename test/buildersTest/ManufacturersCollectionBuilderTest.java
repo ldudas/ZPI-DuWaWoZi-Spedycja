@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import builders.ManufacturersCollectionBuilder;
+import shared.builders.ManufacturersCollectionBuilder;
 
 /**
  * Klasa testująca poprawność budowania kolekcji producentów

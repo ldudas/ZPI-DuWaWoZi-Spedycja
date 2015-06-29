@@ -1,7 +1,7 @@
 package interfacesTest;
 
 import static org.junit.Assert.*;
-import interfaces.RoutePlanningModel;
+import interfaces.mvp.RoutePlanningModel;
 
 import org.junit.Test;
 

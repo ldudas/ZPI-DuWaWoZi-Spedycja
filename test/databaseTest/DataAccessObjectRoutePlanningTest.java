@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import database.DataAccessObjectRoutePlanning;
+import shared.database.DataAccessObjectRoutePlanning;
 
 /**
  * Klasa testująca poprawność pobierania współrzędnych z bazy

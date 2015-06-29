@@ -4,10 +4,11 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 
+import manufacturers.comparators.ComparatorManufactureActivite;
+
 import org.junit.Test;
 
-import comparators.ComparatorManufactureActivite;
-import dataModels.Manufacturer;
+import shared.dataModels.Manufacturer;
 
 /**
  * Klasa testująca poprawność działania komparatora

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import database.DataAccessObjectManufacturersVisualisation;
+import shared.database.DataAccessObjectManufacturersVisualisation;
 
 /**
  * Klasa testująca poprawność pobierania współrzędnych z bazy

@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dataModels.SizeCategory;
-import dataModels.Transporter;
+import shared.dataModels.SizeCategory;
+import shared.dataModels.Transporter;
 
 /**
  * Klasa testująca poprawność porównywania przewoźników
