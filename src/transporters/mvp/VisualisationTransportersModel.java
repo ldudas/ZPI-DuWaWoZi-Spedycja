@@ -167,13 +167,12 @@ public class VisualisationTransportersModel
 	 */
 	private void getTranspotersFormDatabase(String city_from, String city_to)
 	{
-		/*transporters.clear();
+		transporters.clear();
 		
 		//pobieranie listy przewoźnikow z bazy
 		ArrayList<ArrayList<Object>> result_small = DAO_TransVis.getTranspoters(city_from, city_to, SizeCategory.SMALL);
 		ArrayList<ArrayList<Object>> result_medium = DAO_TransVis.getTranspoters(city_from, city_to,  SizeCategory.MEDIUM);
 		ArrayList<ArrayList<Object>> result_big = DAO_TransVis.getTranspoters(city_from, city_to, SizeCategory.BIG);
-
 
 		
 		for(ArrayList<Object> row : result_small){
@@ -187,12 +186,9 @@ public class VisualisationTransportersModel
 		
 		for(ArrayList<Object> row : result_big){
 			transporters.add(new Transporter((int)row.get(0), SizeCategory.BIG, ((Long)row.get(1)).intValue(), (double)row.get(2), ((BigDecimal)row.get(3)).intValue(), ((BigDecimal)row.get(4)).intValue(), ((BigDecimal)row.get(8)).doubleValue(), ((BigDecimal)row.get(7)).doubleValue(), (String)row.get(5), (int)row.get(6)));
-			}*/
+			}
 		
-		//System.out.println(result_small.size()+" "+ result_medium.size()+" "+result_big.size());
-		
-		//na razie tworzę sam
-		///
+		/*
 				transporters.clear();
 				transporters.add(new Transporter(1,SizeCategory.SMALL,43,560,200,300,0.0,0,"Mark-Trans Marek Kaw",123456789));
 				transporters.add(new Transporter(2,SizeCategory.MEDIUM,30,800,400,600,0.1,0.1,"Max-Przeprowadzki",123456789));
@@ -213,8 +209,7 @@ public class VisualisationTransportersModel
 				transporters.add(new Transporter(1,SizeCategory.BIG,102,1100,1100,2000,0.01,0.0004,"Mark-Trans Marek Kaw",123456789));
 				transporters.add(new Transporter(2,SizeCategory.BIG,20,1700,1500,3000,0.12,0.09,"Max-Przeprowadzki",123456789));
 				transporters.add(new Transporter(3,SizeCategory.BIG,14,1300,1200,4000,0.07,0.6,"Quality Logistics",123456789));
-				//System.out.println("Przed: "+transporters);
-	///
+			*/
 	 
 		 
 	}
