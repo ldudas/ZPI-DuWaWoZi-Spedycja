@@ -4,7 +4,12 @@ import javax.swing.JPanel;
 import java.awt.SystemColor;
 import java.awt.CardLayout;
 
-
+/**
+ * Panel startowy w którym znajduje się menu i rożne logiki w zalężności od 
+ * wybranej opcji ( logowanie, rejestracja, powitanie ).
+ * @author Kamil Zimny
+ *
+ */
 public class StartApplicationJPanel extends JPanel 
 {
 	private JPanel panel_control;

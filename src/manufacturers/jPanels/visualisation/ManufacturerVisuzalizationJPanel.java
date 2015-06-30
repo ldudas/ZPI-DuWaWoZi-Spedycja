@@ -17,7 +17,12 @@ import java.awt.Font;
 import java.awt.CardLayout;
 
 
-
+/**
+ * Panel zawierający i zmieniający się pomiędzy wizualizacją
+ * producentów a wizuwalizacją aktualnie stworzonej trasy.
+ * @author Kamil Zimny
+ *
+ */
 public class ManufacturerVisuzalizationJPanel extends JComponent 
 {
 
@@ -105,16 +110,29 @@ public class ManufacturerVisuzalizationJPanel extends JComponent
 		map_tabbedPane.setSelectedIndex(map_tabbedPane.getTabCount()-1);
 	}
 	
+	/**
+	 * Metoda dodająca kolejne zlecenie/zamówienie do tabeli wyświetlanej w panelu
+	 * @param order - nowe zlecenie dodawane do tabeli.
+	 * @author Kamil Zimny
+	 */
 	public void addOrderToMap(final Order order)
 	{
 		path__managmentJPanel.addOrderToTab(order);
 	}
 	
+	/**
+	 * Metoda usuwająca dane dotyczące ostatniego zamówienia z tabeli wyświetlanej w panelu.
+	 * @author Kamil Zimny
+	 */
 	public void removeLastOrderFromTab()
 	{
 		path__managmentJPanel.removeLastOrderFromTab();
 	}
 	
+	/**
+	 * Metoda usuwająca wszystkie zamówienia z tableli wyświetlanej w panelu.
+	 * @author Kamil Zimny
+	 */
 	public void clearOrderTab()
 	{
 		path__managmentJPanel.clearOrderTab();

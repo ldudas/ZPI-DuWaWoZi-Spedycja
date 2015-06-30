@@ -15,6 +15,11 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * Panel zawierający animację oczekiwania na załadownaie się funkcjonalności aplikacji.
+ * @author Łukasz Dudaszek
+ *
+ */
 public class WaitingJPanel extends JPanel
         implements ActionListener {
 

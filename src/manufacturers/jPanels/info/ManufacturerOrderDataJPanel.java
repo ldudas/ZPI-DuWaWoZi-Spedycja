@@ -23,7 +23,13 @@ import javax.swing.JComboBox;
 import shared.jPanels.calendar.JCalendar;
 
 
-
+/**
+ * Panel zawierający informacje dotyczące
+ * kolejnego zamówienia/zlecenia po wybraniu 
+ * odpowiedniego producenta.
+ * @author Kamil
+ *
+ */
 public class ManufacturerOrderDataJPanel extends JPanel 
 {
 	/**
@@ -172,27 +178,21 @@ public class ManufacturerOrderDataJPanel extends JPanel
 
 	}
 	
-	public static void main(String [] args)
-	{
-		JFrame frame = new JFrame();
-		ManufacturerOrderDataJPanel panel = new ManufacturerOrderDataJPanel();
-		
-		frame.setBounds(10, 10, 658, 475);
-		frame.getContentPane().add(panel);
-		frame.setVisible(true);
-		
-	}
-	
 	public void setPresenter(final RoutePlanningPresenter presenter)
 	{
 		presenter_RoutePlanning = presenter;
 		
 	}
 	
+	/**
+	 * Dodaje wszystkie miasta do listy wyboru.
+	 * @author Kamil Zimny
+	 */
 	public void addAllCityToList()
 	{
 		presenter_RoutePlanning.addAllCityToList(comboBox_nextCityName,null);
 	}
+	
 	
 	public String getNextCityName()
 	{
@@ -210,6 +210,12 @@ public class ManufacturerOrderDataJPanel extends JPanel
 		return dateFormat.format(calendare_dateTo.getDate());
 	}
 	
+	/**
+	 * Metoda ustawiająca datę podaną w parametrze w kalendarzu daty rozpoczęcia 
+	 * oraz datę podaną w parametrze plus jedne dzień w kalendarzu daty zakończenia.
+	 * @param date
+	 * @author Kamil Zimny
+	 */
 	public void setStartDateOn(Date date)
 	{
 		calendare_dateFrom.setDate( date );

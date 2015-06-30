@@ -12,6 +12,12 @@ import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import java.awt.CardLayout;
 
+/**
+ * Panel umieszczony na mapie 
+ * wyświetlający nazwę zaznaczonego producenta.
+ * @author Kamil Zimny
+ *
+ */
 public class DiscriptionOnMapJPanel extends JPanel 
 {
 	private static final long serialVersionUID = 1L;

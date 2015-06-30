@@ -17,6 +17,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Panel zawierający menu aplikacji.
+ * @author Kamil Zimny.
+ *
+ */
 public class MenuJPanel extends JPanel 
 {
 	/**
@@ -141,12 +146,22 @@ public class MenuJPanel extends JPanel
 		panel.add(btn_showTransporters);
 	}
 	
+	/**
+	 * Metoda pokazująca w menu login aktualnego użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void setNewLoggedUser(String login)
 	{
 		loggedUser = login;
 		lblNewLabel.setText("Użytkownik: "+loggedUser);
 	}
 	
+	/**
+	 * Metoda pokazująca w menu niezalogowane użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void setNotLoggedUser()
 	{
 		loggedUser = NOT_LOGGED_USER;

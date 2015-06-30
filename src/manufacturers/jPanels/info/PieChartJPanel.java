@@ -20,6 +20,12 @@ import shared.dataModels.Manufacturer;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 
+/**
+ * Panel z wykresem przedstawiającym aktywność oraz 
+ * opłacalność konkretnego producenta na przestrzeniu kwartałów.
+ * @author Kamil Zimny
+ *
+ */
 public class PieChartJPanel extends JPanel
 {
 

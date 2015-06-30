@@ -18,6 +18,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JLabel;
 
+/**
+ * Panel zawierający informację o aplikacji.
+ * @author Kamil Zimny
+ *
+ */
 public class AboutJPanel extends JPanel 
 {
 	private RoutePlanningPresenter presenter_route_planning;

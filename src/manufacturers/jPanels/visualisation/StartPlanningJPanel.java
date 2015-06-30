@@ -23,6 +23,12 @@ import javax.swing.JComboBox;
 import shared.jPanels.calendar.JCalendar;
 
 
+/**
+ * Panel zawierający dane do wypełnienia podczas
+ * tworzenia nowej trasy. Dane dotyczą pierwszej trasy/pierwszego zlecenia.
+ * @author Kamil Zimny
+ *
+ */
 public class StartPlanningJPanel extends JPanel 
 {
 	/**

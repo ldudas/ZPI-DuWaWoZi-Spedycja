@@ -22,7 +22,11 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * Panel logowania do lokalnego konta użytkownika.
+ * @author Kamil Zimny.
+ *
+ */
 public class LogJPanel extends JPanel 
 {
 	private static final long serialVersionUID = 1L;

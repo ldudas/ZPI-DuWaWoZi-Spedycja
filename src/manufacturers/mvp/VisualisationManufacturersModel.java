@@ -31,7 +31,7 @@ import database.DataAccessObjectManufacturersVisualisation;
 public class VisualisationManufacturersModel 
 {	
 	/**
-	 * Mapa na który
+	 * Mapa na której umieszczane są obiekty producentów.
 	 */
 	private JMap map;
 	

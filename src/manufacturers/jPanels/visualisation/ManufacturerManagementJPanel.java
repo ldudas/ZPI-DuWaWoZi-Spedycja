@@ -13,6 +13,12 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Color;
 
+/**
+ * Panel z opcjami zarządzania podczas wizualizacji
+ * producentów na mapie.
+ * @author Kamil Zimny
+ *
+ */
 public class ManufacturerManagementJPanel extends JPanel 
 {
 

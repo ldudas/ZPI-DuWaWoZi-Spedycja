@@ -14,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -33,6 +31,11 @@ import manufacturers.jPanels.visualisation.ManufacturerVisuzalizationJPanel;
 import manufacturers.jPanels.visualisation.StartPlanningJPanel;
 import manufacturers.jPanels.visualisation.WaitingJPanel;
 
+/**
+ * Główny widok aplikacji.
+ * @author Kamil
+ *
+ */
 public class RoutePlanningView 
 {
 	private final String APPLICATION_NAME = "FORWARDer";
@@ -83,7 +86,11 @@ public class RoutePlanningView
 		
 		openWelcomeView();
 	}
-	 
+
+	/**
+	 * Metoda tworząca pasek menu głównego okna aplikacji.
+	 * @author Kamil Zimny
+	 */
 	private void initializeFrameMenu()
 	{
 		JMenuBar menuBar;
@@ -207,6 +214,9 @@ public class RoutePlanningView
 		mainFrame.setJMenuBar(menuBar);
 	}
 	
+	/**
+	 * Metoda czyszcząca główne okno aplikacji.
+	 */
 	public void clearMainFrame()
 	{
 		manufacturerVisualizationWithMapJPanel.clearTabbedWithMaps();
@@ -214,6 +224,11 @@ public class RoutePlanningView
 		mainFrame.remove(manufacturerVisualizationWithMapJPanel);
 	}
 	
+	
+	/**
+	 * Metoda ustawiająca panel powitania jak aktualny widok.
+	 * @author Kamil Zimny
+	 */
 	private void openWelcomeView()
 	{
 		mainFrame.setBounds(250, 150, 891, 534);
@@ -233,7 +248,10 @@ public class RoutePlanningView
 		route_planning_presenter = presenter;
 	}
 
-	
+	/**
+	 * Metoda zmieniająca widok z menu startowego do panelu rozpoczynającego planowanie.
+	 * @author Kamil Zimny
+	 */
 	public void change_menu_to_startPlanning()
 	{
 		startApplicationJPanel.removeLogicJPanel();
@@ -243,6 +261,10 @@ public class RoutePlanningView
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z menu startowego do panelu rejestracji nowego użytkownika.
+	 * @author Kamil Zimny
+	 */
 	public void change_menu_to_registryUser()
 	{
 		startApplicationJPanel.removeLogicJPanel();
@@ -252,6 +274,10 @@ public class RoutePlanningView
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z panelu rejestracji nowego użytkownika do menu startowego.
+	 * @author Kamil Zimny
+	 */
 	public void change_registryUser_to_menu()
 	{
 		startApplicationJPanel.removeLogicJPanel();
@@ -260,6 +286,10 @@ public class RoutePlanningView
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z menu startowego do panelu logownaia użytkownika.
+	 * @author Kamil Zimny
+	 */
 	public void change_menu_to_loginUser()
 	{
 		startApplicationJPanel.removeLogicJPanel();
@@ -269,6 +299,10 @@ public class RoutePlanningView
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z panelu logowania użytkownika do menu startowego.
+	 * @author Kamil Zimny
+	 */
 	public void change_loginUser_to_menu()
 	{
 		startApplicationJPanel.removeLogicJPanel();
@@ -277,6 +311,9 @@ public class RoutePlanningView
 		prepareFrameAfterChangeView(mainFrame);
 	}
 	
+	/**
+	 * Metoda ustawiająca widok na startowy.
+	 */
 	public void change_to_startingPanel()
 	{
 		route_planning_presenter.logOutUser();
@@ -294,7 +331,8 @@ public class RoutePlanningView
 	
 	
 	/**
-	 * Zmienia widok ze startowego do widoku wizualizacji producentow na mapie
+	 * Metoda zmieniająca widok ze startowego do widoku wizualizacji producentow na mapie.
+	 * @author Kamil Zimny
 	 */
 	public void change_startPlanning_to_manufacturerVisualization()
 	{
@@ -308,6 +346,10 @@ public class RoutePlanningView
 		
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z wyboru danych pierwszego zlecenia 
+	 * do widoku oczekiwania na załadowanie danych aplikacji.
+	 */
 	public void change_startPlanning_to_Waiting()
 	{
 		    	JPanel background = new WaitingJPanel();
@@ -372,6 +414,10 @@ public class RoutePlanningView
 		manufacturerFrame.setVisible(true);		
 	}
 	
+	/**
+	 * Metoda pomocnicza odświerzająca głowne okno aplikacji po zmienie widoku.
+	 * @param frame
+	 */
 	private void prepareFrameAfterChangeView(JFrame frame)
 	{
 		frame.invalidate();
@@ -398,6 +444,9 @@ public class RoutePlanningView
 		manufacturerFrame.dispose();
 	}
 	
+	/**
+	 * Zamyka dodatkowe okno z danymi o producencie.
+	 */
 	public void closeAboutFrame()
 	{
 		aboutFream.dispose();
@@ -415,6 +464,12 @@ public class RoutePlanningView
 		aboutJPanel.setPresenter(route_planning_presenter);
 	}
 	
+	/**
+	 * Metoda ustawiająca datę podaną w parametrze w kalendarzu daty rozpoczęcia 
+	 * oraz datę podaną w parametrze plus jedne dzień w kalendarzu daty zakończenia.
+	 * @param date
+	 * @author Kamil Zimny
+	 */
 	public String city_nextCityAfterComfirm()
 	{
 		return manufacturerOrderDataJPanel.getNextCityName();
@@ -480,31 +535,58 @@ public class RoutePlanningView
 		manufacturerVisualizationWithMapJPanel.addOrderToMap(order);
 	}
 	
+	/**
+	 * Metoda ustawiająca datę podaną w parametrze w kalendarzu daty rozpoczęcia 
+	 * oraz datę podaną w parametrze plus jedne dzień w kalendarzu daty zakończenia.
+	 * @param date
+	 * @author Kamil Zimny
+	 */
 	public void setCalendareDate_StartNewOrder(Date date)
 	{
 		manufacturerOrderDataJPanel.setStartDateOn(date);
 	}
 	
+	/**
+	 * Metoda usuwająca dane dotyczące ostatniego zamówienia z tabeli wyświetlanej w panelu.
+	 * @author Kamil Zimny
+	 */
 	public void removeLastOrderFromTab()
 	{
 		manufacturerVisualizationWithMapJPanel.removeLastOrderFromTab();
 	}
 	
+	/**
+	 * Metoda usuwająca wszystkie zamówienia z tableli wyświetlanej w panelu.
+	 * @author Kamil Zimny
+	 */
 	public void clearOrderTab()
 	{
 		manufacturerVisualizationWithMapJPanel.clearOrderTab();
 	}
 	
+	/**
+	 * Metoda zamykająca główne okno aplikacji.
+	 */
 	public void closeMainFrame_ManufacturerVisualization()
 	{
 		mainFrame.dispose();
 	}
 	
+	/**
+	 * Metoda pokazująca w menu login aktualnego użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void setNewLoggedUser(String login)
 	{
 		menuJPanel.setNewLoggedUser(login);
 	}
 	
+	/**
+	 * Metoda pokazująca w menu niezalogowane użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void setNotLoggedUser()
 	{
 		menuJPanel.setNotLoggedUser();

@@ -14,6 +14,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+/**
+ * Panel powitalny aplikacji z grafiką i krótki opisem.
+ * @author Kamil Zimny
+ *
+ */
 public class WelcomeJPanel extends JPanel 
 {
 	public WelcomeJPanel() 

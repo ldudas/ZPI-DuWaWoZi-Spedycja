@@ -19,6 +19,12 @@ import java.awt.Font;
 import java.awt.SystemColor;
 
 
+/**
+ * Panel z opcjami zarządzania podczas wizualizacji
+ * aktualnie stworzonej trasy.
+ * @author Kamil
+ *
+ */
 public class PathManagementJPanel extends JPanel 
 {
 
@@ -147,16 +153,29 @@ public class PathManagementJPanel extends JPanel
 		presenter_route_planning = presenter;
 	}
 	
+	/**
+	 * Metoda dodająca kolejne zlecenie/zamówienie do tabeli wyświetlanej w panelu
+	 * @param order - nowe zlecenie dodawane do tabeli.
+	 * @author Kamil Zimny
+	 */
 	public void addOrderToTab(final Order order)
 	{
 		model.addRow(new Object [] { order.getCityFrom().getCityName() , order.getStartDate(), order.getCityTo().getCityName() , order.getFinishDate()  });
 	}
 	
+	/**
+	 * Metoda usuwająca dane dotyczące ostatniego zamówienia z tabeli wyświetlanej w panelu.
+	 * @author Kamil Zimny
+	 */
 	public void removeLastOrderFromTab()
 	{	
 		model.removeRow(model.getRowCount() - 1);
 	}
 	
+	/**
+	 * Metoda usuwająca wszystkie zamówienia z tableli wyświetlanej w panelu.
+	 * @author Kamil Zimny
+	 */
 	public void clearOrderTab()
 	{
 		int numberOfElements = model.getRowCount();

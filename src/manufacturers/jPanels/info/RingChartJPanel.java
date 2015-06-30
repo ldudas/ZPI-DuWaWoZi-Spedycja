@@ -18,6 +18,12 @@ import org.jfree.util.Rotation;
 import shared.dataModels.Manufacturer;
 
 
+/**
+ * Panel z wykresem przedstawiającym aktywność oraz 
+ * opłacalność konkretnego producenta na przestrzeniu miesięcy w roku.
+ * @author Kamil Zimny
+ *
+ */
 public class RingChartJPanel extends JPanel
 {
 

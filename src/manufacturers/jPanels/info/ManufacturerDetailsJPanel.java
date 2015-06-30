@@ -23,6 +23,12 @@ import shared.dataModels.Manufacturer;
 
 import java.awt.CardLayout;
 
+/**
+ * Panel zawierający informacje o 
+ * aktualnie wybranym producencie.
+ * @author Kamil Zimny
+ *
+ */
 public class ManufacturerDetailsJPanel extends JPanel
 {
 	private RoutePlanningPresenter presenter_RoutePlanning;
@@ -31,6 +37,11 @@ public class ManufacturerDetailsJPanel extends JPanel
 	
 	private JTextArea textArea_manufacturerAdditionalInfo;
 	private JScrollPane scrollManufacturerAddition;
+	
+	/**
+	 * Wykres z aktywności i opłacalnościa 
+	 * danego producenta każdego miesiąca w roku. 
+	 */
 	private RingChartJPanel chartJPanel;
 	private JList<String> man_list;
 	

@@ -25,6 +25,11 @@ import transporters.mvp.VisualisationTransportersPresenter;
 import unfinishedCommissions.mvp.UnfinishedCommissionsPresenter;
 
 
+/**
+ * Główny presenter aplikacji.
+ * @author Kamil
+ *
+ */
 public class RoutePlanningPresenter 
 {
 	private RoutePlanningModel route_planning_model;
@@ -45,32 +50,57 @@ public class RoutePlanningPresenter
 		comm_presenter = comm_p;
 	}
 	
+	/**
+	 * Metoda pokazująca w menu login aktualnego użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void changeMenu_to_registryNewUser()
 	{
 		route_planning_view.change_menu_to_registryUser();
 	}
 	
+	/**
+	 * Metoda pokazująca w menu login aktualnego użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void changeMenu_to_loginUser()
 	{
 		route_planning_view.change_menu_to_loginUser();
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z menu startowego do panelu rozpoczynającego planowanie.
+	 * @author Kamil Zimny
+	 */
 	public void changeMenu_to_startPlanning()
 	{
 		route_planning_view.change_menu_to_startPlanning();
 		route_planning_view.addAllCityToList();
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z panelu logowania użytkownika do menu startowego.
+	 * @author Kamil Zimny
+	 */
 	public void changeLoginUser_to_Menu()
 	{
 		route_planning_view.change_loginUser_to_menu();
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z panelu rejestracji nowego użytkownika do menu startowego.
+	 * @author Kamil Zimny
+	 */
 	public void changeRegistryUser_to_Menu()
 	{
 		route_planning_view.change_registryUser_to_menu();
 	}
 	
+	/**
+	 * Metoda ustawiająca widok na startowy.
+	 */
 	public void change_to_startPanel()
 	{
 		route_planning_view.change_to_startingPanel();
@@ -86,6 +116,10 @@ public class RoutePlanningPresenter
 		startManuVisualisation();
 	}
 	
+	/**
+	 * Metoda zmieniająca widok z wizualizacji 
+	 * @param flag
+	 */
 	public void changeManufacurerVisualization_to_transportVisualization(int flag)
 	{
 		trans_presenter.setOpeningFlag(flag);
@@ -496,17 +530,32 @@ public class RoutePlanningPresenter
 		manu_presenter.filterManufacturersBetweenDate(numberOfDaysAgo, numberOfDayTolerance);
 	}
 	
+	/**
+	 * Metoda pokazująca w menu login aktualnego użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void setNewLoggedUser()
 	{
 		route_planning_view.setNewLoggedUser(route_planning_view.getLogin_Login());
 		route_planning_model.setCurrentUser(route_planning_view.getLogin_Login(),route_planning_view.getPassword_Login());
 	}
 	
+	/**
+	 * Metoda pokazująca w menu niezalogowane użytkownika.
+	 * @param login
+	 * @author Kamil Zimny.
+	 */
 	public void setNotLoggedUser()
 	{
 		route_planning_view.setNotLoggedUser();
 	}
 	
+	/**
+	 * Zapisuje do lokalnej bazy danych, informacje o koncie użytkownika,
+	 * oraz dane serwera zewnetrznego zawierajacego baze danych.
+	 * @author Kamil Zimny
+	 */
 	public void saveNewAccountToLocalDatabase()
 	{
 		route_planning_model.saveNewAccout(route_planning_view.getLogin(),route_planning_view.getPasswords()[0],route_planning_view.getServerAddress(),
@@ -514,6 +563,12 @@ public class RoutePlanningPresenter
 				route_planning_view.getDatabaseLogin(),route_planning_view.getDatabasePassword());
 	}
 	
+	/**
+	 * Metoda sprawdzająca poprawność wprowadzonych danych podczas rejestracji nowego użytkownika. 
+	 * Wrazie nie poprawnych danych zwraca komunikat błędu.
+	 * @return String komunikat błędu || NULL
+	 * @author Kamil Zimny
+	 */
 	public String validateRegistryData()
 	{
 		if( route_planning_view.getLogin().equals("") || route_planning_view.getPasswords()[0].equals("") || route_planning_view.getPasswords()[1].equals("") ||
@@ -530,6 +585,12 @@ public class RoutePlanningPresenter
 		return null;
 	}
 	
+	/**
+	 * Metoda sprawdzająca poprawność wprowadzonych danych podczas rejestracji nowego użytkownika. 
+	 * Wrazie nie poprawnych danych zwraca komunikat błędu.
+	 * @return String komunikat błędu || NULL
+	 * @author Kamil Zimny
+	 */
 	public String validateServerData()
 	{
 		if( 	route_planning_view.getDatabaseLogin().equals("") || route_planning_view.getDatabaseName().equals("") || 
@@ -539,6 +600,15 @@ public class RoutePlanningPresenter
 		return null;
 	}
 	
+	/**
+	 * Testuje połączenie z bazą danych
+	 * i zwraca wartość logiczną potwierdzającą
+	 * lub zaprzeczającą połączenie z bazą danych na serwerze.
+	 * @return boolean  
+	 * <br>true -> udalo sie 
+	 * <br>false -> nie udalo sie
+	 * @author Kamil Zimny
+	 */
 	public boolean testConnectionToExternalDatabase()
 	{
 		DatabaseConnector testDatabaseConnector = new DatabaseConnector(
@@ -548,6 +618,12 @@ public class RoutePlanningPresenter
 		return testDatabaseConnector.testConnectionToDatabase();
 	}
 	
+	/**
+	 * Metoda sprawdzająca poprawność wprowadzonych danych podczas logowanie nowego użytkownika. 
+	 * Wrazie nie poprawnych danych zwraca komunikat błędu.
+	 * @return String komunikat błędu || NULL
+	 * @author Kamil Zimny
+	 */
 	public String validateLoginData()
 	{
 		if( route_planning_view.getLogin_Login().equals("") || route_planning_view.getPassword_Login().equals("") )
@@ -567,11 +643,24 @@ public class RoutePlanningPresenter
 		trans_presenter.clearTransportersFrame();
 	}
 	
+	/**
+	 * Zapisywanie danych tworzonej trasy w czasie wykonywania programu.
+	 * @param route_name nazwa trasy podana przez użytkownika
+	 * @param idTrans identyfikator przewoźnika
+	 * @throws DatabaseConnectionExeption 
+	 * @throws Exception 
+	 * @throws RuntimeException
+	 * @author Kamil Zimny
+	 */
 	public void saveOrdersToDatabase(String route_name, String idTransporter) throws DatabaseConnectionExeption, RuntimeException, Exception
 	{
 		route_planning_model.saveAllOrdersInDatabase(route_name, idTransporter);
 	}
 	
+	/**
+	 * Metoda wylogowywująca aktualnego użytkownika.
+	 * @author Kamil Zimny
+	 */
 	public void logOutUser()
 	{
 		trans_presenter.clearTransportersFrame();
@@ -590,6 +679,10 @@ public class RoutePlanningPresenter
 		route_planning_view.setEnableButtonsToUserAction(flag);
 	}
 	
+	/**
+	 * Metoda ustawiająca dane do połączenia z zewnętrzną bazą danych aktualnego użytkownika.
+	 * @author Kamil Zimny
+	 */
 	public void setExternalDatabaseConnectionProperty()
 	{
 		try 
@@ -612,7 +705,10 @@ public class RoutePlanningPresenter
 		return route_planning_model.isRouteNameUnique(route_name);
 	}
 
-	
+	/**
+	 * Metoda otwierająca instrukcję aplikacji z plika html.
+	 * @author Kamil Zimny
+	 */
 	public void openInstructionToApplication()
 	{
 		File htmlFile = new File(System.getProperty("user.dir") + "\\user-guide.html");
@@ -663,10 +759,6 @@ public class RoutePlanningPresenter
 			    worker.execute();
 		
 			    route_planning_view.change_startPlanning_to_Waiting();
-		
-		
-	
-	
 	}
 	
 }

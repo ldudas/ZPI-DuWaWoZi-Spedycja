@@ -19,7 +19,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * Panel rejestracji nowego użytkownika do lokalnej 
+ * bazy z informacjami o zewnętrznym serwerze.
+ * @author Kamil Zimny
+ *
+ */
 public class RegistryJPanel extends JPanel 
 {
 	/**
