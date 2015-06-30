@@ -20,6 +20,7 @@ public class ComparatorManufactureActivite implements Comparator<Manufacturer> ,
 	/**
 	 * Komparator porównujący dwóch producnetów, najpierw po zarobku dziennym na 
 	 * producencie, w przypadku równości po ilości wykonanych zamówień.
+	 * @author Kamil Zimnys
 	 */
 	@Override
 	public int compare(Manufacturer man1, Manufacturer man2) 
