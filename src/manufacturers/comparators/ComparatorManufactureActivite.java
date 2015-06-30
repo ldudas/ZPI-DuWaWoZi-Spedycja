@@ -6,7 +6,7 @@ import java.util.Comparator;
 import shared.dataModels.Manufacturer;
 
 /**
- * Komparator ze względu na aktywność producenta
+ * Komparator ze względu na aktywność producentax	
  * @author Kamil Zimny
  *
  */
